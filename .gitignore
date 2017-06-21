@@ -1,2 +1,8 @@
-node_modules
-config/database.js
+# compiled output
+/public
+
+# dependencies
+/node_modules
+
+# configurations
+/config
