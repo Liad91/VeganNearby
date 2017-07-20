@@ -1,0 +1,27 @@
+<mz-navbar>
+  <a>VegaNearby</a>
+  <mz-navbar-item-container fxLayout="row" fxFlex>
+    <div fxFlex="90%" fxLayoutAlign="start stretch" class="button-row" [ngClass.lt-md]="'hide'"> 
+      <mz-navbar-item *ngFor="let page of pages" [active]="isActive(page)"><a (click)="redirect(page)">{{page + 's' | uppercase}}</a></mz-navbar-item>
+    </div>
+    <div class="nav-more" fxFlex="10%" fxLayoutAlign="end center">
+      <a mz-button href="#" id="btn-more" [float]="true" [flat]="true">
+        <i mz-icon icon="more_vert"></i>
+      </a>
+    </div>
+    <mz-dropdown [id]="'more'" [dropdownButtonId]="'btn-more'" [constrainWidth]="false">
+      <mz-dropdown-item>
+        <a><i mz-icon icon="account_circle"></i>My Account</a>
+      </mz-dropdown-item>
+      <mz-dropdown-item>
+        <a><i mz-icon icon="settings"></i>Settings</a>
+      </mz-dropdown-item>
+      <mz-dropdown-item>
+        <a><i mz-icon icon="power_settings_new"></i>Sign Out</a>
+      </mz-dropdown-item>
+      <mz-dropdown-item>
+        <a (click)="openModal()"><i mz-icon icon="power_settings_new"></i>Sign In</a>
+      </mz-dropdown-item>
+    </mz-dropdown>
+  </mz-navbar-item-container>
+</mz-navbar>

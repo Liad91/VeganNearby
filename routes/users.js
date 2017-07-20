@@ -12,7 +12,7 @@ router.post('/register', (req, res, next) => {
     .then(user => {
       res.status(201).json({
         success: true,
-        message: 'User registered'
+        email: user.email
       });
     })
     .catch(err => next(err));
@@ -20,7 +20,7 @@ router.post('/register', (req, res, next) => {
 
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
-  User.findOne({username: req.body.username})
+  User.findOne({email: req.body.email})
     .then(user => {
       if (!user) {
         const err = new Error('Authentication failed');

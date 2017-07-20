@@ -1,0 +1,43 @@
+<mz-modal #modal id="registration" [options]="modalOptions" fxFlex="100%" fxLayout="column" fxLayoutAlign="center center">
+  <mz-modal-header>
+    <button  class="ml-auto" feFlex fxLayoutAlign="end center" mz-button [float]="true" [flat]="true" (click)="modal.close()" [disabled]="submitting"><i class="black-text" mz-icon icon="clear"></i></button>
+    Sign In
+  </mz-modal-header>
+  <mz-modal-content fxLayoutWrap fxLayout="row">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" #f="ngForm" fxLayoutWrap fxLayout="row" fxFlex="100%">
+      <mz-input-container *ngIf="mode === 'signUp'" fxFlex="100%">
+        <input mzInput type="text" label="Username" formControlName="username" [focus]="mode === 'signUp'" [ngClass]="controlStatus('username')" >
+        <p class="input-error" *ngIf="controlStatus('username') === 'invalid'" [@slideBottom]="errorAnimationData">{{errorMessage('username')}}</p>
+        <md-hint *ngIf="mode === 'signUp'" align="end">Min 4 characters</md-hint>
+      </mz-input-container>
+      <mz-input-container fxFlex="100%">
+        <input mzInput type="email" label="Email" formControlName="email" [focus]="mode === 'signIn'" [ngClass]="controlStatus('email')">
+        <p class="input-error" *ngIf="controlStatus('email') === 'invalid'" [@slideBottom]="errorAnimationData">{{errorMessage('email')}}</p>
+      </mz-input-container>
+      <mz-input-container fxFlex="100%">
+        <input mzInput type="password" label="Password" formControlName="password" [focus]="registered" [ngClass]="controlStatus('password')">
+        <p class="input-error" *ngIf="controlStatus('password') === 'invalid'" [@slideBottom]="errorAnimationData">{{errorMessage('password')}}</p>
+        <md-hint *ngIf="mode === 'signUp'" align="end">Min 6 characters</md-hint>
+      </mz-input-container>
+      <div fxFlex=100% fxLayoutAlign="space-around center" class="py-1">
+        <button class="" type="submit" mz-button fxFlex="45%" [disabled]="submitting">
+          <md-progress-spinner mode="indeterminate" *ngIf="submitting"></md-progress-spinner>
+          <span *ngIf="!submitting">{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
+        </button>
+        <button class="white" type="button" mz-button fxFlex="45%" (click)="onSwitchMode()" *ngIf="mode === 'signIn'" color="secondary" [disabled]="submitting">Create Account</button>
+        <button class="white" type="button" mz-button fxFlex="45%" (click)="onSwitchMode()" *ngIf="mode === 'signUp'" color="secondary" [disabled]="submitting">Already a Member?</button>
+      </div>
+    </form>
+    <md-error class="text-center" *ngIf="form.errors && form.errors.error">{{ form.errors.error }}</md-error>  
+    <ng-template [ngIf]="mode === 'signUp'">
+      <div fxFlex="100%" class="text-center mt-1">
+        <span>Sign in via social media</span>
+      </div>
+      <div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <button fxFlex="33%" mz-button bgColor="facebook" [disabled]="submitting">Facebook</button>
+        <button fxFlex="33%" mz-button bgColor="google" [disabled]="submitting">Google</button>
+        <button fxFlex="33%" mz-button bgColor="twitter" [disabled]="submitting">Twitter</button>
+      </div>
+    </ng-template>
+  </mz-modal-content>
+</mz-modal>

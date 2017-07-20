@@ -1,0 +1,82 @@
+// ==========================================================================
+// Helpers
+// ==========================================================================
+
+/** color & background-color */
+@each $name, $value in $theme-colors {
+  .color-#{$name} {
+    color: $value !important;
+  }
+  .bg-color-#{$name} {
+    background-color: $value !important; 
+  }
+}
+
+/** margin & padding */
+@for $i from 0 through 3 {
+  .m-#{$i} {
+    margin: 1rem * $i;
+  }
+  .my-#{$i} {
+    margin: (1rem * $i) 0;
+  }
+  .mx-#{$i} {
+    margin: 0 (1rem * $i);
+  }
+  .ml-#{$i} {
+    margin-left: 1rem * $i;
+  }
+  .mr-#{$i} {
+    margin-right: 1rem * $i;
+  }
+  .mt-#{$i} {
+    margin-top: 1rem * $i;
+  }
+  .mb-#{$i} {
+    margin-bottom: 1rem * $i;
+  }
+  .p-#{$i} {
+    padding: 1rem * $i;
+  }
+  .py-#{$i} {
+    padding: (1rem * $i) 0;
+  }
+  .px-#{$i} {
+    padding: 0 (1rem * $i);
+  }
+  .pl-#{$i} {
+    padding-left: 1rem * $i;
+  }
+  .pr-#{$i} {
+    padding-right: 1rem * $i;
+  }
+  .pt-#{$i} {
+    padding-top: 1rem * $i;
+  }
+  .pb-#{$i} {
+    padding-bottom: 1rem * $i;
+  }
+}
+
+.mt-auto {
+  margin-top: auto
+}
+
+.mb-auto {
+  margin-bottom: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+/** text align */
+@each $position in (left, right, center) {
+  .text-#{$position} {
+    text-align: $position;
+  }
+}

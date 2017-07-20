@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
 const users = require('./routes/users');
+const yelp = require('./routes/yelp');
 const config = require('./config/database');
 
 const app = express();
@@ -21,6 +23,9 @@ mongoose.connection.once('connected', () => {
 
 // Handle connection error
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
+
+// Set logger
+app.use(logger('dev'));
 
 // Enable CORS - Cross Origin Resource Sharing
 app.use(cors());
@@ -39,6 +44,7 @@ require('./config/passport')(passport);
 
 // Set routes
 app.use('/users', users);
+app.use('/yelp', yelp);
 
 // Catch 404
 app.use((req, res, next) => {

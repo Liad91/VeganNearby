@@ -1,0 +1,48 @@
+// ==========================================================================
+// Styles
+// ==========================================================================
+
+// Global 
+
+.hide {
+  display: none !important;
+}
+
+.modal-overlay {
+  top: 0;
+}
+
+// Registration 
+
+mz-modal#registration .modal {
+  max-height: 100%;
+  .modal-footer {
+    display: none;
+  }
+  @media #{$extra-large-and-up} {
+   width: 35%; 
+  }
+  @media only screen and (max-width: $large-screen) {
+    width: 50%;
+  }
+  @media only screen and (max-width: $medium-screen) {
+    width: 65%;
+  }
+  @media only screen and (max-width: $small-screen) {
+    width: 85%;
+  }
+}
+
+p.input-error {
+  position: absolute;
+  top: 45px;
+  color: $error-color;
+  margin: 5px 0;
+  font-size: 80%;
+}
+
+
+// nav
+#nav-mobile {
+  width: 100%;
+}

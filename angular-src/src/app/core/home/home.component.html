@@ -1,0 +1,14 @@
+<div fxLayout="row" fxLayoutWrap>
+  <div fxFlex="100%" fxLayout="row" fxLayoutWrap class="search-bar {{ page }}" [ngClass.sm]="'small'" [ngClass.xs]="'x-small'">
+    <h1 fxShow fxShow.lt-md="false" fxFlex="100%" class="header text-center"><span id="typing"></span></h1>
+    <h1 fxHide fxHide.lt-md="false" fxFlex="100%" class="header text-center">Find your favorite {{page}}</h1>
+    <div fxFlex="50%" fxFlex.md="70%" fxFlex.sm="90%" fxFlex.xs="100%" class="search-box" fxLayout="row">
+      <md-icon class="search-icon" color="primary">location_on</md-icon>
+      <form fxFlex="100%" #form="ngForm" (ngSubmit)="onSubmit()">
+        <input type="text" name="location" ngModel class="search-input" placeholder="City name" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+        <button type="submit" fxShow fxShow.lt-md="false" fxFlex="25%" fxFlex.lt-xl="35%" bgColor="primary" mz-button>Find {{ page }}s</button>
+        <button type="submit" fxHide fxHide.lt-md="false" fxFlex="25%" mz-button>Find</button>
+      </form>
+    </div>
+  </div>
+</div>
