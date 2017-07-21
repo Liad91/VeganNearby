@@ -1,35 +1,59 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormControl, Validators } from '@angular/forms';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { trigger, group, query, transition } from '@angular/animations';
 import { MzBaseModal } from 'ng2-materialize';
 
 import { UsersService } from './../../../services/users.service';
-import { slideBottom } from './../../../animations/slides';
+import { slideIn } from './../../../animations/slides';
 
 @Component({
   selector: 'registration-modal',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
   animations: [
-    slideBottom
+    trigger('social', [
+      transition(':enter', group([
+        query('#facebook', slideIn('-20px', '180ms')),
+        query('#google', slideIn('0, 20px', '180ms')),
+        query('#twitter', slideIn('20px', '180ms'))
+      ]))
+    ])
   ],
   encapsulation: ViewEncapsulation.None
 })
 export class RegistrationComponent extends MzBaseModal {
-  @ViewChild('f')
-  public ngForm: FormGroupDirective;
+  @ViewChild('modal')
+  public modal;
   public mode = 'signIn';
   public form: FormGroup;
-  public registered = false;
-  public submitting = false;
-  public errorAnimationData = {
+  public loading = false;
+
+  public slideData = {
     value: 'inactive',
-    params: { position: '-10px', duration: '150ms' }
+    params: { position: '20px', duration: '180ms' }
   };
+
   public modalOptions: Materialize.ModalOptions = {
     dismissible: false,
     opacity: 0.5
-  };  
+  };
+
+  public errorMessageResources = {
+    email: {
+      required: 'Email is required.',
+      email: 'Invalid email address.',
+      unique: 'The email address has already been taken'
+    },
+    username: {
+      required: 'Username is required.',
+      minlength: 'The entered username is too short.',
+      unique: 'The username has already been taken'
+    },
+    password: {
+      required: 'Password is required.',
+      minlength: 'The entered password is too short.'
+    }
+  };
 
   constructor(private usersService: UsersService) {
     super();
@@ -40,27 +64,14 @@ export class RegistrationComponent extends MzBaseModal {
   }
 
   private initializeForm() {
-    let username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
-
     this.form = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
     });
-
-    if (this.mode === 'signUp') {
-      this.form.addControl('username', username);
-    }
-  }
-
-  private registrationSucceeded(email) {
-    this.submitting = false;
-    this.onSwitchMode();
-    this.form.get('email').setValue(email);
-    this.registered = true;
   }
 
   private errorHandler(error) {
-    this.submitting = false;
+    this.loading = false;
 
     const validationRegex = /^User validation failed:/;
     const uniqueRegex = /Unique validation failed:/;
@@ -91,78 +102,50 @@ export class RegistrationComponent extends MzBaseModal {
     }
   }
 
-  onClose() {
-   
+  private signUp() {
+    this.usersService.signUp(this.form.value)
+      .subscribe(
+        data => this.signIn(),
+        error => this.errorHandler(error)
+      );
   }
 
-  errorMessage(control: string) {
-    const errors = this.form.get(control).errors;
-    let message: string;
+  private signIn() {
+    this.usersService.signIn(this.form.value)
+      .subscribe(
+        data => this.signInSucceeded(data),
+        error => this.errorHandler(error)
+      )
+  }
 
-    // this.submitting = false;
-    if (errors) {
-      if (errors.required) {
-        message = 'The filed is required';
-      }
-      else if (errors.email) {
-        message = 'Invalid email address';
-      }
-      else if (errors.minlength) {
-        if (control === 'password' && this.mode === 'signIn') {
-          message = 'The entered password is too short';
-        }
-        else {
-          message = `Use at least ${errors.minlength.requiredLength} characters`;
-        }
-      }
-      else if (errors.unique) {
-        message = `The ${errors.unique} has already been taken`;
-      }
-      else {
-        message = 'The filed is invalid';
-      }
+  private signInSucceeded(data) {
+    // TODO: Set the data.token in localStorage
+    this.modal.close();
+  }
+
+  public onSwitchMode() {
+    let username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
+    
+    this.mode = this.mode === 'signIn' ? 'signUp' : 'signIn';    
+    if (this.mode === 'signUp') {
+      this.form.addControl('username', username);
     }
-    return message;
-  }
-
-  controlStatus(controlName: string) {
-    const control = this.form.get(controlName);
-
-    if ((control.invalid && (control.touched || control.dirty)) || (this.ngForm.submitted && control.invalid)) {
-      return 'invalid';
+    else {
+      this.form.removeControl('username');
     }
-    else if (control.valid && (control.touched || control.dirty)) {
-      return 'valid';
-    }
+    this.form.reset(); 
   }
 
-  onSwitchMode() {
-    this.mode = this.mode === 'signIn' ? 'signUp' : 'signIn';
-    // this.dialogRef.disableClose = this.mode === 'signIn' ? false : true;
-    this.registered = false;
-    /** Reset the submitted state of the form */
-    this.ngForm.resetForm();    
-    this.initializeForm();
-  }
-
-  onSubmit() {  
+  public onSubmit() {  
     if (this.form.invalid) {
       return;
     }
-    this.submitting = true;
+    this.loading = true;
     if (this.mode === 'signUp') {
-      this.usersService.signUp(this.form.value)
-        .subscribe(
-          response => this.registrationSucceeded(response.email),
-          error => this.errorHandler(error)
-        );
+      this.signUp();
     }
     else {
-      this.usersService.signIn(this.form.value)
-        .subscribe(
-          // response => this.dialogRef.close(),
-          // error => this.errorHandler(error)
-        )
+      this.signIn();
     }
   }
 }

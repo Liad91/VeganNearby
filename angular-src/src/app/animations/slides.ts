@@ -1,6 +1,6 @@
 import { animation, style, animate, trigger, transition, useAnimation } from '@angular/animations';
 
-const slideIn = animation([
+const slideInAnimation = animation([
   style({
     opacity: 0,
     transform: '{{ position }}'
@@ -8,14 +8,17 @@ const slideIn = animation([
   animate('{{ duration }}')
 ]);
 
-const slideOut = animation([
+const slideOutAnimation = animation([
   animate('{{ duration }}', style({
     opacity: 0,
     transform: '{{ position }}'
   }))
 ]);
 
-export const slideBottom = trigger('slideBottom', [
-  transition(':enter', useAnimation(slideIn, { params: { position: 'translateY({{ position }})', duration: '{{ duration }}' } } )),
-  transition(':leave', useAnimation(slideOut, { params: { position: 'translateY({{ position }})', duration: '{{ duration }}' } } ))
-]);
+export function slideIn(position: string, duration: string) {
+  return  useAnimation(slideInAnimation, { params: { position: `translate(${position})`, duration: duration } } );
+
+} 
+export function slideOut(position: string, duration: string) {
+  return useAnimation(slideOutAnimation, { params: { position: `translate(${position})`, duration: duration } } );
+}

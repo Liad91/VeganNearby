@@ -10,7 +10,9 @@ export class FocusDirective implements OnChanges {
 
   ngOnChanges() {
     if (this.focus) {
-      this.renderer.selectRootElement(this.elementRef.nativeElement).focus();      
+      setTimeout(() => {
+        this.renderer.selectRootElement(this.elementRef.nativeElement).focus();      
+      }, 10);
     }
   }
 }
