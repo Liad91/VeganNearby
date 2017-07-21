@@ -6,20 +6,23 @@ const router = express.Router();
 const User = require('../models/user');
 const config = require('../config/database');
 
+function buildToken(userId) {
+  return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '15s' })}`;
+}
+
 // Register
-router.post('/register', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
   User.create(req.body)
     .then(user => {
       res.status(201).json({
-        success: true,
-        email: user.email
+        success: true
       });
     })
     .catch(err => next(err));
 });
 
 // Authenticate
-router.post('/authenticate', (req, res, next) => {
+router.post('/signin', (req, res, next) => {
   User.findOne({email: req.body.email})
     .then(user => {
       if (!user) {
@@ -36,16 +39,15 @@ router.post('/authenticate', (req, res, next) => {
               next(err);
             }
             else {
-              const token = jwt.sign({ userId: user.id }, config.secret, { expiresIn: '2h' });
+              const token = buildToken(user.id);
 
               res.status(200).json({
                 success: true,
-                token: `JWT ${token}`,
+                token: token,
                 user: {
-                  id: user._id,
-                  name: user.name,
-                  username: user.username,
-                  email: user.email
+                  id: user.id,
+                  email: user.email,
+                  username: user.username
                 }
               });
             }
@@ -54,6 +56,21 @@ router.post('/authenticate', (req, res, next) => {
       }
     })
     .catch(err => next(err));
+});
+
+router.post('/authenticate', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  const user = req.user;
+  const newToken = buildToken(user._id);
+
+  res.status(200).json({
+    success: true,
+    token: newToken,
+    user: {
+      id: user._id,
+      email: user.email,
+      username: user.username
+    }
+  });
 });
 
 // Profile

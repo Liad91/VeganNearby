@@ -1,0 +1,18 @@
+<div fxFlex="100%" fxLayout="row" class="search-box">
+  <form fxFlex="100%" fxLayout="row" #form="ngForm" (ngSubmit)="onSubmit()">
+    <div class="location" fxFlex="70%" fxLayout="row">
+      <button type="button" id="locate" fxFlex="10%" mz-button [flat]="true" [float]="true">
+        <i mz-icon class="search-icon" icon="location_on" color="primary"></i>
+      </button>
+      <input type="text" name="location" ngModel class="search-input" placeholder="City name" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+    </div>
+    <div class="categories" fxFlex="20%">
+      <mz-select-container>
+        <select mz-select name="category" [(ngModel)]="selectedCategory" (change)="onChange()">
+          <option *ngFor="let categoryOption of categoryOptions; let i = index" [value]="i">{{ categoryOption.title }}</option>
+        </select>
+      </mz-select-container>
+    </div>
+    <button type="submit" fxFlex="10%" bgColor="primary" mz-button><i mz-icon icon="search"></i></button>
+  </form>
+</div>

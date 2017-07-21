@@ -4,6 +4,7 @@ import { trigger, group, query, transition } from '@angular/animations';
 import { MzBaseModal } from 'ng2-materialize';
 
 import { UsersService } from './../../../services/users.service';
+import { AuthService } from './../../../services/Auth.service';
 import { slideIn } from './../../../animations/slides';
 
 @Component({
@@ -28,11 +29,6 @@ export class RegistrationComponent extends MzBaseModal {
   public form: FormGroup;
   public loading = false;
 
-  public slideData = {
-    value: 'inactive',
-    params: { position: '20px', duration: '180ms' }
-  };
-
   public modalOptions: Materialize.ModalOptions = {
     dismissible: false,
     opacity: 0.5
@@ -55,7 +51,7 @@ export class RegistrationComponent extends MzBaseModal {
     }
   };
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService, private authService: AuthService) {
     super();
   }
 
@@ -119,7 +115,7 @@ export class RegistrationComponent extends MzBaseModal {
   }
 
   private signInSucceeded(data) {
-    // TODO: Set the data.token in localStorage
+    this.authService.setUserData(data);
     this.modal.close();
   }
 
@@ -141,11 +137,6 @@ export class RegistrationComponent extends MzBaseModal {
       return;
     }
     this.loading = true;
-    if (this.mode === 'signUp') {
-      this.signUp();
-    }
-    else {
-      this.signIn();
-    }
+    this.mode === 'signUp' ? this.signUp() : this.signIn();
   }
 }

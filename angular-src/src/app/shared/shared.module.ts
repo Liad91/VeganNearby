@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterializeModule } from 'ng2-materialize';
@@ -9,14 +10,17 @@ import { MdToolbarModule, MdIconModule, MdButtonModule, MdMenuModule, MdDialogMo
 import { ColorDirective } from './color/color.directive';
 import { BackgroundColorDirective } from './background-color/background-color.directive';
 import { FocusDirective } from './focus/focus.directive';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
     ColorDirective,
     BackgroundColorDirective,
-    FocusDirective
+    FocusDirective,
+    SearchComponent
   ],
   imports: [
+    FormsModule,
     CommonModule,
     MaterializeModule.forRoot(),
     FlexLayoutModule,
@@ -49,7 +53,8 @@ import { FocusDirective } from './focus/focus.directive';
     // END TODO
     ColorDirective,
     BackgroundColorDirective,
-    FocusDirective
+    FocusDirective,
+    SearchComponent
   ],
 })
 export class SharedModule { }

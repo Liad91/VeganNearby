@@ -1,0 +1,91 @@
+.search-box {
+  align-items: stretch;
+  border: 0px solid #212121;
+  max-height: 45px;
+  margin-bottom: auto;
+  
+  .categories {
+    background: rgba(0, 0, 0, 0.87);
+
+    .input-field {
+      margin-top: 0;
+
+      .caret {
+        display: none;
+      }
+      
+      .select-dropdown {
+        border: none;
+        color: #fff;
+        text-align: center;
+      }
+
+      ul.dropdown-content {
+        background: rgba(0, 0, 0, 0.87);
+
+        li {
+          background: rgba(0, 0, 0, 0.87);
+          text-align: center;
+
+          span {
+            color: #fff;
+          }
+
+          &:hover {
+            background: #262626;
+          }
+        }
+      }
+    }
+  }
+
+  .location {
+    border-radius: 10px 0 0 10px;
+    background: #fff;
+
+    #locate {
+      border-radius: 10px 0 0 10px;
+    }
+
+    .search-input {
+      margin: 0;
+      outline: none;
+      border: 0;
+      font-size: 1rem;
+      width: 100%;
+      margin-left: 5px;
+      align-self: stretch;
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+  
+
+  button[mz-button] {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    border-radius: 0 10px 10px 0;
+
+    i {
+      font-size: 26px;
+    }
+  }
+}
+
+.pac-item {
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  .pac-icon {
+    display: none;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
