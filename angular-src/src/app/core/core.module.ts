@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 
 // Components
@@ -20,7 +19,6 @@ import { SharedModule } from './../shared/shared.module';
     HomeComponent
   ],
   imports: [
-    ReactiveFormsModule,
     SharedModule,
     AgmCoreModule
   ],

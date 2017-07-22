@@ -1,14 +1,17 @@
 <div fxFlex="100%" fxLayout="row" class="search-box">
   <form fxFlex="100%" fxLayout="row" #form="ngForm" (ngSubmit)="onSubmit()">
     <div class="location" fxFlex="70%" fxLayout="row">
-      <button type="button" id="locate" fxFlex="10%" mz-button [flat]="true" [float]="true">
-        <i mz-icon class="search-icon" icon="location_on" color="primary"></i>
-      </button>
-      <input type="text" name="location" ngModel class="search-input" placeholder="City name" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+      <div id="locate">
+        <button type="button" mz-button [flat]="true" [float]="true" (click)="getLocation()" [disabled]="locateSpinner">
+          <i mz-icon class="search-icon" icon="location_on" color="primary" *ngIf="!locateSpinner"></i>
+          <mz-spinner color="blue" size="small" *ngIf="locateSpinner"></mz-spinner>
+        </button>
+      </div>
+      <input type="text" name="location" [(ngModel)]="location" class="search-input" placeholder="City name" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
     </div>
     <div class="categories" fxFlex="20%">
       <mz-select-container>
-        <select mz-select name="category" [(ngModel)]="selectedCategory" (change)="onChange()">
+        <select mz-select name="category" [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
           <option *ngFor="let categoryOption of categoryOptions; let i = index" [value]="i">{{ categoryOption.title }}</option>
         </select>
       </mz-select-container>

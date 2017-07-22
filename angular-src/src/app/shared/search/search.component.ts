@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
-
-import { YelpService } from './../../services/yelp.service';
-import { YelpResponse } from './../../models/yelp.model';
+import { MzToastService } from 'ng2-materialize';
 
 @Component({
   selector: 'app-search',
@@ -14,6 +12,8 @@ import { YelpResponse } from './../../models/yelp.model';
   encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent implements OnInit {
+  public location: string;
+  public locateSpinner = false;  
   public selected;
   public selectedCategory;
   public search = new EventEmitter();
@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
     { title: 'Bars', alias: 'bars' }
   ];
 
-  constructor(private mapsApiLoader: MapsAPILoader) { }
+  constructor(private mapsApiLoader: MapsAPILoader, private toastService: MzToastService) {}
 
   ngOnInit() {
     this.buildLocationAutocomplete();
@@ -48,22 +48,78 @@ export class SearchComponent implements OnInit {
         });
 
         autocomplete.addListener('place_changed', () => {
-          this.form.setValue({location: autocomplete.getPlace().formatted_address});
+          this.location = autocomplete.getPlace().formatted_address;
         });
-      });
+      })
+      .catch(error => this.geoError());
   }
 
-  onChange() {
-    const index = +this.form.controls.category.value;
-
-    this.category.next(this.categoryOptions[index]);
+  private geocodeSuccess(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) {
+    if (status.toString() === "OK" && results.length > 0) {
+      if (results.length > 1) {
+        this.location = results[1].formatted_address;
+      }
+      else {
+        this.location = results[0].formatted_address;      
+      }
+    }
+    else {
+      this.geoError();
+    }
   }
 
-  onSubmit() {
-    const location = this.form.controls.location.value;
-    
+  private geoSuccess(position: Position) {
+    this.mapsApiLoader.load()
+      .then(() => {
+        const geocoder = new google.maps.Geocoder();
+        const request: google.maps.GeocoderRequest = {
+          location: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        };
 
-    this.search.next({ location })
+        geocoder.geocode(request, this.geocodeSuccess.bind(this));
+        this.locateSpinner = false;
+      })
+      .catch(error => this.geoError());
   }
 
+  private geoError() {
+    this.showToast('Unable to retrieve your location');
+    this.locateSpinner = false;
+  }
+
+  private showToast(message: string) {
+    this.toastService.show(message, 2500);
+  }
+
+  public getLocation() {
+    if (!navigator.geolocation) {
+      this.showToast('Geolocation is not supported by your browser');
+      return;
+    }
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 15000
+    };
+
+    this.locateSpinner = true;
+    navigator.geolocation.getCurrentPosition(
+      position => this.geoSuccess(position),
+      error => this.geoError(),
+      options
+    );
+  }
+
+  public onCategoryChange() {
+    this.category.next(this.categoryOptions[this.selectedCategory]);
+  }
+
+  public onSubmit() {
+    this.search.next({
+      location: this.location,
+      category: this.categoryOptions[this.selectedCategory]
+    });
+  }
 }

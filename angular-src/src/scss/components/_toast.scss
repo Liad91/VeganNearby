@@ -1,0 +1,29 @@
+// ==========================================================================
+// Materialize Toast
+// ==========================================================================
+#toast-container {
+  @media #{$medium-only} {
+    left: calc(50% - 190px);
+    bottom: 10%;
+    max-width: 380px;
+    width: 380px;
+  }
+  @media #{$large-and-up} {
+    top: initial;
+    bottom: 10%;
+    right: calc(50% - 210px);
+    max-width: 420px;
+    width: 420px;
+  }
+}
+
+.toast {
+  justify-content: center;
+
+  @media #{$medium-only} {
+    float: none;
+  }
+  @media #{$large-and-up} {
+    float: none;
+  }
+}

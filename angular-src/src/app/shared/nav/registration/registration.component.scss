@@ -5,6 +5,10 @@ registration-modal {
   right: 0;
   left: 0;
   z-index: 9999;
+  
+  .modal-footer {
+    display: none;
+  }
 }
 
 #spinner-wrap {
