@@ -1,0 +1,14 @@
+// ==========================================================================
+// Materialize Preloader
+// ==========================================================================
+mz-spinner {
+  display: flex;
+  justify-content: center;
+}
+
+.preloader-wrapper {
+  &.small {
+    width: 22px;
+    height: 22px;
+  }
+}

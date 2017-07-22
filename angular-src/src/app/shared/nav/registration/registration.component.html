@@ -16,14 +16,13 @@
       </mz-input-container>
       <div fxFlex=100% fxLayoutAlign="space-around center" class="py-1">
         <button class="" type="submit" mz-button fxFlex="45%" [disabled]="submitting || form.invalid">
-          <md-progress-spinner mode="indeterminate" *ngIf="submitting"></md-progress-spinner>
-          <span *ngIf="!submitting">{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
+          <mz-spinner  color="blue" size="small" *ngIf="submitting"></mz-spinner>
+          <span *ngIf="!submitting">{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span> 
         </button>
         <button class="white" type="button" mz-button fxFlex="45%" (click)="onSwitchMode()" *ngIf="mode === 'signIn'" color="secondary">Create Account</button>
         <button class="white" type="button" mz-button fxFlex="45%" (click)="onSwitchMode()" *ngIf="mode === 'signUp'" color="secondary">Already a Member?</button>
       </div>
     </form>
-    <md-error class="text-center" *ngIf="form.errors && form.errors.error">{{ form.errors.error }}</md-error>  
     <ng-template [ngIf]="mode === 'signIn'">
       <div fxFlex="100%" class="text-center mt-1">
         <span id="social-text">Sign in via social media</span>
