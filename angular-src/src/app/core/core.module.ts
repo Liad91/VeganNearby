@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 // Services
 import { ConnectionService } from './../services/connection.service';
 import { UsersService } from './../services/users.service';
-import { NavigationService } from './../services/navigation.service';
 import { YelpService } from './../services/yelp.service';
 import { AuthService } from './../services/Auth.service';
 
@@ -25,7 +24,6 @@ import { SharedModule } from './../shared/shared.module';
   providers: [
     ConnectionService,
     UsersService,
-    NavigationService,
     YelpService,
     AuthService
   ]

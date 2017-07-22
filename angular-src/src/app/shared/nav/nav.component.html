@@ -1,4 +1,4 @@
-<mz-navbar>
+<mz-navbar [ngClass]="{light: light}">
   <mz-navbar-item-container fxLayout="row" fxFlex="100%">
     <div class="logo ml-1">VegaNearby</div>
     <div class="nav-more" fxFlex fxLayoutAlign="end center">
@@ -13,10 +13,10 @@
       <mz-dropdown-item>
         <a><i mz-icon icon="settings"></i>Settings</a>
       </mz-dropdown-item>
-      <mz-dropdown-item>
-        <a><i mz-icon icon="power_settings_new"></i>Sign Out</a>
+      <mz-dropdown-item *ngIf="isAuth">
+        <a (click)="singOut()"><i mz-icon icon="power_settings_new"></i>Sign Out</a>
       </mz-dropdown-item>
-      <mz-dropdown-item>
+      <mz-dropdown-item *ngIf="!isAuth">
         <a (click)="openModal()"><i mz-icon icon="power_settings_new"></i>Sign In</a>
       </mz-dropdown-item>
     </mz-dropdown>

@@ -1,49 +1,39 @@
 import { Component, OnInit, OnDestroy, ComponentRef, ViewEncapsulation } from '@angular/core';
 import { MzModalService, MzBaseModal } from 'ng2-materialize';
 
-import { NavigationService } from './../../services/navigation.service';
+import { AuthService } from './../../services/Auth.service';
 import { RegistrationComponent } from './registration/registration.component';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
+  inputs: [
+    'light'
+  ],
   encapsulation: ViewEncapsulation.None
 })
 export class NavComponent implements OnInit, OnDestroy {
-  signInStrategy: string;
-  currentPage: string;  
-  pages = ['restaurant', 'cafe', 'bar'];
+  public light: boolean;
+  public isAuth = false;
 
-  constructor(private navigationService: NavigationService, private modalService: MzModalService) {}
+  constructor(private authService: AuthService, private modalService: MzModalService) {}
   
   ngOnInit() {
-    this.navigationService.navigator.subscribe(
-      page => {
-        if (this.currentPage !== page) {
-          this.currentPage = page;
-        }
-      }
+    this.authService.isAuthenticated.subscribe(
+      status => this.isAuth = status
     );
-    this.navigationService.redirect(this.pages[0]);
   }
 
   openModal() {
-    const modal: ComponentRef<MzBaseModal> = this.modalService.open(RegistrationComponent);
-    modal.onDestroy(() => {
-      console.log('Destroyed');
-    });
-  }
-
-  redirect(page: string) {
-    this.navigationService.redirect(page);
-  }
-
-  isActive(page: string) {
-    return this.currentPage === page;
+    this.modalService.open(RegistrationComponent);
   }
 
   ngOnDestroy() {
-    this.navigationService.navigator.unsubscribe();
+    this.authService.isAuthenticated.unsubscribe();
+  }
+
+  singOut() {
+    this.authService.clearStorage();
   }
 }

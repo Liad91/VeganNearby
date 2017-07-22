@@ -15,11 +15,6 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  private authFailed() {
-    localStorage.clear();
-    this.isAuthenticated.next(false);
-  }
-
   private hasToken(): boolean {
     const token = this.getToken();
 
@@ -35,15 +30,20 @@ export class AuthService {
       const token = this.getToken();
       this.usersService.Auth(token)
       .subscribe(
-        data => this.setUserData(data),
-        err => this.authFailed()
+        data => this.buildStorage(data),
+        err => this.clearStorage()
       )
     }
   }
 
-  public setUserData(data): void {
+  public buildStorage(data): void {
     localStorage.setItem('token', data.token);
     this.user = data.user;
     this.isAuthenticated.next(true);
+  }
+
+  public clearStorage() {
+    localStorage.clear();
+    this.isAuthenticated.next(false);
   }
 }

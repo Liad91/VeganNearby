@@ -115,7 +115,7 @@ export class RegistrationComponent extends MzBaseModal {
   }
 
   private signInSucceeded(data) {
-    this.authService.setUserData(data);
+    this.authService.buildStorage(data);
     this.modal.close();
   }
 

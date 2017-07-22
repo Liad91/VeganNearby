@@ -1,8 +1,10 @@
-<app-nav></app-nav>
 <div fxLayout="row" fxLayoutWrap>
   <div fxFlex="100%" fxLayout="row" fxLayoutWrap class="search-bar {{ category.alias }}" [ngClass.sm]="'small'" [ngClass.xs]="'x-small'">
-    <h1 fxShow fxShow.lt-md="false" fxFlex="100%" class="header text-center"><span id="typing"></span></h1>
-    <h1 fxHide fxHide.lt-md="false" fxFlex="100%" class="header text-center">Find your favorite {{category.alias}}</h1>
-    <app-search class="mb-auto" fxFlex="60%" [selected]="category.alias" (category)="onCategoryChanged($event)"></app-search>
+    <app-nav fxFlexAlign="start" [light]="true" fxFlex="100%"></app-nav>
+    <section class="content" fxFlexAlign="start" fxFlex="100%" fxLayout="row" fxLayoutWrap>
+      <h1 fxShow fxShow.lt-md="false" fxFlex="100%" class="header text-center"><span id="typing"></span></h1>
+      <h1 fxHide fxHide.lt-md="false" fxFlex="100%" class="header text-center">Find your favorite {{category.alias}}</h1>
+      <app-search class="m-auto" fxFlex.xl="40%" fxFlex.lg="50%" fxFlex.md="60%" fxFlex.sm="85%" fxFlex.xs="100%" [selected]="category.alias" (category)="onCategoryChanged($event)"></app-search>
+    </section>
   </div>
 </div>

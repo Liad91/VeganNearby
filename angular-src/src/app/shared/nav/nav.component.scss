@@ -1,3 +1,12 @@
+mz-navbar {
+  &.light {
+    nav {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+}
+
 ul#nav-mobile {
   width: 100%;
 }

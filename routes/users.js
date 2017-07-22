@@ -7,7 +7,7 @@ const User = require('../models/user');
 const config = require('../config/database');
 
 function buildToken(userId) {
-  return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '15s' })}`;
+  return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '2h' })}`;
 }
 
 // Register
