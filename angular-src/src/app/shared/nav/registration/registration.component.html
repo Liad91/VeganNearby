@@ -4,6 +4,7 @@
     <button  class="ml-auto" feFlex fxLayoutAlign="end center" mz-button [float]="true" [flat]="true" (click)="modal.close()"><i class="black-text" mz-icon icon="clear"></i></button>    
   </mz-modal-header>
   <mz-modal-content fxLayoutWrap fxLayout="row">
+    <p fxFlex="100%" class="center-align mt-0" color="error" *ngIf="formErrorMessage" @error>{{ formErrorMessage }}</p>    
     <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayoutWrap fxLayout="row" fxFlex="100%" novalidate>
       <mz-input-container *ngIf="mode === 'signUp'" fxFlex="100%">
         <input mz-input mz-validation required id="input-username" type="text" label="Username" formControlName="username" [focus]="mode === 'signUp'" [errorMessageResource]="errorMessageResources.username">
@@ -12,7 +13,7 @@
         <input mz-input mz-validation required id="input-email" type="email" label="Email" formControlName="email" [focus]="mode === 'signIn'" [errorMessageResource]="errorMessageResources.email">
       </mz-input-container>
       <mz-input-container fxFlex="100%">
-        <input mz-input mz-validation required id="input-password" type="password" label="Password" formControlName="password" [focus]="registered" [errorMessageResource]="errorMessageResources.password">
+        <input mz-input mz-validation required id="input-password" type="password" label="Password" formControlName="password" [errorMessageResource]="errorMessageResources.password">
       </mz-input-container>
       <div fxFlex=100% fxLayoutAlign="space-around center" class="py-1">
         <button class="" type="submit" mz-button fxFlex="45%" [disabled]="submitting || form.invalid">
@@ -24,7 +25,7 @@
       </div>
     </form>
     <ng-template [ngIf]="mode === 'signIn'">
-      <div fxFlex="100%" class="text-center mt-1">
+      <div fxFlex="100%" class="center-align mt-1">
         <span id="social-text">Sign in via social media</span>
       </div>
       <div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center" @social>

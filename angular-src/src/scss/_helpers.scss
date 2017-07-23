@@ -78,9 +78,11 @@
   margin-right: auto;
 }
 
-/** text align */
-@each $position in (left, right, center) {
-  .text-#{$position} {
-    text-align: $position;
+@each $size in (100, 75, 50, 25) {
+  .w-#{$size} {
+    width: $size * 1%;
+  }
+  .h-#{$size} {
+    height: $size * 1%;
   }
 }

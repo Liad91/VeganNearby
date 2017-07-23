@@ -1,7 +1,40 @@
 mz-navbar {
-  &.light {
+  mz-navbar-item-container {
+    padding: 0 20px;
+
+    &.xsmall {
+      padding: 0 10px;
+    }
+
+    #btn-more {
+      color: #fff;
+      padding: 0;
+
+      img {
+        max-width: 50px;
+        max-height: 50px;
+        margin-left: 10px;
+      }
+      .user-info span {
+        line-height: 1;
+
+        &.username {
+          font-size: 13px;          
+          margin-bottom: 5px;
+        }
+        &.email {
+          font-size: 11px;
+        }
+      }
+    }
+
+    ul.hide-on-med-and-down {
+      display:flex !important;
+    }
+  }
+  &.transparent {
     nav {
-      background-color: transparent;
+      background-color: rgba(0, 0, 0, 0.2);
       box-shadow: none;
     }
   }

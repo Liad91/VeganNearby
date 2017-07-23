@@ -14,6 +14,7 @@ import { MzToastService } from 'ng2-materialize';
 export class SearchComponent implements OnInit {
   public location: string;
   public locateSpinner = false;  
+  public locateFailed = false;
   public selected;
   public selectedCategory;
   public search = new EventEmitter();
@@ -88,15 +89,17 @@ export class SearchComponent implements OnInit {
   private geoError() {
     this.showToast('Unable to retrieve your location');
     this.locateSpinner = false;
+    this.locateFailed = true;
   }
 
   private showToast(message: string) {
-    this.toastService.show(message, 2500);
+    this.toastService.show(message, 3500);
   }
 
   public getLocation() {
     if (!navigator.geolocation) {
       this.showToast('Geolocation is not supported by your browser');
+      this.locateFailed = true;
       return;
     }
     const options = {

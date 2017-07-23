@@ -1,23 +1,25 @@
-<mz-navbar [ngClass]="{light: light}">
-  <mz-navbar-item-container fxLayout="row" fxFlex="100%">
-    <div class="logo ml-1">VegaNearby</div>
+<mz-navbar [ngClass]="{transparent: transparent}">
+  <mz-navbar-item-container fxLayout="row" fxFlex="100%" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
+    <div class="logo">VegaNearby</div>
     <div class="nav-more" fxFlex fxLayoutAlign="end center">
-      <a mz-button href="#" id="btn-more" [float]="true" [flat]="true">
-        <i mz-icon icon="more_vert"></i>
-      </a>
+      <button mz-button bgColor="primary" class="h-100" (click)="openModal()" *ngIf="!isAuth">Sign In</button>
+      <button mz-button href="#" id="btn-more" class="h-100" [flat]="true" *ngIf="isAuth" fxLayout="row" fxLayoutAlign="end center">
+        <div fxFlex class="user-info right-align" fxLayout="column">
+          <span fxFlex class="username">Username</span>
+          <span fxFlex class="email thin">user.name@gmail.com</span>        
+        </div>
+        <img fxFlex class="circle h-75 w-25" src="assets/user.ico" alt="User">
+      </button>  
     </div>
-    <mz-dropdown [id]="'more'" [dropdownButtonId]="'btn-more'" [constrainWidth]="false">
+    <mz-dropdown [id]="'more'" [dropdownButtonId]="'btn-more'" [constrainWidth]="false" *ngIf="isAuth">
       <mz-dropdown-item>
         <a><i mz-icon icon="account_circle"></i>My Account</a>
       </mz-dropdown-item>
       <mz-dropdown-item>
         <a><i mz-icon icon="settings"></i>Settings</a>
       </mz-dropdown-item>
-      <mz-dropdown-item *ngIf="isAuth">
+      <mz-dropdown-item >
         <a (click)="singOut()"><i mz-icon icon="power_settings_new"></i>Sign Out</a>
-      </mz-dropdown-item>
-      <mz-dropdown-item *ngIf="!isAuth">
-        <a (click)="openModal()"><i mz-icon icon="power_settings_new"></i>Sign In</a>
       </mz-dropdown-item>
     </mz-dropdown>
   </mz-navbar-item-container>

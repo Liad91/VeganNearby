@@ -5,7 +5,7 @@ import { MzBaseModal } from 'ng2-materialize';
 
 import { UsersService } from './../../../services/users.service';
 import { AuthService } from './../../../services/Auth.service';
-import { slideIn } from './../../../animations/slides';
+import { slideIn, slideOut } from './../../../animations/slides';
 
 @Component({
   selector: 'registration-modal',
@@ -18,6 +18,10 @@ import { slideIn } from './../../../animations/slides';
         query('#google', slideIn('0, 20px', '180ms')),
         query('#twitter', slideIn('20px', '180ms'))
       ]))
+    ]),
+    trigger('error', [
+      transition(':enter', slideIn('0, -20px', '200ms')),
+      transition(':leave', slideOut('0, -20px', '200ms'))
     ])
   ],
   encapsulation: ViewEncapsulation.None
@@ -28,6 +32,7 @@ export class RegistrationComponent extends MzBaseModal {
   public mode = 'signIn';
   public form: FormGroup;
   public loading = false;
+  public formErrorMessage: string;
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: false,
@@ -94,7 +99,7 @@ export class RegistrationComponent extends MzBaseModal {
     }
     else {
       /** Handle server connection error */
-      this.form.setErrors({error: 'Oops something went wrong! Please try again later'});
+      this.formErrorMessage = 'Oops something went wrong! Please try again later';
     }
   }
 
@@ -135,6 +140,9 @@ export class RegistrationComponent extends MzBaseModal {
   public onSubmit() {  
     if (this.form.invalid) {
       return;
+    }
+    if (this.formErrorMessage) {
+      this.formErrorMessage = '';
     }
     this.loading = true;
     this.mode === 'signUp' ? this.signUp() : this.signIn();

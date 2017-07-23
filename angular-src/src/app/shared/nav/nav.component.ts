@@ -9,12 +9,14 @@ import { RegistrationComponent } from './registration/registration.component';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
   inputs: [
-    'light'
+    'search',
+    'transparent'
   ],
   encapsulation: ViewEncapsulation.None
 })
 export class NavComponent implements OnInit, OnDestroy {
-  public light: boolean;
+  public search: boolean;
+  public transparent: boolean;
   public isAuth = false;
 
   constructor(private authService: AuthService, private modalService: MzModalService) {}

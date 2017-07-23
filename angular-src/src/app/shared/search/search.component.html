@@ -2,7 +2,7 @@
   <form fxFlex="100%" fxLayout="row" #form="ngForm" fxLayoutGap="10px" fxLayoutGap.xs="0" (ngSubmit)="onSubmit()">
     <div class="location" fxFlex="70%" fxFlex.xs="100%" fxLayout="row">
       <div id="locate">
-        <button type="button" mz-button [flat]="true" [float]="true" (click)="getLocation()" [disabled]="locateSpinner">
+        <button type="button" mz-button [flat]="true" [float]="true" (click)="getLocation()" [disabled]="locateSpinner || locateFailed">
           <i mz-icon class="search-icon" icon="location_on" color="primary" *ngIf="!locateSpinner"></i>
           <mz-spinner color="blue" size="small" *ngIf="locateSpinner"></mz-spinner>
         </button>
