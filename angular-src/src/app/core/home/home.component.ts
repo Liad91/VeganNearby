@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Typed from 'typed.js';
 
-import { NavigationService } from './../../services/navigation.service';
 import { YelpService } from './../../services/yelp.service';
 import { YelpResponse } from './../../models/yelp.model';
 
