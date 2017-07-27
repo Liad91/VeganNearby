@@ -10,8 +10,6 @@ app-search {
     }
 
     .categories {
-      background-color: #4CAF50;
-
       .input-field {
         margin-top: 0;
 
@@ -28,7 +26,6 @@ app-search {
         }
 
         ul.dropdown-content {
-          background-color: #4CAF50;
 
           li {
             text-align: center;
@@ -43,12 +40,6 @@ app-search {
               color: #fff;
               padding: 0;
               font-size: 1rem;
-            }
-
-            &:hover, 
-            &.selected,
-            &.active {
-              background-color: #459e49;
             }
           }
         }

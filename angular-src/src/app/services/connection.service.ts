@@ -10,7 +10,6 @@ export class ConnectionService {
   }
 
   catchError(err: Response | any) {
-    console.log(err);
     err.title = 'An error occurred';
     err.message = err.message || 'Please try again later';
     return err.json ? Observable.throw(err.json()) : Observable.throw(err); 

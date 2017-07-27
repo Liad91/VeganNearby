@@ -1,6 +1,6 @@
 <mz-modal #modal id="registration" [options]="modalOptions" fxFlex="100%" fxLayout="column" fxLayoutAlign="center center">
   <mz-modal-header fxFlex="100%" fxLayout="row">
-    <span>Sign In</span>
+    <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
     <button  class="ml-auto" feFlex fxLayoutAlign="end center" mz-button [float]="true" [flat]="true" (click)="modal.close()"><i class="black-text" mz-icon icon="clear"></i></button>    
   </mz-modal-header>
   <mz-modal-content fxLayoutWrap fxLayout="row">

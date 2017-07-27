@@ -4,7 +4,7 @@ import { trigger, group, query, transition } from '@angular/animations';
 import { MzBaseModal } from 'ng2-materialize';
 
 import { UsersService } from './../../../services/users.service';
-import { AuthService } from './../../../services/Auth.service';
+import { AuthService } from './../../../services/auth.service';
 import { slideIn, slideOut } from './../../../animations/slides';
 
 @Component({
@@ -78,7 +78,7 @@ export class RegistrationComponent extends MzBaseModal {
     const uniqueRegex = /Unique validation failed:/;
 
     if (error.message === 'Authentication failed') {
-      this.form.setErrors({error: 'Email or password is incorrect'});
+      this.formErrorMessage = 'Email or password is incorrect';
     }
     /** Handle validation errors */
     else if (validationRegex.test(error.message)) {
@@ -120,13 +120,17 @@ export class RegistrationComponent extends MzBaseModal {
   }
 
   private signInSucceeded(data) {
-    this.authService.buildStorage(data);
+    this.authService.login(data);
     this.modal.close();
   }
 
   public onSwitchMode() {
     let username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
     
+    if (this.formErrorMessage) {
+      this.formErrorMessage = '';
+    }
+
     this.mode = this.mode === 'signIn' ? 'signUp' : 'signIn';    
     if (this.mode === 'signUp') {
       this.form.addControl('username', username);

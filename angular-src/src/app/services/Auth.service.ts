@@ -6,7 +6,7 @@ import { UsersService } from './users.service';
 
 @Injectable()
 export class AuthService {
-  public user: User;
+  public user = { username: '', email: '', id: '' };
   public isAuthenticated = new Subject<boolean>();
 
   constructor(private usersService: UsersService) {}
@@ -29,20 +29,23 @@ export class AuthService {
     if (this.hasToken) {
       const token = this.getToken();
       this.usersService.Auth(token)
-      .subscribe(
-        data => this.buildStorage(data),
-        err => this.clearStorage()
-      )
+        .subscribe(
+          data => this.login(data),
+          err => this.logout()
+        );
     }
   }
 
-  public buildStorage(data): void {
+  public login(data): void {
+    Object.assign(this.user, data.user);    
     localStorage.setItem('token', data.token);
-    this.user = data.user;
     this.isAuthenticated.next(true);
   }
 
-  public clearStorage() {
+  public logout() {
+    const guest: User = {username: '', email: '', id: '1'};
+
+    Object.assign(this.user, guest);    
     localStorage.clear();
     this.isAuthenticated.next(false);
   }

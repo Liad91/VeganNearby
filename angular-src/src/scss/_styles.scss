@@ -1,3 +1,19 @@
 // ==========================================================================
 // Styles
 // ==========================================================================
+
+// SearchComponent
+// ==========================================================================
+app-search {
+  .categories,
+  .categories ul.dropdown-content {
+    background-color: $primary-color;
+  }
+  .categories ul.dropdown-content li {
+    &:hover, 
+    &.selected,
+    &.active {
+      background-color: darken($primary-color, 5%); 
+    }
+  }
+}

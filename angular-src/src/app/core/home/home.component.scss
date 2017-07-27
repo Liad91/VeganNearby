@@ -7,24 +7,33 @@
   background-position: center;
 
   &.cafes {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/cafe.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/cafe.jpg');
   }
   &.restaurants {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/restaurant.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/restaurant.jpg');
   }
   &.bars {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../assets/pub.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/pub.jpg');
   }
 
-  .content {
-    margin-bottom: 64px;
+  h1,
+  h2 {
+    color: #fff;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    font-size: 3rem;
   }
 
   h2 {
-    margin-top: 0;
-    font-size: 1.8em;
+    font-size: 1.8rem;
     letter-spacing: 1.5px;
-    color: #fff;
+
+    #typing {
+      font-weight: 300;
+      font-size: 1.4rem;
+    }
   }
 
   &.small {
@@ -37,5 +46,18 @@
       font-size: 1.5rem;
       margin-bottom: 10px;
     }
+  }
+
+  .footer {
+    background-color: rgba(0, 0, 0, 0.2);
+
+    p {
+      color: #fff;
+      font-size: 0.8rem;
+      i {
+        vertical-align: middle;
+      }
+    }
+    
   }
 }

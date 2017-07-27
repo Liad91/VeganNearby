@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Typed from 'typed.js';
 
-import { YelpService } from './../../services/yelp.service';
-import { YelpResponse } from './../../models/yelp.model';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
