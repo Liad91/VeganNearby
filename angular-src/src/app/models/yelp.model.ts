@@ -2,7 +2,7 @@ export class YelpRequest {
   term: string;
   location?: string;
   latitude?: number;
-  longitude?: number; 
+  longitude?: number;
 }
 
 export class YelpResponse {
@@ -10,7 +10,7 @@ export class YelpResponse {
   businesses: [
     {
       rating: number,
-      price: "$" | "$$" | "$$$" | "$$$$",
+      price: '$' | '$$' | '$$$' | '$$$$',
       phone: string,
       id: string,
       is_closed: boolean,

@@ -7,13 +7,12 @@ import {
 } from '@angular/core';
 
 import { HandlePropChanges } from './../handle-prop-changes';
-import { AppRenderer } from './../../services/app-renderer.service';
+import { RendererService } from './../../services/app-renderer.service';
 
 @Directive({
-  selector: '[dropdownTriggerFor]',
-  exportAs: 'dropdownTrigger'
+  selector: '[appDropdownTriggerFor]'
 })
-export class DropdownTrigger extends HandlePropChanges implements AfterViewInit {
+export class DropdownTriggerDirective extends HandlePropChanges implements AfterViewInit {
   @Input() align: string;
   @Input() belowOrigin: boolean;
   @Input() constrainWidth: boolean;
@@ -24,13 +23,13 @@ export class DropdownTrigger extends HandlePropChanges implements AfterViewInit 
   @Input() inDuration: number;
   @Input() outDuration: number;
   @Input() stopPropagation: boolean;
-  @Input() dropdownTriggerFor: string;
+  @Input() appDropdownTriggerFor: string;
 
   private dropdownOpen = false
   private dropdownButtonElement: JQuery;
   private dropdownElement: JQuery;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, private appRenderer: AppRenderer) {
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private rendererService: RendererService) {
     super();
   }
 
@@ -47,7 +46,7 @@ export class DropdownTrigger extends HandlePropChanges implements AfterViewInit 
   }
 
   initDropdownElement() {
-    this.dropdownElement = $(`#${this.dropdownTriggerFor}`);
+    this.dropdownElement = $(`#${this.appDropdownTriggerFor}`);
   }
 
   initHandlers() {
@@ -71,7 +70,7 @@ export class DropdownTrigger extends HandlePropChanges implements AfterViewInit 
   }
 
   handleDataActivates() {
-    this.renderer.setAttribute(this.dropdownButtonElement[0], 'data-activates', this.dropdownTriggerFor);
+    this.renderer.setAttribute(this.dropdownButtonElement[0], 'data-activates', this.appDropdownTriggerFor);
   }
 
   handleDropdown() {
@@ -89,12 +88,12 @@ export class DropdownTrigger extends HandlePropChanges implements AfterViewInit 
     };
 
     // Initialize dropdown button for dropdown
-    setTimeout(() => this.appRenderer.invokeMethod(this.dropdownButtonElement, 'dropdown', [options]));
+    setTimeout(() => this.rendererService.invokeMethod(this.dropdownButtonElement, 'dropdown', [options]));
   }
 
   validateProperties() {
-    if (!this.dropdownTriggerFor) {
-      throw new Error('Attribute [dropdownTriggerFor] from dropdown-trigger is required. ' + this.dropdownElement);
+    if (!this.appDropdownTriggerFor) {
+      throw new Error('Attribute [appDropdownTriggerFor] from dropdown-trigger is required. ' + this.dropdownElement);
     }
     if (!this.id) {
       throw new Error('Attribute [id] from dropdown-trigger is required. ' + this.dropdownButtonElement);

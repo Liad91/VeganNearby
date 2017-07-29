@@ -21,8 +21,8 @@ import { googleApiKey } from '../config';
   imports: [
     BrowserModule,
     HttpModule,
-    BrowserAnimationsModule,  
-    AppRoutesModule,   
+    BrowserAnimationsModule,
+    AppRoutesModule,
     CoreModule,
     AgmCoreModule.forRoot({
       apiKey: googleApiKey,

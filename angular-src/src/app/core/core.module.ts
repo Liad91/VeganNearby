@@ -13,7 +13,7 @@ import { ConnectionService } from './../services/connection.service';
 import { UsersService } from './../services/users.service';
 import { YelpService } from './../services/yelp.service';
 import { AuthService } from './../services/auth.service';
-import { AppRenderer } from './../services/app-renderer.service';
+import { RendererService } from './../services/app-renderer.service';
 
 // Modules
 import { SharedModule } from './../shared/shared.module';
@@ -39,7 +39,7 @@ import { SharedModule } from './../shared/shared.module';
     UsersService,
     YelpService,
     AuthService,
-    AppRenderer
+    RendererService
   ],
   exports: [
     NavComponent,

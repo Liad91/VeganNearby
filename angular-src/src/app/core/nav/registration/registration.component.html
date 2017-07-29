@@ -1,41 +1,126 @@
-<mz-modal #modal id="registration" [options]="modalOptions" fxFlex="100%" fxLayout="column" fxLayoutAlign="center center">
+<mz-modal
+  #modal
+  fxFlex="100%"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  id="registration"
+  [options]="modalOptions"
+>
   <mz-modal-header fxFlex="100%" fxLayout="row">
     <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
-    <button  class="ml-auto" feFlex fxLayoutAlign="end center" mz-button [float]="true" [flat]="true" (click)="modal.close()"><i class="black-text" mz-icon icon="clear"></i></button>    
+    <button
+      feFlex
+      fxLayoutAlign="end center"
+      mz-button
+      [float]="true"
+      [flat]="true"
+      class="ml-auto"
+      (click)="modal.close()"
+    >
+      <i class="black-text" mz-icon icon="clear"></i>
+    </button>    
   </mz-modal-header>
   <mz-modal-content fxLayoutWrap fxLayout="row">
-    <p fxFlex="100%" class="center-align mt-0" color="error" *ngIf="formErrorMessage" @error>{{ formErrorMessage }}</p>    
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayoutWrap fxLayout="row" fxFlex="100%" novalidate>
+    <p
+      @error    
+      fxFlex="100%"
+      class="center-align mt-0"
+      appColor="error"
+      *ngIf="formErrorMessage"
+    >
+      {{ formErrorMessage }}
+    </p>    
+    <form
+      fxFlex="100%"
+      fxLayout="row"
+      fxLayoutWrap
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      novalidate
+    >
       <mz-input-container *ngIf="mode === 'signUp'" fxFlex="100%">
-        <input mz-input mz-validation required id="input-username" type="text" label="Username" formControlName="username" [focus]="mode === 'signUp'" [errorMessageResource]="errorMessageResources.username">
+        <input
+          mz-input
+          mz-validation
+          required
+          id="input-username"
+          type="text"
+          label="Username"
+          formControlName="username"
+          [appFocus]="mode === 'signUp'"
+          [errorMessageResource]="errorMessageResources.username"
+        >
       </mz-input-container>
       <mz-input-container fxFlex="100%">
-        <input mz-input mz-validation required id="input-email" type="email" label="Email" formControlName="email" [focus]="mode === 'signIn'" [errorMessageResource]="errorMessageResources.email">
+        <input
+          mz-input
+          mz-validation
+          required
+          id="input-email"
+          type="email"
+          label="Email"
+          formControlName="email"
+          [appFocus]="mode === 'signIn'"
+          [errorMessageResource]="errorMessageResources.email"
+        >
       </mz-input-container>
       <mz-input-container fxFlex="100%">
-        <input mz-input mz-validation required id="input-password" type="password" label="Password" formControlName="password" [errorMessageResource]="errorMessageResources.password">
+        <input
+          mz-input
+          mz-validation
+          required
+          id="input-password"
+          type="password"
+          label="Password"
+          formControlName="password"
+          [errorMessageResource]="errorMessageResources.password"
+        >
       </mz-input-container>
       <div fxFlex=100% fxLayoutAlign="space-around center" class="py-1">
-        <button class="" type="submit" mz-button fxFlex="45%" [disabled]="submitting || form.invalid">
-          <mz-spinner  color="blue" size="small" *ngIf="submitting"></mz-spinner>
-          <span *ngIf="!submitting">{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span> 
+        <button type="submit" mz-button fxFlex="45%" [disabled]="form.invalid">
+          <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span> 
         </button>
-        <button class="white" type="button" mz-button fxFlex="45%" (click)="onSwitchMode()" *ngIf="mode === 'signIn'" color="secondary">Create Account</button>
-        <button class="white" type="button" mz-button fxFlex="45%" (click)="onSwitchMode()" *ngIf="mode === 'signUp'" color="secondary">Already a Member?</button>
+        <button
+          fxFlex="45%"
+          type="button"
+          mz-button          
+          class="white"
+          appColor="secondary"
+          (click)="onSwitchMode()"
+          *ngIf="mode === 'signIn'"
+        >
+          Create Account
+        </button>
+        <button
+          fxFlex="45%"
+          type="button"
+          mz-button        
+          class="white"
+          appColor="secondary"
+          (click)="onSwitchMode()"
+          *ngIf="mode === 'signUp'"
+        >
+          Already a Member?
+        </button>
       </div>
     </form>
     <ng-template [ngIf]="mode === 'signIn'">
       <div fxFlex="100%" class="center-align mt-1">
         <span id="social-text">Sign in via social media</span>
       </div>
-      <div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center" @social>
-        <button fxFlex="33%" mz-button id="facebook" bgColor="facebook">Facebook</button>
-        <button fxFlex="33%" mz-button id="google" bgColor="google">Google</button>
-        <button fxFlex="33%" mz-button id="twitter" bgColor="twitter">Twitter</button>
+      <div
+        @social      
+        fxFlex="100%"
+        fxLayout="row wrap"
+        fxLayoutAlign="space-around center"
+      >
+        <button fxFlex="33%" mz-button id="facebook" appBgColor="facebook">Facebook</button>
+        <button fxFlex="33%" mz-button id="google" appBgColor="google">Google</button>
+        <button fxFlex="33%" mz-button id="twitter" appBgColor="twitter">Twitter</button>
       </div>
     </ng-template>
     <div id="spinner-wrap" *ngIf="loading">
-      <mz-spinner color="blue" size="big"></mz-spinner>      
+      <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
   </mz-modal-content>
 </mz-modal>

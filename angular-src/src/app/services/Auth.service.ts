@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   public login(data): void {
-    Object.assign(this.user, data.user);    
+    Object.assign(this.user, data.user);
     localStorage.setItem('token', data.token);
     this.isAuthenticated.next(true);
   }
@@ -45,7 +45,7 @@ export class AuthService {
   public logout() {
     const guest: User = {username: '', email: '', id: '1'};
 
-    Object.assign(this.user, guest);    
+    Object.assign(this.user, guest);
     localStorage.clear();
     this.isAuthenticated.next(false);
   }

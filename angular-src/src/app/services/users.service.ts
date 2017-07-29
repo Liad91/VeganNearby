@@ -25,7 +25,6 @@ export class UsersService {
   }
 
   Auth(token: string) {
-    let newToken: string;    
     const headers = new Headers();
 
     headers.set('Authorization', token);

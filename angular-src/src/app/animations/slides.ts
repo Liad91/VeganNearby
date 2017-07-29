@@ -18,7 +18,8 @@ const slideOutAnimation = animation([
 export function slideIn(position: string, duration: string) {
   return  useAnimation(slideInAnimation, { params: { position: `translate(${position})`, duration: duration } } );
 
-} 
+}
+
 export function slideOut(position: string, duration: string) {
   return useAnimation(slideOutAnimation, { params: { position: `translate(${position})`, duration: duration } } );
 }

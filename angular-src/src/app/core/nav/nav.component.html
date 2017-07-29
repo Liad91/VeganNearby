@@ -1,25 +1,31 @@
 <mz-navbar [ngClass]="{transparent: transparent}">
-  <mz-navbar-item-container fxLayout="row" fxFlex="100%" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
+  <mz-navbar-item-container
+    fxFlex="100%"
+    fxLayout="row"    
+    ngClass.md="medium"
+    ngClass.sm="small"
+    ngClass.xs="xsmall"
+  >
     <div class="logo">VegaNearby</div>
     <div class="nav-more" fxFlex fxLayoutAlign="end center">
       <button
         mz-button
-        bgColor="primary"
-        class="h-100"
+        class="h-100"        
+        appBgColor="primary"
         (click)="openModal()"
         *ngIf="currentUser() === 'guest'"
       >
         Sign In
       </button>
       <button
-        mz-button
-        id="btn-more"
-        class="h-100"
         fxLayout="row"
         fxLayoutAlign="end center"
-        ngClass.xs="btn-floating h-auto"
+        id="btn-more"
+        mz-button
         [flat]="true"
-        dropdownTriggerFor="more"
+        class="h-100"
+        ngClass.xs="btn-floating h-auto"
+        appDropdownTriggerFor="more"
         [constrainWidth]="false"
         *ngIf="currentUser() === 'user'"
       >

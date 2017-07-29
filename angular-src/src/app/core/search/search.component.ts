@@ -1,4 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, EventEmitter, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  OnInit,
+  Input,
+  Output,
+  ViewChild,
+  ElementRef,
+  EventEmitter
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { MzToastService } from 'ng2-materialize';
@@ -7,24 +16,23 @@ import { MzToastService } from 'ng2-materialize';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  outputs: ['search', 'category' ],
-  inputs: ['selected'],
   encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent implements OnInit {
   public location: string;
-  public locateSpinner = false;  
+  public locateSpinner = false;
   public locateFailed = false;
-  public selected;
   public selectedCategory;
+  @Input()
+  public selected;
+  @Output()
   public search = new EventEmitter();
+  @Output()
   public category = new EventEmitter();
-  @ViewChild("search")
+  @ViewChild('search')
   public searchElementRef: ElementRef;
-  @ViewChild("form")
-  public form: NgForm;
 
-  public categoryOptions = [ 
+  public categoryOptions = [
     { title: 'Restaurants', alias: 'restaurants' },
     { title: 'Cafes', alias: 'cafes' },
     { title: 'Bars', alias: 'bars' }
@@ -40,7 +48,7 @@ export class SearchComponent implements OnInit {
   private setCategory() {
     this.selectedCategory = this.categoryOptions.findIndex(category => category.alias === this.selected);
   }
-  
+
   private buildLocationAutocomplete() {
     this.mapsApiLoader.load()
       .then(() => {
@@ -56,12 +64,12 @@ export class SearchComponent implements OnInit {
   }
 
   private geocodeSuccess(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) {
-    if (status.toString() === "OK" && results.length > 0) {
+    if (status.toString() === 'OK' && results.length > 0) {
       if (results.length > 1) {
         this.location = results[1].formatted_address;
       }
       else {
-        this.location = results[0].formatted_address;      
+        this.location = results[0].formatted_address;
       }
     }
     else {

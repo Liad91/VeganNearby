@@ -1,6 +1,21 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormGroupDirective, FormControl, Validators } from '@angular/forms';
-import { trigger, group, query, transition } from '@angular/animations';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  FormGroup,
+  FormGroupDirective,
+  FormControl,
+  Validators
+} from '@angular/forms';
+import {
+  trigger,
+  group,
+  query,
+  transition
+} from '@angular/animations';
 import { MzBaseModal } from 'ng2-materialize';
 
 import { UsersService } from './../../../services/users.service';
@@ -8,7 +23,7 @@ import { AuthService } from './../../../services/auth.service';
 import { slideIn, slideOut } from './../../../animations/slides';
 
 @Component({
-  selector: 'registration-modal',
+  selector: 'app-registration-modal',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
   animations: [
@@ -26,7 +41,7 @@ import { slideIn, slideOut } from './../../../animations/slides';
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class RegistrationComponent extends MzBaseModal {
+export class RegistrationComponent extends MzBaseModal implements OnInit {
   @ViewChild('modal')
   public modal;
   public mode = 'signIn';
@@ -80,8 +95,8 @@ export class RegistrationComponent extends MzBaseModal {
     if (error.message === 'Authentication failed') {
       this.formErrorMessage = 'Email or password is incorrect';
     }
-    /** Handle validation errors */
     else if (validationRegex.test(error.message)) {
+      /** Handle validation errors */
       if (uniqueRegex.test(error.message)) {
         /** Handle unique errors */
         const controls = error.message.split(':')[3].split(',');
@@ -125,23 +140,23 @@ export class RegistrationComponent extends MzBaseModal {
   }
 
   public onSwitchMode() {
-    let username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
-    
+    const username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
+
     if (this.formErrorMessage) {
       this.formErrorMessage = '';
     }
 
-    this.mode = this.mode === 'signIn' ? 'signUp' : 'signIn';    
+    this.mode = this.mode === 'signIn' ? 'signUp' : 'signIn';
     if (this.mode === 'signUp') {
       this.form.addControl('username', username);
     }
     else {
       this.form.removeControl('username');
     }
-    this.form.reset(); 
+    this.form.reset();
   }
 
-  public onSubmit() {  
+  public onSubmit() {
     if (this.form.invalid) {
       return;
     }

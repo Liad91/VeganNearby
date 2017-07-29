@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Input
+} from '@angular/core';
 import { MzModalService } from 'ng2-materialize';
 
 import { AuthService } from './../../services/auth.service';
@@ -9,16 +14,14 @@ import { User } from './../../models/user.model';
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
-  inputs: [
-    'search',
-    'transparent'
-  ],
   encapsulation: ViewEncapsulation.None
 })
 export class NavComponent implements OnInit {
-  public user: User;
+  @Input()
   public search: boolean;
+  @Input()
   public transparent: boolean;
+  public user: User;
   public isAuth = false;
 
   constructor(private authService: AuthService, private modalService: MzModalService) {}
@@ -43,11 +46,11 @@ export class NavComponent implements OnInit {
     return user;
   }
 
-  openModal() {
+  public openModal() {
     this.modalService.open(RegistrationComponent);
   }
 
-  singOut() {
+  public singOut() {
     console.log('Called');
     this.authService.logout();
   }
