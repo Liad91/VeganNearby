@@ -1,22 +1,8 @@
 <mz-navbar [ngClass]="{transparent: transparent}">
-  <mz-navbar-item-container
-    fxFlex="100%"
-    fxLayout="row"    
-    ngClass.md="medium"
-    ngClass.sm="small"
-    ngClass.xs="xsmall"
-  >
+  <mz-navbar-item-container fxFlex="100%" fxLayout="row" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
     <div class="logo">VegaNearby</div>
-    <div class="nav-more" fxFlex fxLayoutAlign="end center">
-      <button
-        mz-button
-        class="h-100"        
-        appBgColor="primary"
-        (click)="openModal()"
-        *ngIf="currentUser() === 'guest'"
-      >
-        Sign In
-      </button>
+    <div fxFlex fxLayoutAlign="end center" class="nav-more">
+      <button mz-button class="h-100" appBgColor="primary" (click)="openModal()" *ngIf="currentUser() === 'guest'">Sign In</button>
       <button
         fxLayout="row"
         fxLayoutAlign="end center"
@@ -33,7 +19,7 @@
           <div class="username">{{ user.username }}</div>
           <div class="email thin">{{ user.email }}</div>        
         </div>
-        <img fxFlex class="circle" [src]="user.avatarUrl || 'assets/user.ico'" alt="User">
+        <img fxFlex class="circle" [src]="user.avatarUrl || 'assets/images/user.ico'" alt="avatar">
       </button>  
     </div>
     <ul id="more" class='dropdown-content'>

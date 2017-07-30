@@ -21,13 +21,7 @@
     </button>    
   </mz-modal-header>
   <mz-modal-content fxLayoutWrap fxLayout="row">
-    <p
-      @error    
-      fxFlex="100%"
-      class="center-align mt-0"
-      appColor="error"
-      *ngIf="formErrorMessage"
-    >
+    <p @error fxFlex="100%" class="center-align mt-0" appColor="error" *ngIf="formErrorMessage">
       {{ formErrorMessage }}
     </p>    
     <form
@@ -51,7 +45,9 @@
               *ngIf="!userImageFile"
             >
               <p class="m-0">Drag a image here</p>
-              <button type="button" mz-button [float]="true" (click)="select.click()"><i mz-icon icon="add"></i></button>
+              <button type="button" mz-button [float]="true" (click)="select.click()">
+                <i mz-icon icon="add"></i>
+              </button>
               <input
                 #select
                 type="file"
@@ -62,7 +58,16 @@
               />
             </div>
             <img @preview [appImgPreview]="userImageFile" *ngIf="userImageFile">
-            <button type="button" mz-button [float]="true" (click)="resetUploader()" appBgColor="error" *ngIf="userImageFile"><i mz-icon icon="remove"></i></button>
+            <button 
+              type="button"
+              mz-button
+              [float]="true"
+              (click)="resetUploader()"
+              appBgColor="error"
+              *ngIf="userImageFile"
+            >
+              <i mz-icon icon="remove"></i>
+            </button>
           </div>
           <p @error class="center-align mb-0" appColor="error" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
         </div>
@@ -105,15 +110,15 @@
           [errorMessageResource]="errorMessageResources.password"
         >
       </mz-input-container>
-      <div fxFlex=100% fxLayoutAlign="space-around center" class="py-1">
-        <button type="submit" mz-button fxFlex="45%" [disabled]="form.invalid">
+      <div fxFlex=100% fxLayoutAlign="space-around center" class="pt-1">
+        <button fxFlex="45%" type="submit" mz-button class="p-0" [disabled]="form.invalid">
           <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span> 
         </button>
         <button
           fxFlex="45%"
           type="button"
           mz-button          
-          class="white"
+          class="white p-0"
           appColor="secondary"
           (click)="onSwitchMode()"
           *ngIf="mode === 'signIn'"
@@ -124,7 +129,7 @@
           fxFlex="45%"
           type="button"
           mz-button        
-          class="white"
+          class="white p-0"
           appColor="secondary"
           (click)="onSwitchMode()"
           *ngIf="mode === 'signUp'"
@@ -137,15 +142,16 @@
       <div fxFlex="100%" class="center-align mt-1">
         <span id="social-text">Sign in via social media</span>
       </div>
-      <div
-        @social      
-        fxFlex="100%"
-        fxLayout="row wrap"
-        fxLayoutAlign="space-around center"
-      >
-        <button fxFlex="33%" mz-button id="facebook" appBgColor="facebook">Facebook</button>
-        <button fxFlex="33%" mz-button id="google" appBgColor="google">Google</button>
-        <button fxFlex="33%" mz-button id="twitter" appBgColor="twitter">Twitter</button>
+      <div @social fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="facebook" class="p-0" appBgColor="facebook">
+          <img src="assets/icons/facebook.png" alt="facebook" class="icon hide-on-small-only"><span>Facebook</span>
+        </button>
+        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="google" class="p-0" appBgColor="google">
+          <img src="assets/icons/google.png" alt="google" class="icon hide-on-small-only"><span>Google</span>
+        </button>
+        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="twitter" class="p-0" appBgColor="twitter">
+          <img src="assets/icons/twitter.png" alt="twitter" class="icon hide-on-small-only"><span>Twitter</span>
+        </button>
       </div>
     </ng-template>
     <div id="spinner-wrap" *ngIf="loading">

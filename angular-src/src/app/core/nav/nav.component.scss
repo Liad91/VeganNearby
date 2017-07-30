@@ -1,9 +1,14 @@
 mz-navbar {
   mz-navbar-item-container {
     padding: 0 20px;
-
     &.xsmall {
       padding: 0 10px;
+    }
+
+    .nav-more {
+      button {
+        border-radius: 0;
+      }
     }
 
     #btn-more {
@@ -13,7 +18,7 @@ mz-navbar {
       border-radius: 0;
       &.active,
       &:hover {
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.3);
       }
 
       @media only screen and (max-width: 600px) {
@@ -37,7 +42,6 @@ mz-navbar {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
-          
           &.username {
             font-size: 13px;          
             margin-bottom: 5px;
@@ -66,7 +70,7 @@ ul#nav-mobile {
 }
 
 ul#more {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   margin-top: 64px;
   width: 170px;
 
@@ -79,15 +83,15 @@ ul#more {
 
   li {
     min-height: 0;
-
     &:hover {
-      background-color: rgba(0, 0, 0, 0.2);;
+      background-color: rgba(0, 0, 0, 0.1);;
     }
 
     a {
     color: #fff;
     font-size: .9rem;
     padding: 11px 15px;
+    
       i {
         margin-right: 10px;
         font-size: 22px;

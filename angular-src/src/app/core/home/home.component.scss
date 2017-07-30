@@ -7,13 +7,13 @@
   background-position: center;
 
   &.cafes {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/cafe.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/images/cafe.jpg');
   }
   &.restaurants {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/restaurant.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/images/restaurant.jpg');
   }
   &.bars {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/pub.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('../../../assets/images/pub.jpg');
   }
 
   h1,

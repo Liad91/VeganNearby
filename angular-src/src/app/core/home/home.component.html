@@ -8,42 +8,11 @@
     ngClass.sm="small"
     ngClass.xs="x-small"
   >
-    <app-nav
-      fxFlex="85%"    
-      fxFlexAlign="start"
-      [search]="false"
-      [transparent]="true"
-    ></app-nav>
-    <section
-      fxFlex="100%"
-      fxLayout="row"
-      fxLayoutWrap
-      class="content"
-    >
-      <h1
-        fxFlex="100%"      
-        fxShow
-        fxShow.lt-md="false"
-        class="center-align mt-0"
-      >
-        Searching for {{ category.alias }}?
-      </h1>
-      <h2
-        fxFlex="100%"      
-        fxShow
-        fxShow.lt-md="false"
-        class="center-align mt-0"
-      >
-        <span id="typing"></span>
-      </h2>
-      <h2
-        fxFlex="100%"        
-        fxHide
-        fxHide.lt-md="false"
-        class="center-align mt-0"
-      >
-        Find your favorite {{category.alias}}
-      </h2>
+    <app-nav fxFlex="85%" fxFlex.xs="95%" fxFlexAlign="start" [search]="false" [transparent]="true"></app-nav>
+    <section fxFlex="100%" fxLayout="row" fxLayoutWrap class="content">
+      <h1 fxFlex="100%" fxShow fxShow.lt-md="false" class="center-align mt-0">Searching for {{ category.alias }}?</h1>
+      <h2 fxFlex="100%" fxShow fxShow.lt-md="false" class="center-align mt-0"><span id="typing"></span></h2>
+      <h2 fxFlex="100%" fxHide fxHide.lt-md="false" class="center-align mt-0">Find your favorite {{category.alias}}</h2>
       <app-search
         fxFlex.xl="40%"
         fxFlex.lg="50%"

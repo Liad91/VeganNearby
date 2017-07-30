@@ -1,17 +1,6 @@
 <div fxFlex="100%" fxLayout="row" class="search-box">
-  <form
-    fxFlex="100%"
-    fxLayout="row"
-    fxLayoutGap="10px"
-    fxLayoutGap.xs="0"
-    (ngSubmit)="onSubmit()"
-  >
-    <div
-      fxFlex="70%"
-      fxFlex.xs="100%"
-      fxLayout="row"
-      class="location"
-    >
+  <form fxFlex="100%" fxLayout="row" fxLayoutGap="10px" fxLayoutGap.xs="0" (ngSubmit)="onSubmit()">
+    <div fxFlex="70%" fxFlex.xs="100%" fxLayout="row" class="location">
       <div id="locate">
         <button
           type="button"
@@ -21,13 +10,7 @@
           (click)="getLocation()"
           [disabled]="locateSpinner || locateFailed"
         >
-          <i
-            mz-icon
-            icon="location_on"            
-            class="search-icon"
-            appColor="primary"
-            *ngIf="!locateSpinner"
-          ></i>
+          <i mz-icon icon="location_on" class="search-icon" appColor="primary" *ngIf="!locateSpinner"></i>
           <mz-spinner color="blue" size="small" *ngIf="locateSpinner"></mz-spinner>
         </button>
       </div>
@@ -45,22 +28,12 @@
     </div>
     <div class="categories" fxFlex="30%" fxFlex.xs="80%">
       <mz-select-container>
-        <select
-          mz-select
-          name="category"
-          [(ngModel)]="selectedCategory"
-          (change)="onCategoryChange()"
-        >
+        <select mz-select name="category" [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
           <option [value]="i" *ngFor="let categoryOption of categoryOptions; let i = index">{{ categoryOption.title }}</option>
         </select>
       </mz-select-container>
     </div>
-    <button
-      fxFlex.xs="20%"    
-      type="submit"
-      appBgColor="dark"
-      mz-button
-    >
+    <button fxFlex.xs="20%" type="submit" appBgColor="dark" mz-button>
       <i mz-icon icon="search"></i>
     </button>
   </form>

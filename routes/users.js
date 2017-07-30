@@ -13,7 +13,7 @@ function buildToken(userId) {
   return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '2h' })}`;
 }
 
-// Register
+// Signup
 router.post('/signup',(req, res, next) => {
   upload(req, res, err => {
     if (err) {
@@ -53,7 +53,7 @@ router.post('/signup',(req, res, next) => {
   });
 });
 
-// Authenticate
+// Signin
 router.post('/signin', (req, res, next) => {
   User.findOne({email: req.body.email})
     .then(user => {
@@ -92,6 +92,7 @@ router.post('/signin', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// Authentication
 router.post('/authenticate', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
   const newToken = buildToken(user._id);
