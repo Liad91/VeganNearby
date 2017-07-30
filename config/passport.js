@@ -3,7 +3,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../models/user');
 const config = require('../config/database');
 
-module.exports = function(passport) {
+module.exports = passport => {
   const options = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: config.secret
@@ -14,6 +14,7 @@ module.exports = function(passport) {
       .then(user => {
         if (!user) {
           const err = new Error('User not found');
+          err.type = 'not-found';
           err.status = 404;
           done(err);
         }

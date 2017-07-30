@@ -34,7 +34,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Parse incoming requests
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1mb'}));
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -49,6 +49,7 @@ app.use('/yelp', yelp);
 // Catch 404
 app.use((req, res, next) => {
   const err = new Error('Not found');
+  err.type = 'not-found';
   err.status = 404;
   next(err);
 });
@@ -57,7 +58,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
-    success: false,
+    type: err.type || 'server',
     message: err.message
   });
 });

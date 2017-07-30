@@ -1,24 +1,56 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const Jimp = require("jimp");
 const router = express.Router();
 
 const User = require('../models/user');
 const config = require('../config/database');
+const upload = require('../config/multer').single('avatar');
 
 function buildToken(userId) {
   return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '2h' })}`;
 }
 
 // Register
-router.post('/signup', (req, res, next) => {
-  User.create(req.body)
-    .then(user => {
-      res.status(201).json({
-        success: true
+router.post('/signup',(req, res, next) => {
+  upload(req, res, err => {
+    if (err) {
+      err.type = 'upload';
+      err.message = 'File upload failed. please try a different one';
+      return next(err);
+    }
+
+    User.create(req.body)
+      .then(user => {
+        if (req.file) {
+          const newFilePath = `public/images/users/${user._id}.${req.file.type}`;
+
+           /** Move the image from ./public/temp to ./public/images/users */
+          fs.renameSync(req.file.path, newFilePath);
+
+          /** Rezise the image */
+          Jimp.read(newFilePath, function(err, image) {
+            if (err) {
+              return;
+            }
+            image.resize(200, 200).quality(80).write(newFilePath);
+          });
+          return user.setAvatar(`${req.protocol}://${req.get('host')}/images/users/${user._id}.${req.file.type}`);
+        }
+      })
+      .then(() => {
+        res.status(201).json({});        
+      })
+      .catch(err => {
+        /** Remove the image */
+        if (fs.existsSync(req.file.path)) {
+          fs.unlinkSync(req.file.path);
+        }
+        next(err);
       });
-    })
-    .catch(err => next(err));
+  });
 });
 
 // Authenticate
@@ -28,6 +60,7 @@ router.post('/signin', (req, res, next) => {
       if (!user) {
         const err = new Error('Authentication failed');
         err.status = 401;
+        err.type = 'authentication';
         next(err);
       }
       else {
@@ -36,18 +69,19 @@ router.post('/signin', (req, res, next) => {
             if (!isMatch) {
               const err = new Error('Authentication failed');
               err.status = 401;
+              err.type = 'authentication';
               next(err);
             }
             else {
               const token = buildToken(user.id);
 
               res.status(200).json({
-                success: true,
                 token: token,
                 user: {
                   id: user.id,
                   email: user.email,
-                  username: user.username
+                  username: user.username,
+                  avatarUrl: user.avatarUrl
                 }
               });
             }
@@ -63,19 +97,19 @@ router.post('/authenticate', passport.authenticate('jwt', { session: false }), (
   const newToken = buildToken(user._id);
 
   res.status(200).json({
-    success: true,
     token: newToken,
     user: {
       id: user._id,
       email: user.email,
-      username: user.username
+      username: user.username,
+      avatarUrl: user.avatarUrl
     }
   });
 });
 
 // Profile
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  res.json({ success: true })
+  res.status(200).end();
 });
 
 module.exports = router;

@@ -4,20 +4,12 @@
 @import 'utilities/index';
 
 // ==========================================================================
-// Materialize - Custom
+// Materialize - Custom Variables
 // ==========================================================================
 $primary-color: color(primary) !default;
 $secondary-color: color(secondary) !default;
 $success-color: $secondary-color !default;
 $error-color: color(error) !default;
-
-input[mzinput].valid + label {
-  color: $success-color;
-}
-
-input[mzinput].invalid + p + label {
-  color: $error-color;
-}
 
 // ==========================================================================
 // Materialize

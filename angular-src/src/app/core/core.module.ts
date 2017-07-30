@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
 // Components
 import { HomeComponent } from './home/home.component';
@@ -13,7 +14,7 @@ import { ConnectionService } from './../services/connection.service';
 import { UsersService } from './../services/users.service';
 import { YelpService } from './../services/yelp.service';
 import { AuthService } from './../services/auth.service';
-import { RendererService } from './../services/app-renderer.service';
+import { RendererService } from './../services/renderer.service';
 
 // Modules
 import { SharedModule } from './../shared/shared.module';
@@ -23,7 +24,9 @@ import { SharedModule } from './../shared/shared.module';
     HomeComponent,
     NavComponent,
     RegistrationComponent,
-    SearchComponent
+    SearchComponent,
+    FileDropDirective,
+    FileSelectDirective
   ],
   entryComponents: [
     RegistrationComponent

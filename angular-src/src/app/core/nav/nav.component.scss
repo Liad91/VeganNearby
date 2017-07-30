@@ -16,7 +16,6 @@ mz-navbar {
         background: rgba(0, 0, 0, 0.5);
       }
 
-
       @media only screen and (max-width: 600px) {
         width: 40px;
         padding: 0;
@@ -25,10 +24,12 @@ mz-navbar {
 
       img {
         width: 40px;
+        height: 40px;
+        max-width: 40px;
         margin-left: 10px;
       }
       .user-info {
-        max-width: 120px;
+        max-width: 110px;
         
         div {
           line-height: 1;

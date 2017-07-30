@@ -12,7 +12,8 @@ import * as Directives from './directives';
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.FocusDirective,
-    Directives.DropdownTriggerDirective
+    Directives.DropdownTriggerDirective,
+    Directives.ImagePreviewDirective
   ],
   imports: [
     CommonModule,
@@ -26,7 +27,8 @@ import * as Directives from './directives';
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.FocusDirective,
-    Directives.DropdownTriggerDirective
+    Directives.DropdownTriggerDirective,
+    Directives.ImagePreviewDirective
   ],
 })
 export class SharedModule { }

@@ -33,7 +33,7 @@
           <div class="username">{{ user.username }}</div>
           <div class="email thin">{{ user.email }}</div>        
         </div>
-        <img fxFlex class="circle" src="assets/user.ico" alt="User">
+        <img fxFlex class="circle" [src]="user.avatarUrl || 'assets/user.ico'" alt="User">
       </button>  
     </div>
     <ul id="more" class='dropdown-content'>

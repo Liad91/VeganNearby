@@ -38,19 +38,48 @@
       (ngSubmit)="onSubmit()"
       novalidate
     >
-      <mz-input-container *ngIf="mode === 'signUp'" fxFlex="100%">
-        <input
-          mz-input
-          mz-validation
-          required
-          id="input-username"
-          type="text"
-          label="Username"
-          formControlName="username"
-          [appFocus]="mode === 'signUp'"
-          [errorMessageResource]="errorMessageResources.username"
-        >
-      </mz-input-container>
+      <ng-template [ngIf]="mode === 'signUp'">
+        <div fxFlex="100%" class="image-upload">
+          <div class="image-wrap">
+            <div
+              fxLayoutAlign="center center"
+              ng2FileDrop
+              (fileOver)="fileOver($event)"
+              [uploader]="uploader"
+              [ngClass]="{'file-over': hasDropZoneOver, 'color-error': uploadErrorMessage}"
+              class="image-drop"
+              *ngIf="!userImageFile"
+            >
+              <p class="m-0">Drag a image here</p>
+              <button type="button" mz-button [float]="true" (click)="select.click()"><i mz-icon icon="add"></i></button>
+              <input
+                #select
+                type="file"
+                accept="image/*"
+                ng2FileSelect
+                [uploader]="uploader"
+                [hidden]="true"
+              />
+            </div>
+            <img @preview [appImgPreview]="userImageFile" *ngIf="userImageFile">
+            <button type="button" mz-button [float]="true" (click)="resetUploader()" appBgColor="error" *ngIf="userImageFile"><i mz-icon icon="remove"></i></button>
+          </div>
+          <p @error class="center-align mb-0" appColor="error" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
+        </div>
+        <mz-input-container fxFlex="100%">
+          <input
+            mz-input
+            mz-validation
+            required
+            id="input-username"
+            type="text"
+            label="Username"
+            formControlName="username"
+            [appFocus]="mode === 'signUp'"
+            [errorMessageResource]="errorMessageResources.username"
+          >
+        </mz-input-container>
+      </ng-template>
       <mz-input-container fxFlex="100%">
         <input
           mz-input

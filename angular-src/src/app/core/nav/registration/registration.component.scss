@@ -9,6 +9,57 @@ app-registration-modal {
   .modal-footer {
     display: none;
   }
+
+  .image-upload {
+    p {
+      font-size: 90%;
+    }
+  }
+  
+  .image-wrap {
+    position: relative;
+    margin: auto;
+    height: 150px;
+    width: 150px;
+
+    .image-drop,
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    button {
+      position: absolute;
+      display: flex;
+      top: 10px;
+      right: -5px;
+      transition: all 0.2s ease-in;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .image-drop {  
+    color: #a3a3a3;
+    border: 2px dashed;    
+    transition: all 0.2s ease-in;
+
+    &.file-over {
+      color: #0089ec !important;
+
+      button {
+        transform: scale(0);
+      }
+    }
+
+    p {
+      font-size: 80%;
+    }
+
+    
+  }
 }
 
 #spinner-wrap {

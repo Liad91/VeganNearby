@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
+
 const config = require('../config/database');
 
 const userSchema = new mongoose.Schema({
@@ -18,6 +19,9 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  avatarUrl: {
+    type: String
   }
 });
 
@@ -38,12 +42,19 @@ userSchema.method('comparePassword', function(password) {
   const user = this;
 
   return new Promise((resolve, reject) => {
-    bcrypt.compare(password, this.password)
+    console.log(password, user.password)
+    bcrypt.compare(password, user.password)
       .then(isMatch => {
         resolve(isMatch);
       })
       .catch(err => reject(err));
   });
+});
+
+userSchema.method('setAvatar', function(url) {
+  const user = this;
+  
+  return user.update({avatarUrl: url});
 });
 
 userSchema.plugin(uniqueValidator, { message: 'Unique validation failed: {PATH}' });

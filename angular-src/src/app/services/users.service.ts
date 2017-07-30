@@ -10,7 +10,7 @@ export class UsersService {
 
   constructor(private http: Http, private connectionService: ConnectionService) {}
 
-  signUp(user: User) {
+  signUp(user: FormData) {
     return this.http.post(`${this.connectionService.serverUrl}/users/signup`, user)
       .timeout(this.connectionService.reqTimeout)
       .map(this.connectionService.extractData)
