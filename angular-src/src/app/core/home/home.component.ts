@@ -10,18 +10,11 @@ export class HomeComponent implements OnInit {
   public category = { title: 'Bars', alias: 'bars' };
   private typed: Typed;
 
-  ngOnInit() {
-    this.setTyped();
+  ngOnInit(): void {
+    this.initializeTyped();
   }
 
-  public onCategoryChanged(category) {
-    if (this.category.alias !== category.alias) {
-      this.category = category;
-      this.resetTyped();
-    }
-  }
-
-  private setTyped() {
+  private initializeTyped(): void {
     let strings;
 
     switch (this.category.alias) {
@@ -54,8 +47,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  private resetTyped() {
+  private resetTyped(): void {
     this.typed.destroy();
-    this.setTyped();
+    this.initializeTyped();
+  }
+
+  public onCategoryChanged(category): void {
+    if (this.category.alias !== category.alias) {
+      this.category = category;
+      this.resetTyped();
+    }
   }
 }

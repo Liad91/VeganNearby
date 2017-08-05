@@ -26,14 +26,13 @@ export class NavComponent implements OnInit {
 
   constructor(private authService: AuthService, private modalService: MzModalService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.user = this.authService.user;
   }
 
-  public currentUser() {
+  public currentUser(): string {
     let user: string;
-
-    switch (this.user.id) {
+    switch (this.user._id) {
       case(''):
         user = '';
         break;
@@ -46,12 +45,11 @@ export class NavComponent implements OnInit {
     return user;
   }
 
-  public openModal() {
+  public openModal(): void {
     this.modalService.open(RegistrationComponent);
   }
 
-  public singOut() {
-    console.log('Called');
+  public singOut(): void {
     this.authService.logout();
   }
 }

@@ -33,7 +33,7 @@ export class DropdownTriggerDirective extends HandlePropChanges implements After
     super();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.initDropdownButtonElement();
     this.initDropdownElement();
     this.validateProperties();
@@ -41,15 +41,15 @@ export class DropdownTriggerDirective extends HandlePropChanges implements After
     this.handleProperties();
   }
 
-  initDropdownButtonElement() {
+  private initDropdownButtonElement(): void {
     this.dropdownButtonElement = $(`#${this.id}`);
   }
 
-  initDropdownElement() {
+  private initDropdownElement(): void {
     this.dropdownElement = $(`#${this.appDropdownTriggerFor}`);
   }
 
-  initHandlers() {
+  private initHandlers(): void {
     this.handlers = {
       align: () => this.handleDropdown(),
       belowOrigin: () => this.handleDropdown(),
@@ -64,16 +64,16 @@ export class DropdownTriggerDirective extends HandlePropChanges implements After
     };
   }
 
-  handleProperties() {
+  private handleProperties(): void {
     this.handleDataActivates();
     this.handleDropdown();
   }
 
-  handleDataActivates() {
+  private handleDataActivates(): void {
     this.renderer.setAttribute(this.dropdownButtonElement[0], 'data-activates', this.appDropdownTriggerFor);
   }
 
-  handleDropdown() {
+  private handleDropdown(): void {
     this.validateProperties();
 
     const options: Materialize.DropDownOptions = {
@@ -91,12 +91,12 @@ export class DropdownTriggerDirective extends HandlePropChanges implements After
     setTimeout(() => this.rendererService.invokeMethod(this.dropdownButtonElement, 'dropdown', [options]));
   }
 
-  validateProperties() {
+  private validateProperties(): void {
     if (!this.appDropdownTriggerFor) {
-      throw new Error('Attribute [appDropdownTriggerFor] from dropdown-trigger is required. ' + this.dropdownElement);
+      throw new Error('Attribute [appDropdownTriggerFor] from dropdown-trigger is required.' + this.dropdownButtonElement);
     }
     if (!this.id) {
-      throw new Error('Attribute [id] from dropdown-trigger is required. ' + this.dropdownButtonElement);
+      throw new Error('Attribute [id] from dropdown-trigger is required.' + this.dropdownButtonElement);
     }
   }
 }

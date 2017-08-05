@@ -8,7 +8,7 @@ export class ImagePreviewDirective implements OnChanges {
 
     constructor(private elementRef: ElementRef) { }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         const reader = new FileReader();
 
         reader.onloadend = () => {

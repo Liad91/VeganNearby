@@ -12,7 +12,7 @@ import { AppRoutesModule } from './app-routes.module';
 import { CoreModule } from './core/core.module';
 
 // Config
-import { googleApiKey } from '../config';
+import { googleMapApiKey } from '../config';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { googleApiKey } from '../config';
     AppRoutesModule,
     CoreModule,
     AgmCoreModule.forRoot({
-      apiKey: googleApiKey,
+      apiKey: googleMapApiKey,
       libraries: ['places']
     })
   ],

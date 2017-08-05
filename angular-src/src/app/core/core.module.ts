@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { RegistrationComponent } from './nav/registration/registration.component';
 import { SearchComponent } from './search/search.component';
+import { SocialCallbackComponent } from './nav/registration/social-callback/social-callback.component';
 
 // Services
 import { ConnectionService } from './../services/connection.service';
@@ -15,6 +16,10 @@ import { UsersService } from './../services/users.service';
 import { YelpService } from './../services/yelp.service';
 import { AuthService } from './../services/auth.service';
 import { RendererService } from './../services/renderer.service';
+import { SocialAuthService } from './../services/social-auth.service';
+
+// Guards
+import { CanActivateSocialCallback } from './nav/registration/social-callback/social-callback.guard';
 
 // Modules
 import { SharedModule } from './../shared/shared.module';
@@ -26,7 +31,8 @@ import { SharedModule } from './../shared/shared.module';
     RegistrationComponent,
     SearchComponent,
     FileDropDirective,
-    FileSelectDirective
+    FileSelectDirective,
+    SocialCallbackComponent
   ],
   entryComponents: [
     RegistrationComponent
@@ -42,7 +48,9 @@ import { SharedModule } from './../shared/shared.module';
     UsersService,
     YelpService,
     AuthService,
-    RendererService
+    RendererService,
+    SocialAuthService,
+    CanActivateSocialCallback
   ],
   exports: [
     NavComponent,

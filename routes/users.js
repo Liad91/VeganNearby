@@ -6,12 +6,8 @@ const Jimp = require("jimp");
 const router = express.Router();
 
 const User = require('../models/user');
-const config = require('../config/database');
-const upload = require('../config/multer').single('avatar');
-
-function buildToken(userId) {
-  return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '2h' })}`;
-}
+const jwtSecret = require('../config/credentials').jwtSecret;
+const upload = require('../middlewares/multer').single('avatar');
 
 // Signup
 router.post('/signup',(req, res, next) => {
@@ -19,6 +15,14 @@ router.post('/signup',(req, res, next) => {
     if (err) {
       err.type = 'upload';
       err.message = 'File upload failed. please try a different one';
+      return next(err);
+    }
+
+    if (!req.body.email || !req.body.password || !req.body.username) {
+      const err = new Error('All fields are required!');
+
+      err.status = 403;
+      err.type = 'required';
       return next(err);
     }
 
@@ -45,9 +49,28 @@ router.post('/signup',(req, res, next) => {
       })
       .catch(err => {
         /** Remove the image */
-        if (fs.existsSync(req.file.path)) {
-          fs.unlinkSync(req.file.path);
+        if (req.file) {
+          if (fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+          }
         }
+        if (err.name === 'ValidationError') {
+          const error = {
+            statue: 400,
+            type: 'validation',
+            message: {}
+          };
+
+          for (const field in err.errors) {
+            if (field == 'email' && err.errors.email.message === 'Unique') {
+              error.message.email = 'unique';
+              continue;
+            }
+            error.message[field] = 'validation';
+          }
+          return next(error);
+        }
+        
         next(err);
       });
   });
@@ -75,14 +98,10 @@ router.post('/signin', (req, res, next) => {
             else {
               const token = buildToken(user.id);
 
+              user.password = '';
               res.status(200).json({
                 token: token,
-                user: {
-                  id: user.id,
-                  email: user.email,
-                  username: user.username,
-                  avatarUrl: user.avatarUrl
-                }
+                user: user
               });
             }
           })
@@ -97,20 +116,15 @@ router.post('/authenticate', passport.authenticate('jwt', { session: false }), (
   const user = req.user;
   const newToken = buildToken(user._id);
 
+  user.password = '';
   res.status(200).json({
     token: newToken,
-    user: {
-      id: user._id,
-      email: user.email,
-      username: user.username,
-      avatarUrl: user.avatarUrl
-    }
+    user: user
   });
 });
 
-// Profile
-router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  res.status(200).end();
-});
+function buildToken(userId) {
+  return `JWT ${jwt.sign({ userId }, jwtSecret, { expiresIn: '2h' })}`;
+}
 
 module.exports = router;

@@ -40,16 +40,12 @@ export class SearchComponent implements OnInit {
 
   constructor(private mapsApiLoader: MapsAPILoader, private toastService: MzToastService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildLocationAutocomplete();
     this.setCategory();
   }
 
-  private setCategory() {
-    this.selectedCategory = this.categoryOptions.findIndex(category => category.alias === this.selected);
-  }
-
-  private buildLocationAutocomplete() {
+  private buildLocationAutocomplete(): void {
     this.mapsApiLoader.load()
       .then(() => {
         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -63,7 +59,11 @@ export class SearchComponent implements OnInit {
       .catch(error => this.geoError());
   }
 
-  private geocodeSuccess(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) {
+  private setCategory(): void {
+    this.selectedCategory = this.categoryOptions.findIndex(category => category.alias === this.selected);
+  }
+
+  private geocodeSuccess(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus): void {
     if (status.toString() === 'OK' && results.length > 0) {
       if (results.length > 1) {
         this.location = results[1].formatted_address;
@@ -77,7 +77,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  private geoSuccess(position: Position) {
+  private geoSuccess(position: Position): void {
     this.mapsApiLoader.load()
       .then(() => {
         const geocoder = new google.maps.Geocoder();
@@ -94,17 +94,13 @@ export class SearchComponent implements OnInit {
       .catch(error => this.geoError());
   }
 
-  private geoError() {
+  private geoError(): void {
     this.showToast('Unable to retrieve your location');
     this.locateSpinner = false;
     this.locateFailed = true;
   }
 
-  private showToast(message: string) {
-    this.toastService.show(message, 3500);
-  }
-
-  public getLocation() {
+  public getLocation(): void {
     if (!navigator.geolocation) {
       this.showToast('Geolocation is not supported by your browser');
       this.locateFailed = true;
@@ -123,14 +119,18 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  public onCategoryChange() {
+  public onCategoryChange(): void {
     this.category.next(this.categoryOptions[this.selectedCategory]);
   }
 
-  public onSubmit() {
+  public onSubmit(): void {
     this.search.next({
       location: this.location,
       category: this.categoryOptions[this.selectedCategory]
     });
+  }
+
+  private showToast(message: string): void {
+    this.toastService.show(message, 3500);
   }
 }

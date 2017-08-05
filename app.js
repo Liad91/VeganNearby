@@ -3,22 +3,28 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const passport = require('passport');
-const mongoose = require('mongoose');
+const session = require('express-session')
 
+const mongoose = require('mongoose');
+const createFiles = require('./create-files');
+const auth = require('./routes/auth');
 const users = require('./routes/users');
 const yelp = require('./routes/yelp');
-const config = require('./config/database');
+const db = require('./config/db');
+const initializePassport = require('./middlewares/passport');
 
 const app = express();
 const port = 3000;
 
+// Build file structure
+createFiles();
+
 // Connect to MongoDB
-mongoose.connect(config.database);
+mongoose.connect(db.url);
 
 // On connection established
 mongoose.connection.once('connected', () => {
-  console.log(`Connected to database ${config.database}`);
+  console.log(`Connected to database ${db.url}`);
 })
 
 // Handle connection error
@@ -36,13 +42,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Parse incoming requests
 app.use(bodyParser.json({limit: '1mb'}));
 
-// Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(session({
+  secret: 'long',
+  resave: true,
+  saveUninitialized: true
+}));
 
-require('./config/passport')(passport);
+// initialize Passport
+initializePassport();
 
 // Set routes
+app.use('/auth', auth);
 app.use('/users', users);
 app.use('/yelp', yelp);
 

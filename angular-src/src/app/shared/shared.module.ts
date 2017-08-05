@@ -11,7 +11,7 @@ import * as Directives from './directives';
   declarations: [
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
-    Directives.FocusDirective,
+    Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective
   ],
@@ -26,7 +26,7 @@ import * as Directives from './directives';
     FlexLayoutModule,
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
-    Directives.FocusDirective,
+    Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective
   ],

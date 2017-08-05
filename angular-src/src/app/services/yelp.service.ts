@@ -12,7 +12,7 @@ export class YelpService {
 
   constructor(private http: Http, private connectionService: ConnectionService) {}
 
-  search(location: string | number[], term: string): Observable<YelpResponse> {
+  public search(location: string | number[], term: string): Observable<YelpResponse> {
     const data: YelpRequest = {
       term
     };

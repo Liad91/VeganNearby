@@ -1,19 +1,19 @@
 import { OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 
-export abstract class Handlers {
-   [propertyName: string]: Function;
+interface Handlers {
+  [propertyName: string]: Function;
 }
 
 export class HandlePropChanges implements OnChanges {
   handlers: Handlers;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.handlers) {
       this.executePropHandlers(changes);
     }
   }
 
-  executePropHandlers(props: Handlers | SimpleChanges = this.handlers) {
+  executePropHandlers(props: Handlers | SimpleChanges = this.handlers): void {
     Object.keys(props).forEach(prop => {
       if (this.handlers[prop]) {
         const previousValue = (props[prop] as SimpleChange).previousValue;

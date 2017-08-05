@@ -3,16 +3,27 @@ import { Subject } from 'rxjs/Subject';
 
 import { User } from './../models/user.model';
 import { UsersService } from './users.service';
+import { AuthSuccessResponse } from './../models/auth-response';
 
 @Injectable()
 export class AuthService {
-  public user = { username: '', email: '', id: '' };
+  public user: User = { email: '', username: '', _id: '', avatarUrl: '' };
   public isAuthenticated = new Subject<boolean>();
 
   constructor(private usersService: UsersService) {}
 
-  private getToken(): string | null {
-    return localStorage.getItem('token');
+  public authenticate(): void {
+    if (!this.hasToken()) {
+      this.user._id = '1';
+      return;
+    }
+    const token = this.getToken();
+
+    this.usersService.authJWT(token)
+      .subscribe(
+        (response: AuthSuccessResponse) => this.login(response),
+        err => this.logout()
+      );
   }
 
   private hasToken(): boolean {
@@ -25,28 +36,22 @@ export class AuthService {
     return false;
   }
 
-  public authenticate() {
-    if (this.hasToken) {
-      const token = this.getToken();
-      this.usersService.Auth(token)
-        .subscribe(
-          data => this.login(data),
-          err => this.logout()
-        );
-    }
+  private getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
-  public login(data): void {
-    Object.assign(this.user, data.user);
-    localStorage.setItem('token', data.token);
+  public login(response: AuthSuccessResponse): void {
+    Object.assign(this.user, response.user);
+    localStorage.setItem('token', response.token);
     this.isAuthenticated.next(true);
   }
 
-  public logout() {
-    const guest: User = {username: '', email: '', id: '1'};
-
-    Object.assign(this.user, guest);
+  public logout(): void {
     localStorage.clear();
+    this.user.avatarUrl = '';
+    this.user.email = '';
+    this.user.username = '';
+    this.user._id = '1';
     this.isAuthenticated.next(false);
   }
 }

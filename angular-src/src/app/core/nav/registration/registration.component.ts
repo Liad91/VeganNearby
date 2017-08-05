@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -16,12 +17,15 @@ import {
   query,
   transition
 } from '@angular/animations';
-import { MzBaseModal } from 'ng2-materialize';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
+import { MzBaseModal } from 'ng2-materialize';
+import { Subscription } from 'rxjs/Subscription'
 
+import { slideIn, slideOut, zoomIn } from './../../../animations/slides';
 import { UsersService } from './../../../services/users.service';
 import { AuthService } from './../../../services/auth.service';
-import { slideIn, slideOut, popIn } from './../../../animations/slides';
+import { SocialAuthService } from './../../../services/social-auth.service';
+import { AuthSuccessResponse, AuthFailedResponse } from './../../../models/auth-response';
 
 @Component({
   selector: 'app-registration-modal',
@@ -40,23 +44,24 @@ import { slideIn, slideOut, popIn } from './../../../animations/slides';
       transition(':leave', slideOut('0, -20px', '200ms'))
     ]),
     trigger('preview', [
-      transition(':enter', popIn('0.8', '150ms'))
+      transition(':enter', zoomIn('0.8', '150ms'))
     ])
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class RegistrationComponent extends MzBaseModal implements OnInit {
+export class RegistrationComponent extends MzBaseModal implements OnInit, OnDestroy {
   @ViewChild('modal')
   public modal;
   public mode = 'signIn';
   public form: FormGroup;
+  public socialSubscription: Subscription;
   public formErrorMessage: string;
   public uploadErrorMessage: string;
   public uploader: FileUploader;
   public userImageFile: File;
   public loading = false;
   public hasDropZoneOver = false;
-  private allowedMimeType = ['image/png', 'image/jpg', 'image/jpeg', ''];
+  private allowedMimeType = ['image/png', 'image/jpg', 'image/jpeg'];
   private maxFileSize = 1024 * 1024; // 1MB
 
   public modalOptions: Materialize.ModalOptions = {
@@ -68,69 +73,46 @@ export class RegistrationComponent extends MzBaseModal implements OnInit {
     email: {
       required: 'Email is required.',
       email: 'Invalid email address.',
-      unique: 'The email address has already been taken'
+      unique: 'The email address has already been taken',
+      validation: 'Email is invalid'
     },
     username: {
       required: 'Username is required.',
       minlength: 'The entered username is too short.',
-      unique: 'The username has already been taken'
+      unique: 'The username has already been taken',
+      validation: 'Username is invalid'
     },
     password: {
       required: 'Password is required.',
-      minlength: 'The entered password is too short.'
+      minlength: 'The entered password is too short.',
+      validation: 'Password is invalid'
     }
   };
 
-  constructor(private usersService: UsersService, private authService: AuthService) {
+  constructor(private usersService: UsersService,
+              private authService: AuthService,
+              private socialAuthService: SocialAuthService) {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeForm();
-    this.initializeUploader();
+    this.createUploader();
+
+    this.socialSubscription = this.socialAuthService.response.subscribe(
+      data => this.onSocialLoginSuccess(data),
+      error => this.onSocialLoginFailed()
+    )
   }
 
-  public onSwitchMode() {
-    const username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
-
-    this.mode = this.mode === 'signIn' ? 'signUp' : 'signIn';
-    if (this.formErrorMessage) {
-      this.formErrorMessage = '';
-    }
-    if (this.uploadErrorMessage || this.uploader.queue.length > 0) {
-      this.resetUploader();
-    }
-    if (this.mode === 'signUp') {
-      this.form.addControl('username', username);
-    }
-    else {
-      this.form.removeControl('username');
-    }
-    this.form.reset();
+  private initializeForm(): void {
+    this.form = new FormGroup({
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
+    });
   }
 
-  public onSubmit() {
-    if (this.form.invalid) {
-      return;
-    }
-    if (this.formErrorMessage) {
-      this.formErrorMessage = '';
-    }
-    this.loading = true;
-    this.mode === 'signUp' ? this.signUp() : this.signIn();
-  }
-
-  public fileOver(e: any): void {
-    this.hasDropZoneOver = e;
-  }
-
-  public resetUploader() {
-    this.uploader.clearQueue();
-    this.uploadErrorMessage = '';
-    delete(this.userImageFile);
-  }
-
-  private initializeUploader() {
+  private createUploader(): void {
     this.uploader = new FileUploader({
       allowedMimeType: this.allowedMimeType,
       queueLimit: 1,
@@ -141,13 +123,6 @@ export class RegistrationComponent extends MzBaseModal implements OnInit {
     this.uploader.onAfterAddingFile = item => this.onAfterAddingFile(item);
   }
 
-  private onAfterAddingFile(item: FileItem) {
-    if (this.uploadErrorMessage) {
-      this.uploadErrorMessage = '';
-    }
-    this.userImageFile = item._file;
-  }
-
   private onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any): void {
     console.log(item)
     switch (filter.name) {
@@ -156,6 +131,7 @@ export class RegistrationComponent extends MzBaseModal implements OnInit {
         break;
       case 'mimeType':
         const allowedTypes = this.allowedMimeType.map(type => type.substr(6) ).join(', ');
+
         this.uploadErrorMessage = `Type is not allowed. Allowed types: "${allowedTypes}"`;
         break;
       case 'queueLimit':
@@ -166,55 +142,59 @@ export class RegistrationComponent extends MzBaseModal implements OnInit {
     }
   }
 
-  private initializeForm() {
-    this.form = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email]),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
-    });
+  private onAfterAddingFile(item: FileItem): void {
+    if (this.uploadErrorMessage) {
+      this.uploadErrorMessage = '';
+    }
+    this.userImageFile = item._file;
   }
 
-  private errorHandler(error) {
-    this.loading = false;
+  public onResetUploader(): void {
+    this.uploader.clearQueue();
+    this.uploadErrorMessage = '';
+    delete(this.userImageFile);
+  }
 
-    const validationRegex = /^User validation failed:/;
-    const uniqueRegex = /Unique validation failed:/;
+  public onFileOver(event: any): void {
+    this.hasDropZoneOver = event;
+  }
 
-    if (error.type === 'authentication') {
-      this.formErrorMessage = 'Email or password is incorrect';
+  public onSwitchMode(): void {
+    const username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
+
+    this.mode = this.mode === 'signIn' ? 'signUp' : 'signIn';
+    if (this.formErrorMessage) {
+      this.formErrorMessage = '';
     }
-    else if (validationRegex.test(error.message)) {
-      /** Handle validation errors */
-      if (uniqueRegex.test(error.message)) {
-        /** Handle unique errors */
-        const controls = error.message.split(':')[3].split(',');
-
-        controls.forEach(control => {
-          this.form.get(control.trim()).setErrors({unique: control});
-        });
-      }
-      else {
-        /** Handle validation errors */
-        const control = error.message.split(':')[1].trim();
-
-        this.form.get(control).setErrors({validation: true});
-      }
-    }
-    else if (error.type === 'upload') {
-      this.formErrorMessage = error.message;
+    if (this.mode === 'signUp') {
+      this.form.addControl('username', username);
     }
     else {
-      /** Handle server connection error */
-      this.formErrorMessage = 'Oops something went wrong! Please try again later';
+      this.form.removeControl('username');
+      if (this.uploadErrorMessage || this.uploader.queue.length > 0) {
+        this.onResetUploader();
+      }
     }
+    this.form.reset();
   }
 
-  private signUp() {
+  public onSubmit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+    if (this.formErrorMessage) {
+      this.formErrorMessage = '';
+    }
+    this.loading = true;
+    this.mode === 'signUp' ? this.signUp() : this.signIn();
+  }
+
+  private signUp(): void {
     const formData = new FormData();
     const form = this.form.value;
 
     for (const control in form) {
       if ((form as Object).hasOwnProperty(control)) {
-        console.log(control, form[control]);
         formData.append(control, form[control]);
       }
     }
@@ -228,16 +208,63 @@ export class RegistrationComponent extends MzBaseModal implements OnInit {
       );
   }
 
-  private signIn() {
+  private signIn(): void {
     this.usersService.signIn(this.form.value)
       .subscribe(
-        data => this.signInSucceeded(data),
+        response => this.onSignInSuccess(response),
         error => this.errorHandler(error)
       )
   }
 
-  private signInSucceeded(data) {
-    this.authService.login(data);
+  private onSignInSuccess(response: AuthSuccessResponse): void {
+    this.authService.login(response);
     this.modal.close();
+  }
+
+  public onSocialLogin(network: string): void {
+    this.loading = true;
+    this.socialAuthService.login(network);
+  }
+
+  private onSocialLoginFailed(): void {
+    this.loading = false;
+  }
+
+  private onSocialLoginSuccess(data): void {
+    this.loading = false;
+
+    if (!data.failed) {
+      this.onSignInSuccess(data);
+    }
+  }
+
+  private errorHandler(error): void {
+    this.loading = false;
+
+    switch (error.type) {
+      case 'authentication':
+        this.formErrorMessage = 'Email or password is incorrect';
+        break;
+      case 'validation':
+        for (const control in error.message) {
+          if ((error.message as Object).hasOwnProperty(control)) {
+            const err = {};
+
+            err[error.message[control]] = true;
+            this.form.get(control).setErrors(err);
+          }
+        }
+        break;
+      case 'upload':
+      case 'required':
+        this.formErrorMessage = error.message;
+        break;
+      default:
+        this.formErrorMessage = 'Oops something went wrong! Please try again later';
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.socialSubscription.unsubscribe();
   }
 }

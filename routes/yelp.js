@@ -1,29 +1,7 @@
 const express = require('express');
 const request = require('request');
-const config = require('../config/yelp');
+const getToken = require('./../middlewares/yelp').getToken;
 const router = express.Router();
-
-function getToken(req, res, next) {
-  const options = {
-    method: 'POST',
-    uri: 'https://api.yelp.com/oauth2/token',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    form: {
-      client_secret: config.client_secret,
-      client_id: config.client_id 
-    }
-  };
-  
-  request(options, (err, response, body) => {
-    if (err || response.statusCode !== 200) {
-      err.message = 'Yelp token request failed';      
-      return next(err);
-    }
-    body = JSON.parse(body);
-    res.yelpToken = `${body.token_type} ${body.access_token}`;
-    next();
-  });
-}
 
 router.post('/search', getToken, (req, res, next) => {
   const queryParams = req.body;

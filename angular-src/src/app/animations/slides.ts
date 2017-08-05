@@ -1,6 +1,6 @@
 import { animation, style, animate, trigger, transition, useAnimation } from '@angular/animations';
 
-const slideInAnimation = animation([
+const inAnimation = animation([
   style({
     opacity: 0,
     transform: '{{ position }}'
@@ -8,7 +8,7 @@ const slideInAnimation = animation([
   animate('{{ duration }}')
 ]);
 
-const slideOutAnimation = animation([
+const outAnimation = animation([
   animate('{{ duration }}', style({
     opacity: 0,
     transform: '{{ position }}'
@@ -16,19 +16,19 @@ const slideOutAnimation = animation([
 ]);
 
 export function slideIn(position: string, duration: string) {
-  return useAnimation(slideInAnimation, { params: { position: `translate(${position})`, duration: duration } } );
+  return useAnimation(inAnimation, { params: { position: `translate(${position})`, duration: duration } } );
 
 }
 
 export function slideOut(position: string, duration: string) {
-  return useAnimation(slideOutAnimation, { params: { position: `translate(${position})`, duration: duration } } );
+  return useAnimation(outAnimation, { params: { position: `translate(${position})`, duration: duration } } );
 }
 
-export function popIn(position: string, duration: string) {
-  return useAnimation(slideInAnimation, { params: { position: `scale(${position})`, duration: duration } } );
+export function zoomIn(position: string, duration: string) {
+  return useAnimation(inAnimation, { params: { position: `scale(${position})`, duration: duration } } );
 
 }
 
-export function popOut(position: string, duration: string) {
-  return useAnimation(slideOutAnimation, { params: { position: `scale(${position})`, duration: duration } } );
+export function zoomOut(position: string, duration: string) {
+  return useAnimation(outAnimation, { params: { position: `scale(${position})`, duration: duration } } );
 }

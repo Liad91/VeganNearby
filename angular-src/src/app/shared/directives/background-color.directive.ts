@@ -14,7 +14,7 @@ export class BackgroundColorDirective implements OnInit {
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.renderer.addClass(this.elementRef.nativeElement, `bg-color-${this.appBgColor}`);
   }
 }

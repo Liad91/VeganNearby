@@ -40,11 +40,11 @@ export class YelpResponse {
       distance: number,
       transactions: string[]
     }
-  ]
+  ];
   region: {
     center: {
       latitude: number,
       longitude: number
     }
-  }
+  };
 }

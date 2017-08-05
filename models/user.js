@@ -2,13 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const config = require('../config/database');
-
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   email: {
     type: String,
@@ -42,21 +39,31 @@ userSchema.method('comparePassword', function(password) {
   const user = this;
 
   return new Promise((resolve, reject) => {
-    console.log(password, user.password)
     bcrypt.compare(password, user.password)
-      .then(isMatch => {
-        resolve(isMatch);
-      })
+      .then(isMatch => resolve(isMatch))
       .catch(err => reject(err));
   });
 });
 
-userSchema.method('setAvatar', function(url) {
-  const user = this;
-  
-  return user.update({avatarUrl: url});
+userSchema.method('setAvatar', function(url) {  
+  return this.update({avatarUrl: url});
 });
 
-userSchema.plugin(uniqueValidator, { message: 'Unique validation failed: {PATH}' });
+userSchema.static('findOrCreate', function(user) {
+  const model = this;
+
+  return new Promise((resolve, reject) => {
+    model.findOne({email: user.email})
+    .then(doc => {
+      if (doc) {
+        return resolve(doc);
+      }
+      return resolve(model.create(user));
+    })
+    .catch(err => reject(err));
+  });
+});
+
+userSchema.plugin(uniqueValidator, { message: 'Unique' });
 
 module.exports = mongoose.model('User', userSchema);

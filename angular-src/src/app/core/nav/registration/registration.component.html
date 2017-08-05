@@ -38,7 +38,7 @@
             <div
               fxLayoutAlign="center center"
               ng2FileDrop
-              (fileOver)="fileOver($event)"
+              (fileOver)="onFileOver($event)"
               [uploader]="uploader"
               [ngClass]="{'file-over': hasDropZoneOver, 'color-error': uploadErrorMessage}"
               class="image-drop"
@@ -62,7 +62,7 @@
               type="button"
               mz-button
               [float]="true"
-              (click)="resetUploader()"
+              (click)="onResetUploader()"
               appBgColor="error"
               *ngIf="userImageFile"
             >
@@ -80,7 +80,7 @@
             type="text"
             label="Username"
             formControlName="username"
-            [appFocus]="mode === 'signUp'"
+            [appActive]="(mode === 'signUp' && form.pristine && form.untouched) || form.get('username').value"
             [errorMessageResource]="errorMessageResources.username"
           >
         </mz-input-container>
@@ -94,7 +94,7 @@
           type="email"
           label="Email"
           formControlName="email"
-          [appFocus]="mode === 'signIn'"
+          [appActive]="(mode === 'signIn' && form.pristine && form.untouched) || form.get('email').value"
           [errorMessageResource]="errorMessageResources.email"
         >
       </mz-input-container>
@@ -143,13 +143,13 @@
         <span id="social-text">Sign in via social media</span>
       </div>
       <div @social fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center">
-        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="facebook" class="p-0" appBgColor="facebook">
+        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="facebook" class="p-0" appBgColor="facebook" (click)="onSocialLogin('facebook')">
           <img src="assets/icons/facebook.png" alt="facebook" class="icon hide-on-small-only"><span>Facebook</span>
         </button>
-        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="google" class="p-0" appBgColor="google">
+        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="google" class="p-0" appBgColor="google" (click)="onSocialLogin('google')">
           <img src="assets/icons/google.png" alt="google" class="icon hide-on-small-only"><span>Google</span>
         </button>
-        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="twitter" class="p-0" appBgColor="twitter">
+        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="twitter" class="p-0" appBgColor="twitter" (click)="onSocialLogin('twitter')">
           <img src="assets/icons/twitter.png" alt="twitter" class="icon hide-on-small-only"><span>Twitter</span>
         </button>
       </div>
