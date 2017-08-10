@@ -2,28 +2,35 @@
 // Materialize Toast
 // ==========================================================================
 #toast-container {
-  @media #{$medium-only} {
-    left: calc(50% - 190px);
-    bottom: 10%;
-    max-width: 380px;
-    width: 380px;
+  @media #{$medium-and-up} {
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    text-align: right;
   }
-  @media #{$large-and-up} {
-    top: initial;
-    bottom: 10%;
-    right: calc(50% - 210px);
-    max-width: 420px;
-    width: 420px;
+
+  @media #{$medium-only} {
+    top: 10%;
+    bottom: initial;
+    max-width: 100%;
+    width: 100%;
   }
 }
 
 .toast {
   justify-content: center;
+  background: $warning-color;
 
-  @media #{$medium-only} {
-    float: none;
-  }
-  @media #{$large-and-up} {
-    float: none;
+  @media #{$medium-and-up} {
+    display: inline-block;
+    float: right;
+    right: 2%;
+    padding: 10px;
+    min-height: 0;
+    line-height: 1.5;
+    font-size: 1rem;
+    font-weight: 400;
   }
 }

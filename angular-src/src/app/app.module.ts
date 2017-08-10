@@ -6,6 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 
 // Components
 import { AppComponent } from './app.component';
+import { PlacesComponent } from './places/places.component';
 
 // Modules
 import { AppRoutesModule } from './app-routes.module';
@@ -16,7 +17,8 @@ import { googleMapApiKey } from '../config';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlacesComponent
   ],
   imports: [
     BrowserModule,

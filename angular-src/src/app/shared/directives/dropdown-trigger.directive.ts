@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 import { HandlePropChanges } from './../handle-prop-changes';
-import { RendererService } from './../../services/renderer.service';
+import { RendererService } from './../../core/services/renderer.service';
 
 @Directive({
   selector: '[appDropdownTriggerFor]'

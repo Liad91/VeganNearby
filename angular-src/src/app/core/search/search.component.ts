@@ -6,11 +6,15 @@ import {
   Output,
   ViewChild,
   ElementRef,
-  EventEmitter
+  EventEmitter,
+  Renderer2
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { MzToastService } from 'ng2-materialize';
+
+import { PlacesService } from './../../places/places.service';
 
 @Component({
   selector: 'app-search',
@@ -22,15 +26,11 @@ export class SearchComponent implements OnInit {
   public location: string;
   public locateSpinner = false;
   public locateFailed = false;
-  public selectedCategory;
-  @Input()
-  public selected;
-  @Output()
-  public search = new EventEmitter();
-  @Output()
-  public category = new EventEmitter();
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  private searching = false;
+  public selectedCategoryIndex;
+  @Input() public selected;
+  @Output() public category = new EventEmitter();
+  @ViewChild('search') public searchElementRef: ElementRef;
 
   public categoryOptions = [
     { title: 'Restaurants', alias: 'restaurants' },
@@ -38,7 +38,11 @@ export class SearchComponent implements OnInit {
     { title: 'Bars', alias: 'bars' }
   ];
 
-  constructor(private mapsApiLoader: MapsAPILoader, private toastService: MzToastService) {}
+  constructor(private renderer: Renderer2,
+              private router: Router,
+              private placesService: PlacesService,
+              private mapsApiLoader: MapsAPILoader,
+              private toastService: MzToastService) {}
 
   ngOnInit(): void {
     this.buildLocationAutocomplete();
@@ -60,7 +64,7 @@ export class SearchComponent implements OnInit {
   }
 
   private setCategory(): void {
-    this.selectedCategory = this.categoryOptions.findIndex(category => category.alias === this.selected);
+    this.selectedCategoryIndex = this.categoryOptions.findIndex(category => category.alias === this.selected);
   }
 
   private geocodeSuccess(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus): void {
@@ -120,17 +124,35 @@ export class SearchComponent implements OnInit {
   }
 
   public onCategoryChange(): void {
-    this.category.next(this.categoryOptions[this.selectedCategory]);
+    this.category.next(this.categoryOptions[this.selectedCategoryIndex]);
   }
 
   public onSubmit(): void {
-    this.search.next({
-      location: this.location,
-      category: this.categoryOptions[this.selectedCategory]
-    });
+    if (this.searching) {
+      return;
+    }
+    if (!this.location) {
+      this.renderer.selectRootElement(this.searchElementRef.nativeElement).focus();
+      return;
+    }
+    this.searching = true;
+    this.placesService.search(this.location, this.categoryOptions[this.selectedCategoryIndex].alias)
+      .subscribe(
+        response => this.searchSuccess(response),
+        err => this.showToast('Connection error, please try again')
+      );
+  }
+
+  private searchSuccess(response) {
+    this.searching = false;
+    if (response.error) {
+      this.showToast(response.error.description);
+      return;
+    }
+    this.router.navigate(['/places']);
   }
 
   private showToast(message: string): void {
-    this.toastService.show(message, 3500);
+    this.toastService.show(message, 2500);
   }
 }

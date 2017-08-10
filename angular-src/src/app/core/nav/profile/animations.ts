@@ -1,4 +1,11 @@
-import { animation, style, animate, trigger, transition, useAnimation } from '@angular/animations';
+import {
+  animation,
+  style,
+  animate,
+  trigger,
+  transition,
+  useAnimation
+} from '@angular/animations';
 
 const inAnimation = animation([
   style({
@@ -17,7 +24,6 @@ const outAnimation = animation([
 
 export function slideIn(position: string, duration: string) {
   return useAnimation(inAnimation, { params: { position: `translate(${position})`, duration: duration } } );
-
 }
 
 export function slideOut(position: string, duration: string) {
@@ -26,7 +32,6 @@ export function slideOut(position: string, duration: string) {
 
 export function zoomIn(position: string, duration: string) {
   return useAnimation(inAnimation, { params: { position: `scale(${position})`, duration: duration } } );
-
 }
 
 export function zoomOut(position: string, duration: string) {

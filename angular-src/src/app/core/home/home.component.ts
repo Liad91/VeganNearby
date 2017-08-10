@@ -1,13 +1,17 @@
+import { animation } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import * as Typed from 'typed.js';
+
+import { bgStateTrigger } from './animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [ bgStateTrigger ]
 })
 export class HomeComponent implements OnInit {
-  public category = { title: 'Bars', alias: 'bars' };
+  public category = { title: 'Restaurants', alias: 'restaurants' };
   private typed: Typed;
 
   ngOnInit(): void {

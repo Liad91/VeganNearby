@@ -4,11 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import * as yelp from 'yelp-fusion';
 import 'rxjs/Rx';
 
-import { ConnectionService } from './connection.service';
+import { ConnectionService } from './../core/services/connection.service';
 import { YelpRequest, YelpResponse } from './../models/yelp.model';
 
 @Injectable()
-export class YelpService {
+export class PlacesService {
+  public data: YelpResponse;
 
   constructor(private http: Http, private connectionService: ConnectionService) {}
 
@@ -22,6 +23,7 @@ export class YelpService {
       return this.http.post(`${this.connectionService.serverUrl}/yelp/search`, data)
         .timeout(this.connectionService.reqTimeout)
         .map(this.connectionService.extractData)
+        .do((response: YelpResponse) => this.data = response)
         .catch(this.connectionService.catchError)
     }
   }

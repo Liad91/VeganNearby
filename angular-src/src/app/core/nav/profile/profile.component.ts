@@ -21,35 +21,35 @@ import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { MzBaseModal } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription'
 
-import { slideIn, slideOut, zoomIn } from './../../../animations/slides';
-import { UsersService } from './../../../services/users.service';
-import { AuthService } from './../../../services/auth.service';
-import { SocialAuthService } from './../../../services/social-auth.service';
+import { ProfileService } from './profile.service';
+import { SocialProfileService } from './social-profile/social-profile.service';
+import { AuthService } from './../../services/auth.service';
+import { slideIn, slideOut, zoomIn } from './animations';
 import { AuthSuccessResponse, AuthFailedResponse } from './../../../models/auth-response';
 
 @Component({
-  selector: 'app-registration-modal',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
   animations: [
-    trigger('social', [
+    trigger('socialBtnState', [
       transition(':enter', group([
         query('#facebook', slideIn('-20px', '180ms')),
         query('#google', slideIn('0, 20px', '180ms')),
         query('#twitter', slideIn('20px', '180ms'))
       ]))
     ]),
-    trigger('error', [
+    trigger('errorState', [
       transition(':enter', slideIn('0, -20px', '200ms')),
       transition(':leave', slideOut('0, -20px', '200ms'))
     ]),
-    trigger('preview', [
+    trigger('imgPreviewState', [
       transition(':enter', zoomIn('0.8', '150ms'))
     ])
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class RegistrationComponent extends MzBaseModal implements OnInit, OnDestroy {
+export class ProfileComponent extends MzBaseModal implements OnInit, OnDestroy {
   @ViewChild('modal')
   public modal;
   public mode = 'signIn';
@@ -89,9 +89,9 @@ export class RegistrationComponent extends MzBaseModal implements OnInit, OnDest
     }
   };
 
-  constructor(private usersService: UsersService,
+  constructor(private profileService: ProfileService,
               private authService: AuthService,
-              private socialAuthService: SocialAuthService) {
+              private socialProfileService: SocialProfileService) {
     super();
   }
 
@@ -99,7 +99,7 @@ export class RegistrationComponent extends MzBaseModal implements OnInit, OnDest
     this.initializeForm();
     this.createUploader();
 
-    this.socialSubscription = this.socialAuthService.response.subscribe(
+    this.socialSubscription = this.socialProfileService.response.subscribe(
       data => this.onSocialLoginSuccess(data),
       error => this.onSocialLoginFailed()
     )
@@ -201,7 +201,7 @@ export class RegistrationComponent extends MzBaseModal implements OnInit, OnDest
     if (this.userImageFile) {
       formData.append('avatar', this.userImageFile);
     }
-    this.usersService.signUp(formData)
+    this.profileService.signUp(formData)
       .subscribe(
         data => this.signIn(),
         error => this.errorHandler(error)
@@ -209,7 +209,7 @@ export class RegistrationComponent extends MzBaseModal implements OnInit, OnDest
   }
 
   private signIn(): void {
-    this.usersService.signIn(this.form.value)
+    this.profileService.signIn(this.form.value)
       .subscribe(
         response => this.onSignInSuccess(response),
         error => this.errorHandler(error)
@@ -223,7 +223,7 @@ export class RegistrationComponent extends MzBaseModal implements OnInit, OnDest
 
   public onSocialLogin(network: string): void {
     this.loading = true;
-    this.socialAuthService.login(network);
+    this.socialProfileService.login(network);
   }
 
   private onSocialLoginFailed(): void {

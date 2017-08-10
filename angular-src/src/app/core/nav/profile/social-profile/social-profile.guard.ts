@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 
 @Injectable()
-export class CanActivateSocialCallback implements CanActivate {
+export class CanActivateSocialProfile implements CanActivate {
 
   constructor(private router: Router) {}
 

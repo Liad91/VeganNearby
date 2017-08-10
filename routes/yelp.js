@@ -17,12 +17,17 @@ router.post('/search', getToken, (req, res, next) => {
     method: 'GET',
     uri: 'https://api.yelp.com/v3/businesses/search',
     headers: { authorization: res.yelpToken },
-    qs: queryParams
+    qs: queryParams,
   };
 
   request(options, (err, response, body) => {
-    if (err || response.statusCode !== 200) {
+    if (err) {
       err.message = 'Yelp search request failed';      
+      return next(err);
+    }
+    if (response.statusCode >= 500) {
+      const err = new Error('Yelp search request failed');
+
       return next(err);
     }
     body = JSON.parse(body);

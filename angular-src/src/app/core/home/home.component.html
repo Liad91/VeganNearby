@@ -4,10 +4,15 @@
     fxLayout="row"
     fxFlexAlign="center"
     fxLayoutWrap
-    class="wrapper {{ category.alias }}"
+    class="wrapper"
     ngClass.sm="small"
     ngClass.xs="x-small"
   >
+    <div class="background-image">
+      <div class="cafes" @bgState *ngIf="category.alias === 'cafes'"></div>
+      <div class="restaurants" @bgState *ngIf="category.alias === 'restaurants'"></div>
+      <div class="bars" @bgState *ngIf="category.alias === 'bars'"></div>
+    </div>
     <app-nav fxFlex="85%" fxFlex.xs="95%" fxFlexAlign="start" [search]="false" [transparent]="true"></app-nav>
     <section fxFlex="100%" fxLayout="row" fxLayoutWrap class="content">
       <h1 fxFlex="100%" fxShow fxShow.lt-md="false" class="center-align mt-0">Searching for {{ category.alias }}?</h1>

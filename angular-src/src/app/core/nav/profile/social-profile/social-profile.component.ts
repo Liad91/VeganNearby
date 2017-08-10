@@ -7,7 +7,7 @@ import { QueryParams } from './../../../../models/query-params';
   selector: 'app-callback',
   template: 'Authorizing...'
 })
-export class SocialCallbackComponent implements OnInit {
+export class SocialProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 

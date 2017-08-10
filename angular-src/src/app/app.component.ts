@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
-import { AuthService } from './services/auth.service';
+import { AuthService } from './core/services/auth.service';
+import { routeStateTrigger } from './animations';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  animations: [ routeStateTrigger ]
 })
 export class AppComponent implements OnInit {
 
@@ -13,5 +16,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.authenticate();
+  }
+
+  getAnimation(routerOutlet: RouterOutlet) {
+    const routeData = routerOutlet.activatedRouteData['animation'];
+
+    if (!routeData) {
+      return 'root';
+    }
+    return routeData.page;
   }
 }

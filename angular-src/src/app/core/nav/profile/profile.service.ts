@@ -3,11 +3,11 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx'
 
-import { ConnectionService } from './connection.service';
-import { User } from './../models/user.model';
+import { ConnectionService } from './../../services/connection.service';
+import { User } from './../../../models/user.model';
 
 @Injectable()
-export class UsersService {
+export class ProfileService {
 
   constructor(private http: Http, private connectionService: ConnectionService) {}
 

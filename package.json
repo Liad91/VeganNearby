@@ -1,6 +1,6 @@
 {
   "name": "vegannearby",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Find the top vegan restaurants, cafes and bars near you",
   "main": "app.js",
   "scripts": {
@@ -27,8 +27,5 @@
     "passport-jwt": "^2.2.1",
     "passport-twitter": "^1.0.4",
     "request": "^2.81.0"
-  },
-  "devDependencies": {
-    "@angular/cli": "^1.2.2"
   }
 }

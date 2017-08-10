@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { MzToastService } from 'ng2-materialize';
 import { Subject } from 'rxjs/Subject';
 
-import { AuthSuccessResponse, AuthFailedResponse } from './../models/auth-response';
-import { QueryParams } from './../models/query-params';
-import { ConnectionService } from './connection.service';
+import { AuthSuccessResponse, AuthFailedResponse } from './../../../../models/auth-response';
+import { QueryParams } from './../../../../models/query-params';
+import { ConnectionService } from './../../../services/connection.service';
 
 @Injectable()
-export class SocialAuthService {
+export class SocialProfileService {
   public response = new Subject<AuthSuccessResponse | AuthFailedResponse>();
   private isEventListener: boolean;
   private callbackHandler: (event: CustomEvent) => void;

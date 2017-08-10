@@ -6,20 +6,19 @@ import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 // Components
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
-import { RegistrationComponent } from './nav/registration/registration.component';
+
 import { SearchComponent } from './search/search.component';
-import { SocialCallbackComponent } from './nav/registration/social-callback/social-callback.component';
+import { ProfileComponent } from './nav/profile/profile.component';
+import { SocialProfileComponent } from './nav/profile/social-profile/social-profile.component';
 
 // Services
-import { ConnectionService } from './../services/connection.service';
-import { UsersService } from './../services/users.service';
-import { YelpService } from './../services/yelp.service';
-import { AuthService } from './../services/auth.service';
-import { RendererService } from './../services/renderer.service';
-import { SocialAuthService } from './../services/social-auth.service';
+import * as Services from './services';
+import { ProfileService } from './nav/profile/profile.service';
+import { SocialProfileService } from './nav/profile/social-profile/social-profile.service';
+import { PlacesService } from './../places/places.service';
 
 // Guards
-import { CanActivateSocialCallback } from './nav/registration/social-callback/social-callback.guard';
+import { CanActivateSocialProfile } from './nav/profile/social-profile/social-profile.guard';
 
 // Modules
 import { SharedModule } from './../shared/shared.module';
@@ -28,14 +27,14 @@ import { SharedModule } from './../shared/shared.module';
   declarations: [
     HomeComponent,
     NavComponent,
-    RegistrationComponent,
+    ProfileComponent,
+    SocialProfileComponent,
     SearchComponent,
     FileDropDirective,
-    FileSelectDirective,
-    SocialCallbackComponent
+    FileSelectDirective
   ],
   entryComponents: [
-    RegistrationComponent
+    ProfileComponent
   ],
   imports: [
     FormsModule,
@@ -44,13 +43,13 @@ import { SharedModule } from './../shared/shared.module';
     AgmCoreModule
   ],
   providers: [
-    ConnectionService,
-    UsersService,
-    YelpService,
-    AuthService,
-    RendererService,
-    SocialAuthService,
-    CanActivateSocialCallback
+    Services.AuthService,
+    Services.ConnectionService,
+    Services.RendererService,
+    ProfileService,
+    SocialProfileService,
+    PlacesService,
+    CanActivateSocialProfile
   ],
   exports: [
     NavComponent,

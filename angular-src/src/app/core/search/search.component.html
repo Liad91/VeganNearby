@@ -28,13 +28,14 @@
     </div>
     <div class="categories" fxFlex="30%" fxFlex.xs="80%">
       <mz-select-container>
-        <select mz-select name="category" [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+        <select mz-select name="category" [(ngModel)]="selectedCategoryIndex" (change)="onCategoryChange()">
           <option [value]="i" *ngFor="let categoryOption of categoryOptions; let i = index">{{ categoryOption.title }}</option>
         </select>
       </mz-select-container>
     </div>
     <button fxFlex.xs="20%" type="submit" appBgColor="dark" mz-button>
-      <i mz-icon icon="search"></i>
+      <i mz-icon icon="search" *ngIf="!searching"></i>
+      <mz-spinner id="search-spinner" size="small" *ngIf="searching"></mz-spinner>
     </button>
   </form>
 </div>

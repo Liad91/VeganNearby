@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
-import { User } from './../models/user.model';
-import { UsersService } from './users.service';
-import { AuthSuccessResponse } from './../models/auth-response';
+import { User } from './../../models/user.model';
+import { ProfileService } from './../../core/nav/profile/profile.service';
+import { AuthSuccessResponse } from './../../models/auth-response';
 
 @Injectable()
 export class AuthService {
   public user: User = { email: '', username: '', _id: '', avatarUrl: '' };
   public isAuthenticated = new Subject<boolean>();
 
-  constructor(private usersService: UsersService) {}
+  constructor(private profileService: ProfileService) {}
 
   public authenticate(): void {
     if (!this.hasToken()) {
@@ -19,7 +19,7 @@ export class AuthService {
     }
     const token = this.getToken();
 
-    this.usersService.authJWT(token)
+    this.profileService.authJWT(token)
       .subscribe(
         (response: AuthSuccessResponse) => this.login(response),
         err => this.logout()

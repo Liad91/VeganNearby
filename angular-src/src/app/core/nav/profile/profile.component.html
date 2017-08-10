@@ -21,7 +21,7 @@
     </button>    
   </mz-modal-header>
   <mz-modal-content fxLayoutWrap fxLayout="row">
-    <p @error fxFlex="100%" class="center-align mt-0" appColor="error" *ngIf="formErrorMessage">
+    <p @errorState fxFlex="100%" class="center-align mt-0" appColor="error" *ngIf="formErrorMessage">
       {{ formErrorMessage }}
     </p>    
     <form
@@ -57,7 +57,7 @@
                 [hidden]="true"
               />
             </div>
-            <img @preview [appImgPreview]="userImageFile" *ngIf="userImageFile">
+            <img @imgPreviewState [appImgPreview]="userImageFile" *ngIf="userImageFile">
             <button 
               type="button"
               mz-button
@@ -69,7 +69,7 @@
               <i mz-icon icon="remove"></i>
             </button>
           </div>
-          <p @error class="center-align mb-0" appColor="error" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
+          <p @errorState class="center-align mb-0" appColor="error" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
         </div>
         <mz-input-container fxFlex="100%">
           <input
@@ -142,7 +142,7 @@
       <div fxFlex="100%" class="center-align mt-1">
         <span id="social-text">Sign in via social media</span>
       </div>
-      <div @social fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <div @socialBtnState fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center">
         <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="facebook" class="p-0" appBgColor="facebook" (click)="onSocialLogin('facebook')">
           <img src="assets/icons/facebook.png" alt="facebook" class="icon hide-on-small-only"><span>Facebook</span>
         </button>

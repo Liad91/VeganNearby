@@ -82,6 +82,10 @@ app-search {
       i {
         font-size: 25px;
       }
+
+      #search-spinner .spinner-layer {
+        border-color: #fff;
+      }
     }
   }
 }
