@@ -1,39 +1,15 @@
-import {
-  animation,
-  style,
-  animate,
-  trigger,
-  transition,
-  useAnimation
-} from '@angular/animations';
+import { trigger, transition } from '@angular/animations';
 
-const inAnimation = animation([
-  style({
-    opacity: 0,
-    transform: '{{ position }}'
-  }),
-  animate('{{ duration }}')
+import { slideIn, slideOut, zoomIn } from '../../../shared/animations';
+
+export const socialBtnStateTrigger = trigger('socialBtnState', [
+  transition(':enter',  slideIn('0, 20px', '200ms ease-out'))
 ]);
 
-const outAnimation = animation([
-  animate('{{ duration }}', style({
-    opacity: 0,
-    transform: '{{ position }}'
-  }))
+export const errorStateTrigger = trigger('errorState', [
+  transition(':enter', slideIn('0, -20px', '200ms ease-out'))
 ]);
 
-export function slideIn(position: string, duration: string) {
-  return useAnimation(inAnimation, { params: { position: `translate(${position})`, duration: duration } } );
-}
-
-export function slideOut(position: string, duration: string) {
-  return useAnimation(outAnimation, { params: { position: `translate(${position})`, duration: duration } } );
-}
-
-export function zoomIn(position: string, duration: string) {
-  return useAnimation(inAnimation, { params: { position: `scale(${position})`, duration: duration } } );
-}
-
-export function zoomOut(position: string, duration: string) {
-  return useAnimation(outAnimation, { params: { position: `scale(${position})`, duration: duration } } );
-}
+export const imgPreviewStateTrigger = trigger('imgPreviewState', [
+  transition(':enter', zoomIn('0.6', '200ms ease-out'))
+]);

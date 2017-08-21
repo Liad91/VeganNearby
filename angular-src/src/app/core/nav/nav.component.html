@@ -1,5 +1,5 @@
-<mz-navbar [ngClass]="{transparent: transparent}">
-  <mz-navbar-item-container fxFlex="100%" fxLayout="row" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
+<nav [ngClass]="{transparent: slim}">
+  <div fxFlex="100%" fxLayout="row" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
     <div class="logo">VegaNearby</div>
     <div fxFlex fxLayoutAlign="end center" class="nav-more">
       <button mz-button class="h-100" appBgColor="primary" (click)="openModal()" *ngIf="currentUser() === 'guest'">Sign In</button>
@@ -27,5 +27,5 @@
       <li><a><i mz-icon icon="favorite"></i>Favorites</a></li>
       <li><a (click)="singOut()"><i mz-icon icon="power_settings_new"></i>Sign Out</a></li>
     </ul>
-  </mz-navbar-item-container>
-</mz-navbar>
+  </div>
+</nav>

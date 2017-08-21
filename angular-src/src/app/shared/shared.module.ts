@@ -5,7 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterializeModule } from 'ng2-materialize';
 
 import * as Directives from './directives';
-
+import * as Pipes from './pipes';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,8 @@ import * as Directives from './directives';
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
-    Directives.ImagePreviewDirective
+    Directives.ImagePreviewDirective,
+    Pipes.CapitalizeFirstPipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +29,8 @@ import * as Directives from './directives';
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
-    Directives.ImagePreviewDirective
+    Directives.ImagePreviewDirective,
+    Pipes.CapitalizeFirstPipe
   ],
 })
 export class SharedModule { }

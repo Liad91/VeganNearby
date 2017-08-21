@@ -1,3 +1,4 @@
+import { CanActivatePlaces } from './places/places.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,9 +8,23 @@ import { CanActivateSocialProfile } from './core/nav/profile/social-profile/soci
 import { SocialProfileComponent } from './core/nav/profile/social-profile/social-profile.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full', data: { animation: { page: 'home' } } },
-  { path: 'places', component: PlacesComponent, data: { animation: { page: 'places' } } },
-  { path: 'callback', component: SocialProfileComponent, canActivate: [CanActivateSocialProfile] }
+  {
+    path: '',
+    component: HomeComponent,
+    pathMatch: 'full',
+    data: { animation: { page: 'home' } }
+  },
+  {
+    path: 'places',
+    component: PlacesComponent,
+    canActivate: [CanActivatePlaces],
+    data: { animation: { page: 'places' } }
+  },
+  {
+    path: 'callback',
+    component: SocialProfileComponent,
+    canActivate: [CanActivateSocialProfile]
+  }
 ]
 
 @NgModule({

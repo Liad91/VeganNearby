@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { PlacesComponent } from './places/places.component';
 
 // Modules
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutesModule } from './app-routes.module';
 import { CoreModule } from './core/core.module';
 
@@ -25,6 +26,7 @@ import { googleMapApiKey } from '../config';
     HttpModule,
     BrowserAnimationsModule,
     AppRoutesModule,
+    FlexLayoutModule,
     CoreModule,
     AgmCoreModule.forRoot({
       apiKey: googleMapApiKey,

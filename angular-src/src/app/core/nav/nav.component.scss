@@ -1,66 +1,52 @@
-mz-navbar {
-  mz-navbar-item-container {
-    padding: 0 20px;
-    &.xsmall {
-      padding: 0 10px;
-    }
+nav.transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
 
-    .nav-more {
-      button {
-        border-radius: 0;
-      }
-    }
-
-    #btn-more {
-      color: #fff;
-      padding: 0 5px;
-      width: 170px;
-      border-radius: 0;
-      &.active,
-      &:hover {
-        background: rgba(0, 0, 0, 0.3);
-      }
-
-      @media only screen and (max-width: 600px) {
-        width: 40px;
-        padding: 0;
-        border-radius: 50%;
-      }
-
-      img {
-        width: 40px;
-        height: 40px;
-        max-width: 40px;
-        margin-left: 10px;
-      }
-      .user-info {
-        max-width: 110px;
-        
-        div {
-          line-height: 1;
-          text-transform: none;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          &.username {
-            font-size: 13px;          
-            margin-bottom: 5px;
-          }
-          &.email {
-            font-size: 11px;
-          }
-        }
-      }
-    }
-
-    ul.hide-on-med-and-down {
-      display:flex !important;
-    }
+.nav-more {
+  button {
+    border-radius: 0;
   }
-  &.transparent {
-    nav {
-      background-color: transparent;
-      box-shadow: none;
+}
+
+#btn-more {
+  color: #fff;
+  padding: 0 5px;
+  width: 170px;
+  border-radius: 0;
+  &.active,
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 40px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    margin-left: 10px;
+  }
+  .user-info {
+    max-width: 110px;
+    
+    div {
+      line-height: 1;
+      text-transform: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      &.username {
+        font-size: 13px;          
+        margin-bottom: 5px;
+      }
+      &.email {
+        font-size: 11px;
+      }
     }
   }
 }
@@ -77,6 +63,7 @@ ul#more {
   @media only screen and (max-width: 600px) {
     background-color: #212121; 
     top: 0 !important;
+    left: auto !important;
     margin-top: 0;
     width: auto;
   }

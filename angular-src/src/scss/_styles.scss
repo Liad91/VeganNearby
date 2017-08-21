@@ -2,6 +2,25 @@
 // Styles
 // ==========================================================================
 
+// Global
+// ==========================================================================
+
+.content {
+  margin: 0 auto;
+  padding: 0 25px;
+  max-width: 1200px;
+  @media #{$medium-and-down} {
+    padding: 0 15px;
+  }
+  @media #{$small-and-down} {
+    padding: 0 5px;
+  }
+}
+
+.btn, .btn-large, .btn-flat {
+  text-transform: initial;
+}
+
 // SearchComponent
 // ==========================================================================
 app-search {
@@ -18,6 +37,23 @@ app-search {
   }
 }
 
-.btn, .btn-large, .btn-flat {
-  text-transform: initial;
+// Google autocomplete
+// ==========================================================================
+.pac-container {
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+.pac-item {
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  .pac-icon {
+    display: none;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }

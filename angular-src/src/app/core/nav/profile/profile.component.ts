@@ -2,8 +2,7 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ViewChild,
-  ViewEncapsulation
+  ViewChild
 } from '@angular/core';
 import {
   FormGroup,
@@ -24,7 +23,7 @@ import { Subscription } from 'rxjs/Subscription'
 import { ProfileService } from './profile.service';
 import { SocialProfileService } from './social-profile/social-profile.service';
 import { AuthService } from './../../services/auth.service';
-import { slideIn, slideOut, zoomIn } from './animations';
+import { socialBtnStateTrigger, errorStateTrigger, imgPreviewStateTrigger } from './animations';
 import { AuthSuccessResponse, AuthFailedResponse } from './../../../models/auth-response';
 
 @Component({
@@ -32,22 +31,10 @@ import { AuthSuccessResponse, AuthFailedResponse } from './../../../models/auth-
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   animations: [
-    trigger('socialBtnState', [
-      transition(':enter', group([
-        query('#facebook', slideIn('-20px', '180ms')),
-        query('#google', slideIn('0, 20px', '180ms')),
-        query('#twitter', slideIn('20px', '180ms'))
-      ]))
-    ]),
-    trigger('errorState', [
-      transition(':enter', slideIn('0, -20px', '200ms')),
-      transition(':leave', slideOut('0, -20px', '200ms'))
-    ]),
-    trigger('imgPreviewState', [
-      transition(':enter', zoomIn('0.8', '150ms'))
-    ])
-  ],
-  encapsulation: ViewEncapsulation.None
+    socialBtnStateTrigger,
+    errorStateTrigger,
+    imgPreviewStateTrigger
+  ]
 })
 export class ProfileComponent extends MzBaseModal implements OnInit, OnDestroy {
   @ViewChild('modal')
@@ -62,6 +49,7 @@ export class ProfileComponent extends MzBaseModal implements OnInit, OnDestroy {
   public loading = false;
   public hasDropZoneOver = false;
   private allowedMimeType = ['image/png', 'image/jpg', 'image/jpeg'];
+  public socialNetworks = ['twitter', 'google', 'facebook'];
   private maxFileSize = 1024 * 1024; // 1MB
 
   public modalOptions: Materialize.ModalOptions = {

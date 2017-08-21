@@ -11,7 +11,7 @@ import { bgStateTrigger } from './animations';
   animations: [ bgStateTrigger ]
 })
 export class HomeComponent implements OnInit {
-  public category = { title: 'Restaurants', alias: 'restaurants' };
+  public category = 'restaurants';
   private typed: Typed;
 
   ngOnInit(): void {
@@ -21,26 +21,26 @@ export class HomeComponent implements OnInit {
   private initializeTyped(): void {
     let strings;
 
-    switch (this.category.alias) {
+    switch (this.category) {
       case 'restaurants':
         strings = [
-          `Find the best ${this.category.alias}^1000`,
-          `Find the most rated ${this.category.alias}^1000`,
-          `Find your favorite ${this.category.alias}^1000`
+          `Find the best ${this.category}^1000`,
+          `Find the most rated ${this.category}^1000`,
+          `Find your favorite ${this.category}^1000`
         ];
         break;
       case 'cafes':
         strings = [
-          `Find ${this.category.alias} with the most richest breakfast^1000`,
-          `Find ${this.category.alias} with wifi^1000`,
-          `Find your perfect ${this.category.alias}^1000`
+          `Find ${this.category} with the most richest breakfast^1000`,
+          `Find ${this.category} with wifi^1000`,
+          `Find your perfect ${this.category}^1000`
         ];
         break;
       case 'bars':
         strings = [
-          `Find the most popular ${this.category.alias}^1000`,
-          `Find ${this.category.alias} with the best liquors^1000`,
-          `Find the most crowded ${this.category.alias}^1000`
+          `Find the most popular ${this.category}^1000`,
+          `Find ${this.category} with the best liquors^1000`,
+          `Find the most crowded ${this.category}^1000`
         ];
     }
     this.typed = new Typed('#typing', {
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
   }
 
   public onCategoryChanged(category): void {
-    if (this.category.alias !== category.alias) {
+    if (this.category !== category) {
       this.category = category;
       this.resetTyped();
     }

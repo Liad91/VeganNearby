@@ -1,38 +1,19 @@
-<div fxLayout="row" fxLayoutWrap>
-  <div
-    fxFlex="100%"
-    fxLayout="row"
-    fxFlexAlign="center"
-    fxLayoutWrap
-    class="wrapper"
-    ngClass.sm="small"
-    ngClass.xs="x-small"
-  >
-    <div class="background-image">
-      <div class="cafes" @bgState *ngIf="category.alias === 'cafes'"></div>
-      <div class="restaurants" @bgState *ngIf="category.alias === 'restaurants'"></div>
-      <div class="bars" @bgState *ngIf="category.alias === 'bars'"></div>
+<div fxFlex="100%" fxLayout="row" fxLayoutWrap>
+  <div class="background-image">
+      <div class="cafes" @bgState *ngIf="category === 'cafes'"></div>
+      <div class="restaurants" @bgState *ngIf="category === 'restaurants'"></div>
+      <div class="bars" @bgState *ngIf="category === 'bars'"></div>
     </div>
-    <app-nav fxFlex="85%" fxFlex.xs="95%" fxFlexAlign="start" [search]="false" [transparent]="true"></app-nav>
-    <section fxFlex="100%" fxLayout="row" fxLayoutWrap class="content">
-      <h1 fxFlex="100%" fxShow fxShow.lt-md="false" class="center-align mt-0">Searching for {{ category.alias }}?</h1>
-      <h2 fxFlex="100%" fxShow fxShow.lt-md="false" class="center-align mt-0"><span id="typing"></span></h2>
-      <h2 fxFlex="100%" fxHide fxHide.lt-md="false" class="center-align mt-0">Find your favorite {{category.alias}}</h2>
-      <app-search
-        fxFlex.xl="40%"
-        fxFlex.lg="50%"
-        fxFlex.md="60%"
-        fxFlex.sm="85%"
-        fxFlex.xs="100%"
-        class="m-auto"        
-        [selected]="category.alias"
-        (category)="onCategoryChanged($event)"
-      ></app-search>
+    <app-nav fxFlex="100%" fxFlexAlign="start" [slim]="true" class="content"></app-nav>
+    <section fxFlex="100%" fxFlexAlign="center" fxLayout="column" class="content">
+      <h1 fxShow fxShow.lt-md="false" class="center-align mt-0">Searching for {{ category }}?</h1>
+      <h2 fxShow fxShow.lt-md="false" class="center-align mt-0"><span id="typing"></span></h2>
+      <h2 fxHide fxHide.lt-md="false" class="center-align mt-0">Find your favorite {{ category }}</h2>
+      <app-search [selected]="category" (category)="onCategoryChanged($event)"></app-search>
     </section>
-    <section fxFlex="100%" fxFlexAlign="end" class="footer">
+    <footer fxFlex="100%" fxFlexAlign="end">
       <p class="center-align">
         Created with <i mz-icon class="red-text" icon="favorite"></i> by <a href="https://github.com/Liad91" target="_blank">Liad Idan</a>.
       </p>
-    </section>
-  </div>
+    </footer>
 </div>

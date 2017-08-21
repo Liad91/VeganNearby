@@ -142,15 +142,15 @@
       <div fxFlex="100%" class="center-align mt-1">
         <span id="social-text">Sign in via social media</span>
       </div>
-      <div @socialBtnState fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="space-around center">
-        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="facebook" class="p-0" appBgColor="facebook" (click)="onSocialLogin('facebook')">
-          <img src="assets/icons/facebook.png" alt="facebook" class="icon hide-on-small-only"><span>Facebook</span>
-        </button>
-        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="google" class="p-0" appBgColor="google" (click)="onSocialLogin('google')">
-          <img src="assets/icons/google.png" alt="google" class="icon hide-on-small-only"><span>Google</span>
-        </button>
-        <button fxFlex="33%" fxLayoutAlign="center center" mz-button id="twitter" class="p-0" appBgColor="twitter" (click)="onSocialLogin('twitter')">
-          <img src="assets/icons/twitter.png" alt="twitter" class="icon hide-on-small-only"><span>Twitter</span>
+      <div @socialBtnState class="social-btn-wrap" ngClass.xs="x-small">
+        <button
+          *ngFor="let network of socialNetworks"
+          mz-button
+          class="p-0"
+          [appBgColor]="network"
+          (click)="onSocialLogin(network)"
+        >
+          <img src="assets/icons/{{network}}.png" [alt]="network" class="icon"><span >{{ network | capitalizeFirst }}</span>
         </button>
       </div>
     </ng-template>

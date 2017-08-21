@@ -19,6 +19,7 @@ import { PlacesService } from './../places/places.service';
 
 // Guards
 import { CanActivateSocialProfile } from './nav/profile/social-profile/social-profile.guard';
+import { CanActivatePlaces } from './../places/places.guard';
 
 // Modules
 import { SharedModule } from './../shared/shared.module';
@@ -48,8 +49,9 @@ import { SharedModule } from './../shared/shared.module';
     Services.RendererService,
     ProfileService,
     SocialProfileService,
+    CanActivateSocialProfile,
     PlacesService,
-    CanActivateSocialProfile
+    CanActivatePlaces
   ],
   exports: [
     NavComponent,

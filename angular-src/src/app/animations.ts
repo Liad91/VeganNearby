@@ -1,26 +1,12 @@
-import {
-  trigger,
-  transition,
-  query,
-  style,
-  animate,
-  group
-} from '@angular/animations';
+import { trigger, transition, group, query } from '@angular/animations';
+
+import { slideIn, slideOut } from './shared/animations';
 
 export const routeStateTrigger = trigger('routeState', [
   transition('home => places',
     group([
-      query(':enter', [
-        style({
-          transform: 'translateY(-100%)',
-          opacity: 0
-        }),
-        animate('0.5s ease-out')
-      ], { optional: true }),
-      query(':leave', animate('0.25s', style({
-        transform: 'translateY(100%)',
-        opacity: 0
-      })), { optional: true })
+      query(':enter', slideIn('0, -20%', '500ms ease-out'), { optional: true }),
+      query(':leave', slideOut('0, 100%', '300ms'), { optional: true })
     ])
   )
 ])

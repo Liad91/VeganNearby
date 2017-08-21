@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewEncapsulation,
   OnInit,
   Input,
   Output,
@@ -19,8 +18,7 @@ import { PlacesService } from './../../places/places.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
   public location: string;
@@ -32,11 +30,7 @@ export class SearchComponent implements OnInit {
   @Output() public category = new EventEmitter();
   @ViewChild('search') public searchElementRef: ElementRef;
 
-  public categoryOptions = [
-    { title: 'Restaurants', alias: 'restaurants' },
-    { title: 'Cafes', alias: 'cafes' },
-    { title: 'Bars', alias: 'bars' }
-  ];
+  public categories = ['restaurants', 'cafes', 'bars'];
 
   constructor(private renderer: Renderer2,
               private router: Router,
@@ -64,7 +58,7 @@ export class SearchComponent implements OnInit {
   }
 
   private setCategory(): void {
-    this.selectedCategoryIndex = this.categoryOptions.findIndex(category => category.alias === this.selected);
+    this.selectedCategoryIndex = this.categories.findIndex(category => category === this.selected);
   }
 
   private geocodeSuccess(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus): void {
@@ -124,7 +118,7 @@ export class SearchComponent implements OnInit {
   }
 
   public onCategoryChange(): void {
-    this.category.next(this.categoryOptions[this.selectedCategoryIndex]);
+    this.category.next(this.categories[this.selectedCategoryIndex]);
   }
 
   public onSubmit(): void {
@@ -136,7 +130,7 @@ export class SearchComponent implements OnInit {
       return;
     }
     this.searching = true;
-    this.placesService.search(this.location, this.categoryOptions[this.selectedCategoryIndex].alias)
+    this.placesService.search(this.location, this.categories[this.selectedCategoryIndex])
       .subscribe(
         response => this.searchSuccess(response),
         err => this.showToast('Connection error, please try again')

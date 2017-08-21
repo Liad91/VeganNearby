@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ViewEncapsulation,
   Input
 } from '@angular/core';
 import { MzModalService } from 'ng2-materialize';
@@ -13,12 +12,10 @@ import { ProfileComponent } from './profile/profile.component';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  @Input() public search: boolean;
-  @Input() public transparent: boolean;
+  @Input() public slim: boolean;
   public user: User;
   public isAuth = false;
 

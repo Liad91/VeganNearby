@@ -1,17 +1,10 @@
-app-profile {
+:host {
   position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   z-index: 9999;
-  
-  .modal-content > p {
-    margin-bottom: 0;
-  }
-  .modal-footer {
-    display: none;
-  }
 
   .image-upload {
     p {
@@ -65,6 +58,39 @@ app-profile {
     width: 20px;
     height: 20px;
     margin-right: 7px;
+  }
+}
+
+:host ::ng-deep {
+  .modal-content > p {
+    margin-bottom: 0;
+  }
+  .modal-footer {
+    display: none;
+  }
+}
+
+.social-btn-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 33%;
+  }
+
+  &.x-small {
+    button {
+      width: 100%;
+      &:nth-child(2) {
+        margin: 5px 0;
+      }
+    }
   }
 }
 
