@@ -2,18 +2,21 @@
 // Materialize Toast
 // ==========================================================================
 #toast-container {
+  &:not(:empty) {
+    min-height: 50px;
+  }
   @media #{$medium-and-up} {
+    top: initial;
+    bottom: 0;
     left: 0;
     right: 0;
     max-width: 100%;
     width: 100%;
     margin: 0 auto;
-    text-align: right;
   }
 
   @media #{$medium-only} {
-    top: 10%;
-    bottom: initial;
+    bottom: 0;
     max-width: 100%;
     width: 100%;
   }
@@ -21,16 +24,12 @@
 
 .toast {
   justify-content: center;
-  background: $warning-color;
+  background: $error-color;
 
   @media #{$medium-and-up} {
-    display: inline-block;
-    float: right;
-    right: 2%;
+    display: flex;
+    float: none;
+    right: initial;
     padding: 10px;
-    min-height: 0;
-    line-height: 1.5;
-    font-size: 1rem;
-    font-weight: 400;
   }
 }

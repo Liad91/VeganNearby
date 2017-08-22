@@ -1,11 +1,15 @@
-nav.transparent {
-  background-color: transparent;
-  box-shadow: none;
-}
-
 .nav-more {
   button {
     border-radius: 0;
+  }
+}
+
+.login-btn {
+  color: #fff;
+  padding: 0 10px;
+  font-size: 14px;
+  i {
+    margin-right: 5px;
   }
 }
 

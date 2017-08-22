@@ -10,7 +10,6 @@ export class CanActivatePlaces implements CanActivate {
 
   canActivate() {
     if (!this.placesService.data) {
-      console.log('Guard!')
       this.router.navigate(['/']);
       return false;
     }

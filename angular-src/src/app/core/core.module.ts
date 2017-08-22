@@ -1,3 +1,4 @@
+import { ToastService } from './services/toast.service';
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -47,6 +48,7 @@ import { SharedModule } from './../shared/shared.module';
     Services.AuthService,
     Services.ConnectionService,
     Services.RendererService,
+    Services.ToastService,
     ProfileService,
     SocialProfileService,
     CanActivateSocialProfile,

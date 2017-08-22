@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { MzToastService } from 'ng2-materialize';
 import { Subject } from 'rxjs/Subject';
 
 import { AuthSuccessResponse, AuthFailedResponse } from './../../../../models/auth-response';
 import { QueryParams } from './../../../../models/query-params';
 import { ConnectionService } from './../../../services/connection.service';
+import { ToastService } from './../../../services/toast.service';
 
 @Injectable()
 export class SocialProfileService {
@@ -12,7 +12,7 @@ export class SocialProfileService {
   private isEventListener: boolean;
   private callbackHandler: (event: CustomEvent) => void;
 
-  constructor(private toastService: MzToastService, private connectionService: ConnectionService) {}
+  constructor(private toastService: ToastService, private connectionService: ConnectionService) {}
 
   public login(network: string): void {
     this.createPopupWindow(network);
@@ -82,8 +82,8 @@ export class SocialProfileService {
     return window.open(`${this.connectionService.serverUrl}/auth/${network}`, name, specs);
   }
 
-  private showToast(msg: string): void {
-    this.toastService.show(msg, 3500);
+  private showToast(message: string): void {
+    this.toastService.show(message);
   }
 
   private sendResponse(response: AuthSuccessResponse | AuthFailedResponse ): void {

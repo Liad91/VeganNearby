@@ -11,9 +11,9 @@ import {
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
-import { MzToastService } from 'ng2-materialize';
 
 import { PlacesService } from './../../places/places.service';
+import { ToastService } from './../services/toast.service';
 
 @Component({
   selector: 'app-search',
@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
               private router: Router,
               private placesService: PlacesService,
               private mapsApiLoader: MapsAPILoader,
-              private toastService: MzToastService) {}
+              private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.buildLocationAutocomplete();
@@ -117,6 +117,12 @@ export class SearchComponent implements OnInit {
     );
   }
 
+  public onSearchChange(event: any) {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      this.location = event.target.value;
+    }
+  }
+
   public onCategoryChange(): void {
     this.category.next(this.categories[this.selectedCategoryIndex]);
   }
@@ -133,8 +139,13 @@ export class SearchComponent implements OnInit {
     this.placesService.search(this.location, this.categories[this.selectedCategoryIndex])
       .subscribe(
         response => this.searchSuccess(response),
-        err => this.showToast('Connection error, please try again')
+        err => this.searchError()
       );
+  }
+
+  private searchError() {
+    this.searching = false;
+    this.showToast('Connection error, please try again');
   }
 
   private searchSuccess(response) {
@@ -147,6 +158,6 @@ export class SearchComponent implements OnInit {
   }
 
   private showToast(message: string): void {
-    this.toastService.show(message, 2500);
+    this.toastService.show(message);
   }
 }

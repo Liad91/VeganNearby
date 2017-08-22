@@ -1,8 +1,18 @@
 <nav [ngClass]="{transparent: slim}">
-  <div fxFlex="100%" fxLayout="row" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
+  <div fxFlex="100%" fxLayout="row" class="content" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
     <div class="logo">VegaNearby</div>
     <div fxFlex fxLayoutAlign="end center" class="nav-more">
-      <button mz-button class="h-100" appBgColor="primary" (click)="openModal()" *ngIf="currentUser() === 'guest'">Sign In</button>
+      <button 
+        fxLayoutAlign="center center"
+        mz-button
+        class="login-btn h-100"
+        [flat]="true"
+        (click)="openModal()"
+        *ngIf="currentUser() === 'guest'"
+      >
+        <i mz-icon icon="person" align="left"></i>
+        Login
+      </button>
       <button
         fxLayout="row"
         fxLayoutAlign="end center"

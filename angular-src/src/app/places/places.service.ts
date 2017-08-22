@@ -24,7 +24,7 @@ export class PlacesService {
         .timeout(this.connectionService.reqTimeout)
         .map(this.connectionService.extractData)
         .do((response: YelpResponse) => this.data = response)
-        .catch(this.connectionService.catchError)
+        .catch(this.connectionService.catchError);
     }
   }
 }
