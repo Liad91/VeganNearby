@@ -1,0 +1,42 @@
+<div fxFlex="100%" fxLayout="row" class="search-box">
+  <form fxFlex="100%" fxLayout="row" fxLayoutGap="10px" fxLayoutGap.xs="0" (ngSubmit)="onSubmit()">
+    <div fxFlex="70%" fxFlex.xs="100%" fxLayout="row" class="location">
+      <div id="locate">
+        <button
+          type="button"
+          mz-button
+          [flat]="true"
+          [float]="true"
+          (click)="getLocation()"
+          [disabled]="locateSpinner || locateFailed"
+        >
+          <i mz-icon icon="location_on" class="search-icon" appColor="primary" *ngIf="!locateSpinner"></i>
+          <mz-spinner color="blue" size="small" *ngIf="locateSpinner"></mz-spinner>
+        </button>
+      </div>
+      <input
+        #search
+        type="text"
+        name="location"
+        [(ngModel)]="location"
+        class="search-input"
+        placeholder="{{ categories[selectedCategoryIndex] | capitalizeFirst }} near..."
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="off"
+        (keyup)="onSearchChange($event)"
+      >
+    </div>
+    <div class="categories" fxFlex="30%" fxFlex.xs="80%">
+      <div class="input-field">
+        <select mz-select name="category" [(ngModel)]="selectedCategoryIndex" (change)="onCategoryChange()">
+          <option [value]="i" *ngFor="let category of categories; let i = index">{{ category | capitalizeFirst }}</option>
+        </select>
+      </div>
+    </div>
+    <button fxFlex.xs="20%" type="submit" appBgColor="dark" mz-button>
+      <i fxFlexAlign="center" mz-icon icon="search" *ngIf="!searching"></i>
+      <mz-spinner id="search-spinner" size="small" *ngIf="searching"></mz-spinner>
+    </button>
+  </form>
+</div>

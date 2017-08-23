@@ -1,39 +1,62 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 
 // Components
 import { AppComponent } from './app.component';
-import { PlacesComponent } from './places/places.component';
+import { HomeComponent } from './pages/home/home.component';
+
+// Services
+import * as Services from './services';
+import { PlacesService } from './pages/places/places.service';
+import { ProfileService } from './components/profile/profile.service';
+import { SocialProfileService } from './components/profile/social-profile/social-profile.service';
+
+// Guards
+import { CanActivateSocialProfile } from './components/profile/social-profile/social-profile.guard';
+import { CanActivatePlaces } from './pages/places/places.guard';
 
 // Modules
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutesModule } from './app-routes.module';
-import { CoreModule } from './core/core.module';
+import { ComponentsModule } from './components/components.module';
+import { SharedModule } from './shared/shared.module';
 
 // Config
-import { googleMapApiKey } from '../config';
+import { googleMapApiKey } from './../config';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlacesComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutesModule,
-    FlexLayoutModule,
-    CoreModule,
+    ComponentsModule,
+    SharedModule,
     AgmCoreModule.forRoot({
       apiKey: googleMapApiKey,
       libraries: ['places']
     })
   ],
-  providers: [],
+  providers: [
+    CanActivateSocialProfile,
+    CanActivatePlaces,
+    PlacesService,
+    ProfileService,
+    SocialProfileService,
+    Services.AuthService,
+    Services.ConnectionService,
+    Services.RendererService,
+    Services.ToastService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
