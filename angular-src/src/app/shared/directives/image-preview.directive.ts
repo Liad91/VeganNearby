@@ -4,19 +4,19 @@ import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular
 
 export class ImagePreviewDirective implements OnChanges {
 
-    @Input() appImgPreview: File;
+		@Input() appImgPreview: File;
 
-    constructor(private elementRef: ElementRef) { }
+		constructor(private elementRef: ElementRef) { }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const reader = new FileReader();
+		ngOnChanges(changes: SimpleChanges): void {
+				const reader = new FileReader();
 
-        reader.onloadend = () => {
-          this.elementRef.nativeElement.src = reader.result;
-        };
+				reader.onloadend = () => {
+					this.elementRef.nativeElement.src = reader.result;
+				};
 
-        if (this.appImgPreview) {
-          reader.readAsDataURL(this.appImgPreview);
-        }
-    }
+				if (this.appImgPreview) {
+					reader.readAsDataURL(this.appImgPreview);
+				}
+		}
 }

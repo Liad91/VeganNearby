@@ -1,36 +1,40 @@
 <app-nav fxFlex="100%" fxFlexAlign="start"></app-nav>
-<section fxFlex="100%" class="filters py-3" appBgColor="light-gray">
-  <div class="content">
-    <h2 fxFlex="80%" class="m-0"><strong>{{ category | capitalizeFirst }}</strong> near {{ location }}</h2>
-    <p fxFlex="20%" fxLayoutAlign="end center" class="m-0">Showing {{ currentPage * itemsPerPage - itemsPerPage + 1 }} - {{ currentPage * itemsPerPage }} of {{ data.total }}</p>
-  </div>
-</section>
-<section fxFlex="100%" class="main pt-2">
-  <div class="content">
-    <div fxFlex="75%">
-      <ul *ngFor="let business of data?.businesses">
-        <li >{{ business.name }}</li>
-      </ul>
-    </div>
-    <div fxFlex="35%" fxFlexAlign="start" class="card">
-      <div class="card-image">
-        <agm-map
-          [latitude]="mapCenter.lat"
-          [longitude]="mapCenter.lng"
-          [streetViewControl]="false"
-          [zoom]="11"
-          [zoomControl]="false"
-          (centerChange)="onCenterChange($event)"
-          (idle)="checkForChanges()"
-        >
-        <agm-marker *ngFor="let business of data?.businesses" [latitude]="business.coordinates.latitude" [longitude]="business.coordinates.longitude"></agm-marker>
-        </agm-map>
-        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-      </div>
-      <div class="card-content">
-        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-      </div>
-    </div>
-    
-  </div>
+<header fxFlex="100%" class="py-3" appBgColor="light-gray">
+	<div fxFlexAlign="start" class="content">
+		<h2 fxFlex="80%" class="m-0"><strong>{{ selectedCategory.title }}</strong> near {{ selectedLocation.name }}</h2>
+		<p fxFlex="20%" fxLayoutAlign="end center" class="m-0" *ngIf="data.businesses.length > 0">
+			Showing {{ currentPage * itemsPerPage - itemsPerPage + 1 }} - {{ (currentPage * itemsPerPage) < data.total ? currentPage * itemsPerPage : data.total }} of {{ data.total }}
+		</p>
+	</div>
+</header>
+<section fxFlex="100%" class="main" class="mt-2">
+	<div class="content">
+		<div fxFlex="30%" class="filters mr-2 pr-2">
+			<app-filters></app-filters>
+		</div>
+		<div 
+			fxFlex="70%"
+			fxFlexAlign="start"
+			fxLayout="row wrap"
+			fxLayout.lt-md="column"
+			fxLayoutGap="16px"
+			class="businesses-wrap"
+		>
+			<app-business fxFlex="31%" fxFlex.md="45%" fxFlex.lt-md="100%" [business]="business" *ngFor="let business of data.businesses"></app-business>
+			<div *ngIf="data.businesses.length === 0">
+				<strong>Suggestions for improving the results:</strong>
+				<br>
+				Try a different location.
+				<br>
+				Try a different establishment.
+				<ng-template [ngIf]="isFiltered()">
+					<br>
+					<a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
+				</ng-template>
+			</div>
+			<div class="spinner-wrap" *ngIf="loading">
+				<mz-spinner color="blue" size="big"></mz-spinner>
+			</div>
+		</div>
+	</div>
 </section>

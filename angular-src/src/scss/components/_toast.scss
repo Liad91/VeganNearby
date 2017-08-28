@@ -24,7 +24,7 @@
 
 .toast {
   justify-content: center;
-  background: $error-color;
+  background: $danger-color;
 
   @media #{$medium-and-up} {
     display: flex;

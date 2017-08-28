@@ -1,0 +1,44 @@
+<mz-modal
+#modal
+fxLayout="column"
+fxLayoutAlign="center center"
+id="filter"
+class="h-100"
+[options]="modalOptions"
+>
+	<mz-modal-header fxLayout="row wrap">
+		<mz-input-container fxFlex="95%" fxFlex.sm="90%" fxFlex.xs="85%">
+			<input
+				#search
+				mz-input
+				id="search-input"
+				placeholder="Search for cuisines"
+				type="text"
+			>
+		</mz-input-container>
+		<div fxFlex="5%" fxFlex.sm="10%" fxFlex.xs="15%" fxLayoutAlign="end start" >
+			<button mz-button [float]="true" [flat]="true" (click)="onClose()">
+				<i mz-icon icon="close" appColor="dark"></i>
+			</button>
+		</div>
+	</mz-modal-header>
+	<mz-modal-content fxLayout="row wrap">
+		<div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="start start" class="list">
+			<mz-checkbox-container fxFlex="20%" fxFlex.md="25%" fxFlex.lt-md="33%" class="filter" *ngFor="let cuisine of cuisines | searchFilter:search.value">
+				<input
+					type="checkbox"      
+					mz-checkbox
+					[filledIn]="true"
+					[label]="cuisine.title"
+					[id]="'modal-' + cuisine.alias"
+					[checked]="selectedCuisines.indexOf(cuisine.alias) > -1"
+					[disabled]="selectedCuisines.length === 5 && selectedCuisines.indexOf(cuisine.alias) < 0"
+					(change)="onDataChanged(cuisine.alias)"
+				>
+			</mz-checkbox-container>
+		</div>
+		<div fxFlex="100%" fxLayoutAlign="end" class="mt-1">
+			<button mz-button (click)="onApply()">Apply</button>
+		</div>
+	</mz-modal-content>
+</mz-modal>

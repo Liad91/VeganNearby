@@ -1,0 +1,29 @@
+<div class="business-card">
+	<div class="header">
+		<img fxFlex="85px" [src]="business.image_url || 'assets/images/business.png'" [alt]="business.name">
+		<div fxLayout="row wrap" class="header-right">
+			<div fxFlex="100%" class="top">
+				<span class="working-badge" [ngClass]="business.is_closed ? 'bg-color-danger' : 'bg-color-secondary'">
+					<i mz-icon icon="access_time"></i>
+					{{ business.is_closed ? 'close' : 'open' }}
+				</span>
+				<button mz-button [float]="true" [flat]="true" class="ml-auto">
+					<i mz-icon icon="favorite_border" appColor="danger"></i>
+				</button>
+			</div>
+			<div fxFlex="95%" class="bottom">
+				<div class="title">
+					<h4>{{ business.name }}</h4>				
+				</div>
+				<span [appPrice]="business.price"></span>
+			</div>
+		</div>
+	</div>
+	<div class="body">
+		<div class="categories">
+			<span class="category" *ngFor="let category of business.categories">{{ category.title }}</span>
+		</div>
+		<span class="address" *ngFor="let address of business.location.display_address">{{ address }}</span>
+		<span class="phone">{{ business.display_phone }}</span>
+	</div>
+</div>

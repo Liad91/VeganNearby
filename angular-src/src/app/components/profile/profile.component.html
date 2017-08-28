@@ -1,161 +1,159 @@
 <mz-modal
-  #modal
-  fxFlex="100%"
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  id="registration"
-  [options]="modalOptions"
+	#modal
+	fxFlex="100%"
+	fxLayout="column"
+	fxLayoutAlign="center center"
+	id="registration"
+	[options]="modalOptions"
 >
-  <mz-modal-header fxFlex="100%" fxLayout="row">
-    <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
-    <button
-      feFlex
-      fxLayoutAlign="end center"
-      mz-button
-      [float]="true"
-      [flat]="true"
-      class="ml-auto"
-      (click)="modal.close()"
-    >
-      <i class="black-text" mz-icon icon="clear"></i>
-    </button>    
-  </mz-modal-header>
-  <mz-modal-content fxLayoutWrap fxLayout="row">
-    <p @errorState fxFlex="100%" class="center-align mt-0" appColor="error" *ngIf="formErrorMessage">
-      {{ formErrorMessage }}
-    </p>    
-    <form
-      fxFlex="100%"
-      fxLayout="row"
-      fxLayoutWrap
-      [formGroup]="form"
-      (ngSubmit)="onSubmit()"
-      novalidate
-    >
-      <ng-template [ngIf]="mode === 'signUp'">
-        <div fxFlex="100%" class="image-upload">
-          <div class="image-wrap">
-            <div
-              fxLayoutAlign="center center"
-              ng2FileDrop
-              (fileOver)="onFileOver($event)"
-              [uploader]="uploader"
-              [ngClass]="{'file-over': hasDropZoneOver, 'color-error': uploadErrorMessage}"
-              class="image-drop"
-              *ngIf="!userImageFile"
-            >
-              <p class="m-0">Drag a image here</p>
-              <button type="button" mz-button [float]="true" (click)="select.click()">
-                <i mz-icon icon="add"></i>
-              </button>
-              <input
-                #select
-                type="file"
-                accept="image/*"
-                ng2FileSelect
-                [uploader]="uploader"
-                [hidden]="true"
-              />
-            </div>
-            <img @imgPreviewState [appImgPreview]="userImageFile" *ngIf="userImageFile">
-            <button 
-              type="button"
-              mz-button
-              [float]="true"
-              (click)="onResetUploader()"
-              appBgColor="error"
-              *ngIf="userImageFile"
-            >
-              <i mz-icon icon="remove"></i>
-            </button>
-          </div>
-          <p @errorState class="center-align mb-0" appColor="error" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
-        </div>
-        <mz-input-container fxFlex="100%">
-          <input
-            mz-input
-            mz-validation
-            required
-            id="input-username"
-            type="text"
-            label="Username"
-            formControlName="username"
-            [appActive]="(mode === 'signUp' && form.pristine && form.untouched) || form.get('username').value"
-            [errorMessageResource]="errorMessageResources.username"
-          >
-        </mz-input-container>
-      </ng-template>
-      <mz-input-container fxFlex="100%">
-        <input
-          mz-input
-          mz-validation
-          required
-          id="input-email"
-          type="email"
-          label="Email"
-          formControlName="email"
-          [appActive]="(mode === 'signIn' && form.pristine && form.untouched) || form.get('email').value"
-          [errorMessageResource]="errorMessageResources.email"
-        >
-      </mz-input-container>
-      <mz-input-container fxFlex="100%">
-        <input
-          mz-input
-          mz-validation
-          required
-          id="input-password"
-          type="password"
-          label="Password"
-          formControlName="password"
-          [errorMessageResource]="errorMessageResources.password"
-        >
-      </mz-input-container>
-      <div fxFlex=100% fxLayoutAlign="space-around center" class="pt-1">
-        <button fxFlex="45%" type="submit" mz-button class="p-0" [disabled]="form.invalid">
-          <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span> 
-        </button>
-        <button
-          fxFlex="45%"
-          type="button"
-          mz-button          
-          class="white p-0"
-          appColor="secondary"
-          (click)="onSwitchMode()"
-          *ngIf="mode === 'signIn'"
-        >
-          Create Account
-        </button>
-        <button
-          fxFlex="45%"
-          type="button"
-          mz-button        
-          class="white p-0"
-          appColor="secondary"
-          (click)="onSwitchMode()"
-          *ngIf="mode === 'signUp'"
-        >
-          Already a Member?
-        </button>
-      </div>
-    </form>
-    <ng-template [ngIf]="mode === 'signIn'">
-      <div fxFlex="100%" class="center-align mt-1">
-        <span id="social-text">Sign in via social media</span>
-      </div>
-      <div @socialBtnState class="social-btn-wrap" ngClass.xs="x-small">
-        <button
-          *ngFor="let network of socialNetworks"
-          mz-button
-          class="p-0"
-          [appBgColor]="network"
-          (click)="onSocialLogin(network)"
-        >
-          <img src="assets/icons/{{network}}.png" [alt]="network" class="icon"><span >{{ network | capitalizeFirst }}</span>
-        </button>
-      </div>
-    </ng-template>
-    <div id="spinner-wrap" *ngIf="loading">
-      <mz-spinner color="blue" size="big"></mz-spinner>
-    </div>
-  </mz-modal-content>
+	<mz-modal-header fxFlex="100%" fxLayout="row">
+		<span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
+		<button
+			fxLayoutAlign="end center"
+			mz-button
+			[float]="true"
+			[flat]="true"
+			class="ml-auto"
+			(click)="modal.close()"
+		>
+			<i class="black-text" mz-icon icon="clear"></i>
+		</button>    
+	</mz-modal-header>
+	<mz-modal-content fxLayout="row wrap">
+		<p @errorState fxFlex="100%" class="center-align mt-0" appColor="danger" *ngIf="formErrorMessage">
+			{{ formErrorMessage }}
+		</p>    
+		<form
+			fxFlex="100%"
+			fxLayout="row wrap"
+			[formGroup]="form"
+			(ngSubmit)="onSubmit()"
+			novalidate
+		>
+			<ng-template [ngIf]="mode === 'signUp'">
+				<div fxFlex="100%" class="image-upload">
+					<div class="image-wrap">
+						<div
+							fxLayoutAlign="center center"
+							ng2FileDrop
+							(fileOver)="onFileOver($event)"
+							[uploader]="uploader"
+							[ngClass]="{'file-over': hasDropZoneOver, 'color-danger': uploadErrorMessage}"
+							class="image-drop"
+							*ngIf="!userImageFile"
+						>
+							<p class="m-0">Drag a image here</p>
+							<button type="button" mz-button [float]="true" (click)="select.click()">
+								<i mz-icon icon="add"></i>
+							</button>
+							<input
+								#select
+								type="file"
+								accept="image/*"
+								ng2FileSelect
+								[uploader]="uploader"
+								[hidden]="true"
+							/>
+						</div>
+						<img @imgPreviewState [appImgPreview]="userImageFile" *ngIf="userImageFile">
+						<button 
+							type="button"
+							mz-button
+							[float]="true"
+							(click)="onResetUploader()"
+							appBgColor="danger"
+							*ngIf="userImageFile"
+						>
+							<i mz-icon icon="remove"></i>
+						</button>
+					</div>
+					<p @errorState class="center-align mb-0" appColor="danger" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
+				</div>
+				<mz-input-container fxFlex="100%">
+					<input
+						mz-input
+						mz-validation
+						required
+						id="input-username"
+						type="text"
+						label="Username"
+						formControlName="username"
+						[appActive]="(mode === 'signUp' && form.pristine && form.untouched) || form.get('username').value"
+						[errorMessageResource]="errorMessageResources.username"
+					>
+				</mz-input-container>
+			</ng-template>
+			<mz-input-container fxFlex="100%">
+				<input
+					mz-input
+					mz-validation
+					required
+					id="input-email"
+					type="email"
+					label="Email"
+					formControlName="email"
+					[appActive]="(mode === 'signIn' && form.pristine && form.untouched) || form.get('email').value"
+					[errorMessageResource]="errorMessageResources.email"
+				>
+			</mz-input-container>
+			<mz-input-container fxFlex="100%">
+				<input
+					mz-input
+					mz-validation
+					required
+					id="input-password"
+					type="password"
+					label="Password"
+					formControlName="password"
+					[errorMessageResource]="errorMessageResources.password"
+				>
+			</mz-input-container>
+			<div fxFlex=100% fxLayoutAlign="space-around center" class="pt-1">
+				<button fxFlex="45%" type="submit" mz-button class="p-0" [disabled]="form.invalid">
+					<span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span> 
+				</button>
+				<button
+					fxFlex="45%"
+					type="button"
+					mz-button          
+					class="white p-0"
+					appColor="secondary"
+					(click)="onSwitchMode()"
+					*ngIf="mode === 'signIn'"
+				>
+					Create Account
+				</button>
+				<button
+					fxFlex="45%"
+					type="button"
+					mz-button        
+					class="white p-0"
+					appColor="secondary"
+					(click)="onSwitchMode()"
+					*ngIf="mode === 'signUp'"
+				>
+					Already a Member?
+				</button>
+			</div>
+		</form>
+		<ng-template [ngIf]="mode === 'signIn'">
+			<div fxFlex="100%" class="center-align mt-1">
+				<span id="social-text">Sign in via social media</span>
+			</div>
+			<div @socialBtnState class="social-btn-wrap" ngClass.xs="x-small">
+				<button
+					*ngFor="let network of socialNetworks"
+					mz-button
+					class="p-0"
+					[appBgColor]="network"
+					(click)="onSocialLogin(network)"
+				>
+					<img src="assets/icons/{{network}}.png" [alt]="network" class="icon"><span >{{ network | titlecase }}</span>
+				</button>
+			</div>
+		</ng-template>
+		<div class="spinner-wrap" *ngIf="loading">
+			<mz-spinner color="blue" size="big"></mz-spinner>
+		</div>
+	</mz-modal-content>
 </mz-modal>

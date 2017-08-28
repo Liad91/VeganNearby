@@ -3,63 +3,61 @@ import { Component, OnInit } from '@angular/core';
 import * as Typed from 'typed.js';
 
 import { bgStateTrigger } from './animations';
+import { YelpFilter } from './../../models/yelp.model';
+import { PlacesService } from './../places/places.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  animations: [ bgStateTrigger ]
+	selector: 'app-home',
+	templateUrl: './home.component.html',
+	styleUrls: ['./home.component.scss'],
+	animations: [ bgStateTrigger ]
 })
 export class HomeComponent implements OnInit {
-  public category = 'restaurants';
-  private typed: Typed;
+	public selectedCategory: YelpFilter;
+	private typed: Typed;
 
-  ngOnInit(): void {
-    this.initializeTyped();
-  }
+	constructor(private placesService: PlacesService) {}
 
-  private initializeTyped(): void {
-    let strings;
+	ngOnInit(): void {
+		this.selectedCategory = this.placesService.selectedCategory;
+		this.initializeTyped();
+	}
 
-    switch (this.category) {
-      case 'restaurants':
-        strings = [
-          `Find the best ${this.category}^1000`,
-          `Find the most rated ${this.category}^1000`,
-          `Find your favorite ${this.category}^1000`
-        ];
-        break;
-      case 'cafes':
-        strings = [
-          `Find ${this.category} with the most richest breakfast^1000`,
-          `Find ${this.category} with wifi^1000`,
-          `Find your perfect ${this.category}^1000`
-        ];
-        break;
-      case 'bars':
-        strings = [
-          `Find the most popular ${this.category}^1000`,
-          `Find ${this.category} with the best liquors^1000`,
-          `Find the most crowded ${this.category}^1000`
-        ];
-    }
-    this.typed = new Typed('#typing', {
-      strings: strings,
-      typeSpeed: 80,
-      backSpeed: 50,
-      loop: true
-    });
-  }
+	private initializeTyped(): void {
+		let strings;
 
-  private resetTyped(): void {
-    this.typed.destroy();
-    this.initializeTyped();
-  }
+		switch (this.selectedCategory.alias) {
+			case 'restaurants':
+				strings = [
+					`Find the best ${this.selectedCategory.alias}^1000`,
+					`Find the most rated ${this.selectedCategory.alias}^1000`,
+					`Find your favorite ${this.selectedCategory.alias}^1000`
+				];
+				break;
+			case 'cafes':
+				strings = [
+					`Find ${this.selectedCategory.alias} with the most richest breakfast^1000`,
+					`Find ${this.selectedCategory.alias} with wifi^1000`,
+					`Find your perfect ${this.selectedCategory.alias}^1000`
+				];
+				break;
+			case 'bars':
+				strings = [
+					`Find the most popular ${this.selectedCategory.alias}^1000`,
+					`Find ${this.selectedCategory.alias} with the best liquors^1000`,
+					`Find the most crowded ${this.selectedCategory.alias}^1000`
+				];
+		}
+		this.typed = new Typed('#typing', {
+			strings: strings,
+			typeSpeed: 80,
+			backSpeed: 50,
+			loop: true
+		});
+	}
 
-  public onCategoryChanged(category): void {
-    if (this.category !== category) {
-      this.category = category;
-      this.resetTyped();
-    }
-  }
+	public onCategoryChanged(): void {
+		this.typed.destroy();
+		this.initializeTyped();
+	}
 }

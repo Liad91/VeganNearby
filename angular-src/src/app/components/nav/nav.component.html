@@ -1,41 +1,41 @@
 <nav [ngClass]="{transparent: slim}">
-  <div fxFlex="100%" fxLayout="row" class="content" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
-    <div class="logo">VegaNearby</div>
-    <div fxFlex fxLayoutAlign="end center" class="nav-more">
-      <button 
-        fxLayoutAlign="center center"
-        mz-button
-        class="login-btn h-100"
-        [flat]="true"
-        (click)="openModal()"
-        *ngIf="currentUser() === 'guest'"
-      >
-        <i mz-icon icon="person" align="left"></i>
-        Login
-      </button>
-      <button
-        fxLayout="row"
-        fxLayoutAlign="end center"
-        id="btn-more"
-        mz-button
-        [flat]="true"
-        class="h-100"
-        ngClass.xs="btn-floating h-auto"
-        appDropdownTriggerFor="more"
-        [constrainWidth]="false"
-        *ngIf="currentUser() === 'user'"
-      >
-        <div class="user-info right-align hide-on-small-only">
-          <div class="username">{{ user.username }}</div>
-          <div class="email thin">{{ user.email }}</div>        
-        </div>
-        <img fxFlex class="circle" [src]="user.avatarUrl || 'assets/images/user.ico'" alt="avatar">
-      </button>  
-    </div>
-    <ul id="more" class='dropdown-content'>
-      <li><a><i mz-icon icon="account_circle"></i>My Account</a></li>
-      <li><a><i mz-icon icon="favorite"></i>Favorites</a></li>
-      <li><a (click)="singOut()"><i mz-icon icon="power_settings_new"></i>Sign Out</a></li>
-    </ul>
-  </div>
+	<div fxFlex="100%" fxLayout="row" class="content" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
+		<div class="logo">VegaNearby</div>
+		<div fxFlex fxLayoutAlign="end center" class="nav-more">
+			<button 
+				fxLayoutAlign="center center"
+				mz-button
+				class="login-btn h-100"
+				[flat]="true"
+				(click)="openModal()"
+				*ngIf="getCurrentUser() === 'guest'"
+			>
+				<i mz-icon icon="person" align="left"></i>
+				Login
+			</button>
+			<button
+				fxLayout="row"
+				fxLayoutAlign="end center"
+				id="btn-more"
+				mz-button
+				[flat]="true"
+				class="h-100"
+				ngClass.xs="btn-floating h-auto"
+				appDropdownTriggerFor="more"
+				[constrainWidth]="false"
+				*ngIf="getCurrentUser() === 'user'"
+			>
+				<div class="user-info right-align hide-on-small-only">
+					<div class="username">{{ user.username }}</div>
+					<div class="email thin">{{ user.email }}</div>        
+				</div>
+				<img fxFlex class="circle" [src]="user.avatarUrl || 'assets/images/user.ico'" alt="avatar">
+			</button>  
+		</div>
+		<ul id="more" class='dropdown-content'>
+			<li><a><i mz-icon icon="account_circle"></i>My Account</a></li>
+			<li><a><i mz-icon icon="favorite"></i>Favorites</a></li>
+			<li><a (click)="singOut()"><i mz-icon icon="power_settings_new"></i>Sign Out</a></li>
+		</ul>
+	</div>
 </nav>

@@ -1,20 +1,20 @@
 import {
-  Directive,
-  ElementRef,
-  Input,
-  Renderer2,
-  OnInit
+	Directive,
+	ElementRef,
+	Input,
+	Renderer2,
+	OnInit
 } from '@angular/core';
 
 @Directive({
-  selector: '[appBgColor]'
+	selector: '[appBgColor]'
 })
 export class BackgroundColorDirective implements OnInit {
-  @Input() appBgColor: string;
+	@Input() appBgColor: string;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+	constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
-  ngOnInit(): void {
-    this.renderer.addClass(this.elementRef.nativeElement, `bg-color-${this.appBgColor}`);
-  }
+	ngOnInit(): void {
+		this.renderer.addClass(this.elementRef.nativeElement, `bg-color-${this.appBgColor}`);
+	}
 }

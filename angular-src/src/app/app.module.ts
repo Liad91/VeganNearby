@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 // Services
 import * as Services from './services';
+import { FiltersService } from './pages/places/filters/filters.service';
 import { PlacesService } from './pages/places/places.service';
 import { ProfileService } from './components/profile/profile.service';
 import { SocialProfileService } from './components/profile/social-profile/social-profile.service';
@@ -28,35 +29,36 @@ import { SharedModule } from './shared/shared.module';
 import { googleMapApiKey } from './../config';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AppRoutesModule,
-    ComponentsModule,
-    SharedModule,
-    AgmCoreModule.forRoot({
-      apiKey: googleMapApiKey,
-      libraries: ['places']
-    })
-  ],
-  providers: [
-    CanActivateSocialProfile,
-    CanActivatePlaces,
-    PlacesService,
-    ProfileService,
-    SocialProfileService,
-    Services.AuthService,
-    Services.ConnectionService,
-    Services.RendererService,
-    Services.ToastService
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent
+	],
+	imports: [
+		BrowserModule,
+		HttpModule,
+		FormsModule,
+		ReactiveFormsModule,
+		BrowserAnimationsModule,
+		AppRoutesModule,
+		ComponentsModule,
+		SharedModule,
+		AgmCoreModule.forRoot({
+			apiKey: googleMapApiKey,
+			libraries: ['places', 'geometry']
+		})
+	],
+	providers: [
+		CanActivateSocialProfile,
+		CanActivatePlaces,
+		FiltersService,
+		PlacesService,
+		ProfileService,
+		SocialProfileService,
+		Services.AuthService,
+		Services.ConnectionService,
+		Services.RendererService,
+		Services.ToastService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

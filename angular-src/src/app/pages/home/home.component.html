@@ -1,17 +1,17 @@
 <div class="background-image">
-  <div class="cafes" @bgState *ngIf="category === 'cafes'"></div>
-  <div class="restaurants" @bgState *ngIf="category === 'restaurants'"></div>
-  <div class="bars" @bgState *ngIf="category === 'bars'"></div>
+	<div class="cafes" @bgState *ngIf="selectedCategory.alias === 'cafes'"></div>
+	<div class="restaurants" @bgState *ngIf="selectedCategory.alias === 'restaurants'"></div>
+	<div class="bars" @bgState *ngIf="selectedCategory.alias === 'bars'"></div>
 </div>
 <app-nav fxFlex="100%" fxFlexAlign="start" [slim]="true"></app-nav>
 <section fxFlex="100%" fxFlexAlign="center" fxLayout="column" class="content">
-  <h1 fxShow fxShow.lt-md="false" class="center-align mt-0">Searching for {{ category }}?</h1>
-  <h2 fxShow fxShow.lt-md="false" class="center-align mt-0"><span id="typing"></span></h2>
-  <h2 fxHide fxHide.lt-md="false" class="center-align mt-0">Find your favorite {{ category }}</h2>
-  <app-search [selected]="category" (category)="onCategoryChanged($event)"></app-search>
+	<h1 fxShow fxShow.lt-md="false" class="center-align mt-0">Searching for {{ selectedCategory.alias }}?</h1>
+	<h2 fxShow fxShow.lt-md="false" class="center-align mt-0"><span id="typing"></span></h2>
+	<h2 fxHide fxHide.lt-md="false" class="center-align mt-0">Find your favorite {{ selectedCategory.alias }}</h2>
+	<app-search (categoryChanged)="onCategoryChanged()"></app-search>
 </section>
 <footer fxFlex="100%" fxFlexAlign="end">
-  <p class="center-align">
-    Created with <i mz-icon class="red-text" icon="favorite"></i> by <a href="https://github.com/Liad91" target="_blank">Liad Idan</a>.
-  </p>
+	<p class="center-align">
+		Created with <i mz-icon class="red-text" icon="favorite"></i> by <a href="https://github.com/Liad91" target="_blank">Liad Idan</a>.
+	</p>
 </footer>

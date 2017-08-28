@@ -1,75 +1,76 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { PlacesService } from './places.service';
-import { Component, OnInit } from '@angular/core';
-import { LatLngLiteral, MapsAPILoader } from '@agm/core';
 
-import { YelpSearchResponse } from '../../models/yelp.model';
+import { PlacesService } from './places.service';
+import { YelpSearchResponse, YelpFilter, YelpSearchParams } from '../../models/yelp.model';
 import { ToastService } from './../../services/toast.service';
+import { FiltersService } from './filters/filters.service';
 
 @Component({
-  selector: 'app-places',
-  templateUrl: './places.component.html',
-  styleUrls: ['./places.component.scss']
+	selector: 'app-places',
+	templateUrl: './places.component.html',
+	styleUrls: ['./places.component.scss']
 })
-export class PlacesComponent implements OnInit {
-  public data: YelpSearchResponse
-  public location: string;
-  public category: string;
-  public mapCenter: LatLngLiteral;
-  private updateSubscription: Subscription;
-  public currentPage = 1;
-  public itemsPerPage = 20;
+export class PlacesComponent implements OnInit, OnDestroy {
+	public data: YelpSearchResponse
+	public selectedLocation: { name: string };
+	public selectedCategory: YelpFilter;
+	private updateSubscription: Subscription;
+	private changesSubscription: Subscription;
+	public loading = false;
+	public currentPage = 1;
+	public itemsPerPage = 20;
 
-  constructor(private placesService: PlacesService, private toastService: ToastService) { }
+	constructor(private placesService: PlacesService, private toastService: ToastService, private filtersService: FiltersService) {}
 
-  ngOnInit() {
-    this.data = this.placesService.data;
-    this.location = this.placesService.location;
-    this.category = this.placesService.category;
-    this.mapCenter = {
-      lat: this.data.region.center.latitude,
-      lng: this.data.region.center.longitude
-    }
-    console.log(this.data.businesses);
-  }
+	ngOnInit() {
+		this.data = this.placesService.data;
+		this.selectedCategory = this.placesService.selectedCategory;
+		this.selectedLocation = this.placesService.selectedLocation;
 
-  public onCenterChange(event: LatLngLiteral): void {
-    this.mapCenter = event;
-  }
+		this.changesSubscription = this.filtersService.changes.subscribe(
+			(changes: YelpSearchParams) => this.updatePlaces(changes)
+		);
+		console.log(this.data.businesses);
+	}
 
-  private updatePlaces(location: string) {
-    if (this.updateSubscription && !this.updateSubscription.closed) {
-      this.updateSubscription.unsubscribe();
-    }
-    this.updateSubscription = this.placesService.search(location, this.category)
-      .subscribe(
-        response => this.updatePlacesSuccess(response)
-      )
-  }
+	private updatePlaces(params: YelpSearchParams) {
+		this.loading = true;
+		if (this.updateSubscription && !this.updateSubscription.closed) {
+			this.updateSubscription.unsubscribe();
+		}
+		this.updateSubscription = this.placesService.search(params)
+			.subscribe(
+				response => this.updatePlacesSuccess(response),
+				err => this.updatePlacesError()
+			);
+	}
 
-  private updatePlacesSuccess(response) {
-    if (response.error) {
-      this.toastService.show(response.error.description);
-      return;
-    }
-    this.location = this.placesService.location;
-  }
+	private updatePlacesSuccess(response) {
+		this.loading = false;
+		if (response.error) {
+			this.toastService.show(response.error.description);
+			return;
+		}
+	}
 
-  public checkForChanges() {
-    const currentPosition = this.data.region.center;
+	private updatePlacesError() {
+		this.loading = false;
+		this.toastService.show('Something went wrong, please try again');
+	}
 
-    if (this.mapCenter.lat !== currentPosition.latitude || this.mapCenter.lng !== currentPosition.longitude) {
-      this.placesService.geocoder(this.mapCenter.lat, this.mapCenter.lng)
-        .then((location: string) => {
-          if (this.location !== location) {
-            this.updatePlaces(location);
-          }
-        })
-        .catch(this.geoError.bind(this));
-    }
-  }
+	public isFiltered() {
+		return this.filtersService.selectedPrices.length > 0 || this.filtersService.selectedCuisines.length > 0;
+	}
 
-  private geoError(): void {
-    this.toastService.show('Unable to get the location');
-  }
+	public onResetFilters() {
+		this.filtersService.reset();
+	}
+
+	ngOnDestroy() {
+		this.changesSubscription.unsubscribe();
+		if (this.updateSubscription && !this.updateSubscription.closed) {
+			this.updateSubscription.unsubscribe();
+		}
+	}
 }

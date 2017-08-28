@@ -6,13 +6,13 @@ import { PlacesService } from './places.service';
 @Injectable()
 export class CanActivatePlaces implements CanActivate {
 
-  constructor(private router: Router, private placesService: PlacesService) {}
+	constructor(private router: Router, private placesService: PlacesService) { }
 
-  canActivate() {
-    if (!this.placesService.data.total) {
-      this.router.navigate(['/']);
-      return false;
-    }
-    return true;
-  }
+	canActivate() {
+		if (!this.placesService.data.businesses) {
+			this.router.navigate(['/']);
+			return false;
+		}
+		return true;
+	}
 }
