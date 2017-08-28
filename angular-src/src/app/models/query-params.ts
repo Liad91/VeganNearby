@@ -1,3 +1,3 @@
 export class QueryParams {
-	[key: string]: any
+  [key: string]: any
 }

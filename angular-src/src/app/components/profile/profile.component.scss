@@ -1,64 +1,64 @@
 :host {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	z-index: 9999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
 
-	.image-upload {
-		p {
-			font-size: 90%;
-		}
-	}
-	
-	.image-wrap {
-		position: relative;
-		margin: auto;
-		height: 150px;
-		width: 150px;
-		color: #a3a3a3;
-		border: 2px dashed; 
-		border-radius: 50%;  
+  .image-upload {
+    p {
+      font-size: 90%;
+    }
+  }
+  
+  .image-wrap {
+    position: relative;
+    margin: auto;
+    height: 150px;
+    width: 150px;
+    color: #a3a3a3;
+    border: 2px dashed; 
+    border-radius: 50%;  
 
-		.image-drop,
-		img {
-			width: 100%;
-			height: 100%;
-			border-radius: 50%;
-		}
+    .image-drop,
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
 
-		button {
-			position: absolute;
-			display: flex;
-			top: 10px;
-			right: -5px;
-			transition: all 0.2s ease-in;
-			&:hover {
-				transform: scale(1.2);
-			}
-		}
-	}
+    button {
+      position: absolute;
+      display: flex;
+      top: 10px;
+      right: -5px;
+      transition: all 0.2s ease-in;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
 
-	.image-drop {
-		transition: all 0.2s ease-in;
-		&.file-over {
-			color: #0089ec !important;
-			button {
-				transform: scale(0);
-			}
-		}
+  .image-drop {
+    transition: all 0.2s ease-in;
+    &.file-over {
+      color: #0089ec !important;
+      button {
+        transform: scale(0);
+      }
+    }
 
-		p {
-			font-size: 80%;
-		}
-	}
+    p {
+      font-size: 80%;
+    }
+  }
 
-	.icon {
-		width: 20px;
-		height: 20px;
-		margin-right: 7px;
-	}
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+  }
 }
 
 :host /deep/ {
@@ -68,18 +68,18 @@
 }
 
 .social-btn-wrap {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
 
-	button {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		width: 33%;
-	}
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 33%;
+  }
 
   &.x-small {
     button {

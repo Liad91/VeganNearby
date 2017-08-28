@@ -5,25 +5,25 @@ import { AuthService } from './services/auth.service';
 import { routeStateTrigger } from './animations';
 
 @Component({
-	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss'],
-	animations: [ routeStateTrigger ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  animations: [ routeStateTrigger ]
 })
 export class AppComponent implements OnInit {
 
-	constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-	ngOnInit(): void {
-		this.authService.authenticate();
-	}
+  ngOnInit(): void {
+    this.authService.authenticate();
+  }
 
-	getAnimation(routerOutlet: RouterOutlet) {
-		const routeData = routerOutlet.activatedRouteData['animation'];
+  getAnimation(routerOutlet: RouterOutlet) {
+    const routeData = routerOutlet.activatedRouteData['animation'];
 
-		if (!routeData) {
-			return 'root';
-		}
-		return routeData.page;
-	}
+    if (!routeData) {
+      return 'root';
+    }
+    return routeData.page;
+  }
 }

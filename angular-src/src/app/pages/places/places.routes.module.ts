@@ -5,17 +5,17 @@ import { PlacesComponent } from './places.component';
 import { CanActivatePlaces } from './places.guard';
 
 const routes: Routes = [
-	{
-		path: '',
-		pathMatch: 'full',
-		component: PlacesComponent,
-		canActivate: [CanActivatePlaces],
-		data: { animation: { page: 'places' } }
-	}
+  {
+    path: '',
+    pathMatch: 'full',
+    component: PlacesComponent,
+    canActivate: [CanActivatePlaces],
+    data: { animation: { page: 'places' } }
+  }
 ];
 
 @NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class PlacesRoutesModule { }

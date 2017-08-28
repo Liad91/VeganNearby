@@ -1,68 +1,68 @@
 .nav-more {
-	button {
-		border-radius: 0;
-	}
+  button {
+    border-radius: 0;
+  }
 }
 
 .login-btn {
-	color: #fff;
-	padding: 0 10px;
-	font-size: 14px;
-	i {
-		margin-right: 5px;
-	}
+  color: #fff;
+  padding: 0 10px;
+  font-size: 14px;
+  i {
+    margin-right: 5px;
+  }
 }
 
 #btn-more {
-	color: #fff;
-	padding: 0 5px;
-	width: 170px;
-	border-radius: 0;
-	&.active,
-	&:hover {
-		background: rgba(0, 0, 0, 0.3);
-	}
+  color: #fff;
+  padding: 0 5px;
+  width: 170px;
+  border-radius: 0;
+  &.active,
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
 
-	@media only screen and (max-width: 600px) {
-		width: 40px;
-		padding: 0;
-		border-radius: 50%;
-	}
+  @media only screen and (max-width: 600px) {
+    width: 40px;
+    padding: 0;
+    border-radius: 50%;
+  }
 
-	img {
-		width: 40px;
-		height: 40px;
-		max-width: 40px;
-		margin-left: 10px;
-	}
-	.user-info {
-		max-width: 110px;
-		
-		div {
-			line-height: 1;
-			text-transform: none;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			&.username {
-				font-size: 13px;          
-				margin-bottom: 5px;
-			}
-			&.email {
-				font-size: 11px;
-			}
-		}
-	}
+  img {
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    margin-left: 10px;
+  }
+  .user-info {
+    max-width: 110px;
+    
+    div {
+      line-height: 1;
+      text-transform: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      &.username {
+        font-size: 13px;          
+        margin-bottom: 5px;
+      }
+      &.email {
+        font-size: 11px;
+      }
+    }
+  }
 }
 
 ul#nav-mobile {
-	width: 100%;
+  width: 100%;
 }
 
 nav.transparent {
-	ul#more {
-		background-color: rgba(0, 0, 0, 0.3);
-	}
+  ul#more {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 }
 
 nav.transparent {
@@ -76,30 +76,30 @@ ul#more {
   margin-top: 64px;
   width: 170px;
 
-	@media only screen and (max-width: 600px) {
-		background-color: #212121; 
-		top: 0 !important;
-		left: auto !important;
-		margin-top: 0;
-		width: auto;
-	}
+  @media only screen and (max-width: 600px) {
+    background-color: #212121; 
+    top: 0 !important;
+    left: auto !important;
+    margin-top: 0;
+    width: auto;
+  }
 
-	li {
-		min-height: 0;
-		&:hover {
-			background-color: rgba(0, 0, 0, 0.1);;
-		}
+  li {
+    min-height: 0;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);;
+    }
 
-		a {
-		color: #fff;
-		font-size: .9rem;
-		padding: 11px 15px;
-		
-			i {
-				margin-right: 10px;
-				font-size: 22px;
-				width: 22px;
-			}
-		}
-	}
+    a {
+    color: #fff;
+    font-size: .9rem;
+    padding: 11px 15px;
+    
+      i {
+        margin-right: 10px;
+        font-size: 22px;
+        width: 22px;
+      }
+    }
+  }
 }

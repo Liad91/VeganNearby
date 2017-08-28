@@ -6,25 +6,25 @@ import { CanActivateSocialProfile } from './components/profile/social-profile/so
 import { SocialProfileComponent } from './components/profile/social-profile/social-profile.component';
 
 const routes: Routes = [
-	{
-		path: '',
-		component: HomeComponent,
-		pathMatch: 'full',
-		data: { animation: { page: 'home' } }
-	},
-	{
-		path: 'places',
-		loadChildren: './pages/places/places.module#PlacesModule'
-	},
-	{
-		path: 'callback',
-		component: SocialProfileComponent,
-		canActivate: [CanActivateSocialProfile]
-	}
+  {
+    path: '',
+    component: HomeComponent,
+    pathMatch: 'full',
+    data: { animation: { page: 'home' } }
+  },
+  {
+    path: 'places',
+    loadChildren: './pages/places/places.module#PlacesModule'
+  },
+  {
+    path: 'callback',
+    component: SocialProfileComponent,
+    canActivate: [CanActivateSocialProfile]
+  }
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutesModule { }

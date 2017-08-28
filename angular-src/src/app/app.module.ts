@@ -29,36 +29,36 @@ import { SharedModule } from './shared/shared.module';
 import { googleMapApiKey } from './../config';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		HomeComponent
-	],
-	imports: [
-		BrowserModule,
-		HttpModule,
-		FormsModule,
-		ReactiveFormsModule,
-		BrowserAnimationsModule,
-		AppRoutesModule,
-		ComponentsModule,
-		SharedModule,
-		AgmCoreModule.forRoot({
-			apiKey: googleMapApiKey,
-			libraries: ['places', 'geometry']
-		})
-	],
-	providers: [
-		CanActivateSocialProfile,
-		CanActivatePlaces,
-		FiltersService,
-		PlacesService,
-		ProfileService,
-		SocialProfileService,
-		Services.AuthService,
-		Services.ConnectionService,
-		Services.RendererService,
-		Services.ToastService
-	],
-	bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AppRoutesModule,
+    ComponentsModule,
+    SharedModule,
+    AgmCoreModule.forRoot({
+      apiKey: googleMapApiKey,
+      libraries: ['places', 'geometry']
+    })
+  ],
+  providers: [
+    CanActivateSocialProfile,
+    CanActivatePlaces,
+    FiltersService,
+    PlacesService,
+    ProfileService,
+    SocialProfileService,
+    Services.AuthService,
+    Services.ConnectionService,
+    Services.RendererService,
+    Services.ToastService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

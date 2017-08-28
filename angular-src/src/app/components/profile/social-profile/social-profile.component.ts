@@ -4,21 +4,21 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { QueryParams } from '../../../models/query-params';
 
 @Component({
-	selector: 'app-callback',
-	template: 'Authorizing...'
+  selector: 'app-callback',
+  template: 'Authorizing...'
 })
 export class SocialProfileComponent implements OnInit {
 
-	constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) { }
 
-	ngOnInit(): void {
-		this.route.queryParams.subscribe(
-			params => {
-				const event = new CustomEvent('socialCallback', { detail: params });
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      params => {
+        const event = new CustomEvent('socialCallback', { detail: params });
 
-				window.opener.dispatchEvent(event);
-				window.close();
-			}
-		)
-	}
+        window.opener.dispatchEvent(event);
+        window.close();
+      }
+    )
+  }
 }
