@@ -1,7 +1,28 @@
 const request = require('request');
-const yelp = require('../config/credentials').yelp;
+const NodeCache = require( "node-cache" );
 
-function getToken(req, res, next) {
+const yelp = require('../config/credentials').yelp;
+const myCache = new NodeCache();
+
+function authenticate(req, res, next) {
+  const token = myCache.get('token');
+  if (token) {
+    res.yelpToken = token;
+    next();
+  }
+  else {
+    getToken()
+      .then(() => {
+        res.yelpToken = myCache.get('token');
+        next();
+      })
+      .catch(err => {
+        next(err);
+      })
+  }
+}
+
+function getToken() {
   const options = {
     method: 'POST',
     uri: 'https://api.yelp.com/oauth2/token',
@@ -11,16 +32,18 @@ function getToken(req, res, next) {
       client_id: yelp.client_id 
     }
   };
-  
-  request(options, (err, response, body) => {
-    if (err || response.statusCode !== 200) {
-      err.message = 'Yelp token request failed';      
-      return next(err);
-    }
-    body = JSON.parse(body);
-    res.yelpToken = `${body.token_type} ${body.access_token}`;
-    next();
+
+  return new Promise((resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err || response.statusCode !== 200) {
+        err.message = 'Yelp token request failed';      
+        return reject(err);
+      }
+      body = JSON.parse(body);
+      myCache.set('token',`${body.token_type} ${body.access_token}`, body.expires_in);
+      resolve();
+    });
   });
 }
 
-module.exports = { getToken };
+module.exports = { authenticate };

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as Typed from 'typed.js';
 
 import { bgStateTrigger } from './animations';
+import { YelpFilter } from './../../models/yelp.model';
+import { PlacesService } from './../places/places.service';
 
 @Component({
   selector: 'app-home',
@@ -11,36 +13,39 @@ import { bgStateTrigger } from './animations';
   animations: [ bgStateTrigger ]
 })
 export class HomeComponent implements OnInit {
-  public category = 'restaurants';
+  public selectedCategory: YelpFilter;
   private typed: Typed;
 
+  constructor(private placesService: PlacesService) {}
+
   ngOnInit(): void {
+    this.selectedCategory = this.placesService.selectedCategory;
     this.initializeTyped();
   }
 
   private initializeTyped(): void {
     let strings;
 
-    switch (this.category) {
+    switch (this.selectedCategory.alias) {
       case 'restaurants':
         strings = [
-          `Find the best ${this.category}^1000`,
-          `Find the most rated ${this.category}^1000`,
-          `Find your favorite ${this.category}^1000`
+          `Find the best ${this.selectedCategory.alias}^1000`,
+          `Find the most rated ${this.selectedCategory.alias}^1000`,
+          `Find your favorite ${this.selectedCategory.alias}^1000`
         ];
         break;
       case 'cafes':
         strings = [
-          `Find ${this.category} with the most richest breakfast^1000`,
-          `Find ${this.category} with wifi^1000`,
-          `Find your perfect ${this.category}^1000`
+          `Find ${this.selectedCategory.alias} with the most richest breakfast^1000`,
+          `Find ${this.selectedCategory.alias} with wifi^1000`,
+          `Find your perfect ${this.selectedCategory.alias}^1000`
         ];
         break;
       case 'bars':
         strings = [
-          `Find the most popular ${this.category}^1000`,
-          `Find ${this.category} with the best liquors^1000`,
-          `Find the most crowded ${this.category}^1000`
+          `Find the most popular ${this.selectedCategory.alias}^1000`,
+          `Find ${this.selectedCategory.alias} with the best liquors^1000`,
+          `Find the most crowded ${this.selectedCategory.alias}^1000`
         ];
     }
     this.typed = new Typed('#typing', {
@@ -51,15 +56,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  private resetTyped(): void {
+  public onCategoryChanged(): void {
     this.typed.destroy();
     this.initializeTyped();
-  }
-
-  public onCategoryChanged(category): void {
-    if (this.category !== category) {
-      this.category = category;
-      this.resetTyped();
-    }
   }
 }

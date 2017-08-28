@@ -25,7 +25,7 @@ export class NavComponent implements OnInit {
     this.user = this.authService.user;
   }
 
-  public currentUser(): string {
+  public getCurrentUser(): string {
     let user: string;
     switch (this.user._id) {
       case(''):

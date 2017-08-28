@@ -10,7 +10,7 @@ import {
   selector: '[appBgColor]'
 })
 export class BackgroundColorDirective implements OnInit {
-  @Input() appBgColor: string;
+  @Input() private appBgColor: string;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 

@@ -59,8 +59,14 @@ ul#nav-mobile {
   width: 100%;
 }
 
+nav.transparent {
+  ul#more {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
 ul#more {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
   margin-top: 64px;
   width: 170px;
 

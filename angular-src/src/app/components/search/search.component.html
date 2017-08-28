@@ -10,7 +10,7 @@
           (click)="getLocation()"
           [disabled]="locateSpinner || locateFailed"
         >
-          <i mz-icon icon="location_on" class="search-icon" appColor="primary" *ngIf="!locateSpinner"></i>
+        <i mz-icon [icon]="locateFailed ? 'location_off' : 'location_on'" class="search-icon" [appColor]="locateFailed ? 'gray' : 'primary' " *ngIf="!locateSpinner"></i>
           <mz-spinner color="blue" size="small" *ngIf="locateSpinner"></mz-spinner>
         </button>
       </div>
@@ -20,7 +20,7 @@
         name="location"
         [(ngModel)]="location"
         class="search-input"
-        placeholder="{{ categories[selectedCategoryIndex] | capitalizeFirst }} near..."
+        placeholder="{{ selectedCategory.title }} near..."
         autocorrect="off"
         autocapitalize="off"
         spellcheck="off"
@@ -29,8 +29,8 @@
     </div>
     <div class="categories" fxFlex="30%" fxFlex.xs="80%">
       <div class="input-field">
-        <select mz-select name="category" [(ngModel)]="selectedCategoryIndex" (change)="onCategoryChange()">
-          <option [value]="i" *ngFor="let category of categories; let i = index">{{ category | capitalizeFirst }}</option>
+        <select mz-select name="category" [(ngModel)]="selectedCategoryIndex" (change)="onCategoryChange($event)">
+          <option [value]="i" *ngFor="let category of categories; let i = index">{{ category.title }}</option>
         </select>
       </div>
     </div>

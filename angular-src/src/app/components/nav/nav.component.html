@@ -8,7 +8,7 @@
         class="login-btn h-100"
         [flat]="true"
         (click)="openModal()"
-        *ngIf="currentUser() === 'guest'"
+        *ngIf="getCurrentUser() === 'guest'"
       >
         <i mz-icon icon="person" align="left"></i>
         Login
@@ -23,7 +23,7 @@
         ngClass.xs="btn-floating h-auto"
         appDropdownTriggerFor="more"
         [constrainWidth]="false"
-        *ngIf="currentUser() === 'user'"
+        *ngIf="getCurrentUser() === 'user'"
       >
         <div class="user-info right-align hide-on-small-only">
           <div class="username">{{ user.username }}</div>

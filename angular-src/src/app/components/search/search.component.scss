@@ -8,7 +8,7 @@
   }
 }
 
-:host ::ng-deep .categories {
+:host /deep/ .categories {
   .input-field {
     margin-top: 0;
 
@@ -82,7 +82,7 @@ button[type = submit] {
     font-size: 25px;
   }
 
-  ::ng-deep {
+  /deep/ {
     #search-spinner .spinner-layer {
       border-color: #fff;
     }

@@ -9,7 +9,6 @@
   <mz-modal-header fxFlex="100%" fxLayout="row">
     <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
     <button
-      feFlex
       fxLayoutAlign="end center"
       mz-button
       [float]="true"
@@ -20,14 +19,13 @@
       <i class="black-text" mz-icon icon="clear"></i>
     </button>    
   </mz-modal-header>
-  <mz-modal-content fxLayoutWrap fxLayout="row">
-    <p @errorState fxFlex="100%" class="center-align mt-0" appColor="error" *ngIf="formErrorMessage">
+  <mz-modal-content fxLayout="row wrap">
+    <p @errorState fxFlex="100%" class="center-align mt-0" appColor="danger" *ngIf="formErrorMessage">
       {{ formErrorMessage }}
     </p>    
     <form
       fxFlex="100%"
-      fxLayout="row"
-      fxLayoutWrap
+      fxLayout="row wrap"
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
       novalidate
@@ -40,7 +38,7 @@
               ng2FileDrop
               (fileOver)="onFileOver($event)"
               [uploader]="uploader"
-              [ngClass]="{'file-over': hasDropZoneOver, 'color-error': uploadErrorMessage}"
+              [ngClass]="{'file-over': hasDropZoneOver, 'color-danger': uploadErrorMessage}"
               class="image-drop"
               *ngIf="!userImageFile"
             >
@@ -63,13 +61,13 @@
               mz-button
               [float]="true"
               (click)="onResetUploader()"
-              appBgColor="error"
+              appBgColor="danger"
               *ngIf="userImageFile"
             >
               <i mz-icon icon="remove"></i>
             </button>
           </div>
-          <p @errorState class="center-align mb-0" appColor="error" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
+          <p @errorState class="center-align mb-0" appColor="danger" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
         </div>
         <mz-input-container fxFlex="100%">
           <input
@@ -150,11 +148,11 @@
           [appBgColor]="network"
           (click)="onSocialLogin(network)"
         >
-          <img src="assets/icons/{{network}}.png" [alt]="network" class="icon"><span >{{ network | capitalizeFirst }}</span>
+          <img src="assets/icons/{{network}}.png" [alt]="network" class="icon"><span >{{ network | titlecase }}</span>
         </button>
       </div>
     </ng-template>
-    <div id="spinner-wrap" *ngIf="loading">
+    <div class="spinner-wrap" *ngIf="loading">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
   </mz-modal-content>

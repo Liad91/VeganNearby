@@ -14,7 +14,8 @@ import * as Pipes from './pipes';
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective,
-    Pipes.CapitalizeFirstPipe
+    Directives.PriceDirective,
+    Pipes.SearchFilterPipe
   ],
   imports: [
     CommonModule,
@@ -30,7 +31,8 @@ import * as Pipes from './pipes';
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective,
-    Pipes.CapitalizeFirstPipe
-  ],
+    Directives.PriceDirective,
+    Pipes.SearchFilterPipe
+  ]
 })
 export class SharedModule { }

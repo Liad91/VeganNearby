@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  Input,
   Output,
   ViewChild,
   ElementRef,
@@ -12,6 +11,8 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 
+import { YelpFilter, YelpSearchParams } from './../../models/yelp.model';
+import { FiltersService } from '../../pages/places/filters/filters.service';
 import { PlacesService } from '../../pages/places/places.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -25,22 +26,24 @@ export class SearchComponent implements OnInit {
   public locateSpinner = false;
   public locateFailed = false;
   private searching = false;
-  public selectedCategoryIndex;
-  @Input() public selected;
-  @Output() public category = new EventEmitter();
-  @ViewChild('search') public searchElementRef: ElementRef;
-
-  public categories = ['restaurants', 'cafes', 'bars'];
+  public categories: YelpFilter[];
+  public selectedCategory: YelpFilter;
+  public selectedCategoryIndex: number;
+  @ViewChild('search') private searchElementRef: ElementRef;
+  @Output() private categoryChanged = new EventEmitter();
 
   constructor(private renderer: Renderer2,
               private router: Router,
+              private filtersService: FiltersService,
               private placesService: PlacesService,
               private mapsApiLoader: MapsAPILoader,
               private toastService: ToastService) {}
 
   ngOnInit(): void {
+    this.categories = this.placesService.categories;
+    this.selectedCategory = this.placesService.selectedCategory;
+    this.selectedCategoryIndex = this.categories.findIndex(category => category.alias === this.selectedCategory.alias);
     this.buildLocationAutocomplete();
-    this.setCategory();
   }
 
   private buildLocationAutocomplete(): void {
@@ -55,10 +58,6 @@ export class SearchComponent implements OnInit {
         });
       })
       .catch(error => this.geoError());
-  }
-
-  private setCategory(): void {
-    this.selectedCategoryIndex = this.categories.findIndex(category => category === this.selected);
   }
 
   private geoSuccess(position: Position): void {
@@ -103,7 +102,10 @@ export class SearchComponent implements OnInit {
   }
 
   public onCategoryChange(): void {
-    this.category.next(this.categories[this.selectedCategoryIndex]);
+    if (this.selectedCategory.alias !== this.categories[this.selectedCategoryIndex].alias) {
+      Object.assign(this.selectedCategory, this.categories[this.selectedCategoryIndex]);
+      this.categoryChanged.emit();
+    }
   }
 
   public onSubmit(): void {
@@ -114,8 +116,16 @@ export class SearchComponent implements OnInit {
       this.renderer.selectRootElement(this.searchElementRef.nativeElement).focus();
       return;
     }
+
+    const params: YelpSearchParams = {
+      location: this.location,
+      categories: this.selectedCategory.alias,
+      radius: 2500
+    }
+
     this.searching = true;
-    this.placesService.search(this.location, this.categories[this.selectedCategoryIndex])
+    this.filtersService.reset();
+    this.placesService.search(params)
       .subscribe(
         response => this.searchSuccess(response),
         err => this.searchError()

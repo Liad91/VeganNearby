@@ -13,17 +13,17 @@ import { RendererService } from '../../services/renderer.service';
   selector: '[appDropdownTriggerFor]'
 })
 export class DropdownTriggerDirective extends HandlePropChanges implements AfterViewInit {
-  @Input() align: string;
-  @Input() belowOrigin: boolean;
-  @Input() constrainWidth: boolean;
-  @Input() dropdownButtonId: string;
-  @Input() gutter: number;
-  @Input() hover: boolean;
-  @Input() id: string;
-  @Input() inDuration: number;
-  @Input() outDuration: number;
-  @Input() stopPropagation: boolean;
-  @Input() appDropdownTriggerFor: string;
+  @Input() private align: string;
+  @Input() private belowOrigin: boolean;
+  @Input() private constrainWidth: boolean;
+  @Input() private dropdownButtonId: string;
+  @Input() private gutter: number;
+  @Input() private hover: boolean;
+  @Input() private id: string;
+  @Input() private inDuration: number;
+  @Input() private outDuration: number;
+  @Input() private stopPropagation: boolean;
+  @Input() private appDropdownTriggerFor: string;
 
   private dropdownOpen = false
   private dropdownButtonElement: JQuery;

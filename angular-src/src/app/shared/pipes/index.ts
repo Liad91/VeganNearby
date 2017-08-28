@@ -1,1 +1,1 @@
-export * from './capitalize-first.pipe';
+export * from './search-filter.pipe';

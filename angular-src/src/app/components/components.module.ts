@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 
+import { BusinessComponent } from './business/business.component';
 import { NavComponent } from './nav/nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SearchComponent } from './search/search.component';
@@ -12,12 +13,13 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
+    FileDropDirective,
+    FileSelectDirective,
+    BusinessComponent,
     NavComponent,
     ProfileComponent,
     SearchComponent,
-    SocialProfileComponent,
-    FileDropDirective,
-    FileSelectDirective
+    SocialProfileComponent
   ],
   entryComponents: [
     ProfileComponent
@@ -29,11 +31,11 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   exports: [
+    BusinessComponent,
     NavComponent,
     ProfileComponent,
     SearchComponent,
     SocialProfileComponent
-  ],
-  providers: []
+  ]
 })
 export class ComponentsModule { }

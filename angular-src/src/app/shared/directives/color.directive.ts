@@ -10,7 +10,7 @@ import {
   selector: '[appColor]'
 })
 export class ColorDirective implements OnInit {
-  @Input() appColor: string;
+  @Input() private appColor: string;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 

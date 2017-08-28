@@ -1,9 +1,9 @@
 const express = require('express');
 const request = require('request');
-const getToken = require('./../middlewares/yelp').getToken;
+const authenticate = require('./../middlewares/yelp').authenticate;
 const router = express.Router();
 
-router.post('/search', getToken, (req, res, next) => {
+router.post('/search', authenticate, (req, res, next) => {
   const queryParams = req.body;
 
   if (!queryParams.location && (!queryParams.longitude && !queryParams.latitude)) {
@@ -11,7 +11,7 @@ router.post('/search', getToken, (req, res, next) => {
     return next(err);
   }
 
-  Object.assign(queryParams, {categories: 'vegan'});
+  Object.assign(queryParams, {term: 'vegan'});
 
   const options = {
     method: 'GET',

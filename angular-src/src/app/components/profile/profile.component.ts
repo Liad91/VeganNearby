@@ -17,7 +17,7 @@ import {
   transition
 } from '@angular/animations';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
-import { MzBaseModal } from 'ng2-materialize';
+import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription'
 
 import { ProfileService } from './profile.service';
@@ -37,8 +37,7 @@ import { AuthSuccessResponse, AuthFailedResponse } from '../../models/auth-respo
   ]
 })
 export class ProfileComponent extends MzBaseModal implements OnInit, OnDestroy {
-  @ViewChild('modal')
-  public modal;
+  @ViewChild('modal')	public modal: MzModalComponent;
   public mode = 'signIn';
   public form: FormGroup;
   public socialSubscription: Subscription;

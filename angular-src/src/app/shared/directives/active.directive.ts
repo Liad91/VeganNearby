@@ -10,7 +10,7 @@ import {
   selector: '[appActive]'
 })
 export class ActiveDirective implements OnChanges {
-  @Input() appActive: boolean;
+  @Input() private appActive: boolean;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 

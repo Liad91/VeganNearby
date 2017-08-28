@@ -3,8 +3,7 @@ import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular
 @Directive({ selector: 'img[appImgPreview]' })
 
 export class ImagePreviewDirective implements OnChanges {
-
-    @Input() appImgPreview: File;
+    @Input() private appImgPreview: File;
 
     constructor(private elementRef: ElementRef) { }
 

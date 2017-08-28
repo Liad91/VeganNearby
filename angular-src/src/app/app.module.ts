@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 // Services
 import * as Services from './services';
+import { FiltersService } from './pages/places/filters/filters.service';
 import { PlacesService } from './pages/places/places.service';
 import { ProfileService } from './components/profile/profile.service';
 import { SocialProfileService } from './components/profile/social-profile/social-profile.service';
@@ -43,12 +44,13 @@ import { googleMapApiKey } from './../config';
     SharedModule,
     AgmCoreModule.forRoot({
       apiKey: googleMapApiKey,
-      libraries: ['places']
+      libraries: ['places', 'geometry']
     })
   ],
   providers: [
     CanActivateSocialProfile,
     CanActivatePlaces,
+    FiltersService,
     PlacesService,
     ProfileService,
     SocialProfileService,
