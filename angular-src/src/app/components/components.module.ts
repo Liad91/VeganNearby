@@ -12,30 +12,30 @@ import { SocialProfileComponent } from './profile/social-profile/social-profile.
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    FileDropDirective,
-    FileSelectDirective,
-    BusinessComponent,
-    NavComponent,
-    ProfileComponent,
-    SearchComponent,
-    SocialProfileComponent
-  ],
-  entryComponents: [
-    ProfileComponent
-  ],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    SharedModule
-  ],
-  exports: [
-    BusinessComponent,
-    NavComponent,
-    ProfileComponent,
-    SearchComponent,
-    SocialProfileComponent
-  ]
+	declarations: [
+		FileDropDirective,
+		FileSelectDirective,
+		BusinessComponent,
+		NavComponent,
+		ProfileComponent,
+		SearchComponent,
+		SocialProfileComponent
+	],
+	entryComponents: [
+		ProfileComponent
+	],
+	imports: [
+		FormsModule,
+		ReactiveFormsModule,
+		CommonModule,
+		SharedModule
+	],
+	exports: [
+		BusinessComponent,
+		NavComponent,
+		ProfileComponent,
+		SearchComponent,
+		SocialProfileComponent
+	]
 })
 export class ComponentsModule { }

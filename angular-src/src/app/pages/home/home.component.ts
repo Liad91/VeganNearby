@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
         ];
     }
     this.typed = new Typed('#typing', {
-      strings: strings,
+      strings,
       typeSpeed: 80,
       backSpeed: 50,
       loop: true

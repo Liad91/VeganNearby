@@ -1,7 +1,7 @@
 import {
-  Component,
-  OnInit,
-  Input
+	Component,
+	OnInit,
+	Input
 } from '@angular/core';
 import { MzModalService } from 'ng2-materialize';
 
@@ -10,20 +10,20 @@ import { User } from '../../models/user.model';
 import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+	selector: 'app-nav',
+	templateUrl: './nav.component.html',
+	styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  @Input() public slim: boolean;
-  public user: User;
-  public isAuth = false;
+	@Input() public slim: boolean;
+	public user: User;
+	public isAuth = false;
 
-  constructor(private authService: AuthService, private modalService: MzModalService) {}
+	constructor(private authService: AuthService, private modalService: MzModalService) {}
 
-  ngOnInit(): void {
-    this.user = this.authService.user;
-  }
+	ngOnInit(): void {
+		this.user = this.authService.user;
+	}
 
   public getCurrentUser(): string {
     let user: string;
@@ -40,11 +40,11 @@ export class NavComponent implements OnInit {
     return user;
   }
 
-  public openModal(): void {
-    this.modalService.open(ProfileComponent);
-  }
+	public openModal(): void {
+		this.modalService.open(ProfileComponent);
+	}
 
-  public singOut(): void {
-    this.authService.logout();
-  }
+	public singOut(): void {
+		this.authService.logout();
+	}
 }

@@ -7,9 +7,9 @@ import { ToastService } from './../../services/toast.service';
 import { FiltersService } from './filters/filters.service';
 
 @Component({
-  selector: 'app-places',
-  templateUrl: './places.component.html',
-  styleUrls: ['./places.component.scss']
+	selector: 'app-places',
+	templateUrl: './places.component.html',
+	styleUrls: ['./places.component.scss']
 })
 export class PlacesComponent implements OnInit, OnDestroy {
   public data: YelpSearchResponse
