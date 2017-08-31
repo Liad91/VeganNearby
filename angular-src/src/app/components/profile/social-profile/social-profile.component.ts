@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { QueryParams } from '../../../models/query-params';
+import { QueryParams } from '../../../models/query-params.model';
 
 @Component({
   selector: 'app-callback',

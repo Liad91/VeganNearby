@@ -6,7 +6,7 @@
 <app-nav fxFlex="100%" fxFlexAlign="start" [slim]="true"></app-nav>
 <section fxFlex="100%" fxFlexAlign="center" fxLayout="column" class="content">
   <h1 fxShow fxShow.lt-md="false" class="center-align mt-0">Searching for {{ selectedCategory.alias }}?</h1>
-  <h2 fxShow fxShow.lt-md="false" class="center-align mt-0"><span id="typing"></span></h2>
+  <h3 fxShow fxShow.lt-md="false" class="center-align mt-0"><span id="typing"></span></h3>
   <h2 fxHide fxHide.lt-md="false" class="center-align mt-0">Find your favorite {{ selectedCategory.alias }}</h2>
   <app-search (categoryChanged)="onCategoryChanged()"></app-search>
 </section>

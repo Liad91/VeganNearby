@@ -27,12 +27,13 @@ export class PriceDirective implements AfterViewInit {
       this.renderer.setStyle(highlight, 'color', '#41a700');
       this.renderer.setStyle(remainder, 'color', '#999');
 
+      this.elementRef.nativeElement.innerHTML = `${this.titles[this.appPrice.length - 1]} `;
       this.renderer.appendChild(this.elementRef.nativeElement, highlight);
       this.renderer.appendChild(this.elementRef.nativeElement, remainder);
-      this.elementRef.nativeElement.innerHTML += ` - ${this.titles[this.appPrice.length - 1]}`;
     }
     else {
       this.elementRef.nativeElement.innerHTML = 'Not available';
+      this.renderer.setStyle(this.elementRef.nativeElement, 'color', '#999');
     }
   }
 }

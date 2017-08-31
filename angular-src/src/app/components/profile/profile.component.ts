@@ -24,7 +24,7 @@ import { ProfileService } from './profile.service';
 import { SocialProfileService } from './social-profile/social-profile.service';
 import { AuthService } from '../../services/auth.service';
 import { socialBtnStateTrigger, errorStateTrigger, imgPreviewStateTrigger } from './animations';
-import { AuthSuccessResponse, AuthFailedResponse } from '../../models/auth-response';
+import { AuthSuccessResponse, AuthFailedResponse } from '../../models/auth-response.model';
 
 @Component({
   selector: 'app-profile',

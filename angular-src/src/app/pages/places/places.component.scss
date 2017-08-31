@@ -5,12 +5,99 @@
 
 header {
   border-bottom: 1px solid #e6e6e6;
+  z-index: 100;
 }
 
-.filters {
-  border-right: 1px solid #e6e6e6;
+.content {
+  .filters {
+    border-right: 1px solid #e6e6e6;
+    margin-right: 1.5rem;
+    padding-right: 1.5rem;
+  
+    button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+  }
+
+  .main {
+    align-content: flex-start;
+  
+    .top-bar {
+      display: flex;
+      align-items: center;
+    
+      button {
+        padding: 0 8px;
+        border-radius: 5px;
+  
+        &.btn-flat {
+          background-color: #ddd;
+        }
+
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+  
+    .businesses-wrap {
+      position: relative;
+    }
+  }
+
+  &.sidebar {
+    height: 1000px;
+  
+    .main {
+      overflow: hidden;
+  
+      .spinner-wrap {
+        display: block !important;
+        background-color: rgba(255, 255, 255, 0.8);
+        mz-spinner {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.small,
+  &.x-small {
+    .filters {
+      position: absolute;
+      background-color: white;      
+      padding-top: 2rem;
+      margin-top: -2rem;
+      margin-right: 0;
+      border: 0;
+      z-index: 90;      
+    }
+  }
+
+  &.small {
+    .filters {
+      box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  &.x-small {
+    .filters {
+      right: 5px;
+      left: 5px;
+      padding-right: 0;
+      box-shadow: none;
+
+      button {
+        right: 0;
+      }
+    }
+  }
 }
 
-.businesses-wrap {
-  position: relative;
+mz-spinner {
+  position: sticky;  
+  align-self: flex-start;
+  top: calc(50% - 32px);
 }

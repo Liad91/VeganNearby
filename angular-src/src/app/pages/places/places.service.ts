@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import * as yelp from 'yelp-fusion';
 import 'rxjs/Rx';
 
+import { PlacesStatus } from './places.model';
 import { categories } from './data/index';
 import { ConnectionService } from '../../services/connection.service';
 import {
@@ -19,6 +20,12 @@ export class PlacesService {
   public categories: YelpFilter[];
   public selectedCategory: YelpFilter;
   public selectedLocation = { name: '' };
+
+  public viewStatus: PlacesStatus = {
+    listView: '',
+    currentPage: 1,
+    itemsPerPage: 18
+  };
 
   constructor(private http: Http, private connectionService: ConnectionService, private mapsApiLoader: MapsAPILoader) {
     this.categories = categories;

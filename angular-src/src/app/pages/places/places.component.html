@@ -1,39 +1,65 @@
 <app-nav fxFlex="100%" fxFlexAlign="start"></app-nav>
 <header fxFlex="100%" class="py-3" appBgColor="light-gray">
-  <div fxFlexAlign="start" class="content">
-    <h2 fxFlex="80%" class="m-0"><strong>{{ selectedCategory.title }}</strong> near {{ selectedLocation.name }}</h2>
-    <p fxFlex="20%" fxLayoutAlign="end center" class="m-0" *ngIf="data.businesses.length > 0">
-      Showing {{ currentPage * itemsPerPage - itemsPerPage + 1 }} - {{ (currentPage * itemsPerPage) < data.total ? currentPage * itemsPerPage : data.total }} of {{ data.total }}
+  <div fxLayout.xs="row wrap" fxFlexAlign="start" ngClass.xs="center-align" class="content">
+    <h2 fxFlex.xs="100%" class="nowrap m-0"><strong>{{ selectedCategory.title }}</strong> near {{ selectedLocation.name }}</h2>
+    <p fxFlex="170px" fxFlex.xs="100%" class="m-0 ml-auto" ngClass.gt-xs="right-align" *ngIf="data.businesses.length > 0">
+      Showing {{ getDisplayedItemsStatus() }}
     </p>
   </div>
 </header>
-<section fxFlex="100%" class="main" class="mt-2">
-  <div class="content">
-    <div fxFlex="30%" class="filters mr-2 pr-2">
+<section fxFlex="100%" class="mt-2">
+  <div class="content" [class]="sidebarOpen && isSmallScreen ? 'sidebar' : ''" ngClass.sm="small" ngClass.xs="x-small">
+    <div fxFlex.gt-xs="345px" fxFlex.xs="100%" class="filters" @sidebarState *ngIf="!isSmallScreen || sidebarOpen">
+        <button mz-button [float]="true" [flat]="true" (click)="sidebarOpen = false" *ngIf="sidebarOpen && isSmallScreen">
+          <i class="black-text" mz-icon icon="clear"></i>
+        </button> 
       <app-filters></app-filters>
     </div>
-    <div 
-      fxFlex="70%"
-      fxFlexAlign="start"
-      fxLayout="row wrap"
-      fxLayout.lt-md="column"
-      fxLayoutGap="16px"
-      class="businesses-wrap"
-    >
-      <app-business fxFlex="31%" fxFlex.md="45%" fxFlex.lt-md="100%" [business]="business" *ngFor="let business of data.businesses"></app-business>
-      <div *ngIf="data.businesses.length === 0">
-        <strong>Suggestions for improving the results:</strong>
-        <br>
-        Try a different location.
-        <br>
-        Try a different establishment.
-        <ng-template [ngIf]="isFiltered()">
-          <br>
-          <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
-        </ng-template>
+    <div fxFlex.lt-md="100%" fxLayout="row wrap" class="main">
+      <div fxFlex="100%" class="top-bar mb-1">
+        <button mz-button [flat]="!sidebarOpen" (click)="sidebarOpen = !sidebarOpen" *ngIf="isSmallScreen">
+          <i mz-icon icon="filter_list"></i>
+        </button>
+        <div class="view ml-auto">
+          <button mz-button [flat]="status.listView === 'list'" (click)="status.listView = 'grid'">
+            <i mz-icon icon="grid_on"></i>
+          </button>
+          <button mz-button [flat]="status.listView === 'grid'" (click)="status.listView = 'list'">
+            <i mz-icon icon="format_list_bulleted"></i>
+          </button>
+        </div>
       </div>
-      <div class="spinner-wrap" *ngIf="loading">
-        <mz-spinner color="blue" size="big"></mz-spinner>
+
+      <div
+        fxFlex="100%"
+        fxFlexAlign="start"
+        [fxLayout]="status.listView === 'grid' ? 'row wrap' : 'column'"
+        fxLayoutGap="1rem"
+        class="businesses-wrap"
+      >
+        <app-business
+          [class]="status.listView === 'list' ? 'list' : 'grid'"
+          [ngClass.xs]="{'grid-1': status.listView === 'grid'}"
+          [ngClass.gt-xs]="{'grid-2': status.listView === 'grid'}"
+          [ngClass.gt-md]="{'grid-3': status.listView === 'grid'}"
+          [business]="business"
+          *ngFor="let business of data.businesses"
+        >
+        </app-business>
+        <div *ngIf="data.businesses.length === 0">
+          <strong>Suggestions for improving the results:</strong>
+          <br>
+          Try a different location.
+          <br>
+          Try a different establishment.
+          <ng-template [ngIf]="isFiltered()">
+            <br>
+            <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
+          </ng-template>
+        </div>
+        <div class="spinner-wrap" [fxShow]="loading">
+          <mz-spinner color="blue" size="big"></mz-spinner>
+        </div>
       </div>
     </div>
   </div>

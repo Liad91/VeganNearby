@@ -15,6 +15,7 @@ import * as Pipes from './pipes';
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective,
     Directives.PriceDirective,
+    Directives.RatingDirective,
     Pipes.SearchFilterPipe
   ],
   imports: [
@@ -32,6 +33,7 @@ import * as Pipes from './pipes';
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective,
     Directives.PriceDirective,
+    Directives.RatingDirective,
     Pipes.SearchFilterPipe
   ]
 })

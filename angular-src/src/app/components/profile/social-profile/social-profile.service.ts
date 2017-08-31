@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
-import { AuthSuccessResponse, AuthFailedResponse } from '../../../models/auth-response';
-import { QueryParams } from '../../../models/query-params';
+import { AuthSuccessResponse, AuthFailedResponse } from '../../../models/auth-response.model';
+import { QueryParams } from '../../../models/query-params.model';
 import { ConnectionService } from '../../../services/connection.service';
 import { ToastService } from '../../../services/toast.service';
 

@@ -1,27 +1,37 @@
 <div class="business-card">
   <div class="header">
-    <img fxFlex="85px" [src]="business.image_url || 'assets/images/business.png'" [alt]="business.name">
+    <img fxFlex="80px" [src]="business.image_url || 'assets/images/business.png'" [alt]="business.name">
     <div fxLayout="row wrap" class="header-right">
       <div fxFlex="100%" class="top">
-        <span class="working-badge" [ngClass]="business.is_closed ? 'bg-color-danger' : 'bg-color-secondary'">
+        <!-- <span class="working-badge" [ngClass]="business.is_closed ? 'bg-color-danger' : 'bg-color-secondary'">
           <i mz-icon icon="access_time"></i>
-          {{ business.is_closed ? 'close' : 'open' }}
-        </span>
+          {{ business.is_closed ? 'closed' : 'open' }}
+        </span> -->
         <button mz-button [float]="true" [flat]="true" class="ml-auto">
           <i mz-icon icon="favorite_border" appColor="danger"></i>
         </button>
       </div>
       <div fxFlex="95%" class="bottom">
-        <h4>{{ business.name }}</h4>				
+        <h3 class="nowrap">{{ business.name }}</h3>				
         <span [appPrice]="business.price"></span>
       </div>
     </div>
   </div>
   <div class="body">
     <div class="categories">
-      <span class="category" *ngFor="let category of business.categories">{{ category.title }}</span>
+      <i class="tiny material-icons">business</i>
+      <span *ngFor="let category of business.categories">{{ category.title }}</span>
     </div>
-    <span class="address" *ngFor="let address of business.location.display_address">{{ address }}</span>
-    <span class="phone">{{ business.display_phone }}</span>
+    <div class="address">
+      <i class="tiny material-icons">location_on</i>
+      <span *ngFor="let address of business.location.display_address">{{ address }}</span>
+    </div>
+    <div class="phone" *ngIf="business.display_phone">
+      <i class="tiny material-icons">call</i>
+      <span>{{ business.display_phone }}</span>
+    </div>
+    <div class="rating" [appRating]="business.rating" size="sm">
+     
+    </div>
   </div>
 </div>

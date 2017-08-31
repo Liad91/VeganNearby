@@ -1,5 +1,5 @@
 <div class="filter">
-    <h2 class="title">Establishment Type</h2>
+    <h3 class="title">Establishment Type</h3>
     <mz-radio-button-container *ngFor="let category of categories; let i = index">
       <input 
         mz-radio-button
@@ -15,7 +15,7 @@
   </div>
 <div class="filter">
   <div class="inline">
-    <h2>Map</h2>
+    <h3>Map</h3>
     <div class="switch ml-auto">
       <label>
         Dragable
@@ -29,7 +29,6 @@
     [latitude]="mapCenter.lat"
     [longitude]="mapCenter.lng"
     [streetViewControl]="false"
-    [styles]="mapOpen ? ['height: 500px'] : ['height: 250px']"
     [maxZoom]="16"
     [minZoom]="12"
     [zoom]="12"
@@ -57,7 +56,7 @@
 </div>
 
 <div class="filter">
-  <h2 class="title">Price</h2>
+  <h3 class="title">Price</h3>
   <mz-checkbox-container *ngFor="let price of prices">
     <input
       mz-checkbox
@@ -71,7 +70,7 @@
   </mz-checkbox-container>
 </div>
 <div class="filter" *ngIf="selectedCategory.alias === 'restaurants'">
-  <h2 class="title">Cuisine</h2>
+  <h3 class="title">Cuisine</h3>
   <mz-checkbox-container *ngFor="let cuisine of cuisines">
     <input
       mz-checkbox

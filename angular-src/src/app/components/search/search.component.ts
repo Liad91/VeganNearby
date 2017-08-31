@@ -17,15 +17,15 @@ import { PlacesService } from '../../pages/places/places.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
-	selector: 'app-search',
-	templateUrl: './search.component.html',
-	styleUrls: ['./search.component.scss']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
   public location: string;
   public locateSpinner = false;
   public locateFailed = false;
-  private searching = false;
+  public searching = false;
   public categories: YelpFilter[];
   public selectedCategory: YelpFilter;
   public selectedCategoryIndex: number;

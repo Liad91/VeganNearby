@@ -1,36 +1,59 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { Subscription } from 'rxjs/Subscription';
 
+import { PlacesStatus } from './places.model';
 import { PlacesService } from './places.service';
-import { YelpSearchResponse, YelpFilter, YelpSearchParams } from '../../models/yelp.model';
-import { ToastService } from './../../services/toast.service';
 import { FiltersService } from './filters/filters.service';
+import { ToastService } from './../../services/toast.service';
+import { sidebarStateTrigger } from './animations';
+import { YelpSearchResponse, YelpFilter, YelpSearchParams } from '../../models/yelp.model';
 
 @Component({
-	selector: 'app-places',
-	templateUrl: './places.component.html',
-	styleUrls: ['./places.component.scss']
+  selector: 'app-places',
+  templateUrl: './places.component.html',
+  styleUrls: ['./places.component.scss'],
+  animations: [
+    sidebarStateTrigger
+  ]
 })
 export class PlacesComponent implements OnInit, OnDestroy {
+  public status: PlacesStatus;
   public data: YelpSearchResponse
   public selectedLocation: { name: string };
   public selectedCategory: YelpFilter;
   private updateSubscription: Subscription;
   private changesSubscription: Subscription;
+  private mediaSubscription: Subscription;
+  public isSmallScreen: boolean;
+  public sidebarOpen = false;
   public loading = false;
-  public currentPage = 1;
-  public itemsPerPage = 20;
 
-  constructor(private placesService: PlacesService, private toastService: ToastService, private filtersService: FiltersService) {}
+  constructor(
+    private media: ObservableMedia,
+    private placesService: PlacesService,
+    private toastService: ToastService,
+    private filtersService: FiltersService) {}
 
   ngOnInit(): void {
     this.data = this.placesService.data;
     this.selectedCategory = this.placesService.selectedCategory;
     this.selectedLocation = this.placesService.selectedLocation;
+    this.status = this.placesService.viewStatus;
+
+    this.mediaSubscription = this.media.subscribe(
+      (change: MediaChange) => {
+        this.isSmallScreen = change.mqAlias === 'sm' || change.mqAlias === 'xs';
+        if (!this.status.listView) {
+          this.status.listView = this.isSmallScreen ? 'list' : 'grid';
+        }
+      }
+    );
 
     this.changesSubscription = this.filtersService.changes.subscribe(
       (changes: YelpSearchParams) => this.updatePlaces(changes)
     );
+    console.log(this.data.businesses)
   }
 
   private updatePlaces(params: YelpSearchParams): void {
@@ -58,15 +81,36 @@ export class PlacesComponent implements OnInit, OnDestroy {
     this.toastService.show('Something went wrong, please try again');
   }
 
+  public getDisplayedItemsStatus() {
+    const status = this.status;
+    const from = status.currentPage * status.itemsPerPage - status.itemsPerPage + 1;
+    let to: string;
+
+    if (status.currentPage *  status.itemsPerPage < this.data.total) {
+      to = `${status.currentPage *  status.itemsPerPage}`;
+    }
+    else {
+      to = `${this.data.total}`;
+    }
+
+    return `${from} - ${to} of ${this.data.total}`;
+  }
+
   public isFiltered(): boolean {
     return this.filtersService.selectedPrices.length > 0 || this.filtersService.selectedCuisines.length > 0;
   }
 
   public onResetFilters(): void {
-    this.filtersService.reset();
+    if (!this.isSmallScreen) {
+      this.filtersService.reset();
+    }
+    else {
+      this.sidebarOpen = true;
+    }
   }
 
   ngOnDestroy(): void {
+    this.mediaSubscription.unsubscribe();
     this.changesSubscription.unsubscribe();
     if (this.updateSubscription && !this.updateSubscription.closed) {
       this.updateSubscription.unsubscribe();

@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { User } from '../models/user.model';
 import { ProfileService } from '../components/profile/profile.service';
-import { AuthSuccessResponse } from '../models/auth-response';
+import { AuthSuccessResponse } from '../models/auth-response.model';
 
 @Injectable()
 export class AuthService {

@@ -1,11 +1,11 @@
 :host {
+  cursor: pointer;  
   display: block;
   padding: 5px;
   margin-bottom: 1rem;  
   border: 1px solid #e3e3e3;
   border-radius: 5px;
-  cursor: pointer;
-  transition: all 250ms ease-out;
+  transition: all 250ms ease-in-out;
 
   &:hover,
   &:focus {
@@ -16,21 +16,51 @@
   }
 }
 
+:host-context(.grid-1) {
+  width: 100%;
+  margin-right: 0 !important;
+}
+
+:host-context(.grid-2) {
+  width: calc(50% - 0.5rem);    
+  &:nth-of-type(2n+2) {
+    margin-right: 0 !important;
+  }
+}
+
+:host-context(.grid-3) {
+  width: calc(33.3% - calc(2rem / 3));   
+  &:nth-of-type(3n+3) {
+    margin-right: 0 !important;
+  }
+}
+
+:host-context(.list) {
+  width: 100%;
+}
+
 .business-card {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+
   span {
     font-size: 13px;
     font-weight: 500;
   }
 
   .header {
+    width: 100%;
+    align-items: flex-end;
+
     img {
-      height: 85px;
-      width: 85px;
+      height: 80px;
+      width: 80px;
       border-radius: 5px;
       border: 1px solid #e6e6e6;
     }
     .header-right {
-      width: calc(100% - 85px);
+      width: calc(100% - 80px);
       flex-grow: 1;
       padding-left: 10px;
 
@@ -71,14 +101,9 @@
       .bottom {
         align-self: flex-end;
 
-        h4 {   
-          margin: 0;        
-          font-size: 1.2rem;
+        h3 {   
+          margin: 0;
           font-weight: 500;
-          text-transform: none;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
         }
       }
     }
@@ -86,34 +111,48 @@
   }
 
   .body {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     padding: 5px 5px 0;
 
-    .categories {
+    div {
+      position: relative;      
       width: 100%;
+      padding-left: 20px;      
       text-transform: none;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      
-      .category {
+
+      i {
+        position: absolute;
+        top: 3px;
+        left: 0;
+        color: #607d8b
+      }
+    }
+
+    .categories span {
+      &:after {
+        content: ', ';
+      }
+
+      &:last-child {
         &:after {
-          content: ', ';
-        }
-  
-        &:last-child {
-          &:after {
-            content: '';
-          }
+          content: '';
         }
       }
     }
 
-    .address,
-    .phone {
+    .address span {
       display: block;
     }
-  }
 
+    .rating {
+      align-self: flex-end;
+    }
+  }
 }
 
 
