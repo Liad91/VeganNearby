@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { MapsAPILoader, LatLngLiteral } from '@agm/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as yelp from 'yelp-fusion';
 import 'rxjs/Rx';
 
@@ -11,6 +12,7 @@ import { ConnectionService } from '../../services/connection.service';
 import {
   YelpSearchParams,
   YelpSearchResponse,
+  YelpBusinessResponse,
   YelpFilter
 } from '../../models/yelp.model';
 
@@ -19,29 +21,39 @@ export class PlacesService {
   public data = new YelpSearchResponse;
   public categories: YelpFilter[];
   public selectedCategory: YelpFilter;
-  public selectedLocation = { name: '' };
+  public selectedLocation: BehaviorSubject<string>;
 
   public viewStatus: PlacesStatus = {
     listView: '',
     currentPage: 1,
-    itemsPerPage: 18
+    itemsPerPage: 12
   };
 
-  constructor(private http: Http, private connectionService: ConnectionService, private mapsApiLoader: MapsAPILoader) {
+  constructor(private http: HttpClient, private connectionService: ConnectionService, private mapsApiLoader: MapsAPILoader) {
     this.categories = categories;
     this.selectedCategory = Object.assign({}, this.categories[0]);
   }
 
   public search(params: YelpSearchParams): Observable<YelpSearchResponse> {
     if (params.location) {
-      this.selectedLocation.name = params.location;
+      if (!this.selectedLocation) {
+        this.selectedLocation = new BehaviorSubject<string>(params.location);
+      }
+      else {
+        this.selectedLocation.next(params.location);
+      }
     }
 
-    return this.http.post(`${this.connectionService.serverUrl}/yelp/search`, params)
+    return this.http.post<YelpSearchResponse>(`${this.connectionService.serverUrl}/yelp/search`, params)
       .timeout(this.connectionService.reqTimeout)
-      .map(this.connectionService.extractData)
-      .do((response: YelpSearchResponse) => Object.assign(this.data, response))
-      .catch(this.connectionService.catchError);
+      .do(response => Object.assign(this.data, response));
+  }
+
+  public getPlaceById(id: string): Observable<YelpBusinessResponse> {
+    return this.http.get<YelpBusinessResponse>(`${this.connectionService.serverUrl}/yelp/business`, {
+      params: new HttpParams().set('id', id)
+    })
+      .timeout(this.connectionService.reqTimeout)
   }
 
   public geocoder(lat: number, lng: number): Promise<string> {

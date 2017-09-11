@@ -1,0 +1,47 @@
+<div [ngClass]="{sidebar: sidebarOpen && mobileView}" class="flex">
+  <div class="filters" [@sidebarState]="sidebarOpen ? 'open' : 'closed'" *ngIf="!mobileView || sidebarOpen">
+    <button mz-button [float]="true" [flat]="true" (click)="sidebarOpen = false" *ngIf="sidebarOpen && mobileView">
+      <i class="black-text" mz-icon icon="clear"></i>
+    </button> 
+    <app-filters></app-filters>
+  </div>
+  <div class="main flex wrap align-content-flex-start max-w-100">
+    <div class="top-bar flex align-items-center w-100 mb-1">
+      <button mz-button [flat]="!sidebarOpen" (click)="sidebarOpen = !sidebarOpen" *ngIf="mobileView">
+        <i mz-icon icon="filter_list"></i>
+      </button>
+      <div class="view ml-auto">
+        <button mz-button [flat]="status.listView === 'list'" (click)="status.listView = 'grid'">
+          <i mz-icon icon="grid_on"></i>
+        </button>
+        <button mz-button [flat]="status.listView === 'grid'" (click)="status.listView = 'list'">
+          <i mz-icon icon="format_list_bulleted"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="businesses-wrap flex wrap w-100 align-self-flex-start" [@listState]="data.total">
+      <app-business
+        [ngClass]="status.listView === 'list' ? 'list mb-2' : 'grid mb-1 mr-1'"
+        [business]="business"
+        (click)="getPlace(business.id)"
+        *ngFor="let business of data.businesses; trackBy: trackById"
+      >
+      </app-business>
+      <div *ngIf="data.businesses.length === 0">
+        <strong>Suggestions for improving the results:</strong>
+        <br>
+        Try a different location.
+        <br>
+        Try a different establishment.
+        <ng-container *ngIf="isFiltered()">
+          <br>
+          <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
+        </ng-container>
+      </div>
+    </div>
+    <div class="spinner-wrap" [hidden]="!loading">
+      <mz-spinner color="blue" size="big"></mz-spinner>
+    </div>
+  </div>
+</div>

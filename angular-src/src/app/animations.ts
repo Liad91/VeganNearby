@@ -9,4 +9,4 @@ export const routeStateTrigger = trigger('routeState', [
       query(':leave', slideOut('0, 100%', '300ms'), { optional: true })
     ])
   )
-])
+]);

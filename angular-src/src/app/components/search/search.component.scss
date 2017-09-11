@@ -1,6 +1,8 @@
+@import '../../variables';
+
 .search-box {
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
 
   &,
   form > * {
@@ -8,7 +10,21 @@
   }
 }
 
-:host /deep/ .categories {
+.categories ::ng-deep {
+  &,
+  ul.dropdown-content {
+    background-color: $primary-color;
+  }
+
+  ul.dropdown-content li {
+    &:hover, 
+    &.selected,
+    &.active {
+      background-color: darken($primary-color, 5%); 
+    }
+  }
+
+  margin-right: 10px;
   .input-field {
     margin-top: 0;
 
@@ -47,6 +63,7 @@
 
 .location {
   background: #fff;
+  margin-right: 10px;
 
   #locate {
     display: flex;
@@ -64,6 +81,7 @@
     margin-left: 5px;
     margin-right: 3px;
     align-self: stretch;
+    transition: none;
 
     &:focus {
       border: none;
@@ -89,19 +107,50 @@ button[type = submit] {
   }
 }
 
-@media only screen and (max-width: 599px) {
+@media #{$extra-small-only} {
     .search-box {
-      border-radius: 0;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 0 0 5px 5px;
+
       form {
         flex-wrap: wrap;
-        .categories {
-          border-radius: 4px 0 0 4px;
-        }
+
+        .categories,
         .location {
-          margin-bottom: 10px;
+          width: 100%;
+          margin-right: 0;
+          margin-bottom: 15px;
+          background: rgba(0, 0, 0, 0.5);
+          border: 1px solid  rgba(255, 255, 255, 0.7);
         }
+
+        .categories ::ng-deep {
+          height: 42px;
+
+          ul.dropdown-content {
+            background: rgba(0, 0, 0, 0.8);
+          }
+        }
+
+        .location {
+          display: flex;
+          color: #fff;
+
+          input {
+            align-self: center;
+            height: 2rem;
+            order: -1;
+            margin-left: 0;
+            padding-left: 10px;
+          }
+        }
+
         button[type = submit] {
-          border-radius: 0 4px 4px 0;
+          height: 42px;
+          padding: 0;
+          min-width: 100%;
+          background-color: $primary-color !important;
         }
       }
     }

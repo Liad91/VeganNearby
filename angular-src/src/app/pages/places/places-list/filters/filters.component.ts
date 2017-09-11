@@ -1,13 +1,13 @@
-import { cuisines } from './../data';
+import { cuisines } from './../../data';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LatLngLiteral, LatLngBounds, MapsAPILoader } from '@agm/core';
 import { MzModalService } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription';
 
-import { prices, cuisinesSlice, categories } from '../data/index';
+import { categories } from '../../data/index';
 import { FiltersService } from './filters.service';
-import { PlacesService } from '../places.service';
-import { YelpSearchResponse, YelpSearchParams, YelpFilter } from '../../../models/yelp.model';
+import { PlacesService } from '../../places.service';
+import { YelpSearchResponse, YelpSearchParams, YelpFilter } from '../../../../models/yelp.model';
 import { CuisinesComponent } from './cuisines/cuisines.component';
 
 @Component({
@@ -38,7 +38,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.data = this.placesService.data;
     this.categories = categories;
-    this.prices = prices;
+    this.prices = this.filtersService.prices;
     this.cuisines = this.filtersService.cuisines;
     this.selectedCategory = this.placesService.selectedCategory;
     this.selectedPrices = this.filtersService.selectedPrices;
@@ -58,14 +58,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
     if (this.mapCenter.lat !== currentPosition.latitude || this.mapCenter.lng !== currentPosition.longitude) {
       this.placesService.geocoder(this.mapCenter.lat, this.mapCenter.lng)
         .then((location: string) => {
-          this.placesService.selectedLocation.name = location;
+          this.placesService.selectedLocation.next(location);
           return this.getRadius();
         })
         .then((radius: number) => {
           this.mapRadius = radius;
           this.emitFiltersChanges();
         })
-        .catch(error => this.errorHandler(error));
+        .catch(error => this.emitFiltersChanges());
     }
   }
 
@@ -74,38 +74,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.emitFiltersChanges();
   }
 
-  public onFilterChanged(filter: string[], alias: string): void {
-    const index = filter.indexOf(alias);
+  public onFilterChanged(selected: string[], filter: YelpFilter): void {
+    filter.checked = !filter.checked;
 
-    if (index < 0) {
-      filter.push(alias);
+    if (filter.checked) {
+      selected.push(filter.alias);
     }
     else {
-      filter.splice(index, 1);
-    }
-    this.emitFiltersChanges();
-  }
-
-  public onPriceChanged(price: string): void {
-    const index = this.selectedPrices.indexOf(price);
-
-    if (index < 0) {
-      this.selectedPrices.push(price);
-    }
-    else {
-      this.selectedPrices.splice(index, 1);
-    }
-    this.emitFiltersChanges();
-  }
-
-  public onCuisineChange(cuisine: string): void {
-    const index = this.selectedCuisines.indexOf(cuisine);
-
-    if (index < 0) {
-      this.selectedCuisines.push(cuisine);
-    }
-    else {
-      this.selectedCuisines.splice(index, 1);
+      selected.splice(selected.indexOf(filter.alias), 1);
     }
     this.emitFiltersChanges();
   }
@@ -121,17 +97,13 @@ export class FiltersComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.mapsApiLoader.load()
         .then(() => {
-          resolve(Math.floor(google.maps.geometry.spherical.computeDistanceBetween(from, to) / 2));
+          resolve(Math.floor(google.maps.geometry.spherical.computeDistanceBetween(from, to) / 2.2));
         });
     })
   }
 
-  private errorHandler(error: any): void {
-    console.log(error);
-  }
-
-  private emitFiltersChanges(): void {
-    const params = new YelpSearchParams;
+  public getStauts(): YelpSearchParams {
+    const params = new YelpSearchParams();
 
     params.latitude = this.mapCenter.lat;
     params.longitude = this.mapCenter.lng;
@@ -143,7 +115,11 @@ export class FiltersComponent implements OnInit, OnDestroy {
     else {
       params.categories = this.selectedCategory.alias;
     }
-    this.filtersService.changes.next(params);
+    return params;
+  }
+
+  private emitFiltersChanges(): void {
+    this.filtersService.changes.next(this.getStauts());
   }
 
   ngOnDestroy() {

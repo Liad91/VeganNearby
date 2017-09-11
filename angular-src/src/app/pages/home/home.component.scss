@@ -1,3 +1,5 @@
+@import '../../variables';
+
 :host {
   display: flex;
   flex-wrap: wrap;
@@ -5,38 +7,6 @@
 
 :host-context(.wrapper) {
   height: 100vh;
-}
-
-:host-context(.small),
-:host-context(.x-small) {
-  app-search {
-    min-width: 0;
-    max-width: 520px;
-  }
-}
-
-:host-context(.small) {
-  app-search {
-    width: 90%;
-  }
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-}
-
-:host-context(.x-small) {
-  app-search {
-    width: 100%;
-  }
-  h2 {
-    margin: 0 auto;    
-    width: 100%;
-    max-width: 520px;
-    font-size: 1.8rem;
-    padding-top: 10px;
-    background-color: rgba(0, 0, 0, 0.2);
-  }
 }
 
 .background-image {
@@ -98,5 +68,42 @@ footer {
       vertical-align: middle;
     }
   }
-  
+}
+
+@media #{$medium-only} {
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media #{$small-and-down} {
+  app-search {
+    min-width: 0;
+    max-width: 520px;
+  }
+}
+
+@media #{$small-only} {
+  app-search {
+    width: 90%;
+  }
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media #{$extra-small-only} {
+  app-search {
+    width: 100%;
+  }
+  h2 {
+    margin: 0 auto;    
+    width: 100%;
+    max-width: 520px;
+    padding-top: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 5px 5px 0 0;
+  }
 }

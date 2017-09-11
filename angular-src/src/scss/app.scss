@@ -6,17 +6,12 @@
 // ==========================================================================
 // Materialize - Custom Variables
 // ==========================================================================
-$primary-color: color(primary) !default;
-$secondary-color: color(secondary) !default;
-$success-color: $secondary-color !default;
-$warning-color: color(warning) !default;
-$danger-color: color(danger) !default;
+@import 'components/variables';
 
 // ==========================================================================
 // Materialize
 // ==========================================================================
 @import '~materialize-css/sass/materialize';
-@import '~mdi/scss/materialdesignicons';
 
 // ==========================================================================
 // Materialize Components

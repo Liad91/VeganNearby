@@ -1,7 +1,5 @@
 import { NgModule, Directive } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterializeModule } from 'ng2-materialize';
 
 import * as Directives from './directives';
@@ -14,26 +12,20 @@ import * as Pipes from './pipes';
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective,
-    Directives.PriceDirective,
-    Directives.RatingDirective,
     Pipes.SearchFilterPipe
   ],
   imports: [
     CommonModule,
-    MaterializeModule.forRoot(),
-    FlexLayoutModule
+    MaterializeModule.forRoot()
   ],
   exports: [
     CommonModule,
     MaterializeModule,
-    FlexLayoutModule,
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
     Directives.ImagePreviewDirective,
-    Directives.PriceDirective,
-    Directives.RatingDirective,
     Pipes.SearchFilterPipe
   ]
 })

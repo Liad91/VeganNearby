@@ -1,539 +1,676 @@
 export const categories = [
   {
     title: 'Restaurants',
-    alias: 'restaurants'
+    alias: 'restaurants',
+    checked: false
   },
   {
     title: 'Cafes',
-    alias: 'cafes'
+    alias: 'cafes',
+    checked: false
   },
   {
     title: 'Bars',
-    alias: 'bars'
+    alias: 'bars',
+    checked: false
   }
 ];
 
 export const prices = [
   {
     title: 'Inexpensive',
-    alias: '1'
+    alias: '1',
+    checked: false
   },
   {
     title: 'Moderate',
-    alias: '2'
+    alias: '2',
+    checked: false
   },
   {
     title: 'Pricey',
-    alias: '3'
+    alias: '3',
+    checked: false
   },
   {
     title: 'Ultra High-End',
-    alias: '4'
+    alias: '4',
+    checked: false
   }
 ];
 
-export const cuisinesSlice = [
+export const displayedCuisines = [
   {
     title: 'American',
-    alias: 'tradamerican'
+    alias: 'tradamerican',
+    checked: false,
+    index: 3
   },
   {
     title: 'Chinese',
-    alias: 'chinese'
+    alias: 'chinese',
+    checked: false,
+    index: 27
   },
   {
     title: 'French',
-    alias: 'french'
+    alias: 'french',
+    checked: false,
+    index: 37
   },
   {
     title: 'Israeli',
-    alias: 'israeli'
+    alias: 'israeli',
+    checked: false,
+    index: 53
   },
   {
     title: 'Mexican',
-    alias: 'mexican'
+    alias: 'mexican',
+    checked: false,
+    index: 66
   }
 ];
 
 export const cuisines = [
   {
     title: 'Afghan',
-    alias: 'afghani'
+    alias: 'afghani',
+    checked: false
   },
   {
     title: 'African',
-    alias: 'african'
+    alias: 'african',
+    checked: false
   },
   {
     title: 'American (New)',
-    alias: 'newamerican'
+    alias: 'newamerican',
+    checked: false
   },
   {
     title: 'American',
-    alias: 'tradamerican'
+    alias: 'tradamerican',
+    checked: false
   },
   {
     title: 'Andalusian',
-    alias: 'andalusian'
+    alias: 'andalusian',
+    checked: false
   },
   {
     title: 'Arabian',
-    alias: 'arabian'
+    alias: 'arabian',
+    checked: false
   },
   {
     title: 'Argentine',
-    alias: 'argentine'
+    alias: 'argentine',
+    checked: false
   },
   {
     title: 'Armenian',
-    alias: 'armenian'
+    alias: 'armenian',
+    checked: false
   },
   {
     title: 'Asian Fusion',
-    alias: 'asianfusion'
+    alias: 'asianfusion',
+    checked: false
   },
   {
     title: 'Asturian',
-    alias: 'asturian'
+    alias: 'asturian',
+    checked: false
   },
   {
     title: 'Australian',
-    alias: 'australian'
+    alias: 'australian',
+    checked: false
   },
   {
     title: 'Austrian',
-    alias: 'austrian'
+    alias: 'austrian',
+    checked: false
   },
   {
     title: 'Baguettes',
-    alias: 'baguettes'
+    alias: 'baguettes',
+    checked: false
   },
   {
     title: 'Bangladeshi',
-    alias: 'bangladeshi'
+    alias: 'bangladeshi',
+    checked: false
   },
   {
     title: 'Basque',
-    alias: 'basque'
+    alias: 'basque',
+    checked: false
   },
   {
     title: 'Bavarian',
-    alias: 'bavarian'
+    alias: 'bavarian',
+    checked: false
   },
   {
     title: 'Beisl',
-    alias: 'beisl'
+    alias: 'beisl',
+    checked: false
   },
   {
     title: 'Belgian',
-    alias: 'belgian'
+    alias: 'belgian',
+    checked: false
   },
   {
     title: 'Brazilian',
-    alias: 'brazilian'
+    alias: 'brazilian',
+    checked: false
   },
   {
     title: 'British',
-    alias: 'british'
+    alias: 'british',
+    checked: false
   },
   {
     title: 'Bulgarian',
-    alias: 'bulgarian'
+    alias: 'bulgarian',
+    checked: false
   },
   {
     title: 'Burmese',
-    alias: 'burmese'
+    alias: 'burmese',
+    checked: false
   },
   {
     title: 'Cambodian',
-    alias: 'cambodian'
+    alias: 'cambodian',
+    checked: false
   },
   {
     title: 'Canadian (New)',
-    alias: 'newcanadian'
+    alias: 'newcanadian',
+    checked: false
   },
   {
     title: 'Caribbean',
-    alias: 'caribbean'
+    alias: 'caribbean',
+    checked: false
   },
   {
     title: 'Catalan',
-    alias: 'catalan'
+    alias: 'catalan',
+    checked: false
   },
   {
     title: 'Chilean',
-    alias: 'chilean'
+    alias: 'chilean',
+    checked: false
   },
   {
     title: 'Chinese',
-    alias: 'chinese'
+    alias: 'chinese',
+    checked: false
   },
   {
     title: 'Corsican',
-    alias: 'corsican'
+    alias: 'corsican',
+    checked: false
   },
   {
     title: 'Cuban',
-    alias: 'cuban'
+    alias: 'cuban',
+    checked: false
   },
   {
     title: 'Cypriot',
-    alias: 'cypriot'
+    alias: 'cypriot',
+    checked: false
   },
   {
     title: 'Czech',
-    alias: 'czech'
+    alias: 'czech',
+    checked: false
   },
   {
     title: 'Czech/Slovakian',
-    alias: 'czechslovakian'
+    alias: 'czechslovakian',
+    checked: false
   },
   {
     title: 'Danish',
-    alias: 'danish'
+    alias: 'danish',
+    checked: false
   },
   {
     title: 'Eastern European',
-    alias: 'eastern_european'
+    alias: 'eastern_european',
+    checked: false
   },
   {
     title: 'Ethiopian',
-    alias: 'ethiopian'
+    alias: 'ethiopian',
+    checked: false
   },
   {
     title: 'Filipino',
-    alias: 'filipino'
+    alias: 'filipino',
+    checked: false
   },
   {
     title: 'French',
-    alias: 'french'
+    alias: 'french',
+    checked: false
   },
   {
     title: 'French Southwest',
-    alias: 'sud_ouest'
+    alias: 'sud_ouest',
+    checked: false
   },
   {
     title: 'Galician',
-    alias: 'galician'
+    alias: 'galician',
+    checked: false
   },
   {
     title: 'Georgian',
-    alias: 'georgian'
+    alias: 'georgian',
+    checked: false
   },
   {
     title: 'German',
-    alias: 'german'
+    alias: 'german',
+    checked: false
   },
   {
     title: 'Greek',
-    alias: 'greek'
+    alias: 'greek',
+    checked: false
   },
   {
     title: 'Guamanian',
-    alias: 'guamanian'
+    alias: 'guamanian',
+    checked: false
   },
   {
     title: 'Hawaiian',
-    alias: 'hawaiian'
+    alias: 'hawaiian',
+    checked: false
   },
   {
     title: 'Himalayan/Nepalese',
-    alias: 'himalayan'
+    alias: 'himalayan',
+    checked: false
   },
   {
     title: 'Honduran',
-    alias: 'honduran'
+    alias: 'honduran',
+    checked: false
   },
   {
     title: 'Hungarian',
-    alias: 'hungarian'
+    alias: 'hungarian',
+    checked: false
   },
   {
     title: 'Iberian',
-    alias: 'iberian'
+    alias: 'iberian',
+    checked: false
   },
   {
     title: 'Indian',
-    alias: 'indpak'
+    alias: 'indpak',
+    checked: false
   },
   {
     title: 'Indonesian',
-    alias: 'indonesian'
+    alias: 'indonesian',
+    checked: false
   },
   {
     title: 'International',
-    alias: 'international'
+    alias: 'international',
+    checked: false
   },
   {
     title: 'Irish',
-    alias: 'irish'
+    alias: 'irish',
+    checked: false
   },
   {
     title: 'Israeli',
-    alias: 'israeli'
+    alias: 'israeli',
+    checked: false
   },
   {
     title: 'Italian',
-    alias: 'italian'
+    alias: 'italian',
+    checked: false
   },
   {
     title: 'Japanese',
-    alias: 'japanese'
+    alias: 'japanese',
+    checked: false
   },
   {
     title: 'Jewish',
-    alias: 'jewish'
+    alias: 'jewish',
+    checked: false
   },
   {
     title: 'Korean',
-    alias: 'korean'
+    alias: 'korean',
+    checked: false
   },
   {
     title: 'Kosher',
-    alias: 'kosher'
+    alias: 'kosher',
+    checked: false
   },
   {
     title: 'Kurdish',
-    alias: 'kurdish'
+    alias: 'kurdish',
+    checked: false
   },
   {
     title: 'Laos',
-    alias: 'laos'
+    alias: 'laos',
+    checked: false
   },
   {
     title: 'Laotian',
-    alias: 'laotian'
+    alias: 'laotian',
+    checked: false
   },
   {
     title: 'Latin American',
-    alias: 'latin'
+    alias: 'latin',
+    checked: false
   },
   {
     title: 'Lyonnais',
-    alias: 'lyonnais'
+    alias: 'lyonnais',
+    checked: false
   },
   {
     title: 'Malaysian',
-    alias: 'malaysian'
+    alias: 'malaysian',
+    checked: false
   },
   {
     title: 'Mediterranean',
-    alias: 'mediterranean'
+    alias: 'mediterranean',
+    checked: false
   },
   {
     title: 'Mexican',
-    alias: 'mexican'
+    alias: 'mexican',
+    checked: false
   },
   {
     title: 'Middle Eastern',
-    alias: 'mideastern'
+    alias: 'mideastern',
+    checked: false
   },
   {
     title: 'Modern Australian',
-    alias: 'modern_australian'
+    alias: 'modern_australian',
+    checked: false
   },
   {
     title: 'Modern European',
-    alias: 'modern_european'
+    alias: 'modern_european',
+    checked: false
   },
   {
     title: 'Mongolian',
-    alias: 'mongolian'
+    alias: 'mongolian',
+    checked: false
   },
   {
     title: 'Moroccan',
-    alias: 'moroccan'
+    alias: 'moroccan',
+    checked: false
   },
   {
     title: 'New Mexican Cuisine',
-    alias: 'newmexican'
+    alias: 'newmexican',
+    checked: false
   },
   {
     title: 'New Zealand',
-    alias: 'newzealand'
+    alias: 'newzealand',
+    checked: false
   },
   {
     title: 'Nicaraguan',
-    alias: 'nicaraguan'
+    alias: 'nicaraguan',
+    checked: false
   },
   {
     title: 'Noodles',
-    alias: 'noodles'
+    alias: 'noodles',
+    checked: false
   },
   {
     title: 'Oriental',
-    alias: 'oriental'
+    alias: 'oriental',
+    checked: false
   },
   {
     title: 'Pakistani',
-    alias: 'pakistani'
+    alias: 'pakistani',
+    checked: false
   },
   {
     title: 'Pan Asian',
-    alias: 'panasian'
+    alias: 'panasian',
+    checked: false
   },
   {
     title: 'Parma',
-    alias: 'parma'
+    alias: 'parma',
+    checked: false
   },
   {
     title: 'Persian/Iranian',
-    alias: 'persian'
+    alias: 'persian',
+    checked: false
   },
   {
     title: 'Peruvian',
-    alias: 'peruvian'
+    alias: 'peruvian',
+    checked: false
   },
   {
     title: 'Pita',
-    alias: 'pita'
+    alias: 'pita',
+    checked: false
   },
   {
     title: 'Pizza',
-    alias: 'pizza'
+    alias: 'pizza',
+    checked: false
   },
   {
     title: 'Polish',
-    alias: 'polish'
+    alias: 'polish',
+    checked: false
   },
   {
     title: 'Portuguese',
-    alias: 'portuguese'
+    alias: 'portuguese',
+    checked: false
   },
   {
     title: 'Potatoes',
-    alias: 'potatoes'
+    alias: 'potatoes',
+    checked: false
   },
   {
     title: 'Rice',
-    alias: 'riceshop'
+    alias: 'riceshop',
+    checked: false
   },
   {
     title: 'Romanian',
-    alias: 'romanian'
+    alias: 'romanian',
+    checked: false
   },
   {
     title: 'Russian',
-    alias: 'russian'
+    alias: 'russian',
+    checked: false
   },
   {
     title: 'Salad',
-    alias: 'salad'
+    alias: 'salad',
+    checked: false
   },
   {
     title: 'Sandwiches',
-    alias: 'sandwiches'
+    alias: 'sandwiches',
+    checked: false
   },
   {
     title: 'Scandinavian',
-    alias: 'scandinavian'
+    alias: 'scandinavian',
+    checked: false
   },
   {
     title: 'Scottish',
-    alias: 'scottish'
+    alias: 'scottish',
+    checked: false
   },
   {
     title: 'Serbo Croatian',
-    alias: 'serbocroatian'
+    alias: 'serbocroatian',
+    checked: false
   },
   {
     title: 'Singaporean',
-    alias: 'singaporean'
+    alias: 'singaporean',
+    checked: false
   },
   {
     title: 'Slovakian',
-    alias: 'slovakian'
+    alias: 'slovakian',
+    checked: false
   },
   {
     title: 'Soup',
-    alias: 'soup'
+    alias: 'soup',
+    checked: false
   },
   {
     title: 'Southern',
-    alias: 'southern'
+    alias: 'southern',
+    checked: false
   },
   {
     title: 'Spanish',
-    alias: 'spanish'
+    alias: 'spanish',
+    checked: false
   },
   {
     title: 'Sri Lankan',
-    alias: 'srilankan'
+    alias: 'srilankan',
+    checked: false
   },
   {
     title: 'Sushi Bars',
-    alias: 'sushi'
+    alias: 'sushi',
+    checked: false
   },
   {
     title: 'Swabian',
-    alias: 'swabian'
+    alias: 'swabian',
+    checked: false
   },
   {
     title: 'Swedish',
-    alias: 'swedish'
+    alias: 'swedish',
+    checked: false
   },
   {
     title: 'Swiss Food',
-    alias: 'swissfood'
+    alias: 'swissfood',
+    checked: false
   },
   {
     title: 'Syrian',
-    alias: 'syrian'
+    alias: 'syrian',
+    checked: false
   },
   {
     title: 'Taiwanese',
-    alias: 'taiwanese'
+    alias: 'taiwanese',
+    checked: false
   },
   {
     title: 'Tapas/Small Plates',
-    alias: 'tapasmallplates'
+    alias: 'tapasmallplates',
+    checked: false
   },
   {
     title: 'Tex-Mex',
-    alias: 'tex-mex'
+    alias: 'tex-mex',
+    checked: false
   },
   {
     title: 'Thai',
-    alias: 'thai'
+    alias: 'thai',
+    checked: false
   },
   {
     title: 'Traditional Norwegian',
-    alias: 'norwegian'
+    alias: 'norwegian',
+    checked: false
   },
   {
     title: 'Traditional Swedish',
-    alias: 'traditional_swedish'
+    alias: 'traditional_swedish',
+    checked: false
   },
   {
     title: 'Trattorie',
-    alias: 'trattorie'
+    alias: 'trattorie',
+    checked: false
   },
   {
     title: 'Turkish',
-    alias: 'turkish'
+    alias: 'turkish',
+    checked: false
   },
   {
     title: 'Ukrainian',
-    alias: 'ukrainian'
+    alias: 'ukrainian',
+    checked: false
   },
   {
     title: 'Uzbek',
-    alias: 'uzbek'
+    alias: 'uzbek',
+    checked: false
   },
   {
     title: 'Vietnamese',
-    alias: 'vietnamese'
+    alias: 'vietnamese',
+    checked: false
   },
   {
     title: 'Waffles',
-    alias: 'waffles'
+    alias: 'waffles',
+    checked: false
   },
   {
     title: 'Wok',
-    alias: 'wok'
+    alias: 'wok',
+    checked: false
   },
   {
     title: 'Yugoslav',
-    alias: 'yugoslav'
+    alias: 'yugoslav',
+    checked: false
   }
 ];

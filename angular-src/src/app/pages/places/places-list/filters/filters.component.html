@@ -1,0 +1,82 @@
+<div class="filter">
+  <h3 class="mt-0 mb-1">Establishment Type</h3>
+  <p class="radio-field" *ngFor="let category of categories; let i = index">
+    <input 
+      type="radio"
+      name="establishment"
+      [id]="category.alias"        
+      class="with-gap"
+      [checked]="category.title === selectedCategory.title"
+      (change)="onCategoryChanged(i)"
+    >
+    <label [for]="category.alias">{{ category.title }}</label>
+  </p>
+</div>
+<div class="filter">
+  <div class="inline flex align-items-center mb-1">
+    <h3 class="mb-0 mt-0">Map</h3>
+    <div class="switch flex ml-auto">
+      <label>
+        Dragable
+        <input type="checkbox" [checked]="mapDraggable" (change)="mapDraggable = !mapDraggable">
+        <span class="lever"></span>
+      </label>
+    </div>
+  </div>
+  <agm-map
+    [ngClass]="{'disabled': !mapDraggable}"
+    [latitude]="mapCenter.lat"
+    [longitude]="mapCenter.lng"
+    [streetViewControl]="false"
+    [maxZoom]="16"
+    [minZoom]="12"
+    [zoom]="12"
+    [zoomControl]="false"
+    [clickableIcons]="mapDraggable"
+    [mapDraggable]="mapDraggable"
+    [scrollwheel]="mapDraggable"
+    [disableDoubleClickZoom]="!mapDraggable"
+    (centerChange)="mapCenter = $event"
+    (boundsChange)="mapBounds = $event"
+    (idle)="onIdle()"
+  >
+    <agm-marker
+      *ngFor="let business of data?.businesses"
+      [latitude]="business.coordinates.latitude"
+      [longitude]="business.coordinates.longitude"
+      [iconUrl]="'assets/icons/marker.png'"
+      [title]="business.name"
+    >
+    </agm-marker>
+  </agm-map>
+</div>
+<div class="filter">
+  <h3 class="mt-0 mb-1">Price</h3>
+  <p class="checkbox-field"  *ngFor="let price of prices">
+    <input
+      type="checkbox"
+      [id]="price.alias"      
+      class="filled-in"
+      [checked]="price.checked"
+      (change)="onFilterChanged(selectedPrices, price)"
+    >
+    <label [for]="price.alias">{{ price.title }}</label>
+  </p>
+</div>
+<div class="filter" *ngIf="selectedCategory.alias === 'restaurants'">
+  <h3 class="mt-0 mb-1">Cuisine</h3>
+  <p class="checkbox-field" *ngFor="let cuisine of cuisines">
+    <input
+      type="checkbox"
+      [id]="cuisine.alias"
+      class="filled-in"
+      [checked]="cuisine.checked"
+      (change)="onFilterChanged(selectedCuisines, cuisine)"
+    >
+    <label [for]="cuisine.alias">{{ cuisine.title }}</label>
+  </p>
+  <div class="more align-items-center" (click)="openModal()">
+    <span>Show More</span>
+    <i class="material-icons">arrow_drop_down</i>
+  </div>
+</div>

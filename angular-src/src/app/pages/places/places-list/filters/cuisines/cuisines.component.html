@@ -1,0 +1,42 @@
+<mz-modal
+  #modal
+  id="filter"
+  class="h-100 flex column justify-content-center align-items-center"
+  [options]="modalOptions"
+>
+  <mz-modal-header class="flex warp">
+    <mz-input-container class="w-95">
+      <input
+        mz-input
+        #search
+        id="search-input"
+        placeholder="Search for cuisines"
+        type="text"
+        ngModel
+      >
+    </mz-input-container>
+    <div class="close-btn-wrap flex w-5 justify-content-flex-end align-items-flex-start">
+      <button mz-button [float]="true" [flat]="true" (click)="onClose()">
+        <i mz-icon icon="close" appColor="dark"></i>
+      </button>
+    </div>
+  </mz-modal-header>
+  <mz-modal-content fxLayout="row wrap">
+    <div class="list flex w-100 wrap justify-content-flex-start align-items-flex-start">
+      <p class="checkbox-field filter w-20" *ngFor="let cuisine of cuisines | searchFilter:search.value; let i = index">
+        <input
+          type="checkbox"
+          [id]="'modal-' + cuisine.alias"
+          class="filled-in"
+          [checked]="cuisine.checked"
+          [disabled]="disable && !cuisine.checked"
+          (change)="onDataChanged(cuisine, i)"
+        >
+        <label [for]="'modal-' + cuisine.alias">{{ cuisine.title }}</label>
+      </p>
+    </div>
+    <div class="flex w-100 justify-content-flex-end mt-1">
+      <button mz-button (click)="onApply()">Apply</button>
+    </div>
+  </mz-modal-content>
+</mz-modal>

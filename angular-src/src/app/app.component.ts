@@ -7,7 +7,6 @@ import { routeStateTrigger } from './animations';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
   animations: [ routeStateTrigger ]
 })
 export class AppComponent implements OnInit {
@@ -18,12 +17,7 @@ export class AppComponent implements OnInit {
     this.authService.authenticate();
   }
 
-  getAnimation(routerOutlet: RouterOutlet) {
-    const routeData = routerOutlet.activatedRouteData['animation'];
-
-    if (!routeData) {
-      return 'root';
-    }
-    return routeData.page;
+  getAnimation(outlet: RouterOutlet) {
+    return outlet.activatedRouteData.state;
   }
 }

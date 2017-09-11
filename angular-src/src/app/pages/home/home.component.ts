@@ -1,5 +1,5 @@
 import { animation } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as Typed from 'typed.js';
 
 import { bgStateTrigger } from './animations';
@@ -12,7 +12,7 @@ import { PlacesService } from './../places/places.service';
   styleUrls: ['./home.component.scss'],
   animations: [ bgStateTrigger ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public selectedCategory: YelpFilter;
   private typed: Typed;
 
@@ -59,5 +59,9 @@ export class HomeComponent implements OnInit {
   public onCategoryChanged(): void {
     this.typed.destroy();
     this.initializeTyped();
+  }
+
+  ngOnDestroy(): void {
+    this.typed.destroy();
   }
 }

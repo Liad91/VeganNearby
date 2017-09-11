@@ -2,15 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PlacesComponent } from './places.component';
+import { PlacesListComponent } from './places-list/places-list.component';
 import { CanActivatePlaces } from './places.guard';
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: PlacesComponent,
     canActivate: [CanActivatePlaces],
-    data: { animation: { page: 'places' } }
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'list' },
+      { path: 'list', component: PlacesListComponent }
+    ]
   }
 ];
 

@@ -1,45 +1,40 @@
 <mz-modal
   #modal
-  fxFlex="100%"
-  fxLayout="column"
-  fxLayoutAlign="center center"
+  class="flex w-100 h-100 column justify-content-center align-items-center"
   id="registration"
   [options]="modalOptions"
 >
-  <mz-modal-header fxFlex="100%" fxLayout="row">
+  <mz-modal-header class="flex w-100">
     <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span>
     <button
-      fxLayoutAlign="end center"
       mz-button
+      class="flex justify-content-end align-items-center ml-auto"
       [float]="true"
       [flat]="true"
-      class="ml-auto"
       (click)="modal.close()"
     >
       <i class="black-text" mz-icon icon="clear"></i>
     </button>    
   </mz-modal-header>
-  <mz-modal-content fxLayout="row wrap">
-    <p @errorState fxFlex="100%" class="center-align mt-0" appColor="danger" *ngIf="formErrorMessage">
+  <mz-modal-content class="flex wrap">
+    <p @errorState class="flex w-100 center-align mt-0" appColor="danger" *ngIf="formErrorMessage">
       {{ formErrorMessage }}
     </p>    
     <form
-      fxFlex="100%"
-      fxLayout="row wrap"
+      class="flex w-100 wrap"
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
       novalidate
     >
-      <ng-template [ngIf]="mode === 'signUp'">
-        <div fxFlex="100%" class="image-upload">
+      <ng-container *ngIf="mode === 'signUp'">
+        <div class="flex w-100 image-upload">
           <div class="image-wrap">
             <div
-              fxLayoutAlign="center center"
               ng2FileDrop
+              class="flex justify-content-center align-items-center image-drop"
               (fileOver)="onFileOver($event)"
               [uploader]="uploader"
               [ngClass]="{'file-over': hasDropZoneOver, 'color-danger': uploadErrorMessage}"
-              class="image-drop"
               *ngIf="!userImageFile"
             >
               <p class="m-0">Drag a image here</p>
@@ -69,7 +64,7 @@
           </div>
           <p @errorState class="center-align mb-0" appColor="danger" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
         </div>
-        <mz-input-container fxFlex="100%">
+        <mz-input-container class="w-100">
           <input
             mz-input
             mz-validation
@@ -82,8 +77,8 @@
             [errorMessageResource]="errorMessageResources.username"
           >
         </mz-input-container>
-      </ng-template>
-      <mz-input-container fxFlex="100%">
+      </ng-container>
+      <mz-input-container class="w-100">
         <input
           mz-input
           mz-validation
@@ -96,7 +91,7 @@
           [errorMessageResource]="errorMessageResources.email"
         >
       </mz-input-container>
-      <mz-input-container fxFlex="100%">
+      <mz-input-container class="w-100">
         <input
           mz-input
           mz-validation
@@ -108,15 +103,14 @@
           [errorMessageResource]="errorMessageResources.password"
         >
       </mz-input-container>
-      <div fxFlex=100% fxLayoutAlign="space-around center" class="pt-1">
-        <button fxFlex="45%" type="submit" mz-button class="p-0" [disabled]="form.invalid">
+      <div class="flex w-100 justify-content-space-around align-items-center pt-1">
+        <button class="w-45 p-0" type="submit" mz-button  [disabled]="form.invalid">
           <span>{{ mode === 'signIn' ? 'Sign In' : 'Sign Up'}}</span> 
         </button>
         <button
-          fxFlex="45%"
-          type="button"
           mz-button          
-          class="white p-0"
+          type="button"
+          class="w-45 white p-0"
           appColor="secondary"
           (click)="onSwitchMode()"
           *ngIf="mode === 'signIn'"
@@ -124,10 +118,9 @@
           Create Account
         </button>
         <button
-          fxFlex="45%"
-          type="button"
           mz-button        
-          class="white p-0"
+          type="button"
+          class="w-45 white p-0"
           appColor="secondary"
           (click)="onSwitchMode()"
           *ngIf="mode === 'signUp'"
@@ -136,11 +129,11 @@
         </button>
       </div>
     </form>
-    <ng-template [ngIf]="mode === 'signIn'">
-      <div fxFlex="100%" class="center-align mt-1">
+    <ng-container *ngIf="mode === 'signIn'">
+      <div class="w-100 center-align mt-1">
         <span id="social-text">Sign in via social media</span>
       </div>
-      <div @socialBtnState class="social-btn-wrap" ngClass.xs="x-small">
+      <div @socialBtnState class="social-btn-wrap">
         <button
           *ngFor="let network of socialNetworks"
           mz-button
@@ -151,7 +144,7 @@
           <img src="assets/icons/{{network}}.png" [alt]="network" class="icon"><span >{{ network | titlecase }}</span>
         </button>
       </div>
-    </ng-template>
+    </ng-container>
     <div class="spinner-wrap" *ngIf="loading">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>

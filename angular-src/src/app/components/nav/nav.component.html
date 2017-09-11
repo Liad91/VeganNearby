@@ -1,11 +1,10 @@
-<nav [ngClass]="{transparent: slim}">
-  <div fxFlex="100%" fxLayout="row" class="content" ngClass.md="medium" ngClass.sm="small" ngClass.xs="xsmall">
+<nav class="transparent">
+  <div class="flex w-100 content">
     <div class="logo">VegaNearby</div>
-    <div fxFlex fxLayoutAlign="end center" class="nav-more">
-      <button 
-        fxLayoutAlign="center center"
+    <div class="flex w-100 justify-content-flex-end align-items-center nav-more">
+      <button
         mz-button
-        class="login-btn h-100"
+        class="flex justify-content-center align-items-center login-btn h-100"
         [flat]="true"
         (click)="openModal()"
         *ngIf="getCurrentUser() === 'guest'"
@@ -14,22 +13,21 @@
         Login
       </button>
       <button
-        fxLayout="row"
-        fxLayoutAlign="end center"
-        id="btn-more"
         mz-button
+        id="btn-more"
         [flat]="true"
-        class="h-100"
-        ngClass.xs="btn-floating h-auto"
+        class="flex justify-content-flex-end align-items-center h-100"
         appDropdownTriggerFor="more"
+        [hover]="true"
+        [belowOrigin]="true"
         [constrainWidth]="false"
         *ngIf="getCurrentUser() === 'user'"
       >
-        <div class="user-info right-align hide-on-small-only">
+        <div class="user-info right-align hide-on-extra-small-only">
           <div class="username">{{ user.username }}</div>
           <div class="email thin">{{ user.email }}</div>        
         </div>
-        <img fxFlex class="circle" [src]="user.avatarUrl || 'assets/images/user.ico'" alt="avatar">
+        <img class="flex circle" [src]="user.avatarUrl || 'assets/images/user.ico'" alt="avatar">
       </button>  
     </div>
     <ul id="more" class='dropdown-content'>

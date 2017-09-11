@@ -6,13 +6,12 @@ import {
   Renderer2
 } from '@angular/core';
 
-import { HandlePropChanges } from '../handle-prop-changes';
 import { RendererService } from '../../services/renderer.service';
 
 @Directive({
   selector: '[appDropdownTriggerFor]'
 })
-export class DropdownTriggerDirective extends HandlePropChanges implements AfterViewInit {
+export class DropdownTriggerDirective implements AfterViewInit {
   @Input() private align: string;
   @Input() private belowOrigin: boolean;
   @Input() private constrainWidth: boolean;
@@ -24,20 +23,15 @@ export class DropdownTriggerDirective extends HandlePropChanges implements After
   @Input() private outDuration: number;
   @Input() private stopPropagation: boolean;
   @Input() private appDropdownTriggerFor: string;
-
-  private dropdownOpen = false
   private dropdownButtonElement: JQuery;
   private dropdownElement: JQuery;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, private rendererService: RendererService) {
-    super();
-  }
+  constructor(private renderer: Renderer2, private rendererService: RendererService) {}
 
   ngAfterViewInit(): void {
     this.initDropdownButtonElement();
     this.initDropdownElement();
     this.validateProperties();
-    this.initHandlers();
     this.handleProperties();
   }
 
@@ -47,21 +41,6 @@ export class DropdownTriggerDirective extends HandlePropChanges implements After
 
   private initDropdownElement(): void {
     this.dropdownElement = $(`#${this.appDropdownTriggerFor}`);
-  }
-
-  private initHandlers(): void {
-    this.handlers = {
-      align: () => this.handleDropdown(),
-      belowOrigin: () => this.handleDropdown(),
-      constrainWidth: () => this.handleDropdown(),
-      dropdownButtonId: () => this.handleDataActivates(),
-      gutter: () => this.handleDropdown(),
-      hover: () => this.handleDropdown(),
-      id: () => this.handleDropdown(),
-      inDuration: () => this.handleDropdown(),
-      outDuration: () => this.handleDropdown(),
-      stopPropagation: () => this.handleDropdown(),
-    };
   }
 
   private handleProperties(): void {
@@ -74,8 +53,6 @@ export class DropdownTriggerDirective extends HandlePropChanges implements After
   }
 
   private handleDropdown(): void {
-    this.validateProperties();
-
     const options: Materialize.DropDownOptions = {
       alignment: this.align,
       belowOrigin: this.belowOrigin,

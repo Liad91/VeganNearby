@@ -7,49 +7,27 @@
     border-top: none;
   }
 
-  .inline h3,
-  h3.title {
-    margin-top: 0;
-    margin-bottom: 1rem; 
+  .switch {
+    margin-right: 5px;
   }
 
-  .inline {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
+  span.lever {
+    margin: 0 0 0 10px;
+  }
 
-    h3 {
+  p.checkbox-field,
+  p.radio-field {
+    margin: 0.5rem 0 0.5rem 0.5rem;
+
+    &:last-child {
       margin-bottom: 0;
     }
-  }
-
-  .switch {
-    display: flex;
-
-    label .lever {
-      margin: 0 0 0 10px;
-    }
-  }
-
-  /deep/ {
-    mz-radio-button-container,
-    mz-checkbox-container {
-      p {
-        margin: 0.5rem 0 0.5rem 0.5rem;
-      }
-      &:last-child {
-        p {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
+  }    
 }
 
 .more {
   cursor: pointer;
   display: inline-flex;
-  align-items: center;
   padding-left: 0.5rem;
   font-size: 13px;
   color: #5a5a5a;

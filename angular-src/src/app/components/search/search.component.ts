@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   Output,
   ViewChild,
   ElementRef,
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 
 import { YelpFilter, YelpSearchParams } from './../../models/yelp.model';
-import { FiltersService } from '../../pages/places/filters/filters.service';
+import { FiltersService } from '../../pages/places/places-list/filters/filters.service';
 import { PlacesService } from '../../pages/places/places.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -21,7 +22,7 @@ import { ToastService } from '../../services/toast.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   public location: string;
   public locateSpinner = false;
   public locateFailed = false;
@@ -29,6 +30,7 @@ export class SearchComponent implements OnInit {
   public categories: YelpFilter[];
   public selectedCategory: YelpFilter;
   public selectedCategoryIndex: number;
+  private autocompleteListener: google.maps.MapsEventListener;
   @ViewChild('search') private searchElementRef: ElementRef;
   @Output() private categoryChanged = new EventEmitter();
 
@@ -53,7 +55,7 @@ export class SearchComponent implements OnInit {
           types: ['(cities)']
         });
 
-        autocomplete.addListener('place_changed', () => {
+        this.autocompleteListener = autocomplete.addListener('place_changed', () => {
           this.location = autocomplete.getPlace().formatted_address;
         });
       })
@@ -138,11 +140,14 @@ export class SearchComponent implements OnInit {
   }
 
   private searchSuccess(response) {
-    this.searching = false;
     if (response.error) {
-      this.toastService.show(response.error.description);
-      return;
+      // TODO: Handle error
     }
-    this.router.navigate(['/places']);
+    this.searching = false;
+    this.router.navigateByUrl('/places');
+  }
+
+  ngOnDestroy() {
+    this.autocompleteListener.remove();
   }
 }

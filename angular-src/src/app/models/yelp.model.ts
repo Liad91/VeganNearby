@@ -116,6 +116,8 @@ export class YelpReviewsResponse {
 export class YelpFilter {
   title: string;
   alias: string;
+  checked?: boolean;
+  index?: number;
 }
 
 export class YelpSearchParams {

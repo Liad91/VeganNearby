@@ -1,0 +1,83 @@
+@import '../../../variables';
+
+.filters {
+  border-right: 1px solid #e6e6e6;
+  margin-right: 1.5rem;
+  padding-right: 1.5rem;
+  min-width: 345px;
+  width: 345px;
+
+  button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  @media #{$small-and-down} {
+    position: absolute;
+    background-color: white;      
+    padding-top: 2rem;
+    margin-top: -2rem;
+    margin-right: 0;
+    border: 0;
+    z-index: 90;
+  }
+
+  @media #{$small-only} {
+    box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  @media #{$extra-small-only} {
+    min-width: 100%;
+    width: 100%;
+    padding-right: 0;
+    box-shadow: none;
+
+    button {
+      right: 0;
+    }
+  }
+}
+
+.main {
+  position: relative;
+  flex-grow: 1;
+
+  .top-bar {
+    button {
+      padding: 0 8px;
+      border-radius: 5px;
+
+      &.btn-flat {
+        background-color: #ddd;
+      }
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.sidebar {
+  position: relative;
+  height: 1000px;
+
+  .main {
+    overflow: hidden;
+
+    .spinner-wrap {
+      display: block !important;
+      background-color: rgba(255, 255, 255, 0.8);
+      mz-spinner {
+        display: none;
+      }
+    }
+  }
+}
+
+mz-spinner {
+  position: sticky;  
+  align-self: flex-start;
+  top: calc(50% - 32px);
+}

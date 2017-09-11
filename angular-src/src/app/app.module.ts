@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
@@ -11,7 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 // Services
 import * as Services from './services';
-import { FiltersService } from './pages/places/filters/filters.service';
+import { FiltersService } from './pages/places/places-list/filters/filters.service';
 import { PlacesService } from './pages/places/places.service';
 import { ProfileService } from './components/profile/profile.service';
 import { SocialProfileService } from './components/profile/social-profile/social-profile.service';
@@ -35,7 +35,7 @@ import { googleMapApiKey } from './../config';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

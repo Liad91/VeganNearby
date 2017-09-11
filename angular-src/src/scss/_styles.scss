@@ -4,7 +4,6 @@
 
 // Global
 // ==========================================================================
-
 a {
   cursor: pointer;
 
@@ -16,8 +15,9 @@ a {
 .content {
   margin: 0 auto;
   padding: 0 25px;
-  max-width: 1200px !important;
+  max-width: 1200px;
   @media #{$medium-and-down} {
+    max-width: 100%;
     padding: 0 15px;
   }
   @media #{$small-and-down} {
@@ -27,22 +27,6 @@ a {
 
 .btn, .btn-large, .btn-flat {
   text-transform: initial;
-}
-
-// SearchComponent
-// ==========================================================================
-app-search {
-  .categories,
-  .categories ul.dropdown-content {
-    background-color: $primary-color;
-  }
-  .categories ul.dropdown-content li {
-    &:hover, 
-    &.selected,
-    &.active {
-      background-color: darken($primary-color, 5%); 
-    }
-  }
 }
 
 // Google autocomplete
@@ -74,9 +58,12 @@ app-search {
   bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.6);
   z-index: 10;
+
+  &:not([hidden]) {
+    display: flex;
+  }
 }
