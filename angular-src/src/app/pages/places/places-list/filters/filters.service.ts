@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -11,7 +12,8 @@ export class FiltersService {
   public selectedCuisines: string[] = [];
   public prices: YelpFilter[] = prices;
   public selectedPrices: string[] = [];
-  public changes = new BehaviorSubject<YelpSearchParams>(new YelpSearchParams);
+  public state = new BehaviorSubject<YelpSearchParams>(new YelpSearchParams);
+  public changes = new Subject<YelpSearchParams>();
   public updated = new Subject<void>();
 
   public updateCuisines(updatedCuisines: YelpFilter[]): void {

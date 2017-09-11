@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as yelp from 'yelp-fusion';
 import 'rxjs/Rx';
 
-import { PlacesStatus } from './places.model';
+import { PlacesListState } from './places.model';
 import { categories } from './data/index';
 import { ConnectionService } from '../../services/connection.service';
 import {
@@ -23,7 +23,7 @@ export class PlacesService {
   public selectedCategory: YelpFilter;
   public selectedLocation: BehaviorSubject<string>;
 
-  public viewStatus: PlacesStatus = {
+  public placesListState: PlacesListState = {
     listView: '',
     currentPage: 1,
     itemsPerPage: 12
@@ -42,6 +42,9 @@ export class PlacesService {
       else {
         this.selectedLocation.next(params.location);
       }
+    }
+    if (!params.limit) {
+      params.limit = 12;
     }
 
     return this.http.post<YelpSearchResponse>(`${this.connectionService.serverUrl}/yelp/search`, params)

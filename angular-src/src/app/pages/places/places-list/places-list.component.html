@@ -11,10 +11,10 @@
         <i mz-icon icon="filter_list"></i>
       </button>
       <div class="view ml-auto">
-        <button mz-button [flat]="status.listView === 'list'" (click)="status.listView = 'grid'">
+        <button mz-button [flat]="state.listView === 'list'" (click)="state.listView = 'grid'">
           <i mz-icon icon="grid_on"></i>
         </button>
-        <button mz-button [flat]="status.listView === 'grid'" (click)="status.listView = 'list'">
+        <button mz-button [flat]="state.listView === 'grid'" (click)="state.listView = 'list'">
           <i mz-icon icon="format_list_bulleted"></i>
         </button>
       </div>
@@ -22,7 +22,7 @@
 
     <div class="businesses-wrap flex wrap w-100 align-self-flex-start" [@listState]="data.total">
       <app-business
-        [ngClass]="status.listView === 'list' ? 'list mb-2' : 'grid mb-1 mr-1'"
+        [ngClass]="state.listView === 'list' ? 'list mb-2' : 'grid mb-1 mr-1'"
         [business]="business"
         (click)="getPlace(business.id)"
         *ngFor="let business of data.businesses; trackBy: trackById"
@@ -43,5 +43,12 @@
     <div class="spinner-wrap" [hidden]="!loading">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
+    <app-pagination
+      class="w-100 center-align"
+      [state]="state"
+      [totalItems]="data.total"
+      (pageChange)="onPageChange($event)"
+    >
+    </app-pagination>
   </div>
 </div>

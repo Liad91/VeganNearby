@@ -102,7 +102,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     })
   }
 
-  public getStauts(): YelpSearchParams {
+  private emitFiltersChanges(): void {
     const params = new YelpSearchParams();
 
     params.latitude = this.mapCenter.lat;
@@ -115,11 +115,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
     else {
       params.categories = this.selectedCategory.alias;
     }
-    return params;
-  }
 
-  private emitFiltersChanges(): void {
-    this.filtersService.changes.next(this.getStauts());
+    this.filtersService.state.next(params);
+    this.filtersService.changes.next(params);
   }
 
   ngOnDestroy() {

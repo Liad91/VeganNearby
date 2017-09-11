@@ -12,6 +12,8 @@ import { PlaceComponent } from './places-list/place/place.component';
 import { PriceComponent } from './places-list/business/price/price.component';
 import { FiltersComponent } from './places-list/filters/filters.component';
 import { CuisinesComponent } from './places-list/filters/cuisines/cuisines.component';
+import { PaginationComponent } from './pagination/pagination.component';
+
 
 // Services
 import { ResizeService } from './../../services/rezise.service';
@@ -31,7 +33,8 @@ import { SharedModule } from '../../shared/shared.module';
     PlaceComponent,
     PriceComponent,
     FiltersComponent,
-    CuisinesComponent
+    CuisinesComponent,
+    PaginationComponent
   ],
   entryComponents: [
     CuisinesComponent

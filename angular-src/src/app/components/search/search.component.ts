@@ -127,6 +127,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.searching = true;
     this.filtersService.reset();
+    this.filtersService.state.next(params);
     this.placesService.search(params)
       .subscribe(
         response => this.searchSuccess(response),

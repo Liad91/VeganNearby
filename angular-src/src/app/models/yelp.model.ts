@@ -127,4 +127,6 @@ export class YelpSearchParams {
   latitude?: number;
   longitude?: number;
   price?: string;
+  limit?: number;
+  offset?: number;
 }

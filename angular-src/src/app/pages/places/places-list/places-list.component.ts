@@ -6,7 +6,7 @@ import { FiltersService } from './filters/filters.service';
 import { PlacesService } from '../places.service';
 import { ToastService } from '../../../services/toast.service';
 import { sidebarStateTrigger, listStateTrigger } from '../animations';
-import { PlacesStatus } from '../places.model';
+import { PlacesListState } from '../places.model';
 import {
   YelpSearchResponse,
   YelpBusinessResponse,
@@ -25,7 +25,7 @@ import {
 })
 export class PlacesListComponent implements OnInit, OnDestroy {
   public mobileView: boolean;
-  public status: PlacesStatus;
+  public state: PlacesListState;
   public data: YelpSearchResponse
   private updateSubscription: Subscription;
   private changesSubscription: Subscription;
@@ -41,23 +41,24 @@ export class PlacesListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.data = this.placesService.data;
-    this.status = this.placesService.viewStatus;
+    this.state = this.placesService.placesListState;
 
     this.resizeSubscription = this.resizeService.screenSize.subscribe(
       size => this.mobileView = size === 'sm' || size === 'xs'
     );
 
     this.changesSubscription = this.filtersService.changes.subscribe(
-      changes => {
-        if (changes.radius) {
-          this.updatePlaces(changes)
-        }
-      }
+      changes => this.onFilterChange(changes)
     );
 
-    if (!this.status.listView) {
-      this.status.listView = this.mobileView ? 'list' : 'grid';
+    if (!this.state.listView) {
+      this.state.listView = this.mobileView ? 'list' : 'grid';
     }
+  }
+
+  private onFilterChange(params: YelpSearchParams) {
+    this.state.currentPage = 1;
+    this.updatePlaces(params)
   }
 
   private updatePlaces(params: YelpSearchParams): void {
@@ -89,19 +90,12 @@ export class PlacesListComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  public getDisplayedItemsStatus() {
-    const status = this.status;
-    const from = status.currentPage * status.itemsPerPage - status.itemsPerPage + 1;
-    let to: string;
+  public onPageChange(page: number) {
+    const params = this.filtersService.state.getValue();
 
-    if (status.currentPage *  status.itemsPerPage < this.data.total) {
-      to = `${status.currentPage *  status.itemsPerPage}`;
-    }
-    else {
-      to = `${this.data.total}`;
-    }
-
-    return `${from} - ${to} of ${this.data.total}`;
+    params.limit = this.state.itemsPerPage;
+    params.offset = this.state.currentPage * (page - 1);
+    this.updatePlaces(params);
   }
 
   public isFiltered(): boolean {
