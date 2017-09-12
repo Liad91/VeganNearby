@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-stars',
+  selector: 'vn-stars',
   template: '<img class="w-100" src="assets/icons/stars/{{ size }}/{{ rating }}.png">'
 })
 export class StarsComponent {

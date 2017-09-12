@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 
 // Components
-import { BusinessComponent } from './places-list/business/business.component';
-import { StarsComponent } from './places-list/business/stars/stars.component';
+import { PlaceComponent } from './places-list/place/place.component';
+import { StarsComponent } from './places-list/place/stars/stars.component';
 import { PlacesComponent } from './places.component';
 import { PlacesListComponent } from './places-list/places-list.component';
-import { PlaceComponent } from './places-list/place/place.component';
-import { PriceComponent } from './places-list/business/price/price.component';
+import { PriceComponent } from './places-list/place/price/price.component';
 import { FiltersComponent } from './places-list/filters/filters.component';
 import { CuisinesComponent } from './places-list/filters/cuisines/cuisines.component';
 import { PaginationComponent } from './pagination/pagination.component';
@@ -26,11 +25,10 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
-    BusinessComponent,
     StarsComponent,
+    PlaceComponent,
     PlacesComponent,
     PlacesListComponent,
-    PlaceComponent,
     PriceComponent,
     FiltersComponent,
     CuisinesComponent,

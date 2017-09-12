@@ -15,7 +15,7 @@ import {
 } from '../../../models/yelp.model';
 
 @Component({
-  selector: 'app-places-list',
+  selector: 'vn-places-list',
   templateUrl: './places-list.component.html',
   styleUrls: ['./places-list.component.scss'],
   animations: [

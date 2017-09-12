@@ -17,7 +17,7 @@
     </button>    
   </mz-modal-header>
   <mz-modal-content class="flex wrap">
-    <p @errorState class="flex w-100 center-align mt-0" appColor="danger" *ngIf="formErrorMessage">
+    <p @errorState class="flex w-100 center-align mt-0" vnColor="danger" *ngIf="formErrorMessage">
       {{ formErrorMessage }}
     </p>    
     <form
@@ -50,19 +50,19 @@
                 [hidden]="true"
               />
             </div>
-            <img @imgPreviewState [appImgPreview]="userImageFile" *ngIf="userImageFile">
+            <img @imgPreviewState [vnImgPreview]="userImageFile" *ngIf="userImageFile">
             <button 
               type="button"
               mz-button
               [float]="true"
               (click)="onResetUploader()"
-              appBgColor="danger"
+              vnBgColor="danger"
               *ngIf="userImageFile"
             >
               <i mz-icon icon="remove"></i>
             </button>
           </div>
-          <p @errorState class="center-align mb-0" appColor="danger" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
+          <p @errorState class="center-align mb-0" vnColor="danger" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
         </div>
         <mz-input-container class="w-100">
           <input
@@ -73,7 +73,7 @@
             type="text"
             label="Username"
             formControlName="username"
-            [appActive]="(mode === 'signUp' && form.pristine && form.untouched) || form.get('username').value"
+            [vnActive]="(mode === 'signUp' && form.pristine && form.untouched) || form.get('username').value"
             [errorMessageResource]="errorMessageResources.username"
           >
         </mz-input-container>
@@ -87,7 +87,7 @@
           type="email"
           label="Email"
           formControlName="email"
-          [appActive]="(mode === 'signIn' && form.pristine && form.untouched) || form.get('email').value"
+          [vnActive]="(mode === 'signIn' && form.pristine && form.untouched) || form.get('email').value"
           [errorMessageResource]="errorMessageResources.email"
         >
       </mz-input-container>
@@ -111,7 +111,7 @@
           mz-button          
           type="button"
           class="w-45 white p-0"
-          appColor="secondary"
+          vnColor="secondary"
           (click)="onSwitchMode()"
           *ngIf="mode === 'signIn'"
         >
@@ -121,7 +121,7 @@
           mz-button        
           type="button"
           class="w-45 white p-0"
-          appColor="secondary"
+          vnColor="secondary"
           (click)="onSwitchMode()"
           *ngIf="mode === 'signUp'"
         >
@@ -138,7 +138,7 @@
           *ngFor="let network of socialNetworks"
           mz-button
           class="p-0"
-          [appBgColor]="network"
+          [vnBgColor]="network"
           (click)="onSocialLogin(network)"
         >
           <img src="assets/icons/{{network}}.png" [alt]="network" class="icon"><span >{{ network | titlecase }}</span>

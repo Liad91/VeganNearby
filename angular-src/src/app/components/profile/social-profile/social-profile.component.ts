@@ -4,7 +4,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { QueryParams } from '../../../models/query-params.model';
 
 @Component({
-  selector: 'app-callback',
+  selector: 'vn-callback',
   template: 'Authorizing...'
 })
 export class SocialProfileComponent implements OnInit {

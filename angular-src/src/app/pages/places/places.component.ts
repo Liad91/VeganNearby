@@ -6,7 +6,7 @@ import { PlacesService } from './places.service';
 import { YelpFilter } from './../../models/yelp.model';
 
 @Component({
-  selector: 'app-places',
+  selector: 'vn-places',
   templateUrl: './places.component.html',
   styleUrls: ['./places.component.scss']
 })

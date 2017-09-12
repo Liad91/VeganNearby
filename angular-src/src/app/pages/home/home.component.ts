@@ -7,7 +7,7 @@ import { YelpFilter } from './../../models/yelp.model';
 import { PlacesService } from './../places/places.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'vn-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [ bgStateTrigger ]

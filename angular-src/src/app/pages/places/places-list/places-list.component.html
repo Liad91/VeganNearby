@@ -3,7 +3,7 @@
     <button mz-button [float]="true" [flat]="true" (click)="sidebarOpen = false" *ngIf="sidebarOpen && mobileView">
       <i class="black-text" mz-icon icon="clear"></i>
     </button> 
-    <app-filters></app-filters>
+    <vn-filters></vn-filters>
   </div>
   <div class="main flex wrap align-content-flex-start max-w-100">
     <div class="top-bar flex align-items-center w-100 mb-1">
@@ -20,14 +20,14 @@
       </div>
     </div>
 
-    <div class="businesses-wrap flex wrap w-100 align-self-flex-start" [@listState]="data.total">
-      <app-business
+    <div class="places-wrap flex wrap w-100 align-self-flex-start" [@listState]="data.total">
+      <vn-place
         [ngClass]="state.listView === 'list' ? 'list mb-2' : 'grid mb-1 mr-1'"
-        [business]="business"
+        [place]="business"
         (click)="getPlace(business.id)"
         *ngFor="let business of data.businesses; trackBy: trackById"
       >
-      </app-business>
+      </vn-place>
       <div *ngIf="data.businesses.length === 0">
         <strong>Suggestions for improving the results:</strong>
         <br>
@@ -43,12 +43,12 @@
     <div class="spinner-wrap" [hidden]="!loading">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
-    <app-pagination
+    <vn-pagination
       class="w-100 center-align"
       [state]="state"
       [totalItems]="data.total"
       (pageChange)="onPageChange($event)"
     >
-    </app-pagination>
+    </vn-pagination>
   </div>
 </div>

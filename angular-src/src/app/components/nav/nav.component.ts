@@ -10,7 +10,7 @@ import { User } from '../../models/user.model';
 import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
-  selector: 'app-nav',
+  selector: 'vn-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })

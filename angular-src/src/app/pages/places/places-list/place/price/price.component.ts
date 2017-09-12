@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-price',
+  selector: 'vn-price',
   template: `
     <ng-container *ngIf="price">
       <span>{{ title }}

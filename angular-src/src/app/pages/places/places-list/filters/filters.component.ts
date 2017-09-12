@@ -11,7 +11,7 @@ import { YelpSearchResponse, YelpSearchParams, YelpFilter } from '../../../../mo
 import { CuisinesComponent } from './cuisines/cuisines.component';
 
 @Component({
-  selector: 'app-filters',
+  selector: 'vn-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
@@ -53,9 +53,12 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   public onIdle(): void {
+    // TODO: bind dragend event to the map: https://stackoverflow.com/questions/6981308/google-map-api-v3-drag-event-on-map
     const currentPosition = this.data.region.center;
 
     if (this.mapCenter.lat !== currentPosition.latitude || this.mapCenter.lng !== currentPosition.longitude) {
+      console.log(this.data.region.center.latitude, this.data.region.center.longitude);
+      console.log(this.mapCenter.lat, this.mapCenter.lng);
       this.placesService.geocoder(this.mapCenter.lat, this.mapCenter.lng)
         .then((location: string) => {
           this.placesService.selectedLocation.next(location);

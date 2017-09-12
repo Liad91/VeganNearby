@@ -5,7 +5,7 @@ import { AuthService } from './services/auth.service';
 import { routeStateTrigger } from './animations';
 
 @Component({
-  selector: 'app-root',
+  selector: 'vn-root',
   templateUrl: './app.component.html',
   animations: [ routeStateTrigger ]
 })

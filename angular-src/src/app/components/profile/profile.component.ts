@@ -27,7 +27,7 @@ import { socialBtnStateTrigger, errorStateTrigger, imgPreviewStateTrigger } from
 import { AuthSuccessResponse, AuthFailedResponse } from '../../models/auth-response.model';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'vn-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   animations: [

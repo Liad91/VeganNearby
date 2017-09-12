@@ -9,7 +9,7 @@ import {
 import { RendererService } from '../../services/renderer.service';
 
 @Directive({
-  selector: '[appDropdownTriggerFor]'
+  selector: '[vnDropdownTriggerFor]'
 })
 export class DropdownTriggerDirective implements AfterViewInit {
   @Input() private align: string;
@@ -22,7 +22,7 @@ export class DropdownTriggerDirective implements AfterViewInit {
   @Input() private inDuration: number;
   @Input() private outDuration: number;
   @Input() private stopPropagation: boolean;
-  @Input() private appDropdownTriggerFor: string;
+  @Input() private vnDropdownTriggerFor: string;
   private dropdownButtonElement: JQuery;
   private dropdownElement: JQuery;
 
@@ -40,7 +40,7 @@ export class DropdownTriggerDirective implements AfterViewInit {
   }
 
   private initDropdownElement(): void {
-    this.dropdownElement = $(`#${this.appDropdownTriggerFor}`);
+    this.dropdownElement = $(`#${this.vnDropdownTriggerFor}`);
   }
 
   private handleProperties(): void {
@@ -49,7 +49,7 @@ export class DropdownTriggerDirective implements AfterViewInit {
   }
 
   private handleDataActivates(): void {
-    this.renderer.setAttribute(this.dropdownButtonElement[0], 'data-activates', this.appDropdownTriggerFor);
+    this.renderer.setAttribute(this.dropdownButtonElement[0], 'data-activates', this.vnDropdownTriggerFor);
   }
 
   private handleDropdown(): void {
@@ -69,8 +69,8 @@ export class DropdownTriggerDirective implements AfterViewInit {
   }
 
   private validateProperties(): void {
-    if (!this.appDropdownTriggerFor) {
-      throw new Error('Attribute [appDropdownTriggerFor] from dropdown-trigger is required.' + this.dropdownButtonElement);
+    if (!this.vnDropdownTriggerFor) {
+      throw new Error('Attribute [vnDropdownTriggerFor] from dropdown-trigger is required.' + this.dropdownButtonElement);
     }
     if (!this.id) {
       throw new Error('Attribute [id] from dropdown-trigger is required.' + this.dropdownButtonElement);

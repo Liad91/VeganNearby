@@ -1,9 +1,10 @@
 import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-@Directive({ selector: 'img[appImgPreview]' })
-
+@Directive({
+  selector: 'img[vnImgPreview]'
+})
 export class ImagePreviewDirective implements OnChanges {
-  @Input() private appImgPreview: File;
+  @Input() private vnImgPreview: File;
 
   constructor(private elementRef: ElementRef) { }
 
@@ -14,8 +15,8 @@ export class ImagePreviewDirective implements OnChanges {
         this.elementRef.nativeElement.src = reader.result;
       };
 
-      if (this.appImgPreview) {
-        reader.readAsDataURL(this.appImgPreview);
+      if (this.vnImgPreview) {
+        reader.readAsDataURL(this.vnImgPreview);
       }
   }
 }

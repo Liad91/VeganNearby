@@ -109,13 +109,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "vn",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "vn",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

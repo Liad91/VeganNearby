@@ -7,15 +7,15 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[appActive]'
+  selector: '[vnActive]'
 })
 export class ActiveDirective implements OnChanges {
-  @Input() private appActive: boolean;
+  @Input() private vnActive: boolean;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnChanges(): void {
-    if (this.appActive) {
+    if (this.vnActive) {
       setTimeout(() => this.renderer.addClass(this.elementRef.nativeElement.nextElementSibling, 'active'));
     }
     else {

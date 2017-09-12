@@ -7,14 +7,14 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[appColor]'
+  selector: '[vnColor]'
 })
 export class ColorDirective implements OnInit {
-  @Input() private appColor: string;
+  @Input() private vnColor: string;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    this.renderer.addClass(this.elementRef.nativeElement, `color-${this.appColor}`);
+    this.renderer.addClass(this.elementRef.nativeElement, `color-${this.vnColor}`);
   }
 }

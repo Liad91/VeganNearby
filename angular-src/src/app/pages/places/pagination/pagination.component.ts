@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core
 import { PaginationState } from './../places.model';
 
 @Component({
-  selector: 'app-pagination',
+  selector: 'vn-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })

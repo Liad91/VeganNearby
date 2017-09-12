@@ -14,7 +14,7 @@
           mz-icon
           [icon]="locateFailed ? 'location_off' : 'location_on'"
           class="search-icon"
-          [appColor]="locateFailed ? 'gray' : 'primary'"
+          [vnColor]="locateFailed ? 'gray' : 'primary'"
           *ngIf="!locateSpinner"
         >
         </i>
@@ -41,7 +41,7 @@
         </select>
       </div>
     </div>
-    <button mz-button type="submit" appBgColor="dark" >
+    <button mz-button type="submit" vnBgColor="dark" >
       <i class="align-self-center" mz-icon icon="search" *ngIf="!searching"></i>
       <mz-spinner id="search-spinner" size="small" *ngIf="searching"></mz-spinner>
     </button>

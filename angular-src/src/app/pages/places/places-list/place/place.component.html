@@ -1,3 +1,45 @@
-<p>
-  {{place?.name}}
-</p>
+<div class="place-card">
+  <div class="place-card-content flex column w-100">
+    <img class="image" [src]="place.image_url || 'assets/images/business.png'" [alt]="place.name">
+    <div class="title flex">
+      <div class="top flex">
+        <!-- <span class="working-badge" [ngClass]="business.is_closed ? 'bg-color-danger' : 'bg-color-secondary'">
+          <i mz-icon icon="access_time"></i>
+          {{ business.is_closed ? 'closed' : 'open' }}
+        </span> -->
+        <button mz-button [float]="true" [flat]="true" class="ml-auto">
+          <i mz-icon icon="favorite_border"></i>
+        </button>
+      </div>
+      <div class="bottom flex wrap">
+        <h3 class="nowrap">{{ place.name }}</h3>   
+        <vn-price [price]="place.price"></vn-price>
+      </div>
+    </div>
+    <div class="body flex column">
+      <div class="categories w-100 nowrap">
+        <i class="tiny material-icons">business</i>
+        <span *ngFor="let category of place.categories">{{ category.title }}</span>
+      </div>
+      <div class="address w-100 nowrap">
+        <i class="tiny material-icons">location_on</i>
+        <span *ngFor="let address of place.location.display_address">{{ address }}</span>
+      </div>
+      <div class="phone w-100 nowrap" *ngIf="place.display_phone">
+        <i class="tiny material-icons">call</i>
+        <span>{{ place.display_phone }}</span>
+      </div>
+      <div class="rating flex mt-auto w-100 nowrap">
+        <vn-stars [rating]="place.rating" size="sm"></vn-stars>
+        <div class="yelp-logo ml-auto">
+          <a target="_blank" [href]="place.url">
+            <img class="w-100" src="assets/images/yelp_logo.png" alt="yelp logo">
+          </a>
+        </div>
+        <div class="reviews">
+          <span>Based on {{ place.review_count }} Reviews</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

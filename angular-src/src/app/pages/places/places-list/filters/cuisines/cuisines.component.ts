@@ -6,7 +6,7 @@ import { YelpFilter } from './../../../../../models/yelp.model';
 import { FiltersService } from './../filters.service';
 
 @Component({
-  selector: 'app-cuisines',
+  selector: 'vn-cuisines',
   templateUrl: './cuisines.component.html',
   styleUrls: ['./cuisines.component.scss']
 })

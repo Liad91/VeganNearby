@@ -18,7 +18,7 @@ import { PlacesService } from '../../pages/places/places.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
-  selector: 'app-search',
+  selector: 'vn-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })

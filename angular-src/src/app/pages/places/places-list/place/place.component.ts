@@ -1,18 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { YelpBusinessResponse } from '../../../../models/yelp.model';
+import { YelpSearchBusiness } from '../../../../models/yelp.model';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-place',
+  selector: 'vn-place',
   templateUrl: './place.component.html',
   styleUrls: ['./place.component.scss']
 })
-export class PlaceComponent implements OnInit {
-  @Input() place: YelpBusinessResponse;
+export class PlaceComponent implements OnInit, OnDestroy {
+  @Input() public place: YelpSearchBusiness
 
   constructor() {}
 
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+  }
 }
