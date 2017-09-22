@@ -1,17 +1,62 @@
 @import '../../variables';
 
-.nav-more {
+nav {
+  overflow: hidden;
+  
+  vn-search {
+    width: 60%;
+    
+    @media #{$extra-small-only} {
+      width: 80%;
+    }
+  }
+  
+
   button {
     border-radius: 0;
   }
-}
 
-.login-btn {
-  color: #fff;
-  padding: 0 10px;
-  font-size: 14px;
-  i {
-    margin-right: 5px;
+  .back-btn,
+  .search-btn {
+    padding: 0 10px;
+  
+    i {
+      color: #fff;
+      margin: 0;
+    }
+  }
+  
+  .login-btn {
+    color: #fff;
+    padding: 0 10px;
+    font-size: 14px;
+    i {
+      margin-right: 5px;
+  
+      @media #{$small-and-down} {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .back-btn,
+  .search-btn,
+  .login-btn {
+    @media #{$extra-small-only} {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+
+      &:focus {
+        background-color: transparent;
+      }
+      
+      i {
+        font-size: 22px;
+        height: 40px;
+        line-height: 40px;
+      }
+    }
   }
 }
 
@@ -26,9 +71,9 @@
   }
 
   img {
-    width: 40px;
-    height: 40px;
-    max-width: 40px;
+    width: 35px;
+    height: 35px;
+    max-width: 35px;
     margin-left: 10px;
   }
   .user-info {
@@ -51,7 +96,7 @@
   }
 
   @media #{$extra-small-only} {
-    width: 40px;
+    width: 35px;
     height: auto;
     padding: 0;
     border: none;

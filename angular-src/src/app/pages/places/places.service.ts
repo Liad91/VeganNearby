@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as yelp from 'yelp-fusion';
 import 'rxjs/Rx';
 
-import { PlacesListState } from './places.model';
+import { PlacesState } from './places.model';
 import { categories } from './data/index';
 import { ConnectionService } from '../../services/connection.service';
 import {
@@ -23,8 +23,7 @@ export class PlacesService {
   public selectedCategory: YelpFilter;
   public selectedLocation: BehaviorSubject<string>;
 
-  public placesListState: PlacesListState = {
-    listView: '',
+  public placesListState: PlacesState = {
     currentPage: 1,
     itemsPerPage: 12
   };

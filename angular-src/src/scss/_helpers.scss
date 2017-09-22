@@ -92,7 +92,7 @@
 }
 
 /** width & height */
-@each $size in (100, 95, 80, 75, 70, 50, 45, 30, 25, 20, 5) {
+@each $size in (100, 95, 80, 75, 70, 50, 45, 40, 30, 25, 20, 5) {
   .min-w-#{$size} {
     min-width: $size * 1%;
   }
@@ -176,6 +176,12 @@
 /** media query */
 .hide-on-extra-small-only {
   @media #{$extra-small-only} {
+    display: none !important;
+  }
+}
+
+.hide-on-small-and-up {
+  @media #{$small-and-up} {
     display: none !important;
   }
 }

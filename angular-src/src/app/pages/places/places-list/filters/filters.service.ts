@@ -12,9 +12,10 @@ export class FiltersService {
   public selectedCuisines: string[] = [];
   public prices: YelpFilter[] = prices;
   public selectedPrices: string[] = [];
-  public state = new BehaviorSubject<YelpSearchParams>(new YelpSearchParams);
+  public searchState = new BehaviorSubject<YelpSearchParams>(new YelpSearchParams);
   public changes = new Subject<YelpSearchParams>();
-  public updated = new Subject<void>();
+  public updateFilters = new Subject<void>();
+  public updateMap = new Subject<void>();
 
   public updateCuisines(updatedCuisines: YelpFilter[]): void {
     this.resetCuisines();
@@ -26,7 +27,7 @@ export class FiltersService {
     this.cuisines.unshift(...updatedCuisines);
     this.cuisines.splice(5, this.cuisines.length);
     this.cuisines.sort((a, b) => +(a.title > b.title));
-    this.updated.next();
+    this.updateFilters.next();
   }
 
   private resetCuisines(): void {
@@ -42,6 +43,6 @@ export class FiltersService {
       cuisine.checked = false;
     });
     this.selectedPrices.splice(0, this.selectedPrices.length);
-    this.updated.next();
+    this.updateFilters.next();
   }
 }

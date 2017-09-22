@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 // Components
 import { PlaceComponent } from './places-list/place/place.component';
@@ -12,10 +12,6 @@ import { PriceComponent } from './places-list/place/price/price.component';
 import { FiltersComponent } from './places-list/filters/filters.component';
 import { CuisinesComponent } from './places-list/filters/cuisines/cuisines.component';
 import { PaginationComponent } from './pagination/pagination.component';
-
-
-// Services
-import { ResizeService } from './../../services/rezise.service';
 
 // Modules
 import { PlacesRoutesModule } from './places.routes.module';
@@ -46,7 +42,7 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule
   ],
   providers: [
-    ResizeService
+    GoogleMapsAPIWrapper
   ]
 })
 export class PlacesModule { }

@@ -8,6 +8,7 @@ $secondary-color: color(secondary);
 $success-color: $secondary-color;
 $warning-color: color(warning);
 $danger-color: color(danger);
+$dark-color: color(dark);
 
 // Media Query Ranges
 $extra-small-screen-up: 600px;
@@ -19,6 +20,7 @@ $small-screen: 959px;
 $medium-screen: 1279px;
 $large-screen: 1919px;
 
+$small-and-up: "only screen and (min-width : #{$extra-small-screen-up})";
 $medium-and-up: "only screen and (min-width : #{$small-screen-up})";
 $large-and-up: "only screen and (min-width : #{$medium-screen-up})";
 $extra-large-and-up: "only screen and (min-width : #{$large-screen-up})";

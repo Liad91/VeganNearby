@@ -1,5 +1,42 @@
+<div class="filter map">
+  <div class="title-inline flex align-items-center">
+    <h3 class="m-0">Map</h3>
+    <div class="switch flex ml-auto">
+      <label>
+        update when dragging
+        <input type="checkbox" [checked]="updateOnDrag" (change)="updateOnDrag = !updateOnDrag">
+        <span class="lever"></span>
+      </label>
+    </div>
+  </div>
+  <agm-map
+    [latitude]="mapCenter.lat"
+    [longitude]="mapCenter.lng"
+    [streetViewControl]="false"
+    [maxZoom]="18"
+    [minZoom]="10"
+    [zoom]="13"
+    [zoomControl]="false"
+    (centerChange)="mapCenter = $event"
+    (boundsChange)="mapBounds = $event"
+  >
+    <agm-marker
+      *ngFor="let business of data?.businesses"
+      [latitude]="business.coordinates.latitude"
+      [longitude]="business.coordinates.longitude"
+      [iconUrl]="'assets/icons/marker.png'"
+      [title]="business.name"
+      (mouseOver)="business.markerHover = true"
+      (mouseOut)="business.markerHover = false"
+    >
+      <agm-info-window>
+        <strong>{{ business.name }}</strong>
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
+</div>
 <div class="filter">
-  <h3 class="mt-0 mb-1">Establishment Type</h3>
+  <h3 class="title">Establishment Type</h3>
   <p class="radio-field" *ngFor="let category of categories; let i = index">
     <input 
       type="radio"
@@ -13,45 +50,7 @@
   </p>
 </div>
 <div class="filter">
-  <div class="inline flex align-items-center mb-1">
-    <h3 class="mb-0 mt-0">Map</h3>
-    <div class="switch flex ml-auto">
-      <label>
-        Dragable
-        <input type="checkbox" [checked]="mapDraggable" (change)="mapDraggable = !mapDraggable">
-        <span class="lever"></span>
-      </label>
-    </div>
-  </div>
-  <agm-map
-    [ngClass]="{'disabled': !mapDraggable}"
-    [latitude]="mapCenter.lat"
-    [longitude]="mapCenter.lng"
-    [streetViewControl]="false"
-    [maxZoom]="16"
-    [minZoom]="12"
-    [zoom]="12"
-    [zoomControl]="false"
-    [clickableIcons]="mapDraggable"
-    [mapDraggable]="mapDraggable"
-    [scrollwheel]="mapDraggable"
-    [disableDoubleClickZoom]="!mapDraggable"
-    (centerChange)="mapCenter = $event"
-    (boundsChange)="mapBounds = $event"
-    (idle)="onIdle()"
-  >
-    <agm-marker
-      *ngFor="let business of data?.businesses"
-      [latitude]="business.coordinates.latitude"
-      [longitude]="business.coordinates.longitude"
-      [iconUrl]="'assets/icons/marker.png'"
-      [title]="business.name"
-    >
-    </agm-marker>
-  </agm-map>
-</div>
-<div class="filter">
-  <h3 class="mt-0 mb-1">Price</h3>
+  <h3 class="title">Price</h3>
   <p class="checkbox-field"  *ngFor="let price of prices">
     <input
       type="checkbox"
@@ -64,7 +63,7 @@
   </p>
 </div>
 <div class="filter" *ngIf="selectedCategory.alias === 'restaurants'">
-  <h3 class="mt-0 mb-1">Cuisine</h3>
+  <h3 class="title">Cuisine</h3>
   <p class="checkbox-field" *ngFor="let cuisine of cuisines">
     <input
       type="checkbox"
@@ -80,3 +79,4 @@
     <i class="material-icons">arrow_drop_down</i>
   </div>
 </div>
+<button mz-button class="hide-on-med-and-up red" *ngIf="isFiltered()" (click)="onResetFilters()">Reset</button>

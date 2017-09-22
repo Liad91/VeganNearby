@@ -1,41 +1,55 @@
 @import '../../../variables';
 
-.filters {
-  border-right: 1px solid #e6e6e6;
-  margin-right: 1.5rem;
-  padding-right: 1.5rem;
-  min-width: 345px;
-  width: 345px;
+header {
+  padding: 15px;
+  background-color: $secondary-color;
 
-  button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+  h4 {
+    font-weight: 300;
+    line-height: 1.5;
   }
 
   @media #{$small-and-down} {
-    position: absolute;
-    background-color: white;      
-    padding-top: 2rem;
-    margin-top: -2rem;
-    margin-right: 0;
-    border: 0;
-    z-index: 90;
-  }
+    flex-wrap: wrap;
 
-  @media #{$small-only} {
-    box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.3);
+    h4 {
+      width: 100%;
+      text-align: center;
+    }
+    p {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   @media #{$extra-small-only} {
-    min-width: 100%;
-    width: 100%;
-    padding-right: 0;
-    box-shadow: none;
-
-    button {
-      right: 0;
+    h4 {
+      font-size: 1.2rem;
     }
+  }
+}
+
+.filters {
+  min-width: 345px;
+  width: 345px;
+
+  @media #{$small-and-down} {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    min-width: 450px;
+    width: 450px;
+    margin: 0;
+    margin-left: -5px;
+    overflow: auto;
+    background-color: #f6f6f6;
+    box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+
+  @media #{$extra-small-only} {
+    min-width: 90%;
+    width: 90%;
   }
 }
 
@@ -43,41 +57,39 @@
   position: relative;
   flex-grow: 1;
 
-  .top-bar {
-    button {
-      padding: 0 8px;
-      border-radius: 5px;
-
-      &.btn-flat {
-        background-color: #ddd;
-      }
-
-      i {
-        font-size: 20px;
-      }
+  .no-results {
+    @media #{$small-and-down} {
+      text-align: center;
     }
   }
 }
 
-.sidebar {
-  position: relative;
-  height: 1000px;
 
-  .main {
-    overflow: hidden;
-
-    .spinner-wrap {
-      display: block !important;
-      background-color: rgba(255, 255, 255, 0.8);
-      mz-spinner {
-        display: none;
-      }
-    }
-  }
-}
 
 mz-spinner {
   position: sticky;  
   align-self: flex-start;
   top: calc(50% - 32px);
+}
+
+.filters-triger {
+  position: sticky;
+  left: 7px;
+  bottom: 45%;
+  background-color: $warning-color;
+  z-index: 80;
+
+  @media #{$extra-small-only} {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+
+    i {
+      line-height: 50px;
+    }
+  }
+}
+
+vn-pagination ::ng-deep ul {
+  margin-bottom: 2rem;
 }

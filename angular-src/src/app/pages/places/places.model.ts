@@ -1,10 +1,4 @@
-export class PlacesListState {
-  listView: string;
-  currentPage: number;
-  itemsPerPage: number;
-}
-
-export class PaginationState {
+export class PlacesState {
   currentPage: number;
   itemsPerPage: number;
 }

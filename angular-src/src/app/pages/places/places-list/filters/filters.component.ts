@@ -1,6 +1,6 @@
 import { cuisines } from './../../data';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LatLngLiteral, LatLngBounds, MapsAPILoader } from '@agm/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { LatLngLiteral, LatLngBounds, MapsAPILoader, GoogleMapsAPIWrapper, AgmMap } from '@agm/core';
 import { MzModalService } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -16,6 +16,7 @@ import { CuisinesComponent } from './cuisines/cuisines.component';
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit, OnDestroy {
+  @ViewChild(AgmMap) map: any;
   public data: YelpSearchResponse;
   public categories: YelpFilter[];
   public selectedCategory: YelpFilter;
@@ -25,9 +26,11 @@ export class FiltersComponent implements OnInit, OnDestroy {
   public selectedCuisines: string[];
   public mapCenter: LatLngLiteral;
   public mapBounds: LatLngBounds;
-  private updates: Subscription;
-  public mapDraggable = true;
-  private mapRadius = 2500;
+  private updateMapSubscription: Subscription;
+  private updateFiltersSubscription: Subscription;
+  private dragEndSubscription: Subscription;
+  public updateOnDrag = true;
+  private mapRadius = 1489;
 
   constructor(
     private filtersService: FiltersService,
@@ -43,32 +46,53 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.selectedCategory = this.placesService.selectedCategory;
     this.selectedPrices = this.filtersService.selectedPrices;
     this.selectedCuisines = this.filtersService.selectedCuisines;
-    this.mapCenter = {
-      lat: this.data.region.center.latitude,
-      lng: this.data.region.center.longitude
-    }
-    this.updates = this.filtersService.updated.subscribe(
+
+    this.updateFiltersSubscription = this.filtersService.updateFilters.subscribe(
       () => this.emitFiltersChanges()
+    );
+
+    this.updateMapSubscription = this.filtersService.updateMap.subscribe(
+      () => this.setMapCenter()
+    );
+
+    this.setMapCenter();
+    this.setDragEndListener();
+  }
+
+  // TODO: Remove setDragEndListener method and use (dragEnd) after https://github.com/SebastianM/angular-google-maps/pull/1147 will merged
+  private setDragEndListener() {
+    this.dragEndSubscription = (this.map._mapsWrapper as GoogleMapsAPIWrapper).subscribeToMapEvent('dragend').subscribe(
+      () => this.onDragEnd()
     );
   }
 
-  public onIdle(): void {
-    // TODO: bind dragend event to the map: https://stackoverflow.com/questions/6981308/google-map-api-v3-drag-event-on-map
-    const currentPosition = this.data.region.center;
+  private setMapCenter() {
+    this.mapCenter = {
+      lat: this.data.region.center.latitude,
+      lng: this.data.region.center.longitude
+    };
+  }
 
-    if (this.mapCenter.lat !== currentPosition.latitude || this.mapCenter.lng !== currentPosition.longitude) {
-      console.log(this.data.region.center.latitude, this.data.region.center.longitude);
-      console.log(this.mapCenter.lat, this.mapCenter.lng);
+  public isFiltered(): boolean {
+    return this.selectedPrices.length > 0 || this.selectedCuisines.length > 0;
+  }
+
+  public onResetFilters(): void {
+    this.filtersService.reset();
+  }
+
+  public onDragEnd(): void {
+    if (this.updateOnDrag) {
       this.placesService.geocoder(this.mapCenter.lat, this.mapCenter.lng)
-        .then((location: string) => {
-          this.placesService.selectedLocation.next(location);
-          return this.getRadius();
-        })
-        .then((radius: number) => {
-          this.mapRadius = radius;
-          this.emitFiltersChanges();
-        })
-        .catch(error => this.emitFiltersChanges());
+      .then((location: string) => {
+        this.placesService.selectedLocation.next(location);
+        return this.getRadius();
+      })
+      .then((radius: number) => {
+        this.mapRadius = radius;
+        this.emitFiltersChanges();
+      })
+      .catch(error => this.emitFiltersChanges());
     }
   }
 
@@ -102,7 +126,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
         .then(() => {
           resolve(Math.floor(google.maps.geometry.spherical.computeDistanceBetween(from, to) / 2.2));
         });
-    })
+    });
   }
 
   private emitFiltersChanges(): void {
@@ -119,11 +143,13 @@ export class FiltersComponent implements OnInit, OnDestroy {
       params.categories = this.selectedCategory.alias;
     }
 
-    this.filtersService.state.next(params);
+    this.filtersService.searchState.next(params);
     this.filtersService.changes.next(params);
   }
 
   ngOnDestroy() {
-    this.updates.unsubscribe();
+    this.updateFiltersSubscription.unsubscribe();
+    this.updateMapSubscription.unsubscribe();
+    this.dragEndSubscription.unsubscribe();
   }
 }

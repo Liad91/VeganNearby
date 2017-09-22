@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
@@ -23,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
     ProfileComponent
   ],
   imports: [
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,

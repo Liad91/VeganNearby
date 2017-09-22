@@ -1,12 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Renderer2
+} from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ResizeService } from './../../../services/rezise.service';
+import { ResizeService } from './../../../services/resize.service';
 import { FiltersService } from './filters/filters.service';
 import { PlacesService } from '../places.service';
 import { ToastService } from '../../../services/toast.service';
 import { sidebarStateTrigger, listStateTrigger } from '../animations';
-import { PlacesListState } from '../places.model';
+import { PlacesState } from '../places.model';
 import {
   YelpSearchResponse,
   YelpBusinessResponse,
@@ -25,8 +30,11 @@ import {
 })
 export class PlacesListComponent implements OnInit, OnDestroy {
   public mobileView: boolean;
-  public state: PlacesListState;
-  public data: YelpSearchResponse
+  public state: PlacesState;
+  public data: YelpSearchResponse;
+  public selectedLocation: string;
+  public selectedCategory: YelpFilter;
+  private locationSubscription: Subscription;
   private updateSubscription: Subscription;
   private changesSubscription: Subscription;
   private resizeSubscription: Subscription;
@@ -37,26 +45,45 @@ export class PlacesListComponent implements OnInit, OnDestroy {
     private resizeService: ResizeService,
     private placesService: PlacesService,
     private toastService: ToastService,
-    private filtersService: FiltersService) {}
+    private filtersService: FiltersService,
+    private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.data = this.placesService.data;
     this.state = this.placesService.placesListState;
+    this.selectedCategory = this.placesService.selectedCategory;
 
     this.resizeSubscription = this.resizeService.screenSize.subscribe(
-      size => this.mobileView = size === 'sm' || size === 'xs'
+      size => this.onScreenResize(size)
     );
 
     this.changesSubscription = this.filtersService.changes.subscribe(
       changes => this.onFilterChange(changes)
     );
 
-    if (!this.state.listView) {
-      this.state.listView = this.mobileView ? 'list' : 'grid';
+    this.locationSubscription = this.placesService.selectedLocation.subscribe(
+      location => this.selectedLocation = location
+    )
+  }
+
+  private onScreenResize(size): void {
+    this.mobileView = size === 'sm' || size === 'xs';
+    if (this.sidebarOpen && !this.mobileView) {
+      this.onCloseSidebar();
     }
   }
 
-  private onFilterChange(params: YelpSearchParams) {
+  public onOpenSidebar(): void {
+    this.renderer.setStyle(document.body, 'overflow', 'hidden');
+    this.sidebarOpen = true;
+  }
+
+  public onCloseSidebar(): void {
+    this.renderer.setStyle(document.body, 'overflow', 'auto');
+    this.sidebarOpen = false;
+  }
+
+  private onFilterChange(params: YelpSearchParams): void {
     this.state.currentPage = 1;
     this.updatePlaces(params)
   }
@@ -91,10 +118,10 @@ export class PlacesListComponent implements OnInit, OnDestroy {
   }
 
   public onPageChange(page: number) {
-    const params = this.filtersService.state.getValue();
+    const params = this.filtersService.searchState.getValue();
 
     params.limit = this.state.itemsPerPage;
-    params.offset = this.state.currentPage * (page - 1);
+    params.offset = this.state.itemsPerPage * (page - 1);
     this.updatePlaces(params);
   }
 
@@ -114,8 +141,12 @@ export class PlacesListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe();
     this.changesSubscription.unsubscribe();
+    this.locationSubscription.unsubscribe();
     if (this.updateSubscription) {
       this.updateSubscription.unsubscribe();
+    }
+    if (this.sidebarOpen) {
+      this.onCloseSidebar();
     }
   }
 }

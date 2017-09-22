@@ -1,6 +1,6 @@
 {
   "name": "vegannearby",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Find the top vegan restaurants, cafes and bars near you",
   "main": "app.js",
   "scripts": {
@@ -28,5 +28,13 @@
     "passport-jwt": "^2.2.1",
     "passport-twitter": "^1.0.4",
     "request": "^2.81.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Liad91/VeganNearby.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Liad91/VeganNearby/issues"
+  },
+  "homepage": "https://github.com/Liad91/VeganNearby#readme"
 }

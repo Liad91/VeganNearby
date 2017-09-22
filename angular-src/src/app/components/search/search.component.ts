@@ -2,20 +2,27 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  Output,
+  Input,
   ViewChild,
   ElementRef,
-  EventEmitter,
   Renderer2
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 
-import { YelpFilter, YelpSearchParams } from './../../models/yelp.model';
+import { YelpFilter, YelpSearchParams, YelpSearchResponse } from './../../models/yelp.model';
 import { FiltersService } from '../../pages/places/places-list/filters/filters.service';
 import { PlacesService } from '../../pages/places/places.service';
 import { ToastService } from '../../services/toast.service';
+
+class Location {
+  string: string;
+  geometry: {
+    lat: number,
+    lng: number
+  };
+}
 
 @Component({
   selector: 'vn-search',
@@ -23,7 +30,9 @@ import { ToastService } from '../../services/toast.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  public location: string;
+  @Input() public mode: 'home' | 'nav';
+  @ViewChild('search') private searchElementRef: ElementRef;
+  public location = new Location;
   public locateSpinner = false;
   public locateFailed = false;
   public searching = false;
@@ -31,8 +40,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   public selectedCategory: YelpFilter;
   public selectedCategoryIndex: number;
   private autocompleteListener: google.maps.MapsEventListener;
-  @ViewChild('search') private searchElementRef: ElementRef;
-  @Output() private categoryChanged = new EventEmitter();
 
   constructor(private renderer: Renderer2,
               private router: Router,
@@ -46,6 +53,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.selectedCategory = this.placesService.selectedCategory;
     this.selectedCategoryIndex = this.categories.findIndex(category => category.alias === this.selectedCategory.alias);
     this.buildLocationAutocomplete();
+
+    if (this.mode === 'nav') {
+      this.location.string = this.placesService.selectedLocation.getValue();
+    }
   }
 
   private buildLocationAutocomplete(): void {
@@ -54,20 +65,41 @@ export class SearchComponent implements OnInit, OnDestroy {
         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
           types: ['(cities)']
         });
-
         this.autocompleteListener = autocomplete.addListener('place_changed', () => {
-          this.location = autocomplete.getPlace().formatted_address;
+          /** Handle not formatted address from autocomplete */
+          if (!autocomplete.getPlace().formatted_address) {
+            this.toastService.show('Sorry, but we didn\'t understand the location you entered');
+            this.location.string = '';
+            return;
+          }
+          this.autocompleSuccess(autocomplete.getPlace())
         });
       })
-      .catch(error => this.geoError());
+      .catch(error => this.autocompleteError());
+  }
+
+  private autocompleSuccess(place: google.maps.places.PlaceResult) {
+    this.location.string = place.formatted_address;
+    this.location.geometry = {
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng()
+    };
+  }
+
+  private autocompleteError() {
+    this.toastService.show('Unable to complete your request');
   }
 
   private geoSuccess(position: Position): void {
+    this.location.geometry = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
 
     this.placesService.geocoder(position.coords.latitude, position.coords.longitude)
       .then((location: string) => {
         this.locateSpinner = false;
-        this.location = location;
+        this.location.string = location;
       })
       .catch(this.geoError.bind(this));
   }
@@ -99,14 +131,13 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   public onSearchChange(event: any) {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      this.location = event.target.value;
+      this.location.string = event.target.value;
     }
   }
 
   public onCategoryChange(): void {
     if (this.selectedCategory.alias !== this.categories[this.selectedCategoryIndex].alias) {
       Object.assign(this.selectedCategory, this.categories[this.selectedCategoryIndex]);
-      this.categoryChanged.emit();
     }
   }
 
@@ -114,20 +145,33 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.searching) {
       return;
     }
-    if (!this.location) {
+    if (!this.location.string) {
       this.renderer.selectRootElement(this.searchElementRef.nativeElement).focus();
       return;
     }
 
-    const params: YelpSearchParams = {
-      location: this.location,
-      categories: this.selectedCategory.alias,
-      radius: 2500
+    this.searching = true;
+    let params: YelpSearchParams;
+
+    /** Use default params */
+    if (this.mode === 'home') {
+      params = {
+        location: this.location.string,
+        categories: this.selectedCategory.alias,
+        radius: 1489
+      };
+
+      this.filtersService.reset();
+    }
+    /** Use previous params */
+    else {
+      params = this.filtersService.searchState.getValue();
+      params.location = this.location.string;
+      params.latitude = null;
+      params.longitude = null;
     }
 
-    this.searching = true;
-    this.filtersService.reset();
-    this.filtersService.state.next(params);
+    this.filtersService.searchState.next(params);
     this.placesService.search(params)
       .subscribe(
         response => this.searchSuccess(response),
@@ -140,9 +184,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.toastService.show('Connection error, please try again');
   }
 
-  private searchSuccess(response) {
+  private searchSuccess(response: YelpSearchResponse) {
+    /** Handle Yelp not found location */
     if (response.error) {
-      // TODO: Handle error
+      response.region.center.latitude = this.location.geometry.lat;
+      response.region.center.longitude = this.location.geometry.lng;
+    }
+    if (this.mode === 'nav') {
+      this.filtersService.updateMap.next();
     }
     this.searching = false;
     this.router.navigateByUrl('/places');

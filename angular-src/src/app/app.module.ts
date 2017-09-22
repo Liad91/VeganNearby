@@ -57,6 +57,7 @@ import { googleMapApiKey } from './../config';
     Services.AuthService,
     Services.ConnectionService,
     Services.RendererService,
+    Services.ResizeService,
     Services.ToastService
   ],
   bootstrap: [AppComponent]

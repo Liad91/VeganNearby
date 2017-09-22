@@ -1,4 +1,4 @@
-<div class="flex w-100" class="search-box">
+<div class="flex w-100" class="search-box" [ngClass]="{nav: mode === 'nav'}">
   <form class="flex w-100" (ngSubmit)="onSubmit()">
     <div class="flex w-70 location">
       <div id="locate">
@@ -25,7 +25,7 @@
         #search
         type="text"
         name="location"
-        [(ngModel)]="location"
+        [(ngModel)]="location.string"
         class="search-input"
         placeholder="{{ selectedCategory.title }} near..."
         autocorrect="off"
@@ -34,14 +34,14 @@
         (keyup)="onSearchChange($event)"
       >
     </div>
-    <div class="flex w-30 categories">
+    <div class="flex w-30 categories" *ngIf="mode === 'home'">
       <div class="input-field w-100">
         <select mz-select name="category" [(ngModel)]="selectedCategoryIndex" (change)="onCategoryChange($event)">
           <option [value]="i" *ngFor="let category of categories; let i = index">{{ category.title }}</option>
         </select>
       </div>
     </div>
-    <button mz-button type="submit" vnBgColor="dark" >
+    <button mz-button type="submit">
       <i class="align-self-center" mz-icon icon="search" *ngIf="!searching"></i>
       <mz-spinner id="search-spinner" size="small" *ngIf="searching"></mz-spinner>
     </button>

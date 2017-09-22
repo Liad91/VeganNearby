@@ -111,7 +111,6 @@ export class ProfileComponent extends MzBaseModal implements OnInit, OnDestroy {
   }
 
   private onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any): void {
-    console.log(item)
     switch (filter.name) {
       case 'fileSize':
         this.uploadErrorMessage = `Maximum upload size exceeded (${Math.floor(this.maxFileSize / 1000000)}Mb allowed)`;

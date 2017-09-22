@@ -3,12 +3,12 @@
   <div class="restaurants" @bgState *ngIf="selectedCategory.alias === 'restaurants'"></div>
   <div class="bars" @bgState *ngIf="selectedCategory.alias === 'bars'"></div>
 </div>
-<vn-nav class="flex w-100 align-self-flex-start" [slim]="true"></vn-nav>
+<vn-nav mode="home" class="flex w-100 align-self-flex-start"></vn-nav>
 <section class="flex column w-100 align-self-center content">
   <h1 class="hide-on-med-and-down center-align mt-0">Searching for {{ selectedCategory.alias }}?</h1>
   <h3 class="hide-on-med-and-down center-align mt-0"><span id="typing"></span></h3>
   <h2 class="hide-on-med-and-up show-on-medium-and-down center-align mt-0">Find your favorite {{ selectedCategory.alias }}</h2>
-  <vn-search></vn-search>
+  <vn-search mode="home"></vn-search>
 </section>
 <footer class="flex w-100 align-self-flex-end">
 	<p class="w-100 center-align">

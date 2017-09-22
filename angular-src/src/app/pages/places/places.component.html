@@ -1,16 +1,15 @@
-<header class="flex w-100 wrap" style="background-image: url('../assets/images/header1.jpg')">
-  <vn-nav class="flex w-100 align-self-flex-start"></vn-nav>
-  <div class="cover"></div>
-  <div class="content center-align">
-    <h1 class="w-100 nowrap"><strong>{{ selectedCategory.title }}</strong> near {{ selectedLocation }}</h1>
-    <!-- <h2 fxFlex.xs="100%" class="nowrap m-0"><strong>{{ selectedCategory.title }}</strong> near {{ selectedLocation.name }}</h2> -->
-    <!-- <p fxFlex="170px" fxFlex.xs="100%" class="m-0 ml-auto" ngClass.gt-xs="right-align" *ngIf="data.businesses.length > 0">
-      Showing {{ getDisplayedItemsStatus() }}
-    </p> {{ getRandomHeaderImage() }} -->
-  </div>
-</header>
+<vn-nav mode="page" class="flex w-100 align-self-flex-start" [ngClass]="{sticky: mobileView}"></vn-nav>
 <section class="w-100 mt-2">
   <div class="content">
     <router-outlet></router-outlet>
   </div>
 </section>
+<footer class="page-footer w-100">
+  <div class="footer-copyright">
+    <div class="container">
+    © 2017 VeganNearby
+    <a class="grey-text text-lighten-4 right" href="http://www.github.com/Liad91/treehouse_final" target="_blank">Github</a>
+    </div>
+  </div>
+</footer>
+    

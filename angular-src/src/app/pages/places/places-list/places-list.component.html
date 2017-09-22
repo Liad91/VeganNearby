@@ -1,41 +1,34 @@
+<header class="flex align-items-center mb-1">
+  <h4 class="nowrap w-80 m-0 color-white"><strong>{{ selectedCategory.title }}</strong> near {{ selectedLocation }}</h4>
+  <p class="m-0 w-20 right-align color-white">{{ data.total }} Results</p>
+</header>
+
 <div [ngClass]="{sidebar: sidebarOpen && mobileView}" class="flex">
-  <div class="filters" [@sidebarState]="sidebarOpen ? 'open' : 'closed'" *ngIf="!mobileView || sidebarOpen">
-    <button mz-button [float]="true" [flat]="true" (click)="sidebarOpen = false" *ngIf="sidebarOpen && mobileView">
-      <i class="black-text" mz-icon icon="clear"></i>
-    </button> 
-    <vn-filters></vn-filters>
+  <div
+    #sidebar
+    class="filters align-self-flex-start mr-1 mb-1"
+    [@sidebarState]="sidebarOpen ? 'open' : 'closed'"
+    *ngIf="!mobileView || sidebarOpen"
+  >
+    <vn-filters class="flex column"></vn-filters>
   </div>
   <div class="main flex wrap align-content-flex-start max-w-100">
-    <div class="top-bar flex align-items-center w-100 mb-1">
-      <button mz-button [flat]="!sidebarOpen" (click)="sidebarOpen = !sidebarOpen" *ngIf="mobileView">
-        <i mz-icon icon="filter_list"></i>
-      </button>
-      <div class="view ml-auto">
-        <button mz-button [flat]="state.listView === 'list'" (click)="state.listView = 'grid'">
-          <i mz-icon icon="grid_on"></i>
-        </button>
-        <button mz-button [flat]="state.listView === 'grid'" (click)="state.listView = 'list'">
-          <i mz-icon icon="format_list_bulleted"></i>
-        </button>
-      </div>
-    </div>
-
-    <div class="places-wrap flex wrap w-100 align-self-flex-start" [@listState]="data.total">
+    <div class="places-wrap flex wrap w-100 align-self-flex-start">
       <vn-place
-        [ngClass]="state.listView === 'list' ? 'list mb-2' : 'grid mb-1 mr-1'"
+        class="mb-1 mr-1"
+        [ngClass]="{'marker-hover': business.markerHover}"
         [place]="business"
         (click)="getPlace(business.id)"
+        (mouseenter)="business.hover = true"
+        (mouseleave)="business.hover = false"
         *ngFor="let business of data.businesses; trackBy: trackById"
       >
       </vn-place>
-      <div *ngIf="data.businesses.length === 0">
+      <div class="no-results w-100" *ngIf="data.total === 0">
         <strong>Suggestions for improving the results:</strong>
-        <br>
-        Try a different location.
-        <br>
-        Try a different establishment.
+        <p class="m-0">Try a different location.</p>
+        <p class="m-0">Try a different establishment.</p>
         <ng-container *ngIf="isFiltered()">
-          <br>
           <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
         </ng-container>
       </div>
@@ -52,3 +45,9 @@
     </vn-pagination>
   </div>
 </div>
+<button
+  class="btn btn-large btn-floating waves-effect waves-light filters-triger hide-on-med-and-up z-depth-5"
+  (click)="onOpenSidebar()" *ngIf="mobileView">
+  <i mz-icon icon="filter_list"></i>
+</button>
+<div id="sidenav-overlay" *ngIf="mobileView && sidebarOpen" (click)="onCloseSidebar()"></div>

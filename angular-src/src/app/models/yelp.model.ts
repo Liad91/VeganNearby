@@ -44,6 +44,7 @@ export class YelpSearchResponse {
       longitude: number
     }
   };
+  error?: string;
 }
 
 export class YelpBusinessResponse {

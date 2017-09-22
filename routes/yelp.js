@@ -25,11 +25,24 @@ router.post('/search', authenticate, (req, res, next) => {
       err.message = 'Yelp search request failed';      
       return next(err);
     }
-    body = JSON.parse(body);
-    if (response.statusCode >= 500) {
+    if (response.statusCode > 499) {
       const err = new Error('Yelp search request failed');
 
       return next(err);
+    }
+    body = JSON.parse(body);
+    if (body.error && body.error.code === 'LOCATION_NOT_FOUND') {
+      body = {
+        total: 0,
+        businesses: [],
+        region: {
+          center: {
+            latitude: 0,
+            longitude: 0
+          }
+        },
+        error: body.error.code
+      }
     }
     res.send(body);
   });
@@ -52,7 +65,7 @@ router.get('/business', authenticate, (req, res, next) => {
       err.message = 'Yelp search request failed';      
       return next(err);
     }
-    if (response.statusCode >= 500) {
+    if (response.statusCode > 499) {
       const err = new Error('Yelp search request failed');
 
       return next(err);
