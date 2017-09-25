@@ -4,8 +4,40 @@
 
 // Global
 // ==========================================================================
+html,
+label {
+  color: $dark-color;
+}
+
 a {
   cursor: pointer;
+}
+
+header {
+  padding: 15px;
+  background-color: $primary-color;
+
+  h4 {
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  @media #{$small-and-down} {
+    flex-wrap: wrap;
+
+    h4 {
+      text-align: center;
+    }
+  }
+
+  @media #{$extra-small-only} {
+    margin: 0 -5px 1rem;
+    padding: 25px 5px;
+
+    h4 {
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .content {

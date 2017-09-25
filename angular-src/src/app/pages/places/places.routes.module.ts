@@ -3,16 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PlacesComponent } from './places.component';
 import { PlacesListComponent } from './places-list/places-list.component';
-import { CanActivatePlaces } from './places.guard';
+import { FavoritesComponent } from './favorites/favorites.component';
+
+import { CanActivatePlacesList } from './places-list/places-list.guard';
+import { CanActivateFavorites } from './favorites/favorites.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: PlacesComponent,
-    canActivate: [CanActivatePlaces],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
-      { path: 'list', component: PlacesListComponent }
+      { path: 'list', component: PlacesListComponent, canActivate: [CanActivatePlacesList], data: { state: 'list' } },
+      { path: 'favorites', component: FavoritesComponent, canActivate: [CanActivateFavorites] , data: { state: 'favorites' }  }
     ]
   }
 ];

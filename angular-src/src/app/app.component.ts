@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     this.authService.authenticate();
   }
 
-  getAnimation(outlet: RouterOutlet) {
-    return outlet.activatedRouteData.state;
+  public getAnimationState(outlet: RouterOutlet): string {
+    return outlet.activatedRouteData['state'] || 'root';
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { User } from '../models/user.model';
 import { ProfileService } from '../components/profile/profile.service';
@@ -7,14 +8,14 @@ import { AuthSuccessResponse } from '../models/auth-response.model';
 
 @Injectable()
 export class AuthService {
-  public user: User = { email: '', username: '', _id: '', avatarUrl: '' };
+  public currentUser = new BehaviorSubject<User | void>(null);
   public isAuthenticated = new Subject<boolean>();
 
   constructor(private profileService: ProfileService) {}
 
   public authenticate(): void {
     if (!this.hasToken()) {
-      this.user._id = '1';
+      this.currentUser.next(null);
       return;
     }
     const token = this.getToken();
@@ -36,22 +37,19 @@ export class AuthService {
     return false;
   }
 
-  private getToken(): string | null {
+  public getToken(): string | null {
     return localStorage.getItem('token');
   }
 
   public login(response: AuthSuccessResponse): void {
-    Object.assign(this.user, response.user);
+    this.currentUser.next(response.user);
     localStorage.setItem('token', response.token);
     this.isAuthenticated.next(true);
   }
 
   public logout(): void {
     localStorage.clear();
-    this.user.avatarUrl = '';
-    this.user.email = '';
-    this.user.username = '';
-    this.user._id = '1';
+    this.currentUser.next(null);
     this.isAuthenticated.next(false);
   }
 }

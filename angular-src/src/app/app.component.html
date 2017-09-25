@@ -1,5 +1,5 @@
-<div [@routeState]="getAnimation(o)">
-  <div class="wrapper">
-    <router-outlet #o="outlet"></router-outlet>  
+<div>
+  <div class="wrapper" [@routeState]="getAnimationState(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>  
   </div> 
 </div>

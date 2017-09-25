@@ -28,7 +28,7 @@
         class="flex justify-content-center align-items-center login-btn h-100"
         [flat]="true"
         (click)="openModal()"
-        *ngIf="getCurrentUser() === 'guest' && !searchBarOpen"
+        *ngIf="!currentUser && !searchBarOpen"
       >
         <i mz-icon icon="person" align="left"></i>
         {{ mobileView && !transparent ? '' : 'Login' }}
@@ -42,18 +42,18 @@
         [hover]="true"
         [belowOrigin]="true"
         [constrainWidth]="false"
-        *ngIf="getCurrentUser() === 'user' && !searchBarOpen"
+        *ngIf="currentUser && !searchBarOpen"
       >
         <div class="user-info right-align hide-on-extra-small-only">
-          <div class="username">{{ user.username }}</div>
-          <div class="email thin">{{ user.email }}</div>        
+          <div class="username">{{ currentUser.username }}</div>
+          <div class="email thin">{{ currentUser.email }}</div>        
         </div>
-        <img class="flex circle" [src]="user.avatarUrl || 'assets/images/user.ico'" alt="avatar">
+        <img class="flex circle" [src]="currentUser.avatarUrl || 'assets/images/user.ico'" alt="avatar">
       </button>  
     </div>
     <ul id="more" class='dropdown-content'>
       <li><a><i mz-icon icon="account_circle"></i>My Account</a></li>
-      <li><a><i mz-icon icon="favorite"></i>Favorites</a></li>
+      <li><a [routerLink]="['/','places','favorites']"><i mz-icon icon="favorite"></i>Favorites</a></li>
       <li><a (click)="singOut()"><i mz-icon icon="power_settings_new"></i>Sign Out</a></li>
     </ul>
   </div>

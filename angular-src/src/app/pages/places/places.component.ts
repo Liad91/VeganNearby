@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ResizeService } from './../../services/resize.service';
+import { routeStateTrigger } from './animations';
 
 @Component({
   selector: 'vn-places',
   templateUrl: './places.component.html',
-  styleUrls: ['./places.component.scss']
+  styleUrls: ['./places.component.scss'],
+  animations: [ routeStateTrigger ]
 })
 export class PlacesComponent implements OnInit, OnDestroy {
   public mobileView: boolean;
@@ -20,6 +23,10 @@ export class PlacesComponent implements OnInit, OnDestroy {
         this.mobileView = size === 'xs' || size === 'sm';
       }
     );
+  }
+
+  public getAnimationState(outlet: RouterOutlet): string {
+    return outlet.activatedRouteData['state'] || 'root';
   }
 
   ngOnDestroy() {

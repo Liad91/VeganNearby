@@ -18,7 +18,6 @@ import { SocialProfileService } from './components/profile/social-profile/social
 
 // Guards
 import { CanActivateSocialProfile } from './components/profile/social-profile/social-profile.guard';
-import { CanActivatePlaces } from './pages/places/places.guard';
 
 // Modules
 import { AppRoutesModule } from './app-routes.module';
@@ -49,7 +48,6 @@ import { googleMapApiKey } from './../config';
   ],
   providers: [
     CanActivateSocialProfile,
-    CanActivatePlaces,
     FiltersService,
     PlacesService,
     ProfileService,

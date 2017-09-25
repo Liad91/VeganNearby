@@ -1,6 +1,6 @@
 import { LatLngLiteral } from '@agm/core';
 
-export class YelpSearchBusiness {
+export class YelpBusiness {
   categories: [
     {
       alias: string,
@@ -37,7 +37,7 @@ export class YelpSearchBusiness {
 
 export class YelpSearchResponse {
   total: number;
-  businesses: YelpSearchBusiness[];
+  businesses: YelpBusiness[];
   region: {
     center: {
       latitude: number,

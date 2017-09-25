@@ -54,7 +54,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.selectedCategoryIndex = this.categories.findIndex(category => category.alias === this.selectedCategory.alias);
     this.buildLocationAutocomplete();
 
-    if (this.mode === 'nav') {
+    if (this.mode === 'nav' && this.placesService.selectedLocation) {
       this.location.string = this.placesService.selectedLocation.getValue();
     }
   }

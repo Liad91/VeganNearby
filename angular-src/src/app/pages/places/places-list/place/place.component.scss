@@ -60,18 +60,33 @@
       position: absolute;
       top: 5px;
       right: 5px;
-      width: 35px;
-      height: 35px;
-      line-height: 35px;
+      width: 33px;
+      height: 33px;
+      line-height: 33px;
       background-color: rgba(0, 0, 0, 0.4);
       
       i {
-        font-size: 21px;
+        font-size: 18px;
         line-height: 35px;
       }
+      mz-spinner ::ng-deep {
+        .preloader-wrapper.small {
+          width: 18px;
+          height: 18px;
+        }
 
+        .spinner-layer {
+          border-color: #fff;
+        }
+
+        .circle-clipper .circle {
+          border-width: 2px;
+        }
+      }
+
+      &.favorite,
       &:hover {
-        background: $danger-color;
+        background-color: $danger-color;
 
         i {
           color: #fff;
@@ -83,11 +98,11 @@
   .place-card-bottom {
     padding: 10px;
 
-    h3 {
+    h4 {
       text-align: center;
       font-weight: 500;
       margin-bottom: 5px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     vn-stars ::ng-deep {
@@ -120,7 +135,7 @@
       width: 50%;
       padding: 10px 5px;
 
-      h3 {
+      h4 {
         margin: 5px 0 0;
       }
 

@@ -1,8 +1,12 @@
 @import '../../../variables';
 
+:host {
+  display: block;
+}
+
 header {
   padding: 15px;
-  background-color: $secondary-color;
+  background-color: $primary-color;
 
   h4 {
     font-weight: 300;
@@ -23,6 +27,9 @@ header {
   }
 
   @media #{$extra-small-only} {
+    margin: 0 -5px 1rem;
+    padding: 25px 5px;
+
     h4 {
       font-size: 1.2rem;
     }
@@ -30,8 +37,8 @@ header {
 }
 
 .filters {
-  min-width: 345px;
-  width: 345px;
+  min-width: 300px;
+  width: 300px;
 
   @media #{$small-and-down} {
     position: fixed;
@@ -76,7 +83,7 @@ mz-spinner {
   position: sticky;
   left: 7px;
   bottom: 45%;
-  background-color: $warning-color;
+  background-color: $secondary-color;
   z-index: 80;
 
   @media #{$extra-small-only} {

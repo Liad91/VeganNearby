@@ -24,10 +24,11 @@ import { searchStateTrigger } from './animations';
 })
 export class NavComponent implements OnInit, OnDestroy {
   @Input() public mode: 'home' | 'page';
-  public user: User;
+  public currentUser: User | void;
   public isAuth = false;
   public searchBarOpen = false;
   public mobileView: boolean;
+  private userSubscription: Subscription;
   private resizeSubscription: Subscription;
 
   constructor(
@@ -37,7 +38,10 @@ export class NavComponent implements OnInit, OnDestroy {
     private resizeService: ResizeService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.user;
+    this.userSubscription = this.authService.currentUser.subscribe(
+      user => this.currentUser = user
+    );
+
     this.resizeSubscription = this.resizeService.screenSize.subscribe(
       size => {
         this.mobileView = size === 'xs';
@@ -46,21 +50,6 @@ export class NavComponent implements OnInit, OnDestroy {
         }
       }
     );
-  }
-
-  public getCurrentUser(): string {
-    let user: string;
-    switch (this.user._id) {
-      case(''):
-        user = '';
-        break;
-      case('1'):
-        user = 'guest';
-        break;
-      default:
-        user = 'user';
-    }
-    return user;
   }
 
   public goBack() {
@@ -76,6 +65,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.userSubscription.unsubscribe();
     this.resizeSubscription.unsubscribe();
   }
 }

@@ -1,6 +1,16 @@
-import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
+import { trigger, transition, group, query, style, stagger, animate } from '@angular/animations';
 
 import { slideIn, slideOut } from '../../shared/animations';
+
+export const routeStateTrigger = trigger('routeState', [
+  transition('list <=> favorites', [
+    query(':enter', style({ transform: 'translateY(-30%)', opacity: 0 }), { optional: true }),
+    group([
+      query(':enter', animate('250ms ease-out'), { optional: true }),
+      query(':leave', [], { optional: true })
+    ])
+  ])
+]);
 
 export const sidebarStateTrigger = trigger('sidebarState', [
   transition('void => open', slideIn('-345px, 0', '200ms ease-out')),

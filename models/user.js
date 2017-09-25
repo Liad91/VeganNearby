@@ -19,7 +19,10 @@ const userSchema = new mongoose.Schema({
   },
   avatarUrl: {
     type: String
-  }
+  },
+  favorites: [{
+    type: String
+  }]
 });
 
 userSchema.pre('save', function(next) {
@@ -47,6 +50,35 @@ userSchema.method('comparePassword', function(password) {
 
 userSchema.method('setAvatar', function(url) {  
   return this.update({avatarUrl: url});
+});
+
+userSchema.method('addToFavorites', function(id) {
+  const user = this;
+
+  return new Promise((resolve, reject) => {
+    if (user.favorites.indexOf(id) > -1) {
+      return reject();
+    }
+    else {
+      user.favorites.push(id);
+      return resolve(user.save());
+    }
+  });
+});
+
+userSchema.method('removeFromFavorites', function(id) {
+  const user = this;
+  const index = user.favorites.findIndex(i => i === id);
+  
+  return new Promise((resolve, reject) => {
+    if (index === -1) {
+      return reject();
+    }
+    else {
+      user.favorites.splice(index, 1);
+      return resolve(user.save());
+    }
+  });
 });
 
 userSchema.static('findOrCreate', function(user) {

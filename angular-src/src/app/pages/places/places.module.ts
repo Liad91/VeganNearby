@@ -9,9 +9,14 @@ import { StarsComponent } from './places-list/place/stars/stars.component';
 import { PlacesComponent } from './places.component';
 import { PlacesListComponent } from './places-list/places-list.component';
 import { PriceComponent } from './places-list/place/price/price.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 import { FiltersComponent } from './places-list/filters/filters.component';
 import { CuisinesComponent } from './places-list/filters/cuisines/cuisines.component';
 import { PaginationComponent } from './pagination/pagination.component';
+
+// Guards
+import { CanActivatePlacesList } from './places-list/places-list.guard';
+import { CanActivateFavorites } from './favorites/favorites.guard';
 
 // Modules
 import { PlacesRoutesModule } from './places.routes.module';
@@ -26,6 +31,7 @@ import { SharedModule } from '../../shared/shared.module';
     PlacesComponent,
     PlacesListComponent,
     PriceComponent,
+    FavoritesComponent,
     FiltersComponent,
     CuisinesComponent,
     PaginationComponent
@@ -42,7 +48,9 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule
   ],
   providers: [
-    GoogleMapsAPIWrapper
+    GoogleMapsAPIWrapper,
+    CanActivatePlacesList,
+    CanActivateFavorites
   ]
 })
 export class PlacesModule { }

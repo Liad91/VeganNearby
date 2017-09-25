@@ -1,7 +1,7 @@
 <vn-nav mode="page" class="flex w-100 align-self-flex-start" [ngClass]="{sticky: mobileView}"></vn-nav>
-<section class="w-100 mt-2">
-  <div class="content">
-    <router-outlet></router-outlet>
+<section class="w-100 mt-3">
+  <div class="content" [@routeState]="getAnimationState(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>      
   </div>
 </section>
 <footer class="page-footer w-100">

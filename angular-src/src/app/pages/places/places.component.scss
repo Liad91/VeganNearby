@@ -1,14 +1,11 @@
 @import '../../variables';
 
 :host {
-	display: flex;
-  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
   min-height: 100vh;
-
-  @media #{$small-and-down} {
-    background-color: #f6f6f6;
-  }
+  background-color: #f6f6f6;
 }
 
 vn-nav.sticky {
@@ -22,7 +19,7 @@ footer.page-footer {
   padding-top: 0;
   
   .footer-copyright {
-    background-color: darken($primary-color, 5%);
+    background-color: $dark-color;
     font-weight: 400;
   }
 }

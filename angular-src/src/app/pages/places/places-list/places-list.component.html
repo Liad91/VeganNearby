@@ -3,7 +3,7 @@
   <p class="m-0 w-20 right-align color-white">{{ data.total }} Results</p>
 </header>
 
-<div [ngClass]="{sidebar: sidebarOpen && mobileView}" class="flex">
+<div class="flex" [ngClass]="{sidebar: sidebarOpen && mobileView}">
   <div
     #sidebar
     class="filters align-self-flex-start mr-1 mb-1"

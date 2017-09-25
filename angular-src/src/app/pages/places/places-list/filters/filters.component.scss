@@ -1,7 +1,7 @@
 @import '../../../../variables';
 
 .filter {
-  background-color: #f6f6f6;
+  background-color: #fff;
 
   &.map {
     .title-inline {
@@ -20,7 +20,7 @@
   .title-inline {
     padding: 13px 10px;
     margin: 10px 0;
-    background-color: $primary-color;
+    background-color: $secondary-color;
     color: #fff;
   }
 
@@ -33,9 +33,9 @@
     color: #fff;
 
     input[type=checkbox]:checked + .lever{
-      background-color: lighten($warning-color, 20%);
+      background-color: lighten($primary-color, 20%);
       &:after {
-        background-color: $warning-color;
+        background-color: $primary-color;
       }
     }
   }
@@ -97,5 +97,5 @@
 
 agm-map {
   display: block;  
-  height: 320px;
+  height: 300px;
 }

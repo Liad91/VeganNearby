@@ -97,7 +97,6 @@ router.post('/signin', (req, res, next) => {
             }
             else {
               const token = buildToken(user.id);
-
               user.password = '';
               res.status(200).json({
                 token: token,
@@ -109,6 +108,33 @@ router.post('/signin', (req, res, next) => {
       }
     })
     .catch(err => next(err));
+});
+
+// Add to favorites
+router.post('/favorites/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  const user = req.user;
+  const newToken = buildToken(user._id);
+
+  user.addToFavorites(req.body.placeId)
+  .then(
+    () => res.sendStatus(200).end()
+  )
+  .catch(
+    () => res.sendStatus(403).end()
+  );
+});
+
+router.post('/favorites/remove', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  const user = req.user;
+  const newToken = buildToken(user._id);
+  
+  user.removeFromFavorites(req.body.placeId)
+  .then(
+    () => res.sendStatus(200).end()
+  )
+  .catch(
+    () => res.sendStatus(403).end()
+  );
 });
 
 // Authentication
