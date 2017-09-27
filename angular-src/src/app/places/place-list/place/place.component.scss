@@ -1,0 +1,159 @@
+@import './../../../variables';
+
+:host {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  line-height: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  transition: transform 250ms ease-out;
+
+  &:hover,
+  &:focus {
+    transform: translateY(-5px);
+  }
+
+  &.marker-hover {
+    transform: scale(1.07);
+  }
+
+  @media #{$large-and-up} {
+    width: calc(33.3% - calc(2rem / 3));   
+    &:nth-of-type(3n+3) {
+      margin-right: 0;
+    }
+  }
+
+  @media #{$medium-and-down} {
+    width: calc(50% - 0.5rem);    
+    &:nth-of-type(2n+2) {
+      margin-right: 0;
+    }
+  
+    &.marker-hover {
+      transform: none;
+    }
+  }
+
+  @media #{$extra-small-only} {
+    width: 100%;
+    margin-right: 0;
+
+    &:hover,
+    &:focus {
+      transform: translateX(5px);
+    }
+  }
+}
+
+.place-card {
+  .place-card-top {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 160px;
+    }
+
+    button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 33px;
+      height: 33px;
+      line-height: 33px;
+      background-color: rgba(0, 0, 0, 0.4);
+      
+      i {
+        font-size: 18px;
+        line-height: 35px;
+      }
+      mz-spinner ::ng-deep {
+        .preloader-wrapper.small {
+          width: 18px;
+          height: 18px;
+        }
+
+        .spinner-layer {
+          border-color: #fff;
+        }
+
+        .circle-clipper .circle {
+          border-width: 2px;
+        }
+      }
+
+      &.favorite,
+      &:hover {
+        background-color: $danger-color;
+
+        i {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .place-card-bottom {
+    padding: 10px;
+
+    h4 {
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    vn-stars ::ng-deep {
+      max-width: 120px;
+    }
+
+    .yelp-logo img {
+      max-width: 62px;
+      height: 30px;
+    }
+  }
+
+  @media #{$medium-and-down} {
+    flex-wrap: nowrap;
+    height: 130px;
+
+    .place-card-top {
+      position: static;
+      width: 50%;
+      max-width: 130px;
+
+      img {
+        height: 130px;        
+      }
+    }
+
+    .place-card-bottom {
+      align-items: flex-end;
+      flex-grow: 1;
+      width: 50%;
+      padding: 10px 5px;
+
+      h4 {
+        margin: 5px 0 0;
+      }
+
+      vn-stars {
+        width: 55%;
+      }
+    }
+  }
+
+  @media #{$small-and-down} {
+    .place-card-bottom vn-stars ::ng-deep {
+      max-width: 128px;
+    }
+  }
+
+  @media #{$extra-small-only} {
+    .place-card-bottom {
+      padding: 10px;
+    }
+  }
+}

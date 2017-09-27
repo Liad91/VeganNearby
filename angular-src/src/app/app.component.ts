@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from './services/auth.service';
 import { routeStateTrigger } from './animations';
+import { AppState } from './store/app.reducers';
+import { Authenticate } from './core/auth/store/auth.actions';
 
 @Component({
   selector: 'vn-root',
@@ -11,10 +13,14 @@ import { routeStateTrigger } from './animations';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.authService.authenticate();
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.store.dispatch(new Authenticate(token));
+    }
   }
 
   public getAnimationState(outlet: RouterOutlet): string {

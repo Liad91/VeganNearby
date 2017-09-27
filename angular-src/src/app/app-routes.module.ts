@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-import { HomeComponent } from './pages/home/home.component';
-import { CanActivateSocialProfile } from './components/profile/social-profile/social-profile.guard';
-import { SocialProfileComponent } from './components/profile/social-profile/social-profile.component';
+import { HomeComponent } from './core/home/home.component';
+import { AuthSocialComponent } from './core/auth/auth-social/auth-social.component';
+import { AuthSocialGuard } from './core/auth/auth-social/auth-social.guard';
 
 const routes: Routes = [
   {
@@ -14,13 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'places',
-    loadChildren: './pages/places/places.module#PlacesModule',
+    loadChildren: './places/places.module#PlacesModule',
     data: { state: 'places' }
   },
   {
     path: 'callback',
-    component: SocialProfileComponent,
-    canActivate: [CanActivateSocialProfile]
+    component: AuthSocialComponent,
+    canActivate: [AuthSocialGuard]
   }
 ];
 

@@ -6,8 +6,6 @@ import {
   Renderer2
 } from '@angular/core';
 
-import { RendererService } from '../../services/renderer.service';
-
 @Directive({
   selector: '[vnDropdownTriggerFor]'
 })
@@ -26,7 +24,7 @@ export class DropdownTriggerDirective implements AfterViewInit {
   private dropdownButtonElement: JQuery;
   private dropdownElement: JQuery;
 
-  constructor(private renderer: Renderer2, private rendererService: RendererService) {}
+  constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
     this.initDropdownButtonElement();
@@ -65,7 +63,7 @@ export class DropdownTriggerDirective implements AfterViewInit {
     };
 
     // Initialize dropdown button for dropdown
-    setTimeout(() => this.rendererService.invokeMethod(this.dropdownButtonElement, 'dropdown', [options]));
+    setTimeout(() => this.dropdownButtonElement['dropdown'].apply(this.dropdownButtonElement, [options]));
   }
 
   private validateProperties(): void {

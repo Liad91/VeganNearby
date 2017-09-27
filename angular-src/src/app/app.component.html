@@ -1,5 +1,4 @@
-<div>
-  <div class="wrapper" [@routeState]="getAnimationState(outlet)">
-    <router-outlet #outlet="outlet"></router-outlet>  
-  </div> 
+<vn-nav mode="home" class="flex w-100 align-self-flex-start"></vn-nav>
+<div [@routeState]="getAnimationState(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>  
 </div>

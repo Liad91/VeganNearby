@@ -1,0 +1,21 @@
+@import './../../variables';
+
+:host {
+  display: block;
+}
+
+.spinner-container {
+  height: 250px;
+}
+
+vn-place {
+  @media #{$large-and-up} {
+    width: calc(25% - calc(3rem / 4));
+    &:nth-of-type(3n+3) ::ng-deep {
+      margin-right: 1rem;
+    }
+    &:nth-of-type(4n+4) ::ng-deep {
+      margin-right: 0;
+    }
+  }
+}

@@ -9,8 +9,8 @@ const User = require('../models/user');
 const jwtSecret = require('../config/credentials').jwtSecret;
 const upload = require('../middlewares/multer').single('avatar');
 
-// Signup
-router.post('/signup',(req, res, next) => {
+// Register
+router.post('/register',(req, res, next) => {
   upload(req, res, err => {
     if (err) {
       err.type = 'upload';
@@ -43,9 +43,14 @@ router.post('/signup',(req, res, next) => {
           });
           return user.setAvatar(`${req.protocol}://${req.get('host')}/images/users/${user._id}.${req.file.type}`);
         }
+        return user;
       })
-      .then(() => {
-        res.status(201).json({});        
+      .then(user => {
+        user.password = ''
+        res.status(201).json({
+          token: buildToken(user.id),
+          user
+        });        
       })
       .catch(err => {
         /** Remove the image */
@@ -56,11 +61,11 @@ router.post('/signup',(req, res, next) => {
         }
         if (err.name === 'ValidationError') {
           const error = {
-            statue: 400,
+            status: 400,
             type: 'validation',
             message: {}
           };
-
+          
           for (const field in err.errors) {
             if (field == 'email' && err.errors.email.message === 'Unique') {
               error.message.email = 'unique';
@@ -70,14 +75,13 @@ router.post('/signup',(req, res, next) => {
           }
           return next(error);
         }
-        
         next(err);
       });
   });
 });
 
-// Signin
-router.post('/signin', (req, res, next) => {
+// Login
+router.post('/login', (req, res, next) => {
   User.findOne({email: req.body.email})
     .then(user => {
       if (!user) {
@@ -96,11 +100,10 @@ router.post('/signin', (req, res, next) => {
               next(err);
             }
             else {
-              const token = buildToken(user.id);
               user.password = '';
               res.status(200).json({
-                token: token,
-                user: user
+                token: buildToken(user.id),
+                user
               });
             }
           })

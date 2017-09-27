@@ -1,0 +1,101 @@
+@import './../../../variables';
+
+.filter {
+  background-color: #fff;
+
+  &.map {
+    .title-inline {
+      margin: 0;
+    }
+
+    & + .filter {
+      .title,
+      .title-inline {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .title,
+  .title-inline {
+    padding: 13px 10px;
+    margin: 10px 0;
+    background-color: $secondary-color;
+    color: #fff;
+  }
+
+  .title,
+  .title-inline h3{
+    font-size: 1.1rem;
+  }
+
+  .title-inline .switch label {
+    color: #fff;
+
+    input[type=checkbox]:checked + .lever{
+      background-color: lighten($primary-color, 20%);
+      &:after {
+        background-color: $primary-color;
+      }
+    }
+  }
+
+  span.lever {
+    margin: 0 0 0 10px;
+  }
+
+  p.checkbox-field,
+  p.radio-field {
+    margin: 0.7rem 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &:last-child {
+    p.checkbox-field,
+    p.radio-field {
+      &:last-child {
+        margin-bottom: 0.7rem;
+      }
+    }
+  }
+
+  @media #{$medium-and-up} {
+    margin-bottom: 1rem;
+    
+    .title,
+    .title-inline {
+      margin: 0 0 10px;
+    }
+
+    p.checkbox-field,
+    p.radio-field {
+      &:last-child {
+        margin-bottom: 0.7rem;
+      }
+    }
+  }
+}
+
+.more {
+  cursor: pointer;
+  display: inline-flex;
+  margin: 0 0 5px 1rem;
+  font-size: 13px;
+  color: #5a5a5a;
+
+  i {
+    font-size: 15px;
+  }
+
+  &:hover span {
+    text-decoration: underline;
+  }
+}
+
+agm-map {
+  display: block;  
+  height: 300px;
+}
