@@ -1,17 +1,17 @@
-<nav [ngClass]="{transparent: mode === 'home'}" [@searchState]="searchBarOpen">
+<nav [ngClass]="{transparent: activatedRoute === 'home'}" [@searchState]="searchBarOpen">
   <div class="flex justify-content-space-between content h-100">
     <button
       mz-button
       class="back-btn align-self-center"
       [flat]="true"
       (click)="goBack()"
-      *ngIf="mode === 'page' && mobileView && !searchBarOpen"
+      *ngIf="activatedRoute === 'places' && mobileView && !searchBarOpen"
     >
       <i mz-icon icon="arrow_back" align="left"></i>
     </button>
     <a class="logo" *ngIf="!searchBarOpen" routerLink="/">VegaNearby</a>
-    <ng-container *ngIf="mode === 'page'">
-      <vn-search mode="nav" class="flex align-items-center" *ngIf="!mobileView || searchBarOpen"></vn-search>
+    <ng-container *ngIf="activatedRoute === 'places'">
+      <vn-search activatedRoute="places" class="flex align-items-center" *ngIf="!mobileView || searchBarOpen"></vn-search>
     </ng-container>
     <div class="flex justify-content-flex-end align-items-center nav-more">
       <button
@@ -19,7 +19,7 @@
         class="search-btn"
         [flat]="true"
         (click)="searchBarOpen = !searchBarOpen"
-        *ngIf="mode === 'page' && mobileView"
+        *ngIf="activatedRoute === 'places' && mobileView"
       >
         <i mz-icon [icon]="searchBarOpen ? 'close' : 'search'" align="left"></i>
       </button>
@@ -28,7 +28,7 @@
         class="flex justify-content-center align-items-center login-btn h-100"
         [flat]="true"
         (click)="openModal()"
-        *ngIf="!user && !searchBarOpen"
+        *ngIf="!(user | async) && !searchBarOpen"
       >
         <i mz-icon icon="person" align="left"></i>
         {{ mobileView && !transparent ? '' : 'Login' }}
@@ -42,13 +42,13 @@
         [hover]="true"
         [belowOrigin]="true"
         [constrainWidth]="false"
-        *ngIf="user && !searchBarOpen"
+        *ngIf="(user | async) && !searchBarOpen"
       >
         <div class="user-info right-align hide-on-extra-small-only">
-          <div class="username">{{ user.username }}</div>
-          <div class="email thin">{{ user.email }}</div>        
+          <div class="username">{{ (user | async).username }}</div>
+          <div class="email thin">{{ (user | async).email }}</div>        
         </div>
-        <img class="flex circle" [src]="user.avatarUrl || 'assets/images/user.ico'" alt="avatar">
+        <img class="flex circle" [src]="(user | async).avatarUrl || 'assets/images/user.ico'" alt="avatar">
       </button>  
     </div>
     <ul id="more" class='dropdown-content'>

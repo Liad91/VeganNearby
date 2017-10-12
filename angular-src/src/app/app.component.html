@@ -1,4 +1,4 @@
-<vn-nav mode="home" class="flex w-100 align-self-flex-start"></vn-nav>
-<div [@routeState]="getAnimationState(outlet)">
-  <router-outlet #outlet="outlet"></router-outlet>  
+<vn-nav [activatedRoute]="routerName" class="flex w-100 align-self-flex-start"></vn-nav>
+<div [@routeState]="routerName">
+  <router-outlet></router-outlet>  
 </div>

@@ -1,14 +1,14 @@
 <div class="background-image">
-  <div class="cafes" @bgState *ngIf="selectedCategory.alias === 'cafes'"></div>
-  <div class="restaurants" @bgState *ngIf="selectedCategory.alias === 'restaurants'"></div>
-  <div class="bars" @bgState *ngIf="selectedCategory.alias === 'bars'"></div>
+  <div class="cafes" @bgState *ngIf="category.alias === 'cafes'"></div>
+  <div class="restaurants" @bgState *ngIf="category.alias === 'restaurants'"></div>
+  <div class="bars" @bgState *ngIf="category.alias === 'bars'"></div>
 </div>
 
 <section class="content flex column justify-content-center w-100">
-  <h1 class="hide-on-med-and-down center-align mt-0">Searching for {{ selectedCategory.alias }}?</h1>
+  <h1 class="hide-on-med-and-down center-align mt-0">Searching for {{ category.alias }}?</h1>
   <h3 class="hide-on-med-and-down center-align mt-0"><span id="typing"></span></h3>
-  <h2 class="hide-on-med-and-up show-on-medium-and-down center-align mt-0">Find your favorite {{ selectedCategory.alias }}</h2>
-  <vn-search mode="home"></vn-search>
+  <h2 class="hide-on-med-and-up show-on-medium-and-down center-align mt-0">Find your favorite {{ category.alias }}</h2>
+  <vn-search activatedRoute="home"></vn-search>
 </section>
 
 <footer class="flex w-100 mt-auto">

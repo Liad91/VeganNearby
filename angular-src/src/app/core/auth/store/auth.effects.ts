@@ -9,50 +9,50 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/exhaustMap';
 
-import * as AuthActions from './auth.actions';
+import * as authActions from './auth.actions';
 import { AuthService, AuthResponse } from './../auth.service';
 
 @Injectable()
 export class AuthEffects {
   @Effect()
   authRegister = this.actions
-    .ofType(AuthActions.REGISTER)
-    .map((action: AuthActions.Register) => action.payload)
+    .ofType(authActions.REGISTER)
+    .map((action: authActions.Register) => action.payload)
     .exhaustMap(user => this.authService.register(user)
       .do(response => this.loginSuccess(response))
-      .map(response => new AuthActions.LoginSuccess(response))
+      .map(response => new authActions.LoginSuccess(response))
       .catch((error: HttpErrorResponse) => this.loginFailure(error))
     );
 
   @Effect()
   authLogin = this.actions
-    .ofType(AuthActions.LOGIN)
-    .map((action: AuthActions.Login) => action.payload)
+    .ofType(authActions.LOGIN)
+    .map((action: authActions.Login) => action.payload)
     .exhaustMap(user => this.authService.login(user)
       .do(response => this.loginSuccess(response))
-      .map(response =>  new AuthActions.LoginSuccess(response))
+      .map(response => new authActions.LoginSuccess(response))
       .catch((error: HttpErrorResponse) => this.loginFailure(error))
     );
 
   @Effect()
   authAuthenticate = this.actions
-    .ofType(AuthActions.AUTHENTICATE)
-    .map((action: AuthActions.Authenticate) => action.payload)
+    .ofType(authActions.AUTHENTICATE)
+    .map((action: authActions.Authenticate) => action.payload)
     .exhaustMap(token => this.authService.authenticate(token)
       .do(response => this.authService.storeToken(response.token))
-      .map(response =>  new AuthActions.LoginSuccess(response))
-      .catch(error => of(new AuthActions.Logout()))
+      .map(response => new authActions.LoginSuccess(response))
+      .catch(error => of(new authActions.Logout()))
     );
 
   @Effect({ dispatch: false })
   authSocialLoginSuccess = this.actions
-    .ofType(AuthActions.SOCIAL_LOGIN_SUCCESS)
-    .map((action: AuthActions.SocialLoginSuccess) => action.payload)
+    .ofType(authActions.SOCIAL_LOGIN_SUCCESS)
+    .map((action: authActions.SocialLoginSuccess) => action.payload)
     .do(response => this.loginSuccess(response));
 
   @Effect({ dispatch: false })
   authLogout = this.actions
-    .ofType(AuthActions.LOGOUT)
+    .ofType(authActions.LOGOUT)
     .do(response => this.authService.removeToken());
 
   constructor(private actions: Actions, private authService: AuthService) {}
@@ -62,8 +62,8 @@ export class AuthEffects {
     this.authService.closeModal.next();
   }
 
-  private loginFailure(error: HttpErrorResponse): Observable<AuthActions.LoginFailure> {
+  private loginFailure(error: HttpErrorResponse): Observable<authActions.LoginFailure> {
     this.authService.loginFailure.next(JSON.parse(error.error));
-    return of(new AuthActions.LoginFailure());
+    return of(new authActions.LoginFailure());
   }
 }

@@ -1,6 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-
-import { PlacesState } from './../places.model';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges
+} from '@angular/core';
 
 @Component({
   selector: 'vn-pagination',
@@ -10,15 +14,16 @@ import { PlacesState } from './../places.model';
 
 export class PaginationComponent implements OnChanges {
   @Input() public totalItems: number;
-  @Input() public state: PlacesState;
+  @Input() public currentPage: number;
+  @Input() public itemsPerPage: number;
   @Input() public paginationLength = 5;
   @Output() public pageChange = new EventEmitter<number>()
   public pages: number[];
   public totalPages: number;
 
   ngOnChanges() {
-    this.totalPages = Math.ceil(this.totalItems / this.state.itemsPerPage);
-    this.setPage(this.state.currentPage);
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.setPage(this.currentPage);
   }
 
   private setPage(page: number) {
@@ -49,11 +54,10 @@ export class PaginationComponent implements OnChanges {
       pages.push(i);
     }
     this.pages = pages;
-    this.state.currentPage = page;
   }
 
   public onPageChange(page: number) {
-    if (this.state.currentPage !== page && page > 0 && page <= this.totalPages) {
+    if (this.currentPage !== page && page > 0 && page <= this.totalPages) {
       this.setPage(page)
       this.pageChange.emit(page);
     }

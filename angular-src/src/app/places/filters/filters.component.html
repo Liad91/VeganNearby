@@ -10,73 +10,71 @@
     </div>
   </div>
   <agm-map
-    [latitude]="mapCenter.lat"
-    [longitude]="mapCenter.lng"
+    [latitude]="state.coordinates.lat"
+    [longitude]="state.coordinates.lng"
     [streetViewControl]="false"
     [maxZoom]="18"
     [minZoom]="10"
-    [zoom]="13"
+    [zoom]="state.zoom"
     [zoomControl]="false"
-    (centerChange)="mapCenter = $event"
+    (zoomChange)="state.zoom = $event"
+    (centerChange)="onMapCenterChange($event)"
     (boundsChange)="mapBounds = $event"
   >
     <agm-marker
-      *ngFor="let business of data?.businesses"
-      [latitude]="business.coordinates.latitude"
-      [longitude]="business.coordinates.longitude"
+      *ngFor="let place of places | async"
+      [latitude]="place.coordinates.latitude"
+      [longitude]="place.coordinates.longitude"
       [iconUrl]="'assets/icons/marker.png'"
-      [title]="business.name"
-      (mouseOver)="business.markerHover = true"
-      (mouseOut)="business.markerHover = false"
+      [title]="place.name"
+      (mouseOver)="place.markerHover = true"
+      (mouseOut)="place.markerHover = false"
     >
-      <agm-info-window>
-        <strong>{{ business.name }}</strong>
-      </agm-info-window>
     </agm-marker>
   </agm-map>
 </div>
 <div class="filter">
   <h3 class="title">Establishment Type</h3>
-  <p class="radio-field" *ngFor="let category of categories; let i = index">
+  <p class="radio-field" *ngFor="let category of state.categories">
     <input 
       type="radio"
       name="establishment"
       [id]="category.alias"        
       class="with-gap"
-      [checked]="category.title === selectedCategory.title"
-      (change)="onCategoryChanged(i)"
+      [checked]="category.title === state.selectedCategory.title"
+      (change)="onCategoryChanged(category)"
     >
     <label [for]="category.alias">{{ category.title }}</label>
   </p>
 </div>
 <div class="filter">
   <h3 class="title">Price</h3>
-  <p class="checkbox-field"  *ngFor="let price of prices">
+  <p class="checkbox-field"  *ngFor="let price of state.prices">
     <input
       type="checkbox"
       [id]="price.alias"      
       class="filled-in"
       [checked]="price.checked"
-      (change)="onFilterChanged(selectedPrices, price)"
+      (change)="updatePrices(price)"
     >
     <label [for]="price.alias">{{ price.title }}</label>
   </p>
 </div>
-<div class="filter" *ngIf="selectedCategory.alias === 'restaurants'">
+<div class="filter" *ngIf="state.selectedCategory.alias === 'restaurants'">
   <h3 class="title">Cuisine</h3>
-  <p class="checkbox-field" *ngFor="let cuisine of cuisines">
+  <p class="checkbox-field" *ngFor="let index of state.displayedCuisinesIndex">
     <input
       type="checkbox"
-      [id]="cuisine.alias"
+      [id]="state.cuisines[index].alias"
       class="filled-in"
-      [checked]="cuisine.checked"
-      (change)="onFilterChanged(selectedCuisines, cuisine)"
+      [checked]="state.cuisines[index].checked"
+      (change)="updateCuisines(state.cuisines[index])"
     >
-    <label [for]="cuisine.alias">{{ cuisine.title }}</label>
+    <label [for]="state.cuisines[index].alias">{{ state.cuisines[index].title }}</label>
   </p>
   <div class="more align-items-center" (click)="openModal()">
     <span>Show More</span>
     <i class="material-icons">arrow_drop_down</i>
   </div>
 </div>
-<button mz-button class="hide-on-med-and-up red" *ngIf="isFiltered()" (click)="onResetFilters()">Reset</button>
+<button mz-button class="hide-on-med-and-up red" *ngIf="(filtersApplied | async)" (click)="onResetFilters()">Reset</button>

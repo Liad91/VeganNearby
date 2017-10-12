@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppState } from './../../../store/app.reducers';
-import * as AuthActions from './../store/auth.actions';
+import * as authActions from './../store/auth.actions';
 import { ConnectionService } from './../../services/connection.service';
 import { ToastService } from './../../services/toast.service';
 import { AuthResponse } from './../auth.service';
@@ -85,10 +85,10 @@ export class AuthSocialService {
 
   private handleResponse(response: AuthResponse | void ): void {
     if (response) {
-      this.store.dispatch(new AuthActions.SocialLoginSuccess(response));
+      this.store.dispatch(new authActions.SocialLoginSuccess(response));
     }
     else {
-      this.store.dispatch(new AuthActions.LoginFailure());
+      this.store.dispatch(new authActions.LoginFailure());
     }
     this.callbackSubscription.unsubscribe();
   }

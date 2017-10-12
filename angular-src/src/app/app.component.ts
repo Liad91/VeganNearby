@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { routeStateTrigger } from './animations';
-import { AppState } from './store/app.reducers';
-import { Authenticate } from './core/auth/store/auth.actions';
+import * as fromRoot from './store/app.reducers';
+import * as authActions from './core/auth/store/auth.actions';
 
 @Component({
   selector: 'vn-root',
@@ -12,18 +11,18 @@ import { Authenticate } from './core/auth/store/auth.actions';
   animations: [ routeStateTrigger ]
 })
 export class AppComponent implements OnInit {
+  public routerName: string;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<fromRoot.AppState>) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
+    this.store.select(fromRoot.selectRouter).subscribe(
+      state => this.routerName = state ? state.state.root.children[0].data.name : 'root'
+    );
 
     if (token) {
-      this.store.dispatch(new Authenticate(token));
+      this.store.dispatch(new authActions.Authenticate(token));
     }
-  }
-
-  public getAnimationState(outlet: RouterOutlet): string {
-    return outlet.activatedRouteData['state'] || 'root';
   }
 }

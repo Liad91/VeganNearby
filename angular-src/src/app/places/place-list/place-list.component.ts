@@ -4,20 +4,17 @@ import {
   OnDestroy,
   Renderer2
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
-import { ResizeService } from './../../core/services/resize.service';
-import { FiltersService } from './filters/filters.service';
-import { PlacesService } from './../places.service';
-import { ToastService } from './../../core/services/toast.service';
+import { State } from './store/place-list.reducers';
+import * as fromPlaces from '../store/places.reducers';
+import * as placeListActions from './store/place-list.actions';
+import * as filtersActions from '../filters/store/filters.actions';
+import { Filter } from '../filters/store/filters.reducers';
+import { ResizeService } from '../../core/services/resize.service';
 import { sidebarStateTrigger, listStateTrigger } from '../animations';
-import { PlacesState } from './../places.model';
-import {
-  YelpSearchResponse,
-  YelpBusinessResponse,
-  YelpFilter,
-  YelpSearchParams
-} from '../../models/yelp.model';
 
 @Component({
   selector: 'vn-place-list',
@@ -29,44 +26,25 @@ import {
   ]
 })
 export class PlaceListComponent implements OnInit, OnDestroy {
+  public state: Observable<State>;
   public mobileView: boolean;
-  public state: PlacesState;
-  public data: YelpSearchResponse;
-  public selectedLocation: string;
-  public selectedCategory: YelpFilter;
-  private locationSubscription: Subscription;
-  private updateSubscription: Subscription;
-  private changesSubscription: Subscription;
-  private resizeSubscription: Subscription;
   public sidebarOpen = false;
-  public loading = false;
+  public location: Observable<string>;
+  public category: Observable<Filter>;
+  public filtersApplied: Observable<boolean>;
+  private resizeSubscription: Subscription;
 
-  constructor(
-    private resizeService: ResizeService,
-    private placesService: PlacesService,
-    private toastService: ToastService,
-    private filtersService: FiltersService,
-    private renderer: Renderer2) {}
+  constructor(private store: Store<fromPlaces.FeatureState>, private resizeService: ResizeService, private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    this.data = this.placesService.data;
-    this.state = this.placesService.placesListState;
-    this.selectedCategory = this.placesService.selectedCategory;
-
-    this.resizeSubscription = this.resizeService.screenSize.subscribe(
-      size => this.onScreenResize(size)
-    );
-
-    this.changesSubscription = this.filtersService.changes.subscribe(
-      changes => this.onFilterChange(changes)
-    );
-
-    this.locationSubscription = this.placesService.selectedLocation.subscribe(
-      location => this.selectedLocation = location
-    )
+    this.state = this.store.select(fromPlaces.selectPlaceList);
+    this.location = this.store.select(fromPlaces.selectFiltersLocation);
+    this.category = this.store.select(fromPlaces.selectFiltersCategory);
+    this.filtersApplied = this.store.select(fromPlaces.selectFiltersApplied);
+    this.resizeSubscription = this.resizeService.screenSize.subscribe(size => this.onScreenResize(size));
   }
 
-  private onScreenResize(size): void {
+  private onScreenResize(size: string): void {
     this.mobileView = size === 'sm' || size === 'xs';
     if (this.sidebarOpen && !this.mobileView) {
       this.onCloseSidebar();
@@ -83,68 +61,23 @@ export class PlaceListComponent implements OnInit, OnDestroy {
     this.sidebarOpen = false;
   }
 
-  private onFilterChange(params: YelpSearchParams): void {
-    this.state.currentPage = 1;
-    this.updatePlaces(params)
-  }
-
-  private updatePlaces(params: YelpSearchParams): void {
-    this.loading = true;
-    if (this.updateSubscription) {
-      this.updateSubscription.unsubscribe();
-    }
-    this.updateSubscription = this.placesService.search(params)
-      .subscribe(
-        response => this.updatePlacesSuccess(response),
-        err => this.updatePlacesError()
-      );
-  }
-
-  private updatePlacesSuccess(response): void {
-    this.loading = false;
-    if (response.error) {
-      this.toastService.show(response.error.description);
-      return;
-    }
-  }
-
-  private updatePlacesError(): void {
-    this.loading = false;
-    this.toastService.show('Something went wrong, please try again');
-  }
-
   public trackById(index, item) {
     return item.id;
   }
 
-  public onPageChange(page: number) {
-    const params = this.filtersService.searchState.getValue();
-
-    params.limit = this.state.itemsPerPage;
-    params.offset = this.state.itemsPerPage * (page - 1);
-    this.updatePlaces(params);
-  }
-
-  public isFiltered(): boolean {
-    return this.filtersService.selectedPrices.length > 0 || this.filtersService.selectedCuisines.length > 0;
+  public onPageChange(page: number): void {
+    this.store.dispatch(new placeListActions.SetCurrentPage(page));
+    this.store.dispatch(new filtersActions.SetOffset(12 * (page - 1)));
+    this.store.dispatch(new placeListActions.GetPlaces());
   }
 
   public onResetFilters(): void {
-    if (this.mobileView) {
-      this.sidebarOpen = true;
-    }
-    else {
-      this.filtersService.reset();
-    }
+    this.store.dispatch(new filtersActions.ResetFilters());
+    this.store.dispatch(new placeListActions.GetPlaces());
   }
 
   ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe();
-    this.changesSubscription.unsubscribe();
-    this.locationSubscription.unsubscribe();
-    if (this.updateSubscription) {
-      this.updateSubscription.unsubscribe();
-    }
     if (this.sidebarOpen) {
       this.onCloseSidebar();
     }

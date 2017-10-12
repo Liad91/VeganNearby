@@ -29,7 +29,7 @@ export class PlacesComponent implements OnInit, OnDestroy {
     return outlet.activatedRouteData['state'] || 'root';
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe();
   }
 }

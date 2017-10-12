@@ -1,11 +1,12 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgmCoreModule } from '@agm/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects'
-import { AgmCoreModule } from '@agm/core';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // Components
 import { AppComponent } from './app.component';
@@ -13,10 +14,13 @@ import { AppComponent } from './app.component';
 // Modules
 import { CoreModule } from './core/core.module';
 
-// Config
+// Store
 import { reducers } from './store/app.reducers';
 import { effects } from './store/app.effects';
-import { googleMapApiKey } from './../config';
+
+// Config
+import { environment } from '../environments/environment';
+import { lazyMapsAPILoaderConfigLiteral } from './../config';
 
 @NgModule({
   declarations: [
@@ -27,12 +31,11 @@ import { googleMapApiKey } from './../config';
     HttpClientModule,
     BrowserAnimationsModule,
     CoreModule,
+    AgmCoreModule.forRoot(lazyMapsAPILoaderConfigLiteral),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    AgmCoreModule.forRoot({
-      apiKey: googleMapApiKey,
-      libraries: ['places', 'geometry']
-    })
+    StoreRouterConnectingModule,
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 3 }) : []
   ],
   bootstrap: [AppComponent]
 })

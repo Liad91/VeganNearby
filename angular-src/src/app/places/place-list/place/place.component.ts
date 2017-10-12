@@ -27,11 +27,11 @@ export class PlaceComponent implements OnInit {
 
   ngOnInit() {
     // this.authService.currentUser.subscribe(
-    //   user => this.initialFavorites(user)
+    //   user => this.initializeFavorites(user)
     // );
   }
 
-  private initialFavorites(user: User | void) {
+  private initializeFavorites(user: User | void) {
     this.currentUser = user;
 
     if (!this.currentUser) {

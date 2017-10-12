@@ -10,10 +10,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AppState } from './../../store/app.reducers';
-import { State } from './../auth/store/auth.reducers';
-import { AuthService } from './../auth/auth.service';
-import * as AuthActions from './../auth/store/auth.actions';
+import * as fromRoot from './../../store/app.reducers';
+import * as authActions from './../auth/store/auth.actions';
 import { User } from './../../models/user.model';
 import { AuthComponent } from './../auth/auth.component';
 import { ResizeService } from './../services/resize.service';
@@ -28,24 +26,20 @@ import { searchStateTrigger } from './animations';
   ]
 })
 export class NavComponent implements OnInit, OnDestroy {
-  @Input() public mode: 'home' | 'page';
-  public user: User;
+  @Input() public activatedRoute: 'home' | 'places';
+  public user: Observable<User>;
   public mobileView: boolean;
   public searchBarOpen = false;
-  public stateSubscription: Subscription;
   private resizeSubscription: Subscription;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<fromRoot.AppState>,
     private location: Location,
-    private authService: AuthService,
     private modalService: MzModalService,
     private resizeService: ResizeService) {}
 
   ngOnInit(): void {
-    this.stateSubscription = this.store.select('auth').subscribe(state => {
-      this.user = state.user;
-    });
+    this.user = this.store.select(fromRoot.selectAuthUser);
 
     this.resizeSubscription = this.resizeService.screenSize.subscribe(
       size => {
@@ -57,7 +51,7 @@ export class NavComponent implements OnInit, OnDestroy {
     );
   }
 
-  public goBack() {
+  public goBack(): void {
     this.location.back();
   }
 
@@ -66,11 +60,10 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   public logout(): void {
-    this.store.dispatch(new AuthActions.Logout())
+    this.store.dispatch(new authActions.Logout())
   }
 
-  ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
+  ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe();
   }
 }

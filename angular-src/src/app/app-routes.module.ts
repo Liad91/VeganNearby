@@ -10,12 +10,12 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     pathMatch: 'full',
-    data: { state: 'home' }
+    data: { name: 'home' }
   },
   {
     path: 'places',
     loadChildren: './places/places.module#PlacesModule',
-    data: { state: 'places' }
+    data: { name: 'places' }
   },
   {
     path: 'callback',

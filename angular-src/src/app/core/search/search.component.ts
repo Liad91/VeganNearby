@@ -7,22 +7,18 @@ import {
   ElementRef,
   Renderer2
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MapsAPILoader } from '@agm/core';
+import { LatLngLiteral, MapsAPILoader } from '@agm/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
-import { YelpFilter, YelpSearchParams, YelpSearchResponse } from './../../models/yelp.model';
-import { FiltersService } from './../../places/place-list/filters/filters.service';
-import { PlacesService } from './../../places/places.service';
-import { ToastService } from './../services/toast.service';
-
-class Location {
-  string: string;
-  geometry: {
-    lat: number,
-    lng: number
-  };
-}
+import * as fromRoot from '../../store/app.reducers';
+import * as searchActions from './store/search.actions';
+import * as filtersActions from '../../places/filters/store/filters.actions';
+import * as placeListActions from '../../places/place-list/store/place-list.actions';
+import { State } from './store/search.reducers';
+import { ToastService } from '../services/toast.service';
+import { GeographicalService } from '../services/geographical.service';
 
 @Component({
   selector: 'vn-search',
@@ -30,36 +26,37 @@ class Location {
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  @Input() public mode: 'home' | 'nav';
+  @Input() public activatedRoute: 'home' | 'places';
   @ViewChild('search') private searchElementRef: ElementRef;
-  public location = new Location;
+  public state: State;
+  public location: string;
   public locateSpinner = false;
   public locateFailed = false;
-  public searching = false;
-  public categories: YelpFilter[];
-  public selectedCategory: YelpFilter;
-  public selectedCategoryIndex: number;
+  public stateSubscription: Subscription
+  private coordinates: LatLngLiteral;
   private autocompleteListener: google.maps.MapsEventListener;
 
   constructor(private renderer: Renderer2,
               private router: Router,
-              private filtersService: FiltersService,
-              private placesService: PlacesService,
+              private store: Store<fromRoot.AppState>,
+              private geoService: GeographicalService,
               private mapsApiLoader: MapsAPILoader,
               private toastService: ToastService) {}
 
   ngOnInit(): void {
-    this.categories = this.placesService.categories;
-    this.selectedCategory = this.placesService.selectedCategory;
-    this.selectedCategoryIndex = this.categories.findIndex(category => category.alias === this.selectedCategory.alias);
-    this.buildLocationAutocomplete();
+    this.stateSubscription = this.store.select('search').subscribe(
+      state => this.state = state
+    );
+    this.initializeAutocomplete();
 
-    if (this.mode === 'nav' && this.placesService.selectedLocation) {
-      this.location.string = this.placesService.selectedLocation.getValue();
+    if (this.activatedRoute === 'places') {
+      this.store.select(fromRoot.selectFiltersLocation)
+        .take(1)
+        .subscribe(location => this.location = location);
     }
   }
 
-  private buildLocationAutocomplete(): void {
+  private initializeAutocomplete(): void {
     this.mapsApiLoader.load()
       .then(() => {
         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -69,135 +66,102 @@ export class SearchComponent implements OnInit, OnDestroy {
           /** Handle not formatted address from autocomplete */
           if (!autocomplete.getPlace().formatted_address) {
             this.toastService.show('Sorry, but we didn\'t understand the location you entered');
-            this.location.string = '';
+            this.location = null;
             return;
           }
-          this.autocompleSuccess(autocomplete.getPlace())
+          this.autocompleSuccess(autocomplete.getPlace());
         });
       })
-      .catch(error => this.autocompleteError());
+      .catch(error => this.autocompleteFailure());
   }
 
-  private autocompleSuccess(place: google.maps.places.PlaceResult) {
-    this.location.string = place.formatted_address;
-    this.location.geometry = {
+  private autocompleSuccess(place: google.maps.places.PlaceResult): void {
+    this.location = place.formatted_address;
+    this.coordinates = {
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng()
     };
   }
 
-  private autocompleteError() {
+  private autocompleteFailure(): void {
     this.toastService.show('Unable to complete your request');
   }
 
-  private geoSuccess(position: Position): void {
-    this.location.geometry = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-
-    this.placesService.geocoder(position.coords.latitude, position.coords.longitude)
-      .then((location: string) => {
-        this.locateSpinner = false;
-        this.location.string = location;
-      })
-      .catch(this.geoError.bind(this));
+  public getLocation(): void {
+    this.locateSpinner = true;
+    this.geoService.geolocation()
+      .then(coordinates => this.geolocationSuccess(coordinates))
+      .then(location => this.geocoderSuccess(location))
+      .catch(() => this.geolocationFailure());
   }
 
-  private geoError(): void {
-    this.toastService.show('Unable to retrieve your location');
+  private geolocationSuccess(coordinates: LatLngLiteral): Promise<string> {
+    this.coordinates = coordinates
+    return this.geoService.geocoder(coordinates);
+  }
+
+  private geocoderSuccess(location: string): void {
+    this.locateSpinner = false;
+    this.location = location;
+  }
+
+  private geolocationFailure(): void {
     this.locateSpinner = false;
     this.locateFailed = true;
   }
 
-  public getLocation(): void {
-    if (!navigator.geolocation) {
-      this.toastService.show('Geolocation is not supported by your browser');
-      this.locateFailed = true;
-      return;
-    }
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 15000
-    };
-
-    this.locateSpinner = true;
-    navigator.geolocation.getCurrentPosition(
-      position => this.geoSuccess(position),
-      error => this.geoError(),
-      options
-    );
-  }
-
-  public onSearchChange(event: any) {
+  public onSearchChange(event: any): void {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      this.location.string = event.target.value;
+      this.location = event.target.value;
     }
   }
 
-  public onCategoryChange(): void {
-    if (this.selectedCategory.alias !== this.categories[this.selectedCategoryIndex].alias) {
-      Object.assign(this.selectedCategory, this.categories[this.selectedCategoryIndex]);
-    }
+  public onCategoryChange(event: any): void {
+    this.store.dispatch(new searchActions.SetCategory(this.state.categories[+event.target.value]));
   }
 
   public onSubmit(): void {
-    if (this.searching) {
+    if (this.state.loading) {
       return;
     }
-    if (!this.location.string) {
+    if (!this.location) {
       this.renderer.selectRootElement(this.searchElementRef.nativeElement).focus();
       return;
     }
-
-    this.searching = true;
-    let params: YelpSearchParams;
-
-    /** Use default params */
-    if (this.mode === 'home') {
-      params = {
-        location: this.location.string,
-        categories: this.selectedCategory.alias,
-        radius: 1489
-      };
-
-      this.filtersService.reset();
+    if (!this.coordinates) {
+      this.state.loading = true;
+      this.geoService.geocoder(this.location)
+        .then(coordinates => {
+          this.coordinates = coordinates;
+          this.dispatchActions();
+        })
+        .catch(() => this.toastService.show('Something went wrong, please try again'));
     }
-    /** Use previous params */
     else {
-      params = this.filtersService.searchState.getValue();
-      params.location = this.location.string;
-      params.latitude = null;
-      params.longitude = null;
+      this.dispatchActions();
     }
-
-    this.filtersService.searchState.next(params);
-    this.placesService.search(params)
-      .subscribe(
-        response => this.searchSuccess(response),
-        err => this.searchError()
-      );
   }
 
-  private searchError() {
-    this.searching = false;
-    this.toastService.show('Connection error, please try again');
+  private dispatchActions(): void {
+    const payload = {
+      location: this.location,
+      coordinates: this.coordinates,
+      selectedCategory: this.state.selectedCategory
+    }
+
+    if (this.activatedRoute === 'home') {
+      this.store.dispatch(new filtersActions.NewSearch(payload));
+    }
+    else {
+      this.store.dispatch(new filtersActions.Search(payload));
+    }
+    this.coordinates = null;
+    this.store.dispatch(new placeListActions.GetPlaces());
+    this.router.navigate(['places', 'list']);
   }
 
-  private searchSuccess(response: YelpSearchResponse) {
-    /** Handle Yelp not found location */
-    if (response.error) {
-      response.region.center.latitude = this.location.geometry.lat;
-      response.region.center.longitude = this.location.geometry.lng;
-    }
-    if (this.mode === 'nav') {
-      this.filtersService.updateMap.next();
-    }
-    this.searching = false;
-    this.router.navigateByUrl('/places');
-  }
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.autocompleteListener.remove();
+    this.stateSubscription.unsubscribe();
   }
 }

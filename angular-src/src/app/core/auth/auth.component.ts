@@ -20,7 +20,7 @@ import 'rxjs/add/operator/take';
 
 import { AppState } from './../../store/app.reducers';
 import { State } from './store/auth.reducers';
-import * as AuthActions from './store/auth.actions';
+import * as authActions from './store/auth.actions';
 import { AuthService } from './auth.service';
 import { AuthSocialService } from './auth-social/auth-social.service';
 import { socialBtnStateTrigger, errorStateTrigger, imgPreviewStateTrigger } from './animations';
@@ -183,20 +183,19 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
     if (this.userImageFile) {
       formData.append('avatar', this.userImageFile);
     }
-    this.store.dispatch(new AuthActions.Register(formData));
+    this.store.dispatch(new authActions.Register(formData));
   }
 
   private login(): void {
-    this.store.dispatch(new AuthActions.Register(this.form.value));
+    this.store.dispatch(new authActions.Register(this.form.value));
   }
 
   public onSocialLogin(network: string): void {
-    this.store.dispatch(new AuthActions.SocialLogin());
+    this.store.dispatch(new authActions.SocialLogin());
     this.authSocialService.login(network);
   }
 
   private errorHandler(error): void {
-    console.log(error)
     switch (error.type) {
       case 'authentication':
         this.formErrorMessage = 'Email or password is incorrect';

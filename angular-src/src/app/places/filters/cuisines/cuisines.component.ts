@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 
-import { cuisines } from './../../../data/index';
-import { YelpFilter } from './../../../../models/yelp.model';
+import { cuisines } from './../../data/index';
+import { YelpFilter } from './../../../models/yelp.model';
 import { FiltersService } from './../filters.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class CuisinesComponent extends MzBaseModal implements OnInit {
 
   ngOnInit(): void {
     this.cuisines = cuisines;
-    this.displayedCuisines = this.filtersService.cuisines;
+    // this.displayedCuisines = this.filtersService.cuisines;
 
     this.displayedCuisines.forEach(cuisine => {
       if (cuisine.checked) {
@@ -75,7 +75,7 @@ export class CuisinesComponent extends MzBaseModal implements OnInit {
       this.selectedCuisineIndexes.forEach(index => {
         updatedCuisines.push(Object.assign(this.cuisines[index], { index }));
       });
-      this.filtersService.updateCuisines(updatedCuisines);
+      // this.filtersService.updateCuisines(updatedCuisines);
     }
     this.onClose();
   }

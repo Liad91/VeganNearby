@@ -1,5 +1,5 @@
 <ul class="pagination">
-  <li [ngClass]="{disabled: state.currentPage === 1}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(state.currentPage - 1)"><i class="material-icons">chevron_left</i></a></li>
-  <li [ngClass]="state.currentPage === page ? 'active' : 'waves-effect'" *ngFor="let page of pages"><a (click)="onPageChange(page)">{{ page }}</a></li>  
-  <li [ngClass]="{disabled: state.currentPage === totalPages}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(state.currentPage + 1)"><i class="material-icons">chevron_right</i></a></li>
+  <li [ngClass]="{disabled: currentPage === 1}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(currentPage - 1)"><i class="material-icons">chevron_left</i></a></li>
+  <li [ngClass]="currentPage === page ? 'active' : 'waves-effect'" *ngFor="let page of pages"><a (click)="onPageChange(page)">{{ page }}</a></li>  
+  <li [ngClass]="{disabled: currentPage === totalPages}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(currentPage + 1)"><i class="material-icons">chevron_right</i></a></li>
 </ul>

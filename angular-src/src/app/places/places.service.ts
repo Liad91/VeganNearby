@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { MapsAPILoader, LatLngLiteral } from '@agm/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as yelp from 'yelp-fusion';
@@ -9,9 +8,6 @@ import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/observable/forkJoin';
 
-import { ToastService } from './../core/services/toast.service';
-import { PlacesState } from './places.model';
-import { categories } from './data/index';
 import { ConnectionService } from './../core/services/connection.service';
 import {
   YelpSearchParams,
@@ -20,44 +16,32 @@ import {
   YelpBusiness,
   YelpFilter
 } from './../models/yelp.model';
+import { State } from './filters/store/filters.reducers';
 
 @Injectable()
 export class PlacesService {
-  public data = new YelpSearchResponse;
-  public categories: YelpFilter[];
-  public selectedCategory: YelpFilter;
-  public selectedLocation: BehaviorSubject<string>;
 
-  public placesListState: PlacesState = {
-    currentPage: 1,
-    itemsPerPage: 12
-  };
+  constructor(private http: HttpClient, private connectionService: ConnectionService) {}
 
-  constructor(
-    private http: HttpClient,
-    private connectionService: ConnectionService,
-    private toastService: ToastService,
-    private mapsApiLoader: MapsAPILoader) {
-      this.categories = categories;
-      this.selectedCategory = Object.assign({}, this.categories[0]);
-  }
+  public getPlaces(state: State) {
+    const params = new YelpSearchParams();
 
-  public search(params: YelpSearchParams): Observable<YelpSearchResponse> {
-    if (params.location) {
-      if (!this.selectedLocation) {
-        this.selectedLocation = new BehaviorSubject<string>(params.location);
-      }
-      else {
-        this.selectedLocation.next(params.location);
-      }
+    params.limit = state.limit;
+    params.offset = state.offset;
+    params.radius = state.radius;
+    params.latitude = state.coordinates.lat;
+    params.longitude = state.coordinates.lng;
+    params.price = state.selectedPrices.join(', ');
+
+    if (state.selectedCategory.alias === 'restaurants' && state.selectedCuisines.length > 0) {
+      params.categories = state.selectedCuisines.join(',');
     }
-    if (!params.limit) {
-      params.limit = 12;
+    else {
+      params.categories = state.selectedCategory.alias;
     }
 
     return this.http.post<YelpSearchResponse>(`${this.connectionService.serverUrl}/yelp/search`, params)
-      .timeout(this.connectionService.reqTimeout)
-      .do(response => Object.assign(this.data, response));
+      .timeout(this.connectionService.reqTimeout);
   }
 
   // public getFavorites(): Observable<YelpBusiness[]> {
@@ -100,36 +84,4 @@ export class PlacesService {
   //   })
   //     .timeout(this.connectionService.reqTimeout)
   // }
-
-  public geocoder(lat: number, lng: number): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.mapsApiLoader.load()
-      .then(() => {
-        const geocoder = new google.maps.Geocoder();
-        const request: google.maps.GeocoderRequest = {
-          location: {
-            lat,
-            lng
-          }
-        };
-
-        geocoder.geocode(request, this.geocoderSuccess.bind(this, resolve, reject));
-      })
-      .catch(error => reject());
-    });
-  }
-
-  private geocoderSuccess(resolve, reject, results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus): void {
-    if (status.toString() === 'OK' && results.length > 0) {
-      if (results.length > 1) {
-        resolve(results[1].formatted_address);
-      }
-      else {
-        resolve(results[0].formatted_address);
-      }
-    }
-    else {
-      reject();
-    }
-  }
 }

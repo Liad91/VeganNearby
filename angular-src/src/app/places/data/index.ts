@@ -39,39 +39,6 @@ export const prices = [
   }
 ];
 
-export const displayedCuisines = [
-  {
-    title: 'American',
-    alias: 'tradamerican',
-    checked: false,
-    index: 3
-  },
-  {
-    title: 'Chinese',
-    alias: 'chinese',
-    checked: false,
-    index: 27
-  },
-  {
-    title: 'French',
-    alias: 'french',
-    checked: false,
-    index: 37
-  },
-  {
-    title: 'Israeli',
-    alias: 'israeli',
-    checked: false,
-    index: 53
-  },
-  {
-    title: 'Mexican',
-    alias: 'mexican',
-    checked: false,
-    index: 66
-  }
-];
-
 export const cuisines = [
   {
     title: 'Afghan',
@@ -674,3 +641,5 @@ export const cuisines = [
     checked: false
   }
 ];
+
+export const displayedCuisinesIndex = [3, 27, 37, 53, 66];

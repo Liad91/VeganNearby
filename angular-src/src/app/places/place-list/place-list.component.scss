@@ -72,11 +72,14 @@ header {
 }
 
 
+.spinner-wrap {
+  background-color: rgba(246, 246, 246, 0.6);
 
-mz-spinner {
-  position: sticky;  
-  align-self: flex-start;
-  top: calc(50% - 32px);
+  mz-spinner {
+    position: sticky;  
+    align-self: flex-start;
+    top: calc(50% - 32px);
+  }
 }
 
 .filters-triger {

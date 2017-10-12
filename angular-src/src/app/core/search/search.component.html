@@ -1,4 +1,4 @@
-<div class="flex w-100" class="search-box" [ngClass]="{nav: mode === 'nav'}">
+<div class="flex w-100" class="search-box" [ngClass]="{nav: activatedRoute === 'places'}">
   <form class="flex w-100" (ngSubmit)="onSubmit()">
     <div class="flex w-70 location">
       <div id="locate">
@@ -25,25 +25,25 @@
         #search
         type="text"
         name="location"
-        [(ngModel)]="location.string"
+        [(ngModel)]="location"
         class="search-input"
-        placeholder="{{ selectedCategory.title }} near..."
+        placeholder="{{ state.selectedCategory.title }} near..."
         autocorrect="off"
         autocapitalize="off"
         spellcheck="off"
         (keyup)="onSearchChange($event)"
       >
     </div>
-    <div class="flex w-30 categories" *ngIf="mode === 'home'">
+    <div class="flex w-30 categories" *ngIf="activatedRoute === 'home'">
       <div class="input-field w-100">
-        <select mz-select name="category" [(ngModel)]="selectedCategoryIndex" (change)="onCategoryChange($event)">
-          <option [value]="i" *ngFor="let category of categories; let i = index">{{ category.title }}</option>
+        <select mz-select name="category" (change)="onCategoryChange($event)">
+          <option [value]="i" *ngFor="let category of state.categories; let i = index">{{ category.title }}</option>
         </select>
       </div>
     </div>
     <button mz-button type="submit">
-      <i class="align-self-center" mz-icon icon="search" *ngIf="!searching"></i>
-      <mz-spinner id="search-spinner" size="small" *ngIf="searching"></mz-spinner>
+      <i class="align-self-center" mz-icon icon="search" *ngIf="!state.loading"></i>
+      <mz-spinner id="search-spinner" size="small" *ngIf="state.loading"></mz-spinner>
     </button>
   </form>
 </div>

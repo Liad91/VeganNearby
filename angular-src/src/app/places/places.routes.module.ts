@@ -20,13 +20,13 @@ const routes: Routes = [
         path: 'list',
         component: PlaceListComponent,
         canActivate: [PlaceListGuard],
-        data: { state: 'list' }
+        data: { name: 'list' }
       },
       {
         path: 'favorites',
         component: FavoritesComponent,
         canActivate: [FavoritesGuard],
-        data: { state: 'favorites' }
+        data: { name: 'favorites' }
       }
     ]
   }

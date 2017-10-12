@@ -1,6 +1,6 @@
 <header class="flex align-items-center mb-1">
-  <h4 class="nowrap w-80 m-0 color-white"><strong>{{ selectedCategory.title }}</strong> near {{ selectedLocation }}</h4>
-  <p class="m-0 w-20 right-align color-white">{{ data.total }} Results</p>
+  <h4 class="nowrap w-80 m-0 color-white"><strong>{{ (category | async).title }}</strong> near {{ (location | async) }}</h4>
+  <p class="m-0 w-20 right-align color-white">{{ (state | async).total }} Results</p>
 </header>
 
 <div class="flex" [ngClass]="{sidebar: sidebarOpen && mobileView}">
@@ -16,30 +16,31 @@
     <div class="places-wrap flex wrap w-100 align-self-flex-start">
       <vn-place
         class="mb-1 mr-1"
-        [ngClass]="{'marker-hover': business.markerHover}"
-        [place]="business"
-        (click)="getPlace(business.id)"
-        (mouseenter)="business.hover = true"
-        (mouseleave)="business.hover = false"
-        *ngFor="let business of data.businesses; trackBy: trackById"
+        [ngClass]="{'marker-hover': place.markerHover}"
+        [place]="place"
+        (click)="getPlace(place.id)"
+        (mouseenter)="place.hover = true"
+        (mouseleave)="place.hover = false"
+        *ngFor="let place of (state | async).places; trackBy: trackById"
       >
       </vn-place>
-      <div class="no-results w-100" *ngIf="data.total === 0">
+      <div class="no-results w-100" *ngIf="(state | async).total === 0">
         <strong>Suggestions for improving the results:</strong>
         <p class="m-0">Try a different location.</p>
         <p class="m-0">Try a different establishment.</p>
-        <ng-container *ngIf="isFiltered()">
+        <ng-container *ngIf="filtersApplied | async">
           <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
         </ng-container>
       </div>
     </div>
-    <div class="spinner-wrap" [hidden]="!loading">
+    <div class="spinner-wrap" [hidden]="!(state | async).loading">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
     <vn-pagination
       class="w-100 center-align"
-      [state]="state"
-      [totalItems]="data.total"
+      [itemsPerPage]="12"
+      [currentPage]="(state | async).currentPage"
+      [totalItems]="(state | async).total"
       (pageChange)="onPageChange($event)"
     >
     </vn-pagination>
@@ -47,7 +48,9 @@
 </div>
 <button
   class="btn btn-large btn-floating waves-effect waves-light filters-triger hide-on-med-and-up z-depth-5"
-  (click)="onOpenSidebar()" *ngIf="mobileView">
+  (click)="onOpenSidebar()"
+  *ngIf="mobileView"
+>
   <i mz-icon icon="filter_list"></i>
 </button>
 <div id="sidenav-overlay" *ngIf="mobileView && sidebarOpen" (click)="onCloseSidebar()"></div>
