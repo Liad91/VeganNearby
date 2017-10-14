@@ -1,12 +1,12 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-import { YelpFilter } from './../../models/yelp.model';
+import { Filter } from '../../places/filters/store/filters.reducers';
 
 @Pipe({
   name: 'searchFilter'
 })
 export class SearchFilterPipe implements PipeTransform {
-  public transform(array: YelpFilter[], key: string) {
+  public transform(array: Filter[], key: string) {
     return array.filter(value => value.title.toLocaleLowerCase().includes(key.toLocaleLowerCase()));
   }
 }

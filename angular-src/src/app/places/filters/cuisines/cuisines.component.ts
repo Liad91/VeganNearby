@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
+import { Store } from '@ngrx/store';
 
-import { cuisines } from './../../data/index';
-import { YelpFilter } from './../../../models/yelp.model';
-import { FiltersService } from './../filters.service';
+import { Filter } from '../store/filters.reducers';
+import * as fromPlaces from '../../store/places.reducers';
+import { SetCuisines } from '../store/filters.actions';
+import { GetPlaces } from '../../place-list/store/place-list.actions';
 
 @Component({
   selector: 'vn-cuisines',
@@ -13,10 +15,9 @@ import { FiltersService } from './../filters.service';
 
 export class CuisinesComponent extends MzBaseModal implements OnInit {
   @ViewChild('modal')	public modal: MzModalComponent;
-  public cuisines: YelpFilter[];
-  public displayedCuisines: YelpFilter[];
+  public cuisines: Filter[];
+  public displayedCuisinesIndexes: number[];
   public selectedCuisineIndexes: number[] = [];
-  public length: number;
   public touched = false;
   public disable = false;
 
@@ -25,32 +26,26 @@ export class CuisinesComponent extends MzBaseModal implements OnInit {
     opacity: 0.5
   };
 
-  constructor(private filtersService: FiltersService) {
+  constructor(private store: Store<fromPlaces.FeatureState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.cuisines = cuisines;
-    // this.displayedCuisines = this.filtersService.cuisines;
+    this.store.select(fromPlaces.selectFiltersCuisines).take(1).subscribe(cuisines => this.cuisines = cuisines);
+    this.store.select(fromPlaces.selectFiltersDisplayedCuisines).take(1).subscribe(indexes => this.displayedCuisinesIndexes = indexes);
 
-    this.displayedCuisines.forEach(cuisine => {
-      if (cuisine.checked) {
-        this.selectedCuisineIndexes.push(cuisine.index);
+    this.displayedCuisinesIndexes.forEach(index => {
+      if (this.cuisines[index].checked) {
+        this.selectedCuisineIndexes.push(index);
       }
     });
-
-    if (this.selectedCuisineIndexes.length > 0) {
-      this.selectedCuisineIndexes.forEach(index => {
-        this.cuisines[index].checked = true;
-      })
-    }
 
     if (this.selectedCuisineIndexes.length === 5) {
       this.disable = true;
     }
   }
 
-  public onDataChanged(cuisine: YelpFilter, index: number): void {
+  public onDataChanged(cuisine: Filter, index: number): void {
     this.touched = true;
     cuisine.checked = !cuisine.checked;
 
@@ -70,12 +65,8 @@ export class CuisinesComponent extends MzBaseModal implements OnInit {
 
   public onApply(): void {
     if (this.touched) {
-      const updatedCuisines: YelpFilter[] = [];
-
-      this.selectedCuisineIndexes.forEach(index => {
-        updatedCuisines.push(Object.assign(this.cuisines[index], { index }));
-      });
-      // this.filtersService.updateCuisines(updatedCuisines);
+      this.store.dispatch(new SetCuisines(this.selectedCuisineIndexes));
+      this.store.dispatch(new GetPlaces());
     }
     this.onClose();
   }

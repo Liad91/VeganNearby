@@ -3,7 +3,6 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as yelp from 'yelp-fusion';
-import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/observable/forkJoin';
@@ -13,8 +12,7 @@ import {
   YelpSearchParams,
   YelpSearchResponse,
   YelpBusinessResponse,
-  YelpBusiness,
-  YelpFilter
+  YelpBusiness
 } from './../models/yelp.model';
 import { State } from './filters/store/filters.reducers';
 
@@ -44,44 +42,40 @@ export class PlacesService {
       .timeout(this.connectionService.reqTimeout);
   }
 
-  // public getFavorites(): Observable<YelpBusiness[]> {
-  //   const user = this.authService.currentUser.getValue();
+  public getFavorites(favorites: string[]): Observable<YelpBusiness[]> {
+    const requests: Observable<YelpBusiness>[] = [];
 
-  //   if (user) {
-  //     const requests: Observable<YelpBusiness>[] = [];
+    favorites.forEach(id => {
+      const request = this.http.get<YelpBusiness>(`${this.connectionService.serverUrl}/yelp/business`, {
+        params: new HttpParams().set('id', id)
+      })
+        .timeout(this.connectionService.reqTimeout)
+        .retry(2);
 
-  //     user.favorites.forEach(placeId => {
-  //       const request = this.http.get<YelpBusiness>(`${this.connectionService.serverUrl}/yelp/business`, {
-  //         params: new HttpParams().set('id', placeId)
-  //       })
-  //         .timeout(this.connectionService.reqTimeout)
-  //         .retry();
+      requests.push(request);
+    })
 
-  //       requests.push(request);
-  //     })
+    return Observable.forkJoin(requests);
+  }
 
-  //     return Observable.forkJoin(requests);
-  //   }
-  // }
+  public addToFavorites(id: string): Observable<any> {
+    return this.http.put(`${this.connectionService.serverUrl}/users/favorites/add`, { id }, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
+    })
+      .timeout(this.connectionService.reqTimeout);
+  }
 
-  // public addToFavorites(placeId: string): Observable<any> {
-  //   return this.http.post(`${this.connectionService.serverUrl}/users/favorites/add`, { placeId }, {
-  //     headers: new HttpHeaders().set('Authorization', this.authService.getToken())
-  //   })
-  //     .timeout(this.connectionService.reqTimeout);
-  // }
+  public removeFromFavorites(id: string): Observable<any> {
+    return this.http.put(`${this.connectionService.serverUrl}/users/favorites/remove`, { id }, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
+    })
+      .timeout(this.connectionService.reqTimeout);
+  }
 
-  // public removeFromFavorites(placeId: string): Observable<any> {
-  //   return this.http.post(`${this.connectionService.serverUrl}/users/favorites/remove`, { placeId }, {
-  //     headers: new HttpHeaders().set('Authorization', this.authService.getToken())
-  //   })
-  //     .timeout(this.connectionService.reqTimeout);
-  // }
-
-  // public getPlaceById(id: string): Observable<YelpBusinessResponse> {
-  //   return this.http.get<YelpBusinessResponse>(`${this.connectionService.serverUrl}/yelp/business`, {
-  //     params: new HttpParams().set('id', id)
-  //   })
-  //     .timeout(this.connectionService.reqTimeout)
-  // }
+  public getPlaceById(id: string): Observable<YelpBusinessResponse> {
+    return this.http.get<YelpBusinessResponse>(`${this.connectionService.serverUrl}/yelp/business`, {
+      params: new HttpParams().set('id', id)
+    })
+      .timeout(this.connectionService.reqTimeout)
+  }
 }

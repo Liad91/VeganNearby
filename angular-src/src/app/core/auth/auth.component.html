@@ -145,7 +145,7 @@
         </button>
       </div>
     </ng-container>
-    <div class="spinner-wrap" *ngIf="(authState | async).loading">
+    <div class="spinner-wrap" *ngIf="(loading | async).loading">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
   </mz-modal-content>

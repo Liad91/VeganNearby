@@ -157,6 +157,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
     this.coordinates = null;
     this.store.dispatch(new placeListActions.GetPlaces());
+    this.store.dispatch(new placeListActions.SetCurrentPage(1));
     this.router.navigate(['places', 'list']);
   }
 

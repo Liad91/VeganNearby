@@ -69,7 +69,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.geoService.geocoder(this.state.coordinates)
       .then(location => this.geocoderSuccess(location))
       .then(radius => this.getRadiusSuccess(radius))
-      .catch(() => this.store.dispatch(new placeListActions.GetPlaces()));
+      .catch(() => this.dispatchActions());
     }
   }
 
@@ -92,23 +92,28 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   private getRadiusSuccess(radius: number): void {
     this.store.dispatch(new filtersActions.SetRadius(radius));
-    this.store.dispatch(new filtersActions.SetCoordinates(this.state.coordinates));
-    this.store.dispatch(new placeListActions.GetPlaces());
+    this.dispatchActions();
   }
 
   public onCategoryChanged(category: Filter): void {
     this.store.dispatch(new filtersActions.SetCategory(category));
-    this.store.dispatch(new placeListActions.GetPlaces());
+    this.dispatchActions();
   }
 
   public updatePrices(price: Filter): void {
     this.store.dispatch(new filtersActions.UpdatePrices(price));
-    this.store.dispatch(new placeListActions.GetPlaces());
+    this.dispatchActions();
   }
 
   public updateCuisines(cuisine: Filter): void {
     this.store.dispatch(new filtersActions.UpdateCuisines(cuisine));
+    this.dispatchActions();
+  }
+
+  private dispatchActions(): void {
+    this.store.dispatch(new filtersActions.SetOffset(null));
     this.store.dispatch(new placeListActions.GetPlaces());
+    this.store.dispatch(new placeListActions.SetCurrentPage(1));
   }
 
   public openModal(): void {

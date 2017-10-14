@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/map';
 
 import * as fromPlaces from '../store/places.reducers';
 

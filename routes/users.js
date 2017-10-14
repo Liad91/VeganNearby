@@ -114,30 +114,26 @@ router.post('/login', (req, res, next) => {
 });
 
 // Add to favorites
-router.post('/favorites/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.put('/favorites/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
-  const newToken = buildToken(user._id);
+  const token = buildToken(user._id);
 
-  user.addToFavorites(req.body.placeId)
-  .then(
-    () => res.sendStatus(200).end()
-  )
-  .catch(
-    () => res.sendStatus(403).end()
-  );
+  user.addToFavorites(req.body.id)
+    .then(() => res.status(200).json({
+      token
+    }))
+    .catch(() => res.status(403).end());
 });
 
-router.post('/favorites/remove', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.put('/favorites/remove', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
-  const newToken = buildToken(user._id);
+  const token = buildToken(user._id);
   
-  user.removeFromFavorites(req.body.placeId)
-  .then(
-    () => res.sendStatus(200).end()
-  )
-  .catch(
-    () => res.sendStatus(403).end()
-  );
+  user.removeFromFavorites(req.body.id)
+    .then(() => res.status(200).json({
+      token
+    }))
+    .catch(() => res.status(403).end());
 });
 
 // Authentication

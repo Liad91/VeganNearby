@@ -14,6 +14,7 @@ import { SearchComponent } from './search/search.component';
 import * as Services from './services';
 import { AuthService } from './auth/auth.service';
 import { AuthSocialService } from './auth/auth-social/auth-social.service';
+import { PlacesService } from '../places/places.service';
 
 // Guards
 import { AuthSocialGuard } from './auth/auth-social/auth-social.guard';
@@ -40,6 +41,7 @@ import { SharedModule } from './../shared/shared.module';
     Services.ResizeService,
     Services.ToastService,
     Services.GeographicalService,
+    PlacesService,
     AuthService,
     AuthSocialService,
     AuthSocialGuard

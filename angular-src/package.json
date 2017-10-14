@@ -27,7 +27,7 @@
     "@ngrx/store": "^4.0.3",
     "core-js": "^2.4.1",
     "ng2-file-upload": "^1.2.1",
-    "ng2-materialize": "^1.5.1",
+    "ng2-materialize": "^1.6.0",
     "rxjs": "^5.4.2",
     "typed.js": "^2.0.2",
     "web-animations-js": "^2.3.1",

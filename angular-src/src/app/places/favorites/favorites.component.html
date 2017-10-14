@@ -2,15 +2,20 @@
   <h4 class="nowrap w-100 m-0 color-white"><strong>Manage</strong> Your Favorites</h4>
 </header>
 
-<div *ngIf="places.length === 0 && !loading">
-  No favorites to display
+<div class="center-align mt-2" *ngIf="(state | async).places.length === 0 && !(state | async).loading && !(state | async).error">
+  <h3>No favorites to display</h3>
 </div>
-<div class="spinner-container flex align-items-center justify-content-center" *ngIf="loading">
+<div class="center-align mt-2" *ngIf="(state | async).error && !(state | async).loading">
+  <h3>There's been an error</h3>
+  <p>Our operations team has been notified and will look into the problem.</p>
+  <button mz-button (click)="onReload()">Try reload this page</button>
+</div>
+<div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading">
   <mz-spinner size="big" color="blue"></mz-spinner>
 </div>
 
-<div *ngIf="places.length > 0">
+<div *ngIf="(state | async).places.length > 0">
   <div class="flex wrap w-100 align-self-flex-start">
-    <vn-place [place]="place" class="mb-1 mr-1" *ngFor="let place of places; trackBy: trackById"></vn-place>
+    <vn-place [place]="place" class="mb-1 mr-1" *ngFor="let place of (state | async).places"></vn-place>
   </div>
 </div>

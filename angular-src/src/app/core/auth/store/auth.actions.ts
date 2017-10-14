@@ -12,6 +12,8 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SOCIAL_LOGIN_SUCCESS = 'SOCIAL_LOGIN_SUCCESS';
+export const ADD_TO_USER_FAVORITES = 'ADD_TO_USER_FAVORITES';
+export const REMOVE_FROM_USER_FAVORITES = 'REMOVE_FROM_USER_FAVORITES';
 
 export class Login implements Action {
   readonly type = LOGIN;
@@ -61,6 +63,18 @@ export class SocialLoginSuccess implements Action {
   constructor(public payload: AuthResponse) {}
 }
 
+export class AddToUserFavorites implements Action {
+  readonly type = ADD_TO_USER_FAVORITES;
+
+  constructor(public payload: string) {}
+}
+
+export class RemoveFromUserFavorites implements Action {
+  readonly type = REMOVE_FROM_USER_FAVORITES;
+
+  constructor(public payload: string) {}
+}
+
 export type Action =
   | Login
   | Logout
@@ -70,4 +84,6 @@ export type Action =
   | Authenticate
   | LoginSuccess
   | LoginFailure
-  | SocialLoginSuccess;
+  | SocialLoginSuccess
+  | AddToUserFavorites
+  | RemoveFromUserFavorites;

@@ -40,6 +40,16 @@ export function authReducer(state = initialState, action: authActions.Action): S
       };
     case authActions.LOGOUT:
       return initialState;
+    case authActions.ADD_TO_USER_FAVORITES:
+      state.user.favorites.push(action.payload);
+      return {
+        ...state
+      };
+    case authActions.REMOVE_FROM_USER_FAVORITES:
+      state.user.favorites.splice(state.user.favorites.indexOf(action.payload), 1);
+      return {
+        ...state
+      };
     default:
       return state;
   }

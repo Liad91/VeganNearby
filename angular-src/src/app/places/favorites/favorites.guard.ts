@@ -1,16 +1,24 @@
+import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import 'rxjs/add/operator/map';
+
+import * as fromRoot from '../../store/app.reducers';
 
 @Injectable()
 export class FavoritesGuard implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(private store: Store<fromRoot.AppState>, private router: Router) { }
 
   canActivate() {
-    // if (!this.authService.currentUser.getValue()) {
-    //   this.router.navigate(['/']);
-    //   return false;
-    // }
-    return true;
+    return this.store.select(fromRoot.selectAuthUser)
+      .take(1)
+      .map(user => {
+        if (user) {
+          return true;
+        }
+        this.router.navigate(['/']);
+        return false;
+      });
   }
 }

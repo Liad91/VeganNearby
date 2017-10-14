@@ -6,18 +6,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 // Components
-import { PlaceComponent } from './place-list/place/place.component';
-import { StarsComponent } from './place-list/place/stars/stars.component';
+import { PlaceComponent } from './place/place.component';
+import { StarsComponent } from './place/stars/stars.component';
 import { PlacesComponent } from './places.component';
 import { PlaceListComponent } from './place-list/place-list.component';
-import { PriceComponent } from './place-list/place/price/price.component';
+import { PriceComponent } from './place/price/price.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FiltersComponent } from './filters/filters.component';
 import { CuisinesComponent } from './filters/cuisines/cuisines.component';
 import { PaginationComponent } from './pagination/pagination.component';
-
-// Services
-import { PlacesService } from './places.service';
 
 // Guards
 import { PlaceListGuard } from './place-list/place-list.guard';
@@ -57,7 +54,6 @@ import { effects } from './store/places.effects';
   ],
   providers: [
     GoogleMapsAPIWrapper,
-    PlacesService,
     PlaceListGuard,
     FavoritesGuard
   ]

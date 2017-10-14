@@ -63,6 +63,25 @@ function resetFilters(state: State) {
   }
 }
 
+function setCuisines(state: State, indexes: number[]) {
+  if (state.selectedCuisines.length > 0) {
+    state.cuisines.forEach(filter => filter.checked = false);
+    state.selectedCuisines = [];
+  }
+
+  indexes.forEach(index => {
+    state.cuisines[index].checked = true;
+    state.selectedCuisines.push(state.cuisines[index].alias);
+
+    if (state.displayedCuisinesIndex.indexOf(index) > -1) {
+      state.displayedCuisinesIndex.splice(state.displayedCuisinesIndex.indexOf(index), 1);
+    }
+  });
+  state.displayedCuisinesIndex.unshift(...indexes);
+  state.displayedCuisinesIndex.splice(5, state.displayedCuisinesIndex.length);
+  state.displayedCuisinesIndex.sort((a, b) => +(a > b));
+}
+
 export function filtersReducer(state = initialState, action: filtersActions.Action): State {
   switch (action.type) {
     case filtersActions.SEARCH:
@@ -103,6 +122,11 @@ export function filtersReducer(state = initialState, action: filtersActions.Acti
       return {
         ...state,
         location: action.payload
+      };
+    case filtersActions.SET_CUISINES:
+      setCuisines(state, action.payload);
+      return {
+        ...state
       };
     case filtersActions.SET_COORDINATES:
       return {

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
+import { State } from './store/favorites.reducers';
+import * as fromRoot from '../../store/app.reducers';
+import { GetFavorites } from './store/favorites.actions';
 import { YelpBusiness } from './../../models/yelp.model';
-import { AuthService } from './../../core/auth/auth.service';
-import { PlacesService } from './../places.service';
 
 @Component({
   selector: 'vn-favorites',
@@ -11,27 +14,15 @@ import { PlacesService } from './../places.service';
 })
 
 export class FavoritesComponent implements OnInit {
-  public places: YelpBusiness[] = [];
-  public loading = false;
+  public state: Observable<State>
 
-  constructor(private authService: AuthService, private placesService: PlacesService) {}
+  constructor(private store: Store<fromRoot.AppState>) {}
 
   ngOnInit(): void {
-    // const user = this.authService.currentUser.getValue();
-
-    // if (user) {
-    //   if (user.favorites.length > 0) {
-    //     this.loading = true;
-
-    //     this.placesService.getFavorites().subscribe(
-    //       places => this.getFavoritesSuccess(places)
-    //     );
-    //   }
-    // }
+    this.state = this.store.select(fromRoot.selectFavorites);
   }
 
-  private getFavoritesSuccess(places: YelpBusiness[]): void {
-    this.loading = false;
-    this.places.push(...places);
+  public onReload(): void {
+    this.store.next(new GetFavorites());
   }
 }

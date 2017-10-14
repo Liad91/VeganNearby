@@ -8,20 +8,20 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/exhaustMap';
 
-import { FeatureState } from '../../store/places.reducers';
+import * as fromRoot from '../../../store/app.reducers';
+import * as placeListActions from './place-list.actions';
 import { SearchSuccess } from '../../../core/search/store/search.actions';
 import { PlacesService } from '../../places.service';
-import * as placeListActions from './place-list.actions';
 
 @Injectable()
 export class PlaceListEffects {
   @Effect()
-  getPlacesByLocation = this.actions
+  getPlaces = this.actions
     .ofType(placeListActions.GET_PLACES)
-    .withLatestFrom(this.store.select('filters'))
+    .withLatestFrom(this.store.select(fromRoot.selectFilters))
     .exhaustMap(([action, state]) => this.placesService.getPlaces(state)
       .map(response => new placeListActions.GetPlacesSuccess(response))
-      .catch(error => of(this.getPlacesFailure()))
+      .catch(() => of(this.getPlacesFailure()))
     );
 
   @Effect()
@@ -29,9 +29,9 @@ export class PlaceListEffects {
     .ofType(placeListActions.GET_PLACES_SUCCESS)
     .map(() => new SearchSuccess());
 
-  constructor(private store: Store<FeatureState>, private actions: Actions, private placesService: PlacesService) {}
-
+  constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private placesService: PlacesService) {}
   private getPlacesFailure() {
+
     // Handle errors
     // this.toastService.show('Connection error, please try again');
   }

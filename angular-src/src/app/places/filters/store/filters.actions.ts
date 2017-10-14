@@ -10,6 +10,7 @@ export const SET_OFFSET = 'SET_OFFSET';
 export const SET_RADIUS = 'SET_RADIUS';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_LOCATION = 'SET_LOCATION';
+export const SET_CUISINES = 'SET_CUISINES';
 export const SET_COORDINATES = 'SET_COORDINATES';
 export const RESET_FILTERS = 'RESET_FILTERS';
 export const UPDATE_PRICES = 'UPDATE_PRICES';
@@ -57,6 +58,12 @@ export class SetLocation implements Action {
   constructor(public payload: string) {}
 }
 
+export class SetCuisines implements Action {
+  readonly type = SET_CUISINES;
+
+  constructor(public payload: number[]) {}
+}
+
 export class SetCoordinates implements Action {
   readonly type = SET_COORDINATES;
 
@@ -87,6 +94,7 @@ export type Action =
   | SetRadius
   | SetCategory
   | SetLocation
+  | SetCuisines
   | SetCoordinates
   | ResetFilters
   | UpdatePrices

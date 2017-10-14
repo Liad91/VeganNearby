@@ -18,9 +18,9 @@ import { Subscription } from 'rxjs/Subscription'
 import 'rxjs/add/operator/take';
 
 
-import { AppState } from './../../store/app.reducers';
-import { State } from './store/auth.reducers';
+import * as fromRoot from './../../store/app.reducers';
 import * as authActions from './store/auth.actions';
+import { State } from './store/auth.reducers';
 import { AuthService } from './auth.service';
 import { AuthSocialService } from './auth-social/auth-social.service';
 import { socialBtnStateTrigger, errorStateTrigger, imgPreviewStateTrigger } from './animations';
@@ -39,7 +39,7 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
   @ViewChild('modal')	public modal: MzModalComponent;
   public mode = 'login';
   public form: FormGroup;
-  public authState: Observable<State>;
+  public loading: Observable<boolean>;
   public errorSubscription: Subscription;
   public closeSubscription: Subscription;
   public formErrorMessage: string;
@@ -76,7 +76,7 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
     }
   };
 
-  constructor(private store: Store<AppState>, private authService: AuthService, private authSocialService: AuthSocialService) {
+  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService, private authSocialService: AuthSocialService) {
     super();
   }
 
@@ -84,7 +84,7 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
     this.initializeForm();
     this.initializeUploader();
 
-    this.authState = this.store.select('auth');
+    this.loading = this.store.select(fromRoot.selectAuthLoading);
     this.errorSubscription = this.authService.loginFailure.subscribe(error => this.errorHandler(error));
     this.closeSubscription = this.authService.closeModal.subscribe(() => this.modal.close());
   }

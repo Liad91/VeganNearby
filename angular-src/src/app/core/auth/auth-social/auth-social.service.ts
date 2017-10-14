@@ -56,7 +56,7 @@ export class AuthSocialService {
         username: data.username,
         email: data.email,
         avatarUrl: data.avatarUrl,
-        favorites: data.favorites
+        favorites: data.favorites || []
       },
       token: data.token
     };

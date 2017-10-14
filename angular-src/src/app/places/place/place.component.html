@@ -6,10 +6,10 @@
       [float]="true"
       [flat]="true"
       class="ml-auto"
-      [ngClass]="{favorite: loading || isFavorite}"
+      [ngClass]="{favorite: loading || favorite}"
       (click)="toggleFavorite($event)"
     >
-      <i mz-icon [icon]="isFavorite ? 'favorite' : 'favorite_border'" *ngIf="!loading"></i>
+      <i mz-icon [icon]="favorite ? 'favorite' : 'favorite_border'" *ngIf="!loading"></i>
       <mz-spinner size="small" *ngIf="loading"></mz-spinner>
     </button>
   </div>
