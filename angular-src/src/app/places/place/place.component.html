@@ -1,23 +1,17 @@
 <div class="place-card flex wrap w-100">
-  <div class="place-card-top w-100">
-    <img [src]="place.image_url || 'assets/images/business.png'" [alt]="place.name">
-    <button
-      mz-button
-      [float]="true"
-      [flat]="true"
-      class="ml-auto"
-      [ngClass]="{favorite: loading || favorite}"
-      (click)="toggleFavorite($event)"
-    >
-      <i mz-icon [icon]="favorite ? 'favorite' : 'favorite_border'" *ngIf="!loading"></i>
-      <mz-spinner size="small" *ngIf="loading"></mz-spinner>
-    </button>
-  </div>
-  <div class="place-card-bottom flex wrap w-100">
-    <h4 class="nowrap m-0 w-100">{{ place.name }}</h4>
-    <vn-stars class="w-50 align-self-flex-end" [rating]="place.rating" size="sm"></vn-stars>
-    <div class="yelp-logo right-align align-self-flex-end ml-auto w-40">
-      <img src="../assets/images/yelp_logo.png" alt="Yelp">
-    </div>
+  <img [src]="place.image_url || 'assets/images/business.png'" [alt]="place.name">
+  <div class="cover">
+      <button
+        mz-button
+        [float]="true"
+        [flat]="true"
+        class="ml-auto transparent"
+        [ngClass]="{favorite: loading || favorite}"
+        (click)="toggleFavorite($event)"
+      >
+        <i mz-icon [icon]="favorite ? 'favorite' : 'favorite_border'" *ngIf="!loading"></i>
+        <mz-spinner size="small" *ngIf="loading"></mz-spinner>
+      </button>
+      <h4 class="nowrap m-0 w-90 center-align color-white">{{ place.name }}</h4>
   </div>
 </div>

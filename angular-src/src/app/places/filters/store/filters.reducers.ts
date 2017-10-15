@@ -37,7 +37,7 @@ const initialState: State = {
   cuisines: Data.cuisines,
   displayedCuisinesIndex: Data.displayedCuisinesIndex.slice(),
   selectedCuisines: [],
-  limit: 12,
+  limit: 18,
   offset: null
 };
 
@@ -94,10 +94,6 @@ export function filtersReducer(state = initialState, action: filtersActions.Acti
       };
     case filtersActions.NEW_SEARCH:
       resetFilters(state);
-      console.log({
-        ...initialState,
-        ...action.payload
-      })
       return {
         ...initialState,
         ...action.payload

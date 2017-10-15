@@ -4,8 +4,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 100vh;
-  background-color: #f6f6f6;
+  background-color: #fff;
+  min-height: calc(100vh - 64px);
+
+  @media #{$small-and-down} {
+    min-height: calc(100vh - 56px);
+  }
 }
 
 vn-nav.sticky {

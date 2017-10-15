@@ -67,7 +67,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   public onPageChange(page: number): void {
     this.store.dispatch(new placeListActions.SetCurrentPage(page));
-    this.store.dispatch(new filtersActions.SetOffset(12 * (page - 1)));
+    this.store.dispatch(new filtersActions.SetOffset(18 * (page - 1)));
     this.store.dispatch(new placeListActions.GetPlaces());
   }
 

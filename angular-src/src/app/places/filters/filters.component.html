@@ -1,6 +1,7 @@
 <div class="filter map">
   <div class="title-inline flex align-items-center">
-    <h3 class="m-0">Map</h3>
+    <i class="material-icons">map</i>
+    <h3>Map</h3>
     <div class="switch flex ml-auto">
       <label>
         update when dragging
@@ -34,7 +35,10 @@
   </agm-map>
 </div>
 <div class="filter">
-  <h3 class="title">Establishment Type</h3>
+  <div class="title-inline flex align-items-center">
+    <i class="material-icons">business</i>
+    <h3>Establishment Type</h3>
+  </div>
   <p class="radio-field" *ngFor="let category of state.categories">
     <input 
       type="radio"
@@ -48,7 +52,10 @@
   </p>
 </div>
 <div class="filter">
-  <h3 class="title">Price</h3>
+  <div class="title-inline flex align-items-center">
+    <i class="material-icons">attach_money</i>
+    <h3>Price</h3>
+  </div>
   <p class="checkbox-field"  *ngFor="let price of state.prices">
     <input
       type="checkbox"
@@ -61,7 +68,14 @@
   </p>
 </div>
 <div class="filter" *ngIf="state.selectedCategory.alias === 'restaurants'">
-  <h3 class="title">Cuisine</h3>
+  <div class="title-inline flex align-items-center">
+    <i class="material-icons">restaurant</i>
+    <h3>Cuisine</h3>
+    <div class="more align-items-center" (click)="openModal()">
+      <span>Show More</span>
+      <i class="material-icons">arrow_drop_down</i>
+    </div>
+  </div>
   <p class="checkbox-field" *ngFor="let index of state.displayedCuisinesIndex">
     <input
       type="checkbox"
@@ -72,9 +86,5 @@
     >
     <label [for]="state.cuisines[index].alias">{{ state.cuisines[index].title }}</label>
   </p>
-  <div class="more align-items-center" (click)="openModal()">
-    <span>Show More</span>
-    <i class="material-icons">arrow_drop_down</i>
-  </div>
 </div>
 <button mz-button class="hide-on-med-and-up red" *ngIf="(filtersApplied | async)" (click)="onResetFilters()">Reset</button>
