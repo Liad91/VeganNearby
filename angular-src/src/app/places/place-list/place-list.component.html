@@ -4,14 +4,6 @@
 </header>
 
 <div class="flex" [ngClass]="{sidebar: sidebarOpen && mobileView}">
-  <div
-    #sidebar
-    class="filters align-self-flex-start mr-1 mb-1"
-    [@sidebarState]="sidebarOpen ? 'open' : 'closed'"
-    *ngIf="!mobileView || sidebarOpen"
-  >
-    <vn-filters class="flex column"></vn-filters>
-  </div>
   <div class="main flex wrap align-content-flex-start max-w-100">
     <div class="places-wrap flex wrap w-100 align-self-flex-start">
       <vn-place
@@ -44,6 +36,14 @@
       (pageChange)="onPageChange($event)"
     >
     </vn-pagination>
+  </div>
+  <div
+    #sidebar
+    class="filters align-self-flex-start mb-1"
+    [@sidebarState]="sidebarOpen ? 'open' : 'closed'"
+    *ngIf="!mobileView || sidebarOpen"
+  >
+    <vn-filters class="flex column"></vn-filters>
   </div>
 </div>
 <button

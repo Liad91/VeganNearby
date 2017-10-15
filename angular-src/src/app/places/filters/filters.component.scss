@@ -1,8 +1,6 @@
 @import '../../variables';
 
 .filter {
-  background-color: #fff;
-
   .title-inline {
     padding: 15px 0 7px;
     margin: 0;
@@ -19,18 +17,15 @@
     }
   }
 
-  .title-inline .switch label {
-    input[type=checkbox]:checked + .lever{
-      background-color: lighten($primary-color, 20%);
-      &:after {
-        background-color: $primary-color;
-      }
+  .switch label {
+    font-size: 13px;
+    color: #5a5a5a;
+    
+    span.lever {
+      margin: 0 0 0 10px;
     }
   }
-
-  span.lever {
-    margin: 0 0 0 10px;
-  }
+  
 
   [type="radio"]:checked + label,
   [type="checkbox"] + label {
@@ -60,17 +55,10 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid #ddd;
 
-    &:last-child {
+    &:last-of-type {
       padding-bottom: 0;
       border-bottom-width: 0;
     }
-
-    // p.checkbox-field,
-    // p.radio-field {
-    //   &:last-child {
-    //     margin-bottom: 0.7rem;
-    //   }
-    // }
   }
 }
 
