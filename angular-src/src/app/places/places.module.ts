@@ -13,7 +13,7 @@ import { PlaceListComponent } from './place-list/place-list.component';
 import { PriceComponent } from './place/price/price.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FiltersComponent } from './filters/filters.component';
-import { CuisinesComponent } from './filters/cuisines/cuisines.component';
+import { CuisinesModalComponent } from './filters/cuisines-modal/cuisines-modal.component';
 import { PaginationComponent } from './pagination/pagination.component';
 
 // Guards
@@ -37,11 +37,11 @@ import { effects } from './store/places.effects';
     PriceComponent,
     FavoritesComponent,
     FiltersComponent,
-    CuisinesComponent,
+    CuisinesModalComponent,
     PaginationComponent
   ],
   entryComponents: [
-    CuisinesComponent
+    CuisinesModalComponent
   ],
   imports: [
     FormsModule,

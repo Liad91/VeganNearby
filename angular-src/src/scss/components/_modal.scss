@@ -2,17 +2,12 @@
 // Materialize Modal
 // ==========================================================================
 
-.modal-overlay {
-  top: 0;
+.modal {
+  bottom: 0;
 }
 
-.modal {
-  position: static;
-  max-height: 100%;
-
-  .modal-footer:empty {
-    display: none;
-  }
+.modal-footer:empty {
+  display: none;
 }
 
 mz-modal#registration {
@@ -32,8 +27,9 @@ mz-modal#registration {
   }
 }
 
-mz-modal#filter {
+mz-modal#cuisines {
   .modal {
+    overflow: hidden;
     height: 80%;
     @media #{$extra-large-and-up} {
       width: 65%;

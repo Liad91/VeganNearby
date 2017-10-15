@@ -55,18 +55,18 @@ function updateSelectedArray(filterArray: string[], filter: Filter): void {
 function resetFilters(state: State) {
   if (state.selectedPrices.length > 0) {
     state.prices.forEach(filter => filter.checked = false);
-    state.selectedPrices = [];
+    state.selectedPrices.splice(0, state.selectedPrices.length);
   }
   if (state.selectedCuisines.length > 0) {
     state.cuisines.forEach(filter => filter.checked = false);
-    state.selectedCuisines = [];
+    state.selectedCuisines.splice(0, state.selectedCuisines.length);
   }
 }
 
 function setCuisines(state: State, indexes: number[]) {
   if (state.selectedCuisines.length > 0) {
     state.cuisines.forEach(filter => filter.checked = false);
-    state.selectedCuisines = [];
+    state.selectedCuisines.splice(0, state.selectedCuisines.length);
   }
 
   indexes.forEach(index => {
@@ -94,6 +94,10 @@ export function filtersReducer(state = initialState, action: filtersActions.Acti
       };
     case filtersActions.NEW_SEARCH:
       resetFilters(state);
+      console.log({
+        ...initialState,
+        ...action.payload
+      })
       return {
         ...initialState,
         ...action.payload

@@ -22,7 +22,7 @@ import * as placeListActions from '../place-list/store/place-list.actions';
 import { YelpBusiness } from '../../models/yelp.model';
 import { Filter, State } from './store/filters.reducers';
 import { GeographicalService } from '../../core/services/geographical.service';
-import { CuisinesComponent } from './cuisines/cuisines.component';
+import { CuisinesModalComponent } from './cuisines-modal/cuisines-modal.component';
 
 @Component({
   selector: 'vn-filters',
@@ -117,7 +117,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   public openModal(): void {
-    this.modalService.open(CuisinesComponent);
+    this.modalService.open(CuisinesModalComponent);
   }
 
   ngOnDestroy(): void {

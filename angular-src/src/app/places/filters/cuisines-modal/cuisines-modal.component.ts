@@ -2,28 +2,30 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 
-import { Filter } from '../store/filters.reducers';
 import * as fromPlaces from '../../store/places.reducers';
-import { SetCuisines } from '../store/filters.actions';
-import { GetPlaces } from '../../place-list/store/place-list.actions';
+import { Filter } from '../store/filters.reducers';
+import { SetCuisines, SetOffset } from '../store/filters.actions';
+import { GetPlaces, SetCurrentPage } from '../../place-list/store/place-list.actions';
 
 @Component({
   selector: 'vn-cuisines',
-  templateUrl: './cuisines.component.html',
-  styleUrls: ['./cuisines.component.scss']
+  templateUrl: './cuisines-modal.component.html',
+  styleUrls: ['./cuisines-modal.component.scss']
 })
 
-export class CuisinesComponent extends MzBaseModal implements OnInit {
+export class CuisinesModalComponent extends MzBaseModal implements OnInit {
   @ViewChild('modal')	public modal: MzModalComponent;
   public cuisines: Filter[];
   public displayedCuisinesIndexes: number[];
-  public selectedCuisineIndexes: number[] = [];
+  private selectedCuisineIndexes: number[] = [];
+  public cuisineIndexes: number[];
   public touched = false;
   public disable = false;
 
   public modalOptions: Materialize.ModalOptions = {
-    dismissible: true,
-    opacity: 0.5
+    dismissible: false,
+    endingTop: '0',
+    opacity: 0.5,
   };
 
   constructor(private store: Store<fromPlaces.FeatureState>) {
@@ -40,7 +42,9 @@ export class CuisinesComponent extends MzBaseModal implements OnInit {
       }
     });
 
-    if (this.selectedCuisineIndexes.length === 5) {
+    this.cuisineIndexes = this.selectedCuisineIndexes.slice();
+
+    if (this.cuisineIndexes.length === 5) {
       this.disable = true;
     }
   }
@@ -50,13 +54,13 @@ export class CuisinesComponent extends MzBaseModal implements OnInit {
     cuisine.checked = !cuisine.checked;
 
     if (cuisine.checked) {
-      this.selectedCuisineIndexes.push(index);
-      if (this.selectedCuisineIndexes.length === 5) {
+      this.cuisineIndexes.push(index);
+      if (this.cuisineIndexes.length === 5) {
         this.disable = true;
       }
     }
     else {
-      this.selectedCuisineIndexes.splice(this.selectedCuisineIndexes.indexOf(index), 1);
+      this.cuisineIndexes.splice(this.cuisineIndexes.indexOf(index), 1);
       if (this.disable) {
         this.disable = false;
       }
@@ -65,13 +69,25 @@ export class CuisinesComponent extends MzBaseModal implements OnInit {
 
   public onApply(): void {
     if (this.touched) {
-      this.store.dispatch(new SetCuisines(this.selectedCuisineIndexes));
+      this.store.dispatch(new SetCuisines (this.cuisineIndexes));
+      this.store.dispatch(new SetOffset(null));
+      this.store.dispatch(new SetCurrentPage(1));
       this.store.dispatch(new GetPlaces());
     }
-    this.onClose();
+    this.modal.close();
   }
 
-  public onClose(): void {
+  public onCancel(): void {
     this.modal.close();
+    if (this.touched) {
+      this.cuisines.forEach((cuisine, index) => {
+        if (this.selectedCuisineIndexes.indexOf(index) > -1) {
+          cuisine.checked = true;
+        }
+        else {
+          cuisine.checked = false;
+        }
+      });
+    }
   }
 }
