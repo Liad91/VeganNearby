@@ -4,14 +4,28 @@
 
 .modal {
   bottom: 0;
+
+  .modal-content {
+    padding: 0;
+
+    & > h4,
+    & > p {
+      margin: 0;
+    }
+  }
+  
 }
 
 .modal-footer:empty {
   display: none;
 }
 
-mz-modal#registration {
+mz-modal#auth {
   .modal {
+    max-width: 350px;
+    max-height: 500px;
+    border-radius: 8px;
+    border-top: 5px solid $primary-color;
     @media #{$extra-large-and-up} {
      width: 35%; 
     }
@@ -29,7 +43,6 @@ mz-modal#registration {
 
 mz-modal#cuisines {
   .modal {
-    overflow: hidden;
     height: 80%;
     @media #{$extra-large-and-up} {
       width: 65%;

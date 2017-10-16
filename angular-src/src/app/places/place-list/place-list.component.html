@@ -4,8 +4,8 @@
 </header>
 
 <div class="flex" [ngClass]="{sidebar: sidebarOpen && mobileView}">
-  <div class="main flex wrap align-content-flex-start max-w-100">
-    <div class="places-wrap flex wrap w-100 align-self-flex-start">
+  <div class="main flex wrap max-w-100">
+    <div class="places-wrap flex wrap w-100 mb-auto">
       <vn-place
         class="mb-1 mr-1"
         [ngClass]="{'marker-hover': place.markerHover}"
@@ -29,7 +29,7 @@
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
     <vn-pagination
-      class="w-100 center-align"
+      class="w-100 center-align mt-auto"
       [itemsPerPage]="18"
       [currentPage]="(state | async).currentPage"
       [totalItems]="(state | async).total"

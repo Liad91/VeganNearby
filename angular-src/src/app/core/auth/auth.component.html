@@ -1,31 +1,8 @@
-<mz-modal
-  #modal
-  class="flex w-100 h-100 column justify-content-center align-items-center"
-  id="registration"
-  [options]="modalOptions"
->
-  <mz-modal-header class="flex w-100">
-    <span>{{ mode === 'login' ? 'Login' : 'Register'}}</span>
-    <button
-      mz-button
-      class="flex justify-content-end align-items-center ml-auto"
-      [float]="true"
-      [flat]="true"
-      (click)="modal.close()"
-    >
-      <i class="black-text" mz-icon icon="clear"></i>
-    </button>    
-  </mz-modal-header>
-  <mz-modal-content class="flex wrap">
-    <p @errorState class="flex w-100 center-align mt-0" vnColor="danger" *ngIf="formErrorMessage">
+  <div class="flex wrap">
+    <p @errorState class="center-align w-100 m-0" vnColor="danger" *ngIf="formErrorMessage">
       {{ formErrorMessage }}
     </p>    
-    <form
-      class="flex w-100 wrap"
-      [formGroup]="form"
-      (ngSubmit)="onSubmit()"
-      novalidate
-    >
+    <form class="flex w-100 wrap" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <ng-container *ngIf="mode === 'register'">
         <div class="flex w-100 image-upload">
           <div class="image-wrap">
@@ -71,9 +48,9 @@
             required
             id="input-username"
             type="text"
-            label="Username"
+            placeholder="username"
+            label="Username:"
             formControlName="username"
-            [vnActive]="(mode === 'register' && form.pristine && form.untouched) || form.get('username').value"
             [errorMessageResource]="errorMessageResources.username"
           >
         </mz-input-container>
@@ -82,12 +59,11 @@
         <input
           mz-input
           mz-validation
-          required
           id="input-email"
           type="email"
-          label="Email"
+          placeholder="example@domain.com"
+          label="Email:"
           formControlName="email"
-          [vnActive]="(mode === 'login' && form.pristine && form.untouched) || form.get('email').value"
           [errorMessageResource]="errorMessageResources.email"
         >
       </mz-input-container>
@@ -95,45 +71,19 @@
         <input
           mz-input
           mz-validation
-          required
           id="input-password"
           type="password"
-          label="Password"
+          placeholder="password"
+          label="Password:"
           formControlName="password"
           [errorMessageResource]="errorMessageResources.password"
         >
       </mz-input-container>
-      <div class="flex w-100 justify-content-space-around align-items-center pt-1">
-        <button class="w-45 p-0" type="submit" mz-button  [disabled]="form.invalid">
-          <span>{{ mode === 'login' ? 'Login' : 'Register'}}</span> 
-        </button>
-        <button
-          mz-button          
-          type="button"
-          class="w-45 white p-0"
-          vnColor="secondary"
-          (click)="onSwitchMode()"
-          *ngIf="mode === 'login'"
-        >
-          Create Account
-        </button>
-        <button
-          mz-button        
-          type="button"
-          class="w-45 white p-0"
-          vnColor="secondary"
-          (click)="onSwitchMode()"
-          *ngIf="mode === 'register'"
-        >
-          Already a Member?
-        </button>
-      </div>
+      <button mz-button class="w-100 p-0" type="submit">Continue</button>
     </form>
     <ng-container *ngIf="mode === 'login'">
-      <div class="w-100 center-align mt-1">
-        <span id="social-text">Login via social media</span>
-      </div>
-      <div @socialBtnState class="social-btn-wrap">
+      <div class="social-btn-wrap">
+        <span>OR</span>
         <button
           *ngFor="let network of socialNetworks"
           mz-button
@@ -148,5 +98,4 @@
     <div class="spinner-wrap" *ngIf="(loading | async).loading">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
-  </mz-modal-content>
-</mz-modal>
+  </div>

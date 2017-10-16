@@ -1,13 +1,6 @@
 @import '../../variables';
 
 :host {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 9999;
-
   .image-upload {
     p {
       font-size: 90%;
@@ -16,12 +9,12 @@
   
   .image-wrap {
     position: relative;
-    margin: auto;
-    height: 150px;
-    width: 150px;
+    margin: 0 auto 1rem;
+    height: 110px;
+    width: 110px;
     color: #a3a3a3;
-    border: 2px dashed; 
-    border-radius: 50%;  
+    border: 1px dashed;
+    border-radius: 50%;
 
     .image-drop,
     img {
@@ -33,8 +26,8 @@
     button {
       position: absolute;
       display: flex;
-      top: 10px;
-      right: -5px;
+      top: -3px;
+      right: -8px;
       transition: all 0.2s ease-in;
       &:hover {
         transform: scale(1.2);
@@ -61,34 +54,62 @@
     height: 20px;
     margin-right: 7px;
   }
-}
 
-:host /deep/ {
-  .modal-content > p {
-    margin-bottom: 0;
-  }
-}
-
-.social-btn-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-
-  button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 33%;
-  }
-
-  @media #{$extra-small-only} {
-    button {
-      width: 100%;
-      &:nth-child(2) {
-        margin: 5px 0;
+  &::ng-deep {
+    .input-field { 
+      input {
+        border: 0;
+        background: #eee;
+        height: 2.5rem;
+        font-size: 0.9rem;
+        display: block;
+        // font-weight: 500;
+        position: static;
+        box-shadow: none;
+        padding-left: 5px;
+        box-sizing: border-box;
+        border-radius: 2px;
+    
+        &::-webkit-input-placeholder {
+          color: #333;
+        }
       }
+
+      label {
+        font-weight: 500;
+        top: -7px;
+      }
+
+      .invalid {
+        min-height: 30px !important;
+      }
+    }
+  }
+
+  button[type=submit] {
+    margin-top: 0.5rem;
+  }
+
+  .social-btn-wrap {
+    width: 100%;
+  
+    & > span {
+      display: block;
+      width: 100%;
+      margin: 0.7rem 0;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+  
+    button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 0.5rem
     }
   }
 }

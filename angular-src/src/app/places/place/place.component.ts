@@ -10,7 +10,7 @@ import * as favoritesActions from '../favorites/store/favorites.actions';
 import { PlacesService } from '../places.service';
 import { YelpBusiness } from './../../models/yelp.model';
 import { ToastService } from './../../core/services/toast.service';
-import { AuthComponent } from '../../core/auth/auth.component';
+import { AuthModalComponent } from '../../core/auth/auth-modal/auth-modal.component';
 
 @Component({
   selector: 'vn-place',
@@ -62,7 +62,7 @@ export class PlaceComponent implements OnInit, OnDestroy {
       }
     }
     else {
-      this.modalService.open(AuthComponent);
+      this.modalService.open(AuthModalComponent);
     }
   }
 

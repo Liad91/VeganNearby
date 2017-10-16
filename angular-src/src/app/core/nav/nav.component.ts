@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
 import * as fromRoot from './../../store/app.reducers';
 import * as authActions from './../auth/store/auth.actions';
 import { User } from './../../models/user.model';
-import { AuthComponent } from './../auth/auth.component';
+import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';
 import { ResizeService } from './../services/resize.service';
 import { searchStateTrigger } from './animations';
 
@@ -56,7 +56,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   public openModal(): void {
-    this.modalService.open(AuthComponent);
+    this.modalService.open(AuthModalComponent);
   }
 
   public logout(): void {

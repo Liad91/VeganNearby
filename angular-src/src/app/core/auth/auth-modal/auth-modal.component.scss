@@ -1,0 +1,13 @@
+@import '../../../variables';
+
+mz-modal#auth ::ng-deep {
+  .tabs-content.carousel,
+  .tabs-content.carousel > div {
+    height: auto !important;
+    position: static;
+  }
+
+  .tab-content-wrap {
+    padding: 1rem 2rem;
+  }
+}

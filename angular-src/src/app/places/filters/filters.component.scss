@@ -1,6 +1,14 @@
 @import '../../variables';
 
 .filter {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+
+  &:last-of-type {
+    padding-bottom: 0;
+    border-bottom-width: 0;
+  }
+  
   .title-inline {
     padding: 15px 0 7px;
     margin: 0;
@@ -27,7 +35,7 @@
   }
   
 
-  [type="radio"]:checked + label,
+  [type="radio"] + label,
   [type="checkbox"] + label {
     font-size: 0.9rem;
     padding-left: 30px;
@@ -48,16 +56,6 @@
   p.radio-field {
     &:last-child {
       margin-bottom: 0;
-    }
-  }
-
-  @media #{$medium-and-up} {
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #ddd;
-
-    &:last-of-type {
-      padding-bottom: 0;
-      border-bottom-width: 0;
     }
   }
 }

@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormGroupDirective,
@@ -11,7 +6,6 @@ import {
   Validators
 } from '@angular/forms';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
-import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription'
@@ -35,13 +29,11 @@ import { socialBtnStateTrigger, errorStateTrigger, imgPreviewStateTrigger } from
     imgPreviewStateTrigger
   ]
 })
-export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
-  @ViewChild('modal')	public modal: MzModalComponent;
-  public mode = 'login';
+export class AuthComponent implements OnInit, OnDestroy {
+  @Input() mode: 'login' | 'register';
   public form: FormGroup;
   public loading: Observable<boolean>;
   public errorSubscription: Subscription;
-  public closeSubscription: Subscription;
   public formErrorMessage: string;
   public uploadErrorMessage: string;
   public uploader: FileUploader;
@@ -50,11 +42,6 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
   public socialNetworks = ['twitter', 'google', 'facebook'];
   private allowedMimeType = ['image/png', 'image/jpg', 'image/jpeg'];
   private maxFileSize = 1024 * 1024; // 1MB
-
-  public modalOptions: Materialize.ModalOptions = {
-    dismissible: false,
-    opacity: 0.5
-  };
 
   public errorMessageResources = {
     email: {
@@ -76,9 +63,7 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
     }
   };
 
-  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService, private authSocialService: AuthSocialService) {
-    super();
-  }
+  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService, private authSocialService: AuthSocialService) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -86,7 +71,6 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
 
     this.loading = this.store.select(fromRoot.selectAuthLoading);
     this.errorSubscription = this.authService.loginFailure.subscribe(error => this.errorHandler(error));
-    this.closeSubscription = this.authService.closeModal.subscribe(() => this.modal.close());
   }
 
   private initializeForm(): void {
@@ -94,6 +78,12 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
     });
+
+    if (this.mode === 'register') {
+      const username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
+
+      this.form.addControl('username', username);
+    }
   }
 
   private initializeUploader(): void {
@@ -142,33 +132,25 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
     this.hasDropZoneOver = event;
   }
 
-  public onSwitchMode(): void {
-    const username = new FormControl(null, [Validators.required, Validators.minLength(4)]);
-
-    this.mode = this.mode === 'login' ? 'register' : 'login';
-    if (this.formErrorMessage) {
-      this.formErrorMessage = '';
-    }
-    if (this.mode === 'register') {
-      this.form.addControl('username', username);
-    }
-    else {
-      this.form.removeControl('username');
-      if (this.uploadErrorMessage || this.uploader.queue.length > 0) {
-        this.onResetUploader();
-      }
-    }
-    this.form.reset();
-  }
-
   public onSubmit(): void {
     if (this.form.invalid) {
+      this.validateFormControls();
       return;
     }
     if (this.formErrorMessage) {
       this.formErrorMessage = '';
     }
     this.mode === 'login' ?  this.login() : this.register();
+  }
+
+  private validateFormControls(): void {
+    Object.keys(this.form.controls).forEach(key => {
+      const control = this.form.controls[key];
+
+      if (control.invalid) {
+        control.markAsDirty();
+      }
+    });
   }
 
   private register(): void {
@@ -221,6 +203,5 @@ export class AuthComponent extends MzBaseModal implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.errorSubscription.unsubscribe();
-    this.closeSubscription.unsubscribe();
   }
 }

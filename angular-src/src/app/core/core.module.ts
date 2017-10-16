@@ -5,6 +5,7 @@ import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 
 // Components
 import { AuthComponent } from './auth/auth.component';
+import { AuthModalComponent } from './auth/auth-modal/auth-modal.component';
 import { AuthSocialComponent } from './auth/auth-social/auth-social.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
@@ -26,6 +27,7 @@ import { SharedModule } from './../shared/shared.module';
 @NgModule({
   declarations: [
     AuthComponent,
+    AuthModalComponent,
     AuthSocialComponent,
     HomeComponent,
     FileDropDirective,
@@ -34,7 +36,8 @@ import { SharedModule } from './../shared/shared.module';
     SearchComponent
   ],
   entryComponents: [
-    AuthComponent
+    AuthComponent,
+    AuthModalComponent
   ],
   providers: [
     Services.ConnectionService,
