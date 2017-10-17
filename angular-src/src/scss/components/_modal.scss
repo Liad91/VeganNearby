@@ -22,9 +22,9 @@
 
 mz-modal#auth {
   .modal {
+    display: table !important;
     max-width: 350px;
-    max-height: 500px;
-    border-radius: 8px;
+    border-radius: 5px;
     border-top: 5px solid $primary-color;
     @media #{$extra-large-and-up} {
      width: 35%; 
@@ -44,6 +44,15 @@ mz-modal#auth {
 mz-modal#cuisines {
   .modal {
     height: 80%;
+    max-width: 950px;
+    overflow: hidden;
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
     @media #{$extra-large-and-up} {
       width: 65%;
     }

@@ -3,6 +3,7 @@ import { MzModalService } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/take';
 
 import * as fromRoot from '../../store/app.reducers';
 import * as authActions from '../../core/auth/store/auth.actions';

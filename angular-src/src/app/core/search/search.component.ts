@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { LatLngLiteral, MapsAPILoader } from '@agm/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/take';
 
 import * as fromRoot from '../../store/app.reducers';
 import * as searchActions from './store/search.actions';

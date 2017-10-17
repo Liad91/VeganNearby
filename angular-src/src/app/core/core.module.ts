@@ -1,10 +1,12 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 
 // Components
-import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { AuthModalComponent } from './auth/auth-modal/auth-modal.component';
 import { AuthSocialComponent } from './auth/auth-social/auth-social.component';
 import { HomeComponent } from './home/home.component';
@@ -26,7 +28,8 @@ import { SharedModule } from './../shared/shared.module';
 
 @NgModule({
   declarations: [
-    AuthComponent,
+    LoginComponent,
+    RegisterComponent,
     AuthModalComponent,
     AuthSocialComponent,
     HomeComponent,
@@ -36,7 +39,6 @@ import { SharedModule } from './../shared/shared.module';
     SearchComponent
   ],
   entryComponents: [
-    AuthComponent,
     AuthModalComponent
   ],
   providers: [

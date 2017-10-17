@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/take';
 
 import * as fromPlaces from '../../store/places.reducers';
 import { Filter } from '../store/filters.reducers';

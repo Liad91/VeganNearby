@@ -3,13 +3,14 @@
 mz-modal#cuisines ::ng-deep {
   h4 {
     position: sticky;
+    height: auto;
     top: 0;
     z-index: 10;
 
     mz-modal-header {
       padding: 15px 20px;
-      background-color: #f1f1f1;
-      box-shadow: 0 0 5px rgba(0,0,0,.2);
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   
       #search-input {
         height: 2.5rem;
@@ -51,60 +52,66 @@ mz-modal#cuisines ::ng-deep {
     }
   }
   
-  mz-modal-content {
-    display: block;
-    padding: 10px 0 10px 20px;
+  & .modal-content > p {
+    height: auto;
+    background-color: #f0f0f0;
+    overflow-y: scroll;
 
-    @media #{$small-only} {
-      padding: 10px 0 10px 15px;
-    }
-
-    @media #{$extra-small-only} {
-      padding: 10px 0 10px 10px;
-    }
-  }
-
-  .filter {
-    margin: 0.5rem 0;
-    font-size: 15px;
-
-    label {
-      width: 80%;
-      text-transform: none;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    [type="checkbox"] + label {
-      height: 20px;
-      padding-left: 26px;      
-      line-height: 20px;
-      font-size: 0.8rem;
-    }
-
-    [type="checkbox"].filled-in:not(:checked) + label:after {
-      height: 17px;
-      width: 17px;
-    }
-
-    [type="checkbox"].filled-in:checked + label:before {
-      left: 1px;
-      width: 6px;
-      height: 11px;
-    }
-
-    [type="checkbox"].filled-in:checked + label:after {
-      height: 17px;
-      width: 17px;
-    }
-
-    @media #{$medium-only} {
-      width: 25%;
+    mz-modal-content {
+      display: block;
+      padding: 10px 0 10px 20px;
+  
+      @media #{$small-only} {
+        padding: 10px 0 10px 15px;
+      }
+  
+      @media #{$extra-small-only} {
+        padding: 10px 0 10px 10px;
+      }
     }
   
-    @media #{$small-and-down} {
-      width: 33%;
+    .filter {
+      margin: 0.5rem 0;
+      font-size: 15px;
+  
+      label {
+        width: 80%;
+        text-transform: none;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+  
+      [type="checkbox"] + label {
+        height: 20px;
+        padding-left: 26px;      
+        line-height: 20px;
+        font-size: 0.8rem;
+      }
+  
+      [type="checkbox"].filled-in:not(:checked) + label:after {
+        height: 17px;
+        width: 17px;
+      }
+  
+      [type="checkbox"].filled-in:checked + label:before {
+        left: 1px;
+        width: 6px;
+        height: 11px;
+      }
+  
+      [type="checkbox"].filled-in:checked + label:after {
+        height: 17px;
+        width: 17px;
+      }
+  
+      @media #{$medium-only} {
+        width: 25%;
+      }
+    
+      @media #{$small-and-down} {
+        width: 33%;
+      }
     }
   }
 }

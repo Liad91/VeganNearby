@@ -1,0 +1,45 @@
+<div class="flex wrap">
+  <p @errorState class="center-align w-100 m-0" vnColor="danger" *ngIf="formErrorMessage">
+    {{ formErrorMessage }}
+  </p>    
+  <form class="flex w-100 wrap" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <mz-input-container class="auth w-100">
+      <input
+        mz-input
+        mz-validation
+        required
+        id="login-email"
+        type="email"
+        placeholder="example@domain.com"
+        label="Email:"
+        formControlName="email"
+        [errorMessageResource]="errorMessageResources.email"
+      >
+    </mz-input-container>
+    <mz-input-container class="auth w-100">
+      <input
+        mz-input
+        mz-validation
+        required
+        id="login-password"
+        type="password"
+        placeholder="password"
+        label="Password:"
+        formControlName="password"
+        [errorMessageResource]="errorMessageResources.password"
+      >
+    </mz-input-container>
+    <button mz-button class="w-100 p-0" type="submit">Continue</button>
+  </form>
+  <div class="social-btn-wrap">
+    <span>OR</span>
+    <button
+      [ngClass]="[network, 'btn', 'p-0']"
+      (click)="onSocialLogin(network)"
+      *ngFor="let network of socialNetworks"
+    >
+      <span class="flex justify-content-center icon"><img src="assets/icons/{{network}}.png" [alt]="network"></span>
+      <span class="flex name">Login with {{ network | titlecase }}</span>
+    </button>
+  </div>
+</div>
