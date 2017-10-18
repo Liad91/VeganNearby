@@ -17,6 +17,6 @@
 
 <div *ngIf="(state | async).places.length > 0">
   <div class="flex wrap w-100 align-self-flex-start mb-2">
-    <vn-place [place]="place" class="mb-1 mr-1" *ngFor="let place of (state | async).places"></vn-place>
+    <vn-place @placeState [place]="place" class="mb-1 mr-1" *ngFor="let place of (state | async).places"></vn-place>
   </div>
 </div>

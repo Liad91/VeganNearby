@@ -36,6 +36,7 @@
 .main {
   position: relative;
   flex-grow: 1;
+  overflow: hidden;
 
   .no-results {
     @media #{$small-and-down} {

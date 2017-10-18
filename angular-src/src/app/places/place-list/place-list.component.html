@@ -7,16 +7,19 @@
 <div class="flex" [ngClass]="{sidebar: sidebarOpen && mobileView}">
   <div class="main flex wrap max-w-100">
     <div class="places-wrap flex wrap w-100 mb-auto">
-      <vn-place
-        class="mb-1 mr-1"
-        [ngClass]="{'marker-hover': place.markerHover}"
-        [place]="place"
-        (click)="getPlace(place.id)"
-        (mouseenter)="place.hover = true"
-        (mouseleave)="place.hover = false"
-        *ngFor="let place of (state | async).places; trackBy: trackById"
-      >
-      </vn-place>
+      <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
+          <vn-place
+          class="mb-1 mr-1"
+          [ngClass]="{'marker-hover': place.markerHover}"
+          [place]="place"
+          (click)="getPlace(place.id)"
+          (mouseenter)="place.hover = true"
+          (mouseleave)="place.hover = false"
+          @placeState *ngIf="!(state | async).loading"
+          
+        >
+        </vn-place>
+      </ng-container>
       <div class="no-results w-100" *ngIf="(state | async).total === 0">
         <strong>Suggestions for improving the results:</strong>
         <p class="m-0">Try a different location.</p>
@@ -42,6 +45,7 @@
       [currentPage]="(state | async).currentPage"
       [totalItems]="(state | async).total"
       (pageChange)="onPageChange($event)"
+      *ngIf="!(state | async).loading || ((state | async).loading && (state | async).currentPage !== 1)"
     >
     </vn-pagination>
   </div>

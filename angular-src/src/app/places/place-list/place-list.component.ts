@@ -14,7 +14,7 @@ import * as placeListActions from './store/place-list.actions';
 import * as filtersActions from '../filters/store/filters.actions';
 import { Filter } from '../filters/store/filters.reducers';
 import { ResizeService } from '../../core/services/resize.service';
-import { sidebarStateTrigger, listStateTrigger } from '../animations';
+import { sidebarStateTrigger, placeStateTrigger } from './animations';
 
 @Component({
   selector: 'vn-place-list',
@@ -22,7 +22,7 @@ import { sidebarStateTrigger, listStateTrigger } from '../animations';
   styleUrls: ['./place-list.component.scss'],
   animations: [
     sidebarStateTrigger,
-    listStateTrigger
+    placeStateTrigger
   ]
 })
 export class PlaceListComponent implements OnInit, OnDestroy {

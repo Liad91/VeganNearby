@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.formErrorMessage) {
       this.formErrorMessage = null;
     }
-    this.store.dispatch(new authActions.Register(this.form.value));
+    this.store.dispatch(new authActions.Login(this.form.value));
   }
 
   private validateFormControls(): void {

@@ -56,7 +56,7 @@ userSchema.method('addToFavorites', function(id) {
   const user = this;
 
   return new Promise((resolve, reject) => {
-    if (user.favorites.indexOf(id) > -1) {
+    if (user.favorites.indexOf(id) > -1 || user.favorites.length >= 20) {
       return reject();
     }
     else {
