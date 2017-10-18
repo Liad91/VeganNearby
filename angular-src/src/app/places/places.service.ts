@@ -1,9 +1,12 @@
+import { error } from 'util';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { of } from 'rxjs/observable/of';
 import * as yelp from 'yelp-fusion';
 import 'rxjs/add/operator/retry';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/observable/forkJoin';
 
@@ -50,12 +53,19 @@ export class PlacesService {
         params: new HttpParams().set('id', id)
       })
         .timeout(this.connectionService.reqTimeout)
-        .retry(2);
+        .retry(2)
+        .catch(() => of(this.catchFavoriteError(id)));
 
       requests.push(request);
-    })
-
+    });
     return Observable.forkJoin(requests);
+  }
+
+  private catchFavoriteError(id: string) {
+    const place = new YelpBusiness();
+
+    place.id = id;
+    return place;
   }
 
   public addToFavorites(id: string): Observable<any> {
@@ -70,6 +80,19 @@ export class PlacesService {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
     })
       .timeout(this.connectionService.reqTimeout);
+  }
+
+  public removeManyFromFavorites(ids: string[]): Observable<any> {
+    const requests: Observable<any>[] = [];
+
+    ids.forEach(id => {
+      const request = this.http.put(`${this.connectionService.serverUrl}/users/favorites/remove`, { id }, {
+        headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
+      }).timeout(this.connectionService.reqTimeout);
+
+      requests.push(request);
+    });
+    return Observable.forkJoin(requests);
   }
 
   public getPlaceById(id: string): Observable<YelpBusinessResponse> {

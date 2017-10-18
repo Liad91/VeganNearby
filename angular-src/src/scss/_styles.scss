@@ -72,6 +72,14 @@ header {
   background-color: rgba(0, 0, 0, 0.08);
 }
 
+// Error
+// ==========================================================================
+.error {
+  background-color: #ffc8c6;
+  border-radius: 3px;
+  border: 1px solid #f17d79;
+}
+
 // Google autocomplete
 // ==========================================================================
 .pac-container {
