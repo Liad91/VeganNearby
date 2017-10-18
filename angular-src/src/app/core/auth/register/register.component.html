@@ -1,7 +1,6 @@
 <div class="flex wrap">
-    <p @errorState class="center-align w-100 m-0" vnColor="danger" *ngIf="formErrorMessage">
-      {{ formErrorMessage }}
-    </p>    
+    <p @errorState class="center-align w-100 m-0" vnColor="danger" *ngIf="formErrorMessage">{{ formErrorMessage }}</p>
+    <p @errorState class="center-align mb-0" vnColor="danger" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p>    
     <form class="flex w-100 wrap" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <div class="flex w-100 image-upload">
         <div class="image-wrap">
@@ -38,7 +37,6 @@
             <i mz-icon icon="remove"></i>
           </button>
         </div>
-        <p @errorState class="center-align mb-0" vnColor="danger" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p> 
       </div>
       <mz-input-container class="auth w-100">
         <input

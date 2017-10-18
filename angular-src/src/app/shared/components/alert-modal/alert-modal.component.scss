@@ -1,0 +1,26 @@
+@import '../../../variables';
+
+.content-wrap {
+  padding: 20px;
+
+  h4 {
+    font-weight: 500;
+  }
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+.buttons-wrap button {
+  border-top: 1px solid #ddd;
+  color: $secondary-color;
+
+  &:first-child {
+    border-radius: 0 0 0 5px;
+    border-right: 1px solid #ddd;
+  }
+
+  &:last-child {
+    border-radius: 0 0 5px 0;
+  }
+}

@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,6 +45,7 @@ import { SharedModule } from './../shared/shared.module';
     Services.ResizeService,
     Services.ToastService,
     Services.GeographicalService,
+    Services.ModalService,
     PlacesService,
     AuthService,
     AuthSocialService,

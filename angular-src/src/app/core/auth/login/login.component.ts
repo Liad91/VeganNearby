@@ -7,11 +7,15 @@ import * as fromRoot from '../../../store/app.reducers';
 import * as authActions from '../store/auth.actions';
 import { AuthService } from '../auth.service';
 import { AuthSocialService } from '../auth-social/auth-social.service';
+import { errorStateTrigger } from '../animations';
 
 @Component({
   selector: 'vn-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [
+    errorStateTrigger
+  ]
 })
 
 export class LoginComponent implements OnInit, OnDestroy {

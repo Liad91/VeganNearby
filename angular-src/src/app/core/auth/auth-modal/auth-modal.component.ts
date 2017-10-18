@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize/dist';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -40,11 +40,6 @@ export class AuthModalComponent extends MzBaseModal implements OnInit, OnDestroy
   changeMode(mode: string): void {
     this.mode = mode;
     if (this.mode === 'register') {
-      this.modal.options.dismissible = false;
-      this.modalOptions.dismissible = false;
-      this.modal.executePropHandlers();
-      this.modal.handleOptions();
-      this.modal.handleProperties();
     }
   }
 

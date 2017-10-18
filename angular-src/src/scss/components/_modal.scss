@@ -20,12 +20,12 @@
   display: none;
 }
 
-mz-modal#auth {
+mz-modal#auth,
+mz-modal#alert {
   .modal {
     display: table !important;
     max-width: 350px;
     border-radius: 5px;
-    border-top: 5px solid $primary-color;
     @media #{$extra-large-and-up} {
      width: 35%; 
     }
@@ -38,6 +38,12 @@ mz-modal#auth {
     @media only screen and (max-width: $small-screen) {
       width: 85%;
     }
+  }
+}
+
+mz-modal#auth {
+  .modal {
+    border-top: 5px solid $primary-color;
   }
 }
 

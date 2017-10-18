@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MzModalService } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -10,7 +9,9 @@ import * as authActions from '../../core/auth/store/auth.actions';
 import * as favoritesActions from '../favorites/store/favorites.actions';
 import { PlacesService } from '../places.service';
 import { YelpBusiness } from './../../models/yelp.model';
+import { ModalService } from '../../core/services/modal.service';
 import { ToastService } from './../../core/services/toast.service';
+import { AlertModalOptions } from '../../shared/components/index';
 import { AuthModalComponent } from '../../core/auth/auth-modal/auth-modal.component';
 
 @Component({
@@ -27,7 +28,7 @@ export class PlaceComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.AppState>,
-    private modalService: MzModalService,
+    private modalService: ModalService,
     private placesService: PlacesService,
     private toastService: ToastService) {}
 
@@ -43,7 +44,7 @@ export class PlaceComponent implements OnInit, OnDestroy {
     })
   }
 
-  public toggleFavorite(event: MouseEvent): void {
+  public manageFavorite(event: MouseEvent): void {
     event.stopPropagation();
 
     if (this.user) {

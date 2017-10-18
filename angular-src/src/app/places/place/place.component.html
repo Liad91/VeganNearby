@@ -7,7 +7,7 @@
         [flat]="true"
         class="ml-auto transparent"
         [ngClass]="{favorite: loading || favorite}"
-        (click)="toggleFavorite($event)"
+        (click)="manageFavorite($event)"
       >
         <i mz-icon [icon]="favorite ? 'favorite' : 'favorite_border'" *ngIf="!loading"></i>
         <mz-spinner size="small" *ngIf="loading"></mz-spinner>
