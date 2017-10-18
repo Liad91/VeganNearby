@@ -29,7 +29,7 @@ export function searchReducer(state = initialState, action: searchActions.Action
         ...state,
         loading: true
       };
-    case searchActions.SEARCH_SUCCESS:
+    case searchActions.SEARCH_COMPLETED:
       return {
         ...state,
         loading: false

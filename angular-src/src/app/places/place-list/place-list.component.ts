@@ -51,6 +51,10 @@ export class PlaceListComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onReload(): void {
+    this.store.dispatch(new placeListActions.GetPlaces());
+  }
+
   public onOpenSidebar(): void {
     this.renderer.setStyle(document.body, 'overflow', 'hidden');
     this.sidebarOpen = true;

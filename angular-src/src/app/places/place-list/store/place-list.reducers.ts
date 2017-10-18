@@ -8,13 +8,15 @@ export interface State {
   total: number;
   currentPage: number;
   loading: boolean;
+  error: boolean;
 }
 
 const initialState: State = {
   places: null,
   total: null,
   currentPage: 1,
-  loading: false
+  loading: false,
+  error: false
 };
 
 export function placeListReducer(state = initialState, action: PlaceListActions.Action): State {
@@ -35,6 +37,11 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
         places: action.payload.businesses,
         total: action.payload.total,
         loading: false
+      };
+    case PlaceListActions.GET_PLACES_FAILURE:
+      return {
+        ...initialState,
+        error: true
       };
     default:
       return state;

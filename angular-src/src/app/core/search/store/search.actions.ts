@@ -6,7 +6,7 @@ import { Filter } from '../../../places/filters/store/filters.reducers';
 export const NAV_SEARCH = 'NAV_SEARCH';
 export const HOME_SEARCH = 'HOME_SEARCH';
 export const SET_CATEGORY = 'SET_CATEGORY';
-export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const SEARCH_COMPLETED = 'SEARCH_COMPLETED';
 
 export class NavSearch implements Action {
   readonly type = NAV_SEARCH;
@@ -26,12 +26,12 @@ export class SetCategory implements Action {
   constructor(public payload: Filter) {}
 }
 
-export class SearchSuccess implements Action {
-  readonly type = SEARCH_SUCCESS;
+export class SearchCompleted implements Action {
+  readonly type = SEARCH_COMPLETED;
 }
 
 export type Action =
   | NavSearch
   | HomeSearch
   | SetCategory
-  | SearchSuccess;
+  | SearchCompleted;

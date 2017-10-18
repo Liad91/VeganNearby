@@ -6,6 +6,7 @@ import { YelpSearchResponse } from '../../../models/yelp.model';
 export const GET_PLACES = 'GET_PLACES';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const GET_PLACES_SUCCESS = 'GET_PLACES_SUCCESS';
+export const GET_PLACES_FAILURE = 'GET_PLACES_FAILURE';
 
 export class GetPlaces implements Action {
   readonly type = GET_PLACES;
@@ -23,7 +24,12 @@ export class GetPlacesSuccess {
   constructor(public payload: YelpSearchResponse) {}
 }
 
+export class GetPlacesFailure {
+  readonly type = GET_PLACES_FAILURE;
+}
+
 export type Action =
   | GetPlaces
   | SetCurrentPage
-  | GetPlacesSuccess;
+  | GetPlacesSuccess
+  | GetPlacesFailure;

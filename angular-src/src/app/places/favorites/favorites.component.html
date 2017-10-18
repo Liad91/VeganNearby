@@ -7,9 +7,9 @@
   <h3>No favorites to display</h3>
 </div>
 <div class="center-align mt-2" *ngIf="(state | async).error && !(state | async).loading">
-  <h3>There's been an error</h3>
-  <p>Our operations team has been notified and will look into the problem.</p>
-  <button mz-button (click)="onReload()">Try reload this page</button>
+  <h3>Connection Error</h3>
+  <p>Our server may be down. Please try again later.</p>
+  <button mz-button (click)="onReload()">Try Again</button>
 </div>
 <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading">
   <mz-spinner size="big" color="blue"></mz-spinner>
