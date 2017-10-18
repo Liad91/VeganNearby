@@ -1,5 +1,6 @@
 <header class="flex align-items-center mb-1">
-  <h4 class="nowrap w-100 m-0 color-white"><strong>Manage</strong> Your Favorites</h4>
+  <h4 class="nowrap m-0 color-white"><strong>Manage</strong> Your Favorites</h4>
+  <p class="m-0 color-white">{{ (state | async).places.length }}/20</p>
 </header>
 
 <div class="center-align mt-2" *ngIf="(state | async).places.length === 0 && !(state | async).loading && !(state | async).error">
@@ -15,7 +16,7 @@
 </div>
 
 <div *ngIf="(state | async).places.length > 0">
-  <div class="flex wrap w-100 align-self-flex-start">
+  <div class="flex wrap w-100 align-self-flex-start mb-2">
     <vn-place [place]="place" class="mb-1 mr-1" *ngFor="let place of (state | async).places"></vn-place>
   </div>
 </div>

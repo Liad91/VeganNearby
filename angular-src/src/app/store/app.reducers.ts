@@ -31,6 +31,7 @@ export const selectFavorites = (state: AppState) => state.favorites;
 export const selectAuthUser = createSelector(selectAuth, (state: fromAuth.State) => state.user);
 export const selectAuthLoading = createSelector(selectAuth, (state: fromAuth.State) => state.loading);
 export const selectAuthUserLoggedIn  = createSelector(selectAuth, (state: fromAuth.State) => Boolean(state.user));
+export const selectAuthUserFavoritesLength  = createSelector(selectAuth, (state: fromAuth.State) => state.user.favorites.length);
 export const selectSearchCategory = createSelector(selectSearch, (state: fromSearch.State) => state.selectedCategory);
 export const selectFiltersLocation = createSelector(selectFilters, (state: fromFilters.State) => state.location);
 

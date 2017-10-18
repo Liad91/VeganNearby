@@ -1,6 +1,6 @@
 <header class="flex align-items-center mb-1">
-  <h4 class="nowrap w-80 m-0 color-white"><strong>{{ (category | async).title }}</strong> near {{ (location | async) }}</h4>
-  <p class="m-0 w-20 right-align color-white">{{ (state | async).total }} Results</p>
+  <h4 class="nowrap m-0 color-white"><strong>{{ (category | async).title }}</strong> near {{ (location | async) }}</h4>
+  <p class="m-0 color-white">{{ (state | async).total }} Results</p>
 </header>
 
 <div class="flex" [ngClass]="{sidebar: sidebarOpen && mobileView}">

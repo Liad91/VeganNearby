@@ -18,14 +18,25 @@ header {
   background-color: $primary-color;
 
   h4 {
-    line-height: 1.5;
+    width: 80%;
     font-weight: 300;
+    line-height: 1.5;
+  }
+
+  p {
+    width: 20%;
+    text-align: right;
   }
 
   @media #{$small-and-down} {
     flex-wrap: wrap;
 
     h4 {
+      width: 100%;
+      text-align: center;
+    }
+    p {
+      width: 100%;
       text-align: center;
     }
   }

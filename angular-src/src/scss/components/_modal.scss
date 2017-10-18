@@ -4,7 +4,8 @@
 
 .modal {
   bottom: 0;
-
+  border-radius: 5px;
+  
   .modal-content {
     padding: 0;
 
@@ -25,7 +26,6 @@ mz-modal#alert {
   .modal {
     display: table !important;
     max-width: 350px;
-    border-radius: 5px;
     @media #{$extra-large-and-up} {
      width: 35%; 
     }

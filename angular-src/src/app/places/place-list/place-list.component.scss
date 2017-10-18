@@ -4,38 +4,6 @@
   display: block;
 }
 
-header {
-  padding: 25px 15px;
-  background-color: $primary-color;
-
-  h4 {
-    font-weight: 300;
-    line-height: 1.5;
-  }
-
-  @media #{$small-and-down} {
-    flex-wrap: wrap;
-
-    h4 {
-      width: 100%;
-      text-align: center;
-    }
-    p {
-      width: 100%;
-      text-align: center;
-    }
-  }
-
-  @media #{$extra-small-only} {
-    margin: 0 -5px 1rem;
-    padding: 25px 5px;
-
-    h4 {
-      font-size: 1.2rem;
-    }
-  }
-}
-
 .filters {
   min-width: 300px;
   width: 300px;

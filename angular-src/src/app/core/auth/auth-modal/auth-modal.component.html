@@ -10,5 +10,8 @@
       <div id="login" class="col s12"><vn-login *ngIf="mode === 'login'"></vn-login></div>
       <div id="register" class="col s12"><vn-register *ngIf="mode === 'register'"></vn-register></div>
     </div>
+    <div class="spinner-wrap" *ngIf="(loading | async)">
+      <mz-spinner color="blue" size="big"></mz-spinner>
+    </div>
   </mz-modal-content>
 </mz-modal>
