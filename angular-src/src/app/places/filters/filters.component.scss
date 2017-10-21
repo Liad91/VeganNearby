@@ -1,5 +1,10 @@
 @import '../../variables';
 
+agm-map {
+  display: block;  
+  height: 300px;
+}
+
 .filter {
   padding-bottom: 1rem;
   border-bottom: 1px solid #ddd;
@@ -76,7 +81,6 @@
   }
 }
 
-agm-map {
-  display: block;  
-  height: 300px;
+button.red  {
+  margin-top: 10px;
 }

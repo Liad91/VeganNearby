@@ -42,8 +42,8 @@
       </div>
     </div>
     <button mz-button type="submit">
-      <i class="align-self-center" mz-icon icon="search" *ngIf="!state.loading"></i>
-      <mz-spinner id="search-spinner" size="small" *ngIf="state.loading"></mz-spinner>
+      <i class="align-self-center" mz-icon icon="search" *ngIf="activatedRoute === 'places' || (activatedRoute === 'home' && !state.loading)"></i>
+      <mz-spinner id="search-spinner" size="small" *ngIf="state.loading && activatedRoute === 'home'"></mz-spinner>
     </button>
   </form>
 </div>

@@ -1,10 +1,17 @@
 <header class="flex align-items-center mb-1">
   <h4 class="nowrap m-0 color-white"><strong>{{ (category | async).title }}</strong> near {{ (location | async) }}</h4>
   <p class="m-0 color-white" *ngIf="(state | async).total">{{ (state | async).total }} Results</p>
-  <p class="m-0 color-white" *ngIf="!(state | async).total">No Results</p>
+  <p class="m-0 color-white" *ngIf="!(state | async).total && !(state | async).loading">No Results</p>
 </header>
 
-<div class="flex" [ngClass]="{sidebar: sidebarOpen && mobileView}">
+ <div *ngIf="mobileView">
+  <mz-sidenav [id]="'filters-sidebar'" [collapseButtonId]="'btn-filters-sidebar'"> 
+    <vn-filters class="flex column" [sidebarMode]="true"></vn-filters>
+  </mz-sidenav>
+  <button [id]="'btn-filters-sidebar'" class="btn-floating btn-large"><i class="material-icons">filter_list</i></button>
+</div>
+
+<div class="flex">
   <div class="main flex wrap max-w-100">
     <div class="places-wrap flex wrap w-100 mb-auto">
       <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
@@ -15,8 +22,8 @@
           (click)="getPlace(place.id)"
           (mouseenter)="place.hover = true"
           (mouseleave)="place.hover = false"
-          @placeState *ngIf="!(state | async).loading"
-          
+          @placeState
+          *ngIf="!(state | async).loading"
         >
         </vn-place>
       </ng-container>
@@ -52,17 +59,8 @@
   <div
     #sidebar
     class="filters align-self-flex-start mb-1"
-    [@sidebarState]="sidebarOpen ? 'open' : 'closed'"
-    *ngIf="!mobileView || sidebarOpen"
+    *ngIf="!mobileView"
   >
     <vn-filters class="flex column"></vn-filters>
   </div>
 </div>
-<button
-  class="btn btn-large btn-floating waves-effect waves-light filters-triger hide-on-med-and-up z-depth-5"
-  (click)="onOpenSidebar()"
-  *ngIf="mobileView"
->
-  <i mz-icon icon="filter_list"></i>
-</button>
-<div id="sidenav-overlay" *ngIf="mobileView && sidebarOpen" (click)="onCloseSidebar()"></div>

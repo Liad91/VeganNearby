@@ -29,7 +29,7 @@ export class FavoritesComponent implements OnInit {
   ngOnInit(): void {
     this.stateSubscription = this.store.select(fromRoot.selectFavorites).subscribe(state => {
       this.state = state;
-      if (!state.loading) {
+      if (!state.loading && this.state.places.length > 0) {
         this.detectConnectionError();
       }
     });

@@ -1,7 +1,8 @@
 import {
   Component,
-  OnInit,
+  Input,
   OnDestroy,
+  OnInit,
   ViewChild
 } from '@angular/core';
 import {
@@ -11,7 +12,7 @@ import {
   GoogleMapsAPIWrapper,
   AgmMap
 } from '@agm/core';
-import { Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { MzModalService } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -31,6 +32,8 @@ import { CuisinesModalComponent } from './cuisines-modal/cuisines-modal.componen
 })
 export class FiltersComponent implements OnInit, OnDestroy {
   @ViewChild(AgmMap) map: any;
+  @Input() sidebarMode = false;
+  public actions: Action[] = [];
   public state: State;
   public places: Observable<YelpBusiness[]>;
   public filtersApplied: Observable<boolean>;
@@ -56,8 +59,17 @@ export class FiltersComponent implements OnInit, OnDestroy {
       .subscribe(() => this.onDragEnd());
   }
 
-  public onResetFilters(): void {
+  public onReset(): void {
     this.store.dispatch(new filtersActions.ResetFilters());
+    this.dispatchActions();
+  }
+
+  public onApply(): void {
+    if (this.actions.length) {
+      this.actions.forEach(action => this.store.dispatch(action));
+      this.dispatchActions();
+      this.actions = [];
+    }
   }
 
   public onMapCenterChange(event: LatLngLiteral): void {
@@ -101,13 +113,23 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   public updatePrices(price: Filter): void {
-    this.store.dispatch(new filtersActions.UpdatePrices(price));
-    this.dispatchActions();
+    if (this.sidebarMode) {
+      this.actions.push(new filtersActions.UpdatePrices(price))
+    }
+    else {
+      this.store.dispatch(new filtersActions.UpdatePrices(price));
+      this.dispatchActions();
+    }
   }
 
   public updateCuisines(cuisine: Filter): void {
-    this.store.dispatch(new filtersActions.UpdateCuisines(cuisine));
-    this.dispatchActions();
+    if (this.sidebarMode) {
+      this.actions.push(new filtersActions.UpdateCuisines(cuisine))
+    }
+    else {
+      this.store.dispatch(new filtersActions.UpdateCuisines(cuisine));
+      this.dispatchActions();
+    }
   }
 
   private dispatchActions(): void {
