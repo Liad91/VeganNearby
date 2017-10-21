@@ -50,13 +50,25 @@ export class AuthSocialService {
       return this.handleResponse(null);
     }
 
+    /** When favorites contain 1 item it returns a string */
+    const favorites = [];
+
+    if (data.favorites) {
+      if (typeof data.favorites === 'string') {
+        favorites.push(data.favorites);
+      }
+      else {
+        favorites.push(...data.favorites);
+      }
+    }
+
     const response: AuthResponse = {
       user: {
         _id: data._id,
         username: data.username,
         email: data.email,
         avatarUrl: data.avatarUrl,
-        favorites: data.favorites || []
+        favorites
       },
       token: data.token
     };

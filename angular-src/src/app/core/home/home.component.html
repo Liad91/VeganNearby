@@ -6,7 +6,7 @@
 
 <section class="content flex column justify-content-center w-100">
   <h1 class="hide-on-med-and-down center-align mt-0">Searching for {{ category.alias }}?</h1>
-  <h3 class="hide-on-med-and-down center-align mt-0"><span id="typing"></span></h3>
+  <h3 class="hide-on-med-and-down center-align mt-0"><vn-typed [strings]="strings"></vn-typed></h3>
   <h2 class="hide-on-med-and-up show-on-medium-and-down center-align mt-0">Find your favorite {{ category.alias }}</h2>
   <vn-search activatedRoute="home"></vn-search>
 </section>

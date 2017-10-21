@@ -4,7 +4,7 @@
   <p class="m-0 color-white" *ngIf="!(state | async).total && !(state | async).loading">No Results</p>
 </header>
 
- <div *ngIf="mobileView">
+<div *ngIf="mobileView">
   <mz-sidenav [id]="'filters-sidebar'" [collapseButtonId]="'btn-filters-sidebar'"> 
     <vn-filters class="flex column" [sidebarMode]="true"></vn-filters>
   </mz-sidenav>
@@ -15,7 +15,7 @@
   <div class="main flex wrap max-w-100">
     <div class="places-wrap flex wrap w-100 mb-auto">
       <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
-          <vn-place
+        <vn-place
           class="mb-1 mr-1"
           [ngClass]="{'marker-hover': place.markerHover}"
           [place]="place"
@@ -56,11 +56,7 @@
     >
     </vn-pagination>
   </div>
-  <div
-    #sidebar
-    class="filters align-self-flex-start mb-1"
-    *ngIf="!mobileView"
-  >
+  <div class="filters align-self-flex-start mb-3" *ngIf="!mobileView">
     <vn-filters class="flex column"></vn-filters>
   </div>
 </div>

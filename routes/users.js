@@ -125,6 +125,7 @@ router.put('/favorites/add', passport.authenticate('jwt', { session: false }), (
     .catch(() => res.status(403).end());
 });
 
+// Remove from favorites
 router.put('/favorites/remove', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
   const token = buildToken(user._id);

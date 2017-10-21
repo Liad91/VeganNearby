@@ -130,13 +130,19 @@ export class SearchComponent implements OnInit, OnDestroy {
       return;
     }
     if (!this.coordinates) {
+      if (this.activatedRoute === 'places') {
+        this.store.dispatch(new placeListActions.SetLoading(true));
+      }
       this.state.loading = true;
       this.geoService.geocoder(this.location)
         .then(coordinates => {
           this.coordinates = coordinates;
           this.dispatchActions();
         })
-        .catch(() => this.toastService.show('Something went wrong, please try again'));
+        .catch(() => {
+          this.store.dispatch(new placeListActions.SetLoading(false));
+          this.toastService.show('Something went wrong, please try again');
+        });
     }
     else {
       this.dispatchActions();

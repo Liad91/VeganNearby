@@ -26,6 +26,11 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
         ...state,
         loading: true
       };
+    case PlaceListActions.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload
+      };
     case PlaceListActions.SET_CURRENT_PAGE:
       return {
         ...state,

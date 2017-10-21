@@ -9,6 +9,7 @@ import * as Pipes from './pipes';
 @NgModule({
   declarations: [
     Components.AlertModalComponent,
+    Components.TypedComponent,
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,
@@ -26,6 +27,7 @@ import * as Pipes from './pipes';
   exports: [
     CommonModule,
     MaterializeModule,
+    Components.TypedComponent,
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,

@@ -37,7 +37,7 @@ function findOrCreate(req, res, next) {
         favorites: user.favorites,
         token: buildToken(user._id)
       };
-
+      
       res.redirect(url.format({
         pathname: 'http://localhost:4200/callback',
         query: query
