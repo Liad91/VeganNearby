@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize/dist';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,7 +14,6 @@ import { AuthService } from '../auth.service';
 })
 export class AuthModalComponent extends MzBaseModal implements OnInit, OnDestroy {
   @ViewChild('modal')	public modal: MzModalComponent;
-  @ViewChild('tabs')	public tabs: ElementRef;
   public mode = 'login';
   public loading: Observable<boolean>;
   private closeSubscription: Subscription;
@@ -30,22 +29,8 @@ export class AuthModalComponent extends MzBaseModal implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
-    /** Allows the tabs indicator to initialize properly */
-    setTimeout(() => this.initializeTabs(), 250);
-
     this.loading = this.store.select(fromRoot.selectAuthLoading);
     this.closeSubscription = this.authService.closeModal.subscribe(() => this.modal.close());
-  }
-
-  initializeTabs() {
-    $(this.tabs.nativeElement).tabs();
-    $(this.tabs.nativeElement).tabs('select_tab', 'login');
-  }
-
-  changeMode(mode: string): void {
-    this.mode = mode;
-    if (this.mode === 'register') {
-    }
   }
 
   ngOnDestroy(): void {

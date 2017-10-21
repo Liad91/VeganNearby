@@ -10,6 +10,8 @@ import * as Pipes from './pipes';
   declarations: [
     Components.AlertModalComponent,
     Components.TypedComponent,
+    Components.TabsComponent,
+    Components.TabItemComponent,
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,
@@ -28,6 +30,8 @@ import * as Pipes from './pipes';
     CommonModule,
     MaterializeModule,
     Components.TypedComponent,
+    Components.TabsComponent,
+    Components.TabItemComponent,
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,

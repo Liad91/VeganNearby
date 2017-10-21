@@ -13,7 +13,6 @@ import * as Typed from 'typed.js';
   selector: 'vn-typed',
   template: '<ng-content></ng-content>'
 })
-
 export class TypedComponent implements AfterViewInit, OnChanges {
   @Input() strings: string[];
   private typed: Typed;

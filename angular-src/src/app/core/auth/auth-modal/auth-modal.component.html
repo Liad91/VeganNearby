@@ -2,16 +2,20 @@
   <mz-modal-header>
     </mz-modal-header>
   <mz-modal-content>
-    <ul class="tabs tabs-fixed-width" #tabs>
-      <li class="tab"><a href="#login" (click)="changeMode('login')">Login</a></li>
-      <li class="tab"><a href="#register" (click)="changeMode('register')">Register</a></li>
-    </ul>
-    <div class="p-2">
-      <div id="login" class="col s12"><vn-login *ngIf="mode === 'login'"></vn-login></div>
-      <div id="register" class="col s12"><vn-register *ngIf="mode === 'register'"></vn-register></div>
-    </div>
     <div class="spinner-wrap" *ngIf="(loading | async)">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
+    <vn-tabs>
+      <vn-tab-item id="login" label="Login">
+        <ng-template>
+          <vn-login></vn-login>
+        </ng-template> 
+      </vn-tab-item>
+      <vn-tab-item id="register" label="Register">
+        <ng-template>
+          <vn-register></vn-register>
+        </ng-template> 
+      </vn-tab-item>
+    </vn-tabs>
   </mz-modal-content>
 </mz-modal>

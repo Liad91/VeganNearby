@@ -1,0 +1,8 @@
+<ul class="tabs tabs-fixed-width" #tabs>
+  <li class="tab" *ngFor="let item of tabItems; let i = index">
+    <a [href]="'#' + item.id" (click)="setActive(i)">{{ item.label }}</a>
+  </li>
+</ul>
+<div class="p-2">
+  <ng-content select="vn-tab-item"></ng-content>
+</div>
