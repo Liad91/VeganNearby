@@ -87,5 +87,5 @@
     <label [for]="state.cuisines[index].alias">{{ state.cuisines[index].title }}</label>
   </p>
 </div>
-<button mz-button class="hide-on-med-and-up mt-2" (click)="onApply()">Apply</button>
-<button mz-button class="hide-on-med-and-up red" [disabled]="!(filtersApplied | async)" (click)="onReset()">Reset</button>
+<a mz-button class="hide-on-med-and-up mt-2" (click)="onApply()">Apply</a>
+<a mz-button class="hide-on-med-and-up red" [disabled]="!(filtersApplied | async)" (click)="onReset()">Reset</a>

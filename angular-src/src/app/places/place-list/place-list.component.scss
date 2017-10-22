@@ -4,16 +4,16 @@
   display: block;
 }
 
-mz-sidenav::ng-deep {
+#filters-sidenav {
   vn-filters {
     padding: 10px;
   }
-}
-
-button#btn-filters-sidebar {
-  position: fixed;
-  top: 50%;
-  left: 15px;
+  
+  & + button {
+    position: fixed;
+    top: 50%;
+    left: 15px;
+  }
 }
 
 .filters {

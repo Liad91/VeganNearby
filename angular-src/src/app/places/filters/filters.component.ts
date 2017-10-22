@@ -1,9 +1,10 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
   LatLngLiteral,
@@ -32,7 +33,7 @@ import { CuisinesModalComponent } from './cuisines-modal/cuisines-modal.componen
 })
 export class FiltersComponent implements OnInit, OnDestroy {
   @ViewChild(AgmMap) map: any;
-  @Input() sidebarMode = false;
+  @Input() sidenavMode = false;
   public actions: Action[] = [];
   public state: State;
   public places: Observable<YelpBusiness[]>;
@@ -113,7 +114,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   public updatePrices(price: Filter): void {
-    if (this.sidebarMode) {
+    if (this.sidenavMode) {
       this.actions.push(new filtersActions.UpdatePrices(price))
     }
     else {
@@ -123,7 +124,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   public updateCuisines(cuisine: Filter): void {
-    if (this.sidebarMode) {
+    if (this.sidenavMode) {
       this.actions.push(new filtersActions.UpdateCuisines(cuisine))
     }
     else {
@@ -145,5 +146,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.stateSubscription.unsubscribe();
     this.dragEndSubscription.unsubscribe();
+
+    // Fix DOM nodes leak
+    // https://github.com/SebastianM/angular-google-maps/issues/1207
+    $(this.map._elem.nativeElement).remove();
   }
 }

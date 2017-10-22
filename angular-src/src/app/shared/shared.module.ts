@@ -16,6 +16,7 @@ import * as Pipes from './pipes';
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
+    Directives.SidenavButtonDirective,
     Directives.ImagePreviewDirective,
     Pipes.SearchFilterPipe
   ],
@@ -36,6 +37,7 @@ import * as Pipes from './pipes';
     Directives.BackgroundColorDirective,
     Directives.ActiveDirective,
     Directives.DropdownTriggerDirective,
+    Directives.SidenavButtonDirective,
     Directives.ImagePreviewDirective,
     Pipes.SearchFilterPipe
   ]

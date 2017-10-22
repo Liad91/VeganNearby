@@ -4,7 +4,8 @@ import {
   ElementRef,
   Input,
   NgZone,
-  OnChanges
+  OnChanges,
+  OnDestroy
 } from '@angular/core';
 
 import * as Typed from 'typed.js';
@@ -13,7 +14,7 @@ import * as Typed from 'typed.js';
   selector: 'vn-typed',
   template: '<ng-content></ng-content>'
 })
-export class TypedComponent implements AfterViewInit, OnChanges {
+export class TypedComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() strings: string[];
   private typed: Typed;
   private initialized = false;
@@ -21,9 +22,7 @@ export class TypedComponent implements AfterViewInit, OnChanges {
   constructor(private elementRef: ElementRef, private zone: NgZone) {}
 
   ngAfterViewInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.initilaize();
-    });
+    this.zone.runOutsideAngular(() => this.initilaize());
     this.initialized = true;
   }
 
@@ -45,5 +44,9 @@ export class TypedComponent implements AfterViewInit, OnChanges {
   private resetStrings(): void {
     this.typed.strings = this.strings;
     this.typed.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.typed.destroy();
   }
 }

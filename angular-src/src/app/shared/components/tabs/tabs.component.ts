@@ -23,9 +23,7 @@ export class TabsComponent implements AfterViewInit {
   constructor(private zone: NgZone) {}
 
   ngAfterViewInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.initilaize();
-    });
+    this.zone.runOutsideAngular(() => this.initilaize());
   }
 
   private initilaize(): void {

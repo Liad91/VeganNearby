@@ -5,10 +5,19 @@
 </header>
 
 <div *ngIf="mobileView">
-  <mz-sidenav [id]="'filters-sidebar'" [collapseButtonId]="'btn-filters-sidebar'"> 
-    <vn-filters class="flex column" [sidebarMode]="true"></vn-filters>
-  </mz-sidenav>
-  <button [id]="'btn-filters-sidebar'" class="btn-floating btn-large"><i class="material-icons">filter_list</i></button>
+  <ul id="filters-sidenav" class="side-nav">
+    <vn-filters class="flex column" [sidenavMode]="true"></vn-filters>
+  </ul>
+  <button 
+    vnSidenavButton
+    sidenav="filters-sidenav"
+    edge="left"
+    [closeOnClick]="true"
+    class="btn-floating btn-large"
+  >
+    <i class="material-icons">filter_list</i>
+  </button>
+
 </div>
 
 <div class="flex">
