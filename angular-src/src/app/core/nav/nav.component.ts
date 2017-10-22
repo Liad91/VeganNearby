@@ -63,6 +63,10 @@ export class NavComponent implements OnInit, OnDestroy {
     this.store.dispatch(new authActions.Logout())
   }
 
+  public setBackground(index: number): void {
+    this.store.dispatch(new authActions.SetUserBackground(index));
+  }
+
   ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe();
   }

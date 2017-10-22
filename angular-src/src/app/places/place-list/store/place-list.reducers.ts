@@ -41,7 +41,8 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
         ...state,
         places: action.payload.businesses,
         total: action.payload.total,
-        loading: false
+        loading: false,
+        error: false
       };
     case PlaceListActions.GET_PLACES_FAILURE:
       return {

@@ -4,6 +4,7 @@ export class User {
     public email: string,
     public username: string,
     public favorites: string[],
+    public background: number,
     public password?: string,
     public avatarUrl?: string
   ) {}

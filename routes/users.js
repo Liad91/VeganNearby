@@ -113,6 +113,18 @@ router.post('/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// Update user background
+router.put('/background', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  const user = req.user;
+  const token = buildToken(user._id);
+
+  user.setBackground(req.body.index)
+    .then(() => res.status(200).json({
+      index: user.background
+    }))
+    .catch(() => res.status(403).end());
+});
+
 // Add to favorites
 router.put('/favorites/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;

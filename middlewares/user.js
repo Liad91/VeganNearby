@@ -34,6 +34,7 @@ function findOrCreate(req, res, next) {
         username: user.username,
         email: user.email,
         avatarUrl: user.avatarUrl,
+        background: user.background,
         favorites: user.favorites,
         token: buildToken(user._id)
       };

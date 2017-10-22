@@ -30,31 +30,53 @@
         (click)="openModal()"
         *ngIf="!(user | async) && !searchBarOpen"
       >
-        <i mz-icon icon="person" align="left"></i>
+        <i class="material-icons left">power_settings_new</i>
         {{ mobileView && !transparent ? '' : 'Login' }}
       </button>
-      <button
-        mz-button
-        id="btn-more"
-        [flat]="true"
-        class="flex justify-content-flex-end align-items-center h-100"
-        vnDropdownTriggerFor="more"
-        [hover]="true"
-        [belowOrigin]="true"
-        [constrainWidth]="false"
+      <button 
+        class="btn align-self-flex-start btn-floating btn-flat btn-large white-text waves-effect waves-light"
+        vnSidenavButton
+        sidenav="menu-sidenav"
+        [width]="350"
         *ngIf="(user | async) && !searchBarOpen"
       >
-        <div class="user-info right-align hide-on-extra-small-only">
-          <div class="username">{{ (user | async).username }}</div>
-          <div class="email thin">{{ (user | async).email }}</div>        
-        </div>
-        <img class="flex circle" [src]="(user | async).avatarUrl || 'assets/images/user.ico'" alt="avatar">
-      </button>  
+        <i class="material-icons">menu</i>
+      </button>
     </div>
-    <ul id="more" class='dropdown-content'>
-      <li><a><i mz-icon icon="account_circle"></i>My Account</a></li>
-      <li><a [routerLink]="['/','places','favorites']"><i mz-icon icon="favorite"></i>Favorites</a></li>
-      <li><a (click)="logout()"><i mz-icon icon="power_settings_new"></i>Sign Out</a></li>
+
+    <ul id="menu-sidenav" class="side-nav" *ngIf="(user | async) && !searchBarOpen">
+      <li><div class="user-view">
+        <div class="background">
+          <img [src]="'assets/images/menu-background-' + (user | async).background + '.jpg'">
+        </div>
+        <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.ico'">
+        <span class="white-text name">{{ (user | async).username }}</span>
+        <span class="email">{{ (user | async).email }}</span>
+      </div></li>
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/">
+          <i class="material-icons">home</i>Home
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/places/favorites">
+          <i class="material-icons">favorite</i>Favorites
+          <span class="badge right">{{ (user | async).favorites.length }}/20</span>
+        </a>  
+      </li>
+      <li>
+        <a (click)="logout()">
+          <i class="material-icons">power_settings_new</i>
+          Logout
+        </a>
+      </li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Menu Background</a></li>
+      <div class="flex wrap px-1">
+        <div class="background-item" [ngClass]="{selected:  (user | async).background === index}" (click)="setBackground(index)" *ngFor="let index of [1,2,3,4,5,6]">
+          <img [src]="'assets/images/menu-background-' + index + '.jpg'">
+        </div>
+      </div>
     </ul>
   </div>
 </nav>

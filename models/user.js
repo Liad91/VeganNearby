@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
   avatarUrl: {
     type: String
   },
+  background: {
+    type: Number
+  },
   favorites: [{
     type: String
   }]
@@ -28,6 +31,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', function(next) {
   const user = this;
   if (user.isNew) {
+    user.background = 1;
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(user.password, salt)
         .then(hash => {
@@ -65,6 +69,20 @@ userSchema.method('addToFavorites', function(id) {
     }
     else {
       user.favorites.push(id);
+      return resolve(user.save());
+    }
+  });
+});
+
+userSchema.method('setBackground', function(index) {
+  const user = this;
+
+  return new Promise((resolve, reject) => {
+    if (index < 1 || index > 6) {
+      return reject();
+    }
+    else {
+      user.background = index;
       return resolve(user.save());
     }
   });

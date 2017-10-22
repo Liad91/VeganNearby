@@ -14,9 +14,9 @@ import {
 export class SidenavButtonDirective implements AfterViewInit, OnDestroy {
   @Input() sidenav: string;
   @Input() width = 300;
-  @Input() edge = 'right';
+  @Input() edge = 'left';
   @Input() draggable = true;
-  @Input() closeOnClick = false;
+  @Input() closeOnClick = true;
   private $button: JQuery;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2, private zone: NgZone) {}

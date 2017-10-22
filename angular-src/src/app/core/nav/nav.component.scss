@@ -16,10 +16,6 @@ nav {
     z-index: 1;
   }
 
-  button {
-    border-radius: 0;
-  }
-
   .back-btn,
   .search-btn {
     padding: 0 10px;
@@ -64,98 +60,72 @@ nav {
   }
 }
 
-#btn-more {
-  color: #fff;
-  padding: 0 5px;
-  width: 170px;
-  border-radius: 0;
-  &.active,
-  &:hover {
-    background: rgba(0, 0, 0, 0.3);
-  }
+.side-nav {
+  .user-view {
+    padding: 50px 22px 0;
 
-  img {
-    width: 35px;
-    height: 35px;
-    max-width: 35px;
-    margin-left: 10px;
-  }
-  .user-info {
-    max-width: 110px;
+    .background img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .name {
+      margin-top: 10px;
+    }
     
-    div {
-      line-height: 1;
-      text-transform: none;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      &.username {
-        font-size: 13px;          
-        margin-bottom: 5px;
-      }
-      &.email {
-        font-size: 11px;
-      }
+    .email {
+      color: #d0d0d0;
     }
   }
 
-  @media #{$extra-small-only} {
-    width: 35px;
-    height: auto;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
+  li > a {
+    padding: 0 1rem;
+
+    & > i.material-icons {
+      margin: 0 20px 0 0;
+    } 
+  }
+
+  .background-item {
+    position: relative;
+    width: calc(33% - 3px);
+    height: 70px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 250ms ease;
+    
+    &:nth-of-type(3n + 3) {
+      margin-right: 0;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    &.selected {
+      transform: translateY(-3px);
+
+      img {
+        opacity: 0.3;
+      }
+
+      &::after {
+        position: absolute;
+        content: 'check_circle';
+        font-family: 'Material Icons';
+        font-size: 35px;
+        top: 5px;
+        left: 38px;
+        color: $secondary-color;
+      }
+    }
 
     img {
-      margin-left: 0;
-    }
-  }
-}
-
-ul#nav-mobile {
-  width: 100%;
-}
-
-nav.transparent {
-  ul#more {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-}
-
-nav.transparent {
-  ul#more {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-}
-
-ul#more {
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 170px;
-
-  @media #{$extra-small-only} {
-    background-color: #212121; 
-    top: 0 !important;
-    left: auto !important;
-    margin-top: 0;
-    width: auto;
-  }
-
-  li {
-    min-height: 0;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);;
-    }
-
-    a {
-    color: #fff;
-    font-size: .9rem;
-    padding: 11px 15px;
-    
-      i {
-        margin-right: 10px;
-        font-size: 22px;
-        width: 22px;
-      }
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize/dist';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -24,13 +24,15 @@ export class AuthModalComponent extends MzBaseModal implements OnInit, OnDestroy
     opacity: 0.5
   };
 
-  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService) {
+  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService, private zone: NgZone) {
     super();
   }
 
   ngOnInit(): void {
     this.loading = this.store.select(fromRoot.selectAuthLoading);
-    this.closeSubscription = this.authService.closeModal.subscribe(() => this.modal.close());
+    this.closeSubscription = this.authService.closeModal.subscribe(() => {
+      this.zone.run(() => this.modal.close());
+    });
   }
 
   ngOnDestroy(): void {

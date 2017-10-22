@@ -6,13 +6,15 @@ export interface State {
   token: string;
   user: User;
   loading: boolean;
+  backgroundLoading: boolean;
 }
 
 const initialState: State = {
   authenticate: false,
   token: null,
   user: null,
-  loading: false
+  loading: false,
+  backgroundLoading: false
 };
 
 export function authReducer(state = initialState, action: authActions.Action): State {
@@ -25,6 +27,11 @@ export function authReducer(state = initialState, action: authActions.Action): S
        ...state,
        loading: true
      };
+    case authActions.SET_USER_BACKGROUND:
+      return {
+        ...state,
+        backgroundLoading: true
+      };
     case authActions.LOGIN_SUCCESS:
     case authActions.SOCIAL_LOGIN_SUCCESS:
       return {
@@ -49,6 +56,17 @@ export function authReducer(state = initialState, action: authActions.Action): S
       state.user.favorites.splice(state.user.favorites.indexOf(action.payload), 1);
       return {
         ...state
+      };
+    case authActions.SET_USER_BACKGROUND_SUCCESS:
+      state.user.background = action.payload;
+      return {
+        ...state,
+        backgroundLoading: false
+      };
+    case authActions.SET_USER_BACKGROUND_FAILURE:
+      return {
+        ...state,
+        backgroundLoading: false
       };
     default:
       return state;

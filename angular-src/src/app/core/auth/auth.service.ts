@@ -30,6 +30,12 @@ export class AuthService {
       .timeout(this.connectionService.reqTimeout);
   }
 
+  public setUserBackground(index: number): Observable<{ index: number }> {
+    return this.http.put<{ index: number }>(`${this.connectionService.serverUrl}/users/background`, { index }, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
+    }).timeout(this.connectionService.reqTimeout);
+  }
+
   public authenticate(token: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.connectionService.serverUrl}/auth/jwt`, {}, {
       headers: new HttpHeaders().set('Authorization', token)

@@ -46,6 +46,15 @@ export class AuthEffects {
       .catch(error => of(new authActions.Logout()))
     );
 
+  @Effect()
+  setUserBackground = this.actions
+    .ofType(authActions.SET_USER_BACKGROUND)
+    .map((action: authActions.SetUserBackground) => action.payload)
+    .exhaustMap(index => this.authService.setUserBackground(index)
+      .map(response => new authActions.SetUserBackgroundSuccess(response.index))
+      .catch(error => of(new authActions.SetUserBackgroundFailure()))
+    );
+
   @Effect({ dispatch: false })
   loginSuccess = this.actions
     .ofType(authActions.LOGIN_SUCCESS)

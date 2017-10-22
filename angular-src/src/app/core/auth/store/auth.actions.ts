@@ -11,9 +11,12 @@ export const SOCIAL_LOGIN = 'SOCIAL_LOGIN';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const SET_USER_BACKGROUND = 'SET_USER_BACKGROUND';
 export const SOCIAL_LOGIN_SUCCESS = 'SOCIAL_LOGIN_SUCCESS';
 export const ADD_TO_USER_FAVORITES = 'ADD_TO_USER_FAVORITES';
 export const REMOVE_FROM_USER_FAVORITES = 'REMOVE_FROM_USER_FAVORITES';
+export const SET_USER_BACKGROUND_SUCCESS = 'SET_USER_BACKGROUND_SUCCESS';
+export const SET_USER_BACKGROUND_FAILURE = 'SET_USER_BACKGROUND_FAILURE';
 
 export class Login implements Action {
   readonly type = LOGIN;
@@ -57,6 +60,12 @@ export class LoginFailure implements Action {
   readonly type = LOGIN_FAILURE;
 }
 
+export class SetUserBackground implements Action {
+  readonly type = SET_USER_BACKGROUND;
+
+  constructor(public payload: number) {}
+}
+
 export class SocialLoginSuccess implements Action {
   readonly type = SOCIAL_LOGIN_SUCCESS;
 
@@ -75,6 +84,16 @@ export class RemoveFromUserFavorites implements Action {
   constructor(public payload: string) {}
 }
 
+export class SetUserBackgroundSuccess implements Action {
+  readonly type = SET_USER_BACKGROUND_SUCCESS;
+
+  constructor(public payload: number) {}
+}
+
+export class SetUserBackgroundFailure implements Action {
+  readonly type = SET_USER_BACKGROUND_FAILURE;
+}
+
 export type Action =
   | Login
   | Logout
@@ -84,6 +103,9 @@ export type Action =
   | Authenticate
   | LoginSuccess
   | LoginFailure
+  | SetUserBackground
   | SocialLoginSuccess
   | AddToUserFavorites
-  | RemoveFromUserFavorites;
+  | RemoveFromUserFavorites
+  | SetUserBackgroundSuccess
+  | SetUserBackgroundFailure;
