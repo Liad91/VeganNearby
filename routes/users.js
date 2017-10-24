@@ -120,7 +120,7 @@ router.put('/background', passport.authenticate('jwt', { session: false }), (req
 
   user.setBackground(req.body.index)
     .then(() => res.status(200).json({
-      index: user.background
+      token
     }))
     .catch(() => res.status(403).end());
 });

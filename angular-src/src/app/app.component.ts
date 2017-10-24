@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { routeStateTrigger } from './animations';
 import * as fromRoot from './store/app.reducers';
 import * as authActions from './core/auth/store/auth.actions';
 
 @Component({
   selector: 'vn-root',
-  templateUrl: './app.component.html',
-  animations: [ routeStateTrigger ]
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   public routerName: string;

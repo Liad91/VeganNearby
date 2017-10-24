@@ -17,7 +17,6 @@
   >
     <i class="material-icons">filter_list</i>
   </button>
-
 </div>
 
 <div class="flex">
@@ -52,9 +51,6 @@
         </div>
       </div>
     </div>
-    <div class="spinner-wrap" [hidden]="!(state | async).loading">
-      <mz-spinner color="blue" size="big"></mz-spinner>
-    </div>
     <vn-pagination
       class="w-100 center-align mt-auto"
       [itemsPerPage]="18"
@@ -64,6 +60,9 @@
       *ngIf="!(state | async).loading || ((state | async).loading && (state | async).currentPage !== 1)"
     >
     </vn-pagination>
+    <div class="spinner-wrap" [hidden]="!(state | async).loading">
+      <mz-spinner color="blue" size="big"></mz-spinner>
+    </div>
   </div>
   <div class="filters align-self-flex-start mb-3" *ngIf="!mobileView">
     <vn-filters class="flex column"></vn-filters>

@@ -51,7 +51,7 @@ export class AuthEffects {
     .ofType(authActions.SET_USER_BACKGROUND)
     .map((action: authActions.SetUserBackground) => action.payload)
     .exhaustMap(index => this.authService.setUserBackground(index)
-      .map(response => new authActions.SetUserBackgroundSuccess(response.index))
+      .map(response => new authActions.SetUserBackgroundSuccess(response))
       .catch(error => of(new authActions.SetUserBackgroundFailure()))
     );
 

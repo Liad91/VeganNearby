@@ -1,0 +1,21 @@
+<ng-container *ngIf="!(state | async).loading && !(state | async).error">
+    <agm-map
+    [latitude]="(state | async).place.coordinates.latitude"
+    [longitude]="(state | async).place.coordinates.longitude"
+    [zoom]="16"
+  >
+    <agm-marker
+      [latitude]="(state | async).place.coordinates.latitude"
+      [longitude]="(state | async).place.coordinates.longitude"
+      [iconUrl]="'assets/icons/marker.png'"
+    >
+    </agm-marker>
+  </agm-map>
+  <h2>{{ (state | async).place.name }}</h2>
+</ng-container>
+
+<div class="spinner-container" *ngIf="(state | async).loading">
+  <div class="spinner-wrap">
+    <mz-spinner color="blue" size="big"></mz-spinner>
+  </div>
+</div>

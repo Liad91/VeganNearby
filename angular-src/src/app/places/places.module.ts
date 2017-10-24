@@ -10,6 +10,7 @@ import { PlaceComponent } from './place/place.component';
 import { StarsComponent } from './place/stars/stars.component';
 import { PlacesComponent } from './places.component';
 import { PlaceListComponent } from './place-list/place-list.component';
+import { PlaceDetailComponent } from './place-detail/place-detail.component';
 import { PriceComponent } from './place/price/price.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FiltersComponent } from './filters/filters.component';
@@ -25,8 +26,9 @@ import { PlacesRoutesModule } from './places.routes.module';
 import { SharedModule } from './../shared/shared.module';
 
 // Store
-import { placeListReducer } from './place-list/store/place-list.reducers';
 import { effects } from './store/places.effects';
+import { placeListReducer } from './place-list/store/place-list.reducers';
+import { placeDetailReducer } from './place-detail/store/place-detail.reducers';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { effects } from './store/places.effects';
     PlaceComponent,
     PlacesComponent,
     PlaceListComponent,
+    PlaceDetailComponent,
     PriceComponent,
     FavoritesComponent,
     FiltersComponent,
@@ -50,6 +53,7 @@ import { effects } from './store/places.effects';
     PlacesRoutesModule,
     SharedModule,
     StoreModule.forFeature('placeList', placeListReducer),
+    StoreModule.forFeature('placeDetail', placeDetailReducer),
     EffectsModule.forFeature(effects)
   ],
   providers: [

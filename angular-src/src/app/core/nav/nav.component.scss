@@ -5,62 +5,29 @@ nav {
   background-color: #3f3f3f;
   
   vn-search {
-    width: 60%;
+    width: 80%;
     
-    @media #{$extra-small-only} {
-      width: 80%;
+    @media #{$small-only} {
+      width: 70%;
     }
   }
   
   .logo {
     z-index: 1;
   }
-
-  .back-btn,
-  .search-btn {
-    padding: 0 10px;
   
+  .btn-search,
+  .btn-menu {
     i {
-      color: #fff;
-      margin: 0;
-    }
-  }
-  
-  .login-btn {
-    color: #fff;
-    padding: 0 10px;
-    font-size: 14px;
-    i {
-      margin-right: 5px;
-  
-      @media #{$small-and-down} {
-        margin-right: 0;
-      }
-    }
-  }
-
-  .back-btn,
-  .search-btn,
-  .login-btn {
-    @media #{$extra-small-only} {
-      width: 40px;
       height: 40px;
-      border-radius: 50%;
-
-      &:focus {
-        background-color: transparent;
-      }
-      
-      i {
-        font-size: 22px;
-        height: 40px;
-        line-height: 40px;
-      }
+      line-height: 40px;
     }
   }
 }
 
 .side-nav {
+  transition: width 0.25s ease-in-out;
+
   .user-view {
     padding: 50px 22px 0;
 
@@ -80,6 +47,21 @@ nav {
 
   li > a {
     padding: 0 1rem;
+
+    &.subheader.flex {
+      display: flex;
+
+      mz-spinner::ng-deep {
+        .preloader-wrapper.small {
+          width: 16px;
+          height: 16px;
+        }
+
+        .spinner-layer {
+          border-color: #757575;
+        }
+      }
+    }
 
     & > i.material-icons {
       margin: 0 20px 0 0;
@@ -126,6 +108,16 @@ nav {
       width: 100%;
       height: 100%;
       border-radius: 5px;
+    }
+  }
+
+  @media #{$extra-small-only} {
+    width: 300px !important;
+
+    .background-item.selected::after {
+      font-size: 30px;
+      top: 7px;
+      left: 31px;
     }
   }
 }

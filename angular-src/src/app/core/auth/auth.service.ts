@@ -30,10 +30,12 @@ export class AuthService {
       .timeout(this.connectionService.reqTimeout);
   }
 
-  public setUserBackground(index: number): Observable<{ index: number }> {
-    return this.http.put<{ index: number }>(`${this.connectionService.serverUrl}/users/background`, { index }, {
+  public setUserBackground(index: number): Observable<number> {
+    return this.http.put(`${this.connectionService.serverUrl}/users/background`, { index }, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
-    }).timeout(this.connectionService.reqTimeout);
+    })
+      .timeout(this.connectionService.reqTimeout)
+      .map(() => index);
   }
 
   public authenticate(token: string): Observable<AuthResponse> {

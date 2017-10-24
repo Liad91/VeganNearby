@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -28,7 +29,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   public filtersApplied: Observable<boolean>;
   private resizeSubscription: Subscription;
 
-  constructor(private store: Store<fromPlaces.FeatureState>, private resizeService: ResizeService) {}
+  constructor(private store: Store<fromPlaces.FeatureState>, private router: Router, private resizeService: ResizeService) {}
 
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceList);
@@ -40,6 +41,10 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   private onScreenResize(size: string): void {
     this.mobileView = size === 'sm' || size === 'xs';
+  }
+
+  public getPlace(id: string) {
+    this.router.navigate(['places', 'place', id]);
   }
 
   public onReload(): void {

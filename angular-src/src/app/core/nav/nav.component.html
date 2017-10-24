@@ -1,82 +1,91 @@
 <nav [ngClass]="{transparent: activatedRoute === 'home'}" [@searchState]="searchBarOpen">
-  <div class="flex justify-content-space-between content h-100">
+  <div class="flex justify-content-space-between align-items-center content h-100">
+
     <button
-      mz-button
-      class="back-btn align-self-center"
-      [flat]="true"
-      (click)="goBack()"
-      *ngIf="activatedRoute === 'places' && mobileView && !searchBarOpen"
+      class="btn btn-menu btn-floating btn-flat white-text waves-effect waves-light"
+      vnSidenavButton
+      sidenav="menu-sidenav"
+      [width]="350"
+      *ngIf="!searchBarOpen"
     >
-      <i mz-icon icon="arrow_back" align="left"></i>
+      <i class="material-icons">menu</i>
     </button>
-    <a class="logo" *ngIf="!searchBarOpen" routerLink="/">VegaNearby</a>
+
+    <a class="logo" [ngClass]="{'mr-auto ml-1': activatedRoute === 'places' && !mobileView}" *ngIf="!searchBarOpen" routerLink="/">VegaNearby</a>
+
     <ng-container *ngIf="activatedRoute === 'places'">
       <vn-search activatedRoute="places" class="flex align-items-center" *ngIf="!mobileView || searchBarOpen"></vn-search>
     </ng-container>
-    <div class="flex justify-content-flex-end align-items-center nav-more">
-      <button
-        mz-button
-        class="search-btn"
-        [flat]="true"
-        (click)="searchBarOpen = !searchBarOpen"
-        *ngIf="activatedRoute === 'places' && mobileView"
-      >
-        <i mz-icon [icon]="searchBarOpen ? 'close' : 'search'" align="left"></i>
-      </button>
-      <button
-        mz-button
-        class="flex justify-content-center align-items-center login-btn h-100"
-        [flat]="true"
-        (click)="openModal()"
-        *ngIf="!(user | async) && !searchBarOpen"
-      >
-        <i class="material-icons left">power_settings_new</i>
-        {{ mobileView && !transparent ? '' : 'Login' }}
-      </button>
-      <button 
-        class="btn align-self-flex-start btn-floating btn-flat btn-large white-text waves-effect waves-light"
-        vnSidenavButton
-        sidenav="menu-sidenav"
-        [width]="350"
-        *ngIf="(user | async) && !searchBarOpen"
-      >
-        <i class="material-icons">menu</i>
-      </button>
-    </div>
 
-    <ul id="menu-sidenav" class="side-nav" *ngIf="(user | async) && !searchBarOpen">
-      <li><div class="user-view">
-        <div class="background">
-          <img [src]="'assets/images/menu-background-' + (user | async).background + '.jpg'">
+    <button
+      class="btn btn-search btn-floating btn-flat white-text waves-effect waves-light"
+      (click)="searchBarOpen = !searchBarOpen"
+      *ngIf="activatedRoute === 'places' && mobileView"
+    >
+      <i mz-icon [icon]="searchBarOpen ? 'close' : 'search'" align="left"></i>
+    </button>
+
+    <ul id="menu-sidenav" class="side-nav">
+      <li>
+        <div class="user-view">
+          <ng-container *ngIf="!(user | async)">
+            <div class="background">
+              <img src="assets/images/menu-background-1.jpg">
+            </div>
+            <img class="circle" src="assets/images/user.ico">
+            <span class="white-text name pb-1">Wellcome Guest</span>
+          </ng-container>
+
+          <ng-container *ngIf="(user | async)">
+            <div class="background">
+              <img [src]="'assets/images/menu-background-' + (user | async).background + '.jpg'">
+            </div>
+            <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.ico'">
+            <span class="white-text name">{{ (user | async).username }}</span>
+            <span class="email">{{ (user | async).email }}</span>
+          </ng-container>
         </div>
-        <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.ico'">
-        <span class="white-text name">{{ (user | async).username }}</span>
-        <span class="email">{{ (user | async).email }}</span>
-      </div></li>
+      </li>
+
       <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a routerLink="/">
           <i class="material-icons">home</i>Home
         </a>
       </li>
-      <li routerLinkActive="active">
-        <a routerLink="/places/favorites">
-          <i class="material-icons">favorite</i>Favorites
-          <span class="badge right">{{ (user | async).favorites.length }}/20</span>
-        </a>  
-      </li>
-      <li>
-        <a (click)="logout()">
-          <i class="material-icons">power_settings_new</i>
-          Logout
-        </a>
-      </li>
-      <li><div class="divider"></div></li>
-      <li><a class="subheader">Menu Background</a></li>
-      <div class="flex wrap px-1">
-        <div class="background-item" [ngClass]="{selected:  (user | async).background === index}" (click)="setBackground(index)" *ngFor="let index of [1,2,3,4,5,6]">
-          <img [src]="'assets/images/menu-background-' + index + '.jpg'">
+
+      <ng-container *ngIf="!(user | async)">
+        <li>
+          <a (click)="openModal($event)">
+            <i class="material-icons">power_settings_new</i>
+            Login
+          </a>
+        </li>
+      </ng-container>
+
+      <ng-container *ngIf="(user | async)">
+        <li routerLinkActive="active">
+          <a routerLink="/places/favorites">
+            <i class="material-icons">favorite</i>Favorites
+            <span class="badge right">{{ (user | async).favorites.length }}/20</span>
+          </a>  
+        </li>
+        <li>
+          <a (click)="logout()">
+            <i class="material-icons">power_settings_new</i>
+            Logout
+          </a>
+        </li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader flex align-items-center">
+          Menu Background
+          <mz-spinner class="ml-auto" size="small" *ngIf="(backgroundLoading | async)"></mz-spinner>
+        </a></li>
+        <div class="flex wrap px-1">
+          <div class="background-item" [ngClass]="{selected:  (user | async).background === index}" (click)="setBackground(index)" *ngFor="let index of [1,2,3,4,5,6]">
+            <img [src]="'assets/images/menu-background-' + index + '.jpg'">
+          </div>
         </div>
-      </div>
+      </ng-container> 
     </ul>
   </div>
 </nav>

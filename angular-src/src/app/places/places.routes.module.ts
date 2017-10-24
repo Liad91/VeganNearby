@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PlacesComponent } from './places.component';
 import { PlaceListComponent } from './place-list/place-list.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { PlaceDetailComponent } from './place-detail/place-detail.component';
 
 // Guards
 import { PlaceListGuard } from './place-list/place-list.guard';
@@ -27,7 +28,12 @@ const routes: Routes = [
         component: FavoritesComponent,
         canActivate: [FavoritesGuard],
         data: { name: 'favorites' }
-      }
+      },
+      {
+        path: 'place/:id',
+        component: PlaceDetailComponent,
+        data: { name: 'place' }
+      },
     ]
   }
 ];
