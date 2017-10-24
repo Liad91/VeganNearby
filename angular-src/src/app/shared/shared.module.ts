@@ -9,6 +9,8 @@ import * as Pipes from './pipes';
 @NgModule({
   declarations: [
     Components.AlertModalComponent,
+    Components.CarouselComponent,
+    Components.CarouselItemComponent,
     Components.TypedComponent,
     Components.TabsComponent,
     Components.TabItemComponent,
@@ -29,6 +31,8 @@ import * as Pipes from './pipes';
   exports: [
     CommonModule,
     MaterializeModule,
+    Components.CarouselComponent,
+    Components.CarouselItemComponent,
     Components.TypedComponent,
     Components.TabsComponent,
     Components.TabItemComponent,
