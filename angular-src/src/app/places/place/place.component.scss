@@ -10,7 +10,8 @@
   transition: transform 250ms ease-out;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &.marker-hover {
     transform: translateY(-5px);
   }
 
@@ -22,6 +23,10 @@
     &:hover,
     &:focus {
       transform: translateX(5px);
+    }
+
+    &.marker-hover {
+      transform: none;
     }
   }
 
@@ -40,10 +45,6 @@
 
     &:nth-of-type(3n+3) {
       margin-right: 0;
-    }
-    
-    &.marker-hover {
-      transform: scale(1.07);
     }
   }
 }
@@ -67,7 +68,7 @@
     left: 0;
     background-color: rgba(0,0,0,0.5);
 
-    button {
+    vn-btn-favorite::ng-deep button {
       position: absolute;
       top: 5px;
       right: 5px;
@@ -79,7 +80,7 @@
         font-size: 18px;
         line-height: 35px;
       }
-      mz-spinner ::ng-deep {
+      mz-spinner {
         .preloader-wrapper.small {
           width: 18px;
           height: 18px;

@@ -8,6 +8,7 @@ import { State } from './store/place-list.reducers';
 import * as fromPlaces from '../store/places.reducers';
 import * as placeListActions from './store/place-list.actions';
 import * as filtersActions from '../filters/store/filters.actions';
+import { GetPlace } from '../place-detail/store/place-detail.actions';
 import { Filter } from '../filters/store/filters.reducers';
 import { ResizeService } from '../../core/services/resize.service';
 import { placeStateTrigger } from './animations';
@@ -44,6 +45,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   }
 
   public getPlace(id: string) {
+    this.store.dispatch(new GetPlace(id));
     this.router.navigate(['places', 'place', id]);
   }
 

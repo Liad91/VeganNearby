@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { YelpBusiness } from '../../../models/yelp.model';
+import { YelpBusinessResponse } from '../../../models/yelp.model';
 
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';
@@ -15,7 +15,7 @@ export class GetFavorites implements Action {
 export class AddToFavorites implements Action {
   readonly type = ADD_TO_FAVORITES;
 
-  constructor(public payload: YelpBusiness) {}
+  constructor(public payload: YelpBusinessResponse) {}
 }
 
 export class RemoveFromFavorites implements Action {
@@ -27,7 +27,7 @@ export class RemoveFromFavorites implements Action {
 export class GetFavoritesSuccess implements Action {
   readonly type = GET_FAVORITES_SUCCESS;
 
-  constructor(public payload: YelpBusiness[]) {}
+  constructor(public payload: YelpBusinessResponse[]) {}
 }
 
 export class GetFavoritesFailure implements Action {

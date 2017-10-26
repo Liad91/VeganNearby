@@ -8,14 +8,14 @@ import * as yelp from 'yelp-fusion';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/timeout';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 
 import { ConnectionService } from './../core/services/connection.service';
 import {
   YelpSearchParams,
   YelpSearchResponse,
-  YelpBusinessResponse,
-  YelpBusiness
+  YelpBusinessResponse
 } from './../models/yelp.model';
 import { State } from './filters/store/filters.reducers';
 
@@ -45,14 +45,11 @@ export class PlacesService {
       .timeout(this.connectionService.reqTimeout);
   }
 
-  public getFavorites(favorites: string[]): Observable<YelpBusiness[]> {
-    const requests: Observable<YelpBusiness>[] = [];
+  public getFavorites(favorites: string[]): Observable<YelpBusinessResponse[]> {
+    const requests: Observable<YelpBusinessResponse>[] = [];
 
     favorites.forEach(id => {
-      const request = this.http.get<YelpBusiness>(`${this.connectionService.serverUrl}/yelp/business`, {
-        params: new HttpParams().set('id', id)
-      })
-        .timeout(this.connectionService.reqTimeout)
+      const request = this.getPlaceById(id)
         .retry(2)
         .catch(() => of(this.catchFavoriteError(id)));
 
@@ -62,17 +59,20 @@ export class PlacesService {
   }
 
   private catchFavoriteError(id: string) {
-    const place = new YelpBusiness();
+    const place = new YelpBusinessResponse();
 
     place.id = id;
     return place;
   }
 
-  public addToFavorites(id: string): Observable<any> {
-    return this.http.put(`${this.connectionService.serverUrl}/users/favorites/add`, { id }, {
-      headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
-    })
-      .timeout(this.connectionService.reqTimeout);
+  public addToFavorites(id: string): Observable<YelpBusinessResponse> {
+    return this.getPlaceById(id).switchMap(response => {
+      return this.http.put(`${this.connectionService.serverUrl}/users/favorites/add`, { id }, {
+        headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
+      })
+        .timeout(this.connectionService.reqTimeout)
+        .map(() => response);
+    });
   }
 
   public removeFromFavorites(id: string): Observable<any> {

@@ -10,7 +10,7 @@ export interface State {
 
 const initialState = {
   place: null,
-  loading: true,
+  loading: false,
   error: false
 };
 
@@ -19,6 +19,12 @@ export function placeDetailReducer(state = initialState, action: placeDetailActi
     case placeDetailActions.GET_PLACE:
       return {
         ...state,
+        loading: true,
+        error: false
+      };
+    case placeDetailActions.SET_PLACE:
+      return {
+        place: action.payload,
         loading: true,
         error: false
       };

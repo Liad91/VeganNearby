@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/take';
 
 import * as fromPlaces from '../store/places.reducers';
 import { GetPlace } from './store/place-detail.actions';
@@ -22,12 +23,19 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceDetail);
-    this.paramsSubscription = this.route.params.subscribe(params => {
-      this.store.dispatch(new GetPlace(params.id));
+
+    this.state.take(1).subscribe(state => {
+      if (!state.place && !state.loading && !state.error) {
+        this.paramsSubscription = this.route.params.subscribe(params => {
+          this.store.dispatch(new GetPlace(params.id));
+        });
+      }
     });
   }
 
   ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
+    if (this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
   }
 }

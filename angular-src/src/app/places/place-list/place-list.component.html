@@ -1,4 +1,4 @@
-<header class="flex align-items-center mb-1">
+<header class="flex align-items-center">
   <h4 class="nowrap m-0 color-white"><strong>{{ (category | async).title }}</strong> near {{ (location | async) }}</h4>
   <p class="m-0 color-white" *ngIf="(state | async).total">{{ (state | async).total }} Results</p>
   <p class="m-0 color-white" *ngIf="!(state | async).total && !(state | async).loading">No Results</p>

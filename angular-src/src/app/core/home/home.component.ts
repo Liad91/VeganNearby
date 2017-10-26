@@ -3,7 +3,6 @@ import { animation } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-import { bgStateTrigger } from './animations';
 import * as fromRoot from '../../store/app.reducers';
 import { Filter } from '../../places/filters/store/filters.reducers';
 
@@ -11,8 +10,7 @@ import { Filter } from '../../places/filters/store/filters.reducers';
 @Component({
   selector: 'vn-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  animations: [ bgStateTrigger ]
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription;

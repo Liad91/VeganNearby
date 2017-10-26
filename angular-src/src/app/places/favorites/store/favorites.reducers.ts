@@ -1,9 +1,9 @@
-import { YelpBusiness } from '../../../models/yelp.model';
+import { YelpBusinessResponse } from '../../../models/yelp.model';
 
 import * as favoritesActions from './favorites.actions';
 
 export interface State {
-  places: YelpBusiness[],
+  places: YelpBusinessResponse[],
   loading: boolean,
   error: boolean
 }

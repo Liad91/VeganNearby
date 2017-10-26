@@ -6,12 +6,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 // Components
+import * as Components from './components';
 import { PlaceComponent } from './place/place.component';
-import { StarsComponent } from './place/stars/stars.component';
 import { PlacesComponent } from './places.component';
 import { PlaceListComponent } from './place-list/place-list.component';
 import { PlaceDetailComponent } from './place-detail/place-detail.component';
-import { PriceComponent } from './place/price/price.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FiltersComponent } from './filters/filters.component';
 import { CuisinesModalComponent } from './filters/cuisines-modal/cuisines-modal.component';
@@ -32,12 +31,13 @@ import { placeDetailReducer } from './place-detail/store/place-detail.reducers';
 
 @NgModule({
   declarations: [
-    StarsComponent,
+    Components.BtnFavoriteComponent,
+    Components.PriceComponent,
+    Components.StarsComponent,
     PlaceComponent,
     PlacesComponent,
     PlaceListComponent,
     PlaceDetailComponent,
-    PriceComponent,
     FavoritesComponent,
     FiltersComponent,
     CuisinesModalComponent,

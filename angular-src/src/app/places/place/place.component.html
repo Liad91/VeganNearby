@@ -1,17 +1,7 @@
 <div class="place-card flex wrap w-100">
   <img [src]="place.image_url || 'assets/images/business.png'" [alt]="place.name">
   <div class="cover">
-      <button
-        mz-button
-        [float]="true"
-        [flat]="true"
-        class="ml-auto transparent"
-        [ngClass]="{favorite: loading || favorite}"
-        (click)="manageFavorite($event)"
-      >
-        <i mz-icon [icon]="favorite ? 'favorite' : 'favorite_border'" *ngIf="!loading"></i>
-        <mz-spinner size="small" *ngIf="loading"></mz-spinner>
-      </button>
+      <vn-btn-favorite [placeId]="place.id" [placeName]="place.name"></vn-btn-favorite>
       <h4 class="nowrap m-0 w-90 center-align color-white">{{ place.name }}</h4>
   </div>
 </div>
