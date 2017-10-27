@@ -2,7 +2,7 @@
 
 .search-box {
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0.24);
 
   &,
   form > * {
@@ -11,37 +11,27 @@
 }
 
 .categories ::ng-deep {
-  &,
-  ul.dropdown-content {
-    background-color: $primary-color;
-  }
-
-  ul.dropdown-content li {
-    &:hover, 
-    &.selected,
-    &.active {
-      background-color: darken($primary-color, 5%); 
-    }
-  }
-
+  background-color: #fff;
   margin-right: 10px;
+
   .input-field {
     margin-top: 0;
 
     .caret {
-      color: #fff;
       right: 10px;
     }
     
     .select-dropdown {
       border: none;
-      color: #fff;
       text-align: center;
       margin: 0;
+      font-weight: bold;
     }
 
     ul.dropdown-content {
+      background-color: #fff;
       border-radius: 3px;
+
       li {
         text-align: center;
         min-height: 40px;
@@ -51,11 +41,24 @@
         padding: 10px 0;
         transition: all 0.2s ease-in-out;
 
+        &.selected,
+        &.active {
+          background-color: $primary-color;
+    
+          span {
+            color: #fff; 
+          }
+        }
+
         span {
-          color: #fff;
+          color: #303030;
           padding: 0;
           font-size: 1rem;
         }
+      }
+
+      &.active {
+        border-radius: 3px;
       }
     }
   }
@@ -95,7 +98,7 @@ button[type = submit] {
   justify-content: center;
   height: auto;
   max-width: 50px;
-  background-color: $dark-color;
+  background-color: $primary-color;
 
   i {
     font-size: 25px;
@@ -151,7 +154,6 @@ button[type = submit] {
         height: 42px;
         padding: 0;
         min-width: 100%;
-        background-color: $primary-color;
       }
     }
   }
@@ -193,7 +195,6 @@ button[type = submit] {
       width: 2.5rem;
       height: 2.5rem;
       line-height: 2.5rem;
-      background-color: $primary-color;
       border-radius: 0 5px 5px 0;
       box-shadow: none;
 

@@ -5,23 +5,23 @@ import * as searchActions from './search.actions';
 export interface State {
   location: string;
   categories: Filter[];
-  selectedCategory: Filter;
+  selectedCategoryIndex: number;
   loading: boolean;
 }
 
 const initialState: State = {
   location: null,
   categories: categories,
-  selectedCategory: categories[0],
+  selectedCategoryIndex: 0,
   loading: false
 };
 
 export function searchReducer(state = initialState, action: searchActions.Action): State {
   switch (action.type) {
-    case searchActions.SET_CATEGORY:
+    case searchActions.SET_SEARCH_CATEGORY:
       return {
         ...state,
-        selectedCategory: action.payload
+        selectedCategoryIndex: action.payload
       };
     case searchActions.NAV_SEARCH:
     case searchActions.HOME_SEARCH:

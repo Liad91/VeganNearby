@@ -14,7 +14,7 @@
     </div>
   </div>
 </div>
-<div class="banners flex mb-3 px-2">
+<div class="banners flex px-2">
   <div class="banner">
     <img src="assets/icons/earth.png" alt="earth">
     <div class="text">
@@ -45,10 +45,37 @@
   </div>
 </div>
   
-<div class="content">
-  <div class="title">
-    <h1>Happening Cities</h1>
+<div class="content w-100">
+  <div class="title my-3">
+    <h1 class="mt-0">Recommended Cities</h1>
+    <p class="m-0">Most vegan friendly cities you must explore</p>
   </div>
+
+  <div class="cities flex wrap w-100">
+    <div class="city big" (click)="searchCity('Los Angeles, CA, USA')">
+      <div class="los-angeles"></div>
+      <h3>Los Angeles</h3>
+    </div>
+    <div class="center">
+      <div class="city" (click)="searchCity('New York, NY, USA')">
+        <div class="new-york"></div>
+        <h3>New York</h3>
+      </div>
+      <div class="city" (click)="searchCity('Toronto, ON, Canada')">
+        <div class="toronto"></div>
+        <h3>Toronto</h3>
+      </div>
+    </div>
+    <div class="city big" (click)="searchCity('Berlin, Germany')">
+      <div class="berlin"></div>
+      <h3>Berlin</h3>
+    </div>
+  </div>
+
+  <div class="title my-3">
+      <h1 class="mt-0">Recommended Places</h1>
+      <p class="m-0">Most vegan friendly places you must explore</p>
+    </div>
 </div>
 
 <!-- 

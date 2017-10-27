@@ -118,7 +118,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public onCategoryChange(event: any): void {
-    this.store.dispatch(new searchActions.SetCategory(this.state.categories[+event.target.value]));
+    this.store.dispatch(new searchActions.SetSearchCategory(+event.target.value));
   }
 
   public onSubmit(): void {
@@ -153,7 +153,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     const payload = {
       location: this.location,
       coordinates: this.coordinates,
-      selectedCategory: this.state.selectedCategory
+      selectedCategory: this.state.categories[this.state.selectedCategoryIndex]
     }
 
     if (this.activatedRoute === 'home') {

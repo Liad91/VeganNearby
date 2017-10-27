@@ -32,7 +32,7 @@
             <div class="background">
               <img src="assets/images/menu-background-1.jpg">
             </div>
-            <img class="circle" src="assets/images/user.ico">
+            <img class="circle" src="assets/images/user.jpg">
             <span class="white-text name pb-1">Wellcome Guest</span>
           </ng-container>
 
@@ -40,7 +40,7 @@
             <div class="background">
               <img [src]="'assets/images/menu-background-' + (user | async).background + '.jpg'">
             </div>
-            <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.ico'">
+            <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.jpg'">
             <span class="white-text name">{{ (user | async).username }}</span>
             <span class="email">{{ (user | async).email }}</span>
           </ng-container>

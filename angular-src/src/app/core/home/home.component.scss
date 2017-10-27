@@ -9,7 +9,7 @@
   position: relative;
   margin-top: -64px;
   height: 65vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../../assets/images/home-banner2.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../../assets/images/home-banner.jpg');
   background-size: cover;
   background-position: center;
 
@@ -178,6 +178,141 @@ vn-search {
 
   @media #{$extra-small-only} {
     width: 100%;
+  }
+}
+
+.title {
+  text-align: center;
+
+  h1 {
+    margin-bottom: 8px;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+
+.cities {
+  .city {
+    position: relative;
+    height: 200px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+
+    &:hover {
+      & > div {
+        transform: scale(1.15);
+      }
+    }
+
+    & > div {
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 8px;
+      transition: transform 400ms ease-out;
+    }
+
+    &.big {
+      height: 400px;
+      width: calc(35% - 1rem);
+
+      &:first-of-type {
+        margin-right: 1rem;
+      }
+
+      &:last-of-type {
+        margin-left: 1rem;
+      }
+    }
+
+    h3 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: 25px 0 15px;
+      text-align: center;
+      color: #fff;
+      background: linear-gradient(transparent 10%, rgba(0, 0, 0, 0.8));
+    }
+  }
+
+  .center {
+    flex-grow: 1;
+
+    & > div {
+      height: 192px;
+
+      &:first-child {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .berlin {
+    background-image: url('../../../assets/images/berlin.jpg');
+  }
+  .new-york {
+    background-image: url('../../../assets/images/new-york.jpg');
+  }
+  .toronto {
+    background-image: url('../../../assets/images/toronto.jpg');
+  }
+  .los-angeles {
+    background-image: url('../../../assets/images/los-angeles.jpg');
+  }
+
+
+  @media #{$extra-small-only} {
+    .city {
+      height: 160px;
+      border-radius: 5px;
+      width: 100%;
+      margin-bottom: 0.5rem;
+
+      & > div {
+        border-radius: 5px;
+
+        &.berlin,
+        &.toronto {
+          background-position: bottom;
+        }
+    
+        &.los-angeles {
+          background-position: top;
+        }
+      }
+  
+      &.big {
+        height: 160px;
+        width: 100%;
+        
+        &:first-of-type {
+          margin-right: 0;
+        }
+  
+        &:last-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .center {
+      width: 100%;
+
+      & > div {
+        height: 160px;
+        margin-bottom: 0.5rem;
+
+        &:first-child {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
   }
 }
 

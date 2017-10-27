@@ -5,8 +5,8 @@ import { Filter } from '../../../places/filters/store/filters.reducers';
 
 export const NAV_SEARCH = 'NAV_SEARCH';
 export const HOME_SEARCH = 'HOME_SEARCH';
-export const SET_CATEGORY = 'SET_CATEGORY';
 export const SEARCH_COMPLETED = 'SEARCH_COMPLETED';
+export const SET_SEARCH_CATEGORY = 'SET_SEARCH_CATEGORY';
 
 export class NavSearch implements Action {
   readonly type = NAV_SEARCH;
@@ -20,10 +20,10 @@ export class HomeSearch implements Action {
   constructor(public payload: { location: string, coordinates: LatLngLiteral, selectedCategory: Filter }) {}
 }
 
-export class SetCategory implements Action {
-  readonly type = SET_CATEGORY;
+export class SetSearchCategory implements Action {
+  readonly type = SET_SEARCH_CATEGORY;
 
-  constructor(public payload: Filter) {}
+  constructor(public payload: number) {}
 }
 
 export class SearchCompleted implements Action {
@@ -33,5 +33,5 @@ export class SearchCompleted implements Action {
 export type Action =
   | NavSearch
   | HomeSearch
-  | SetCategory
+  | SetSearchCategory
   | SearchCompleted;

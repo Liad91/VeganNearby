@@ -33,8 +33,11 @@ export const selectAuthLoading = createSelector(selectAuth, (state: fromAuth.Sta
 export const selectAuthUserLoggedIn  = createSelector(selectAuth, (state: fromAuth.State) => Boolean(state.user));
 export const selectAuthUserFavoritesLength  = createSelector(selectAuth, (state: fromAuth.State) => state.user.favorites.length);
 export const selectAuthUserBackgroundLoading  = createSelector(selectAuth, (state: fromAuth.State) => state.backgroundLoading);
-export const selectSearchCategory = createSelector(selectSearch, (state: fromSearch.State) => state.selectedCategory);
 export const selectFiltersLocation = createSelector(selectFilters, (state: fromFilters.State) => state.location);
+export const selectSearchCategories = createSelector(selectSearch, (state: fromSearch.State) => state.categories);
+export const selectSearchselectedCategory = createSelector(selectSearch, (state: fromSearch.State) => {
+  return state.categories[state.selectedCategoryIndex]
+});
 
 export function favoriteFactory(id: string) {
   return createSelector(selectAuth, (state: fromAuth.State) => {

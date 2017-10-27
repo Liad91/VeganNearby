@@ -27,7 +27,7 @@
         name="location"
         [(ngModel)]="location"
         class="search-input"
-        placeholder="{{ state.selectedCategory.title }} near..."
+        placeholder="{{ state.categories[state.selectedCategoryIndex].title }} near..."
         autocorrect="off"
         autocapitalize="off"
         spellcheck="off"
@@ -37,7 +37,7 @@
     <div class="flex w-30 categories" *ngIf="activatedRoute === 'home'">
       <div class="input-field w-100">
         <select mz-select name="category" (change)="onCategoryChange($event)">
-          <option [value]="i" *ngFor="let category of state.categories; let i = index">{{ category.title }}</option>
+          <option [value]="i" *ngFor="let category of state.categories; let i = index" [selected]="state.selectedCategoryIndex === i">{{ category.title }}</option>
         </select>
       </div>
     </div>
