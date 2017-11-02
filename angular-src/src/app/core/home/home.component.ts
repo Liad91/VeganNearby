@@ -1,11 +1,17 @@
+import { YelpBusinessResponse } from '../../models/yelp.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { LatLngLiteral } from '@agm/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/filter';
 
+import { State } from './store/home.reducers';
+import * as homeActions from './store/home.actions';
 import * as fromRoot from '../../store/app.reducers';
+import { PlacesService } from '../../places/places.service';
 import { Filter } from '../../places/filters/store/filters.reducers';
 import { NewSearch } from '../../places/filters/store/filters.actions';
 import { GetPlaces } from '../../places/place-list/store/place-list.actions';
@@ -18,18 +24,32 @@ import { GetPlaces } from '../../places/place-list/store/place-list.actions';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription;
+  public state: Observable<State>
   public category: Filter;
   public strings: string[];
 
-  constructor(private store: Store<fromRoot.AppState>, private router: Router) {}
+  public recomendedPlaces = [
+    'mortys-delicatessen-san-francisco',
+    'grano-frutta-e-farina-roma',
+    'grilld-healthy-burgers-sydney',
+    'surya-new-york-3'
+  ];
+
+  constructor(private store: Store<fromRoot.AppState>, private router: Router, private placesService: PlacesService) {}
 
   ngOnInit(): void {
+    this.state = this.store.select(fromRoot.selectHome);
     this.categorySubscription = this.store.select(fromRoot.selectSearchselectedCategory).subscribe(
       category => {
         this.category = category;
         this.setStrings();
       }
     );
+
+    this.state
+      .filter(state => !state.places)
+      .take(1)
+      .subscribe(() => this.store.dispatch(new homeActions.GetPlaces(this.recomendedPlaces)));
   }
 
   private setStrings() {
@@ -58,13 +78,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   public searchCity(location: string): void {
-    const payload: {location: string, selectedCategory: Filter, coordinates: LatLngLiteral} = {
+    const payload = {
       location,
-      selectedCategory: null,
       coordinates: null
     };
-
-    this.store.select(fromRoot.selectSearchCategories).take(1).subscribe(categories => payload.selectedCategory = categories[0]);
 
     switch (location) {
       case 'New York, NY, USA':
@@ -81,8 +98,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch(new NewSearch(payload));
-    this.store.dispatch(new GetPlaces());
-    this.router.navigate(['places', 'list']);
+    this.router.navigate(['places', location], {
+      queryParams: {
+        p: 1,
+        ...payload.coordinates
+      }
+    });
+  }
+
+  public onReload() {
+    this.store.dispatch(new homeActions.GetPlaces(this.recomendedPlaces));
   }
 
   ngOnDestroy(): void {

@@ -25,7 +25,7 @@ export function placeDetailReducer(state = initialState, action: placeDetailActi
     case placeDetailActions.SET_PLACE:
       return {
         place: action.payload,
-        loading: true,
+        loading: false,
         error: false
       };
     case placeDetailActions.GET_PLACE_SUCCESS:

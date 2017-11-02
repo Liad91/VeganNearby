@@ -1,0 +1,42 @@
+@import '../../../variables';
+.tooltip-container {
+  position: relative;
+  display: block;
+
+  &:hover {
+    .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -10px);
+    }
+  }
+
+  .tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: 70%;
+    height: 24px;
+    opacity: 0;
+    line-height: 24px;
+    padding: 1px 11px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 3px;
+    visibility: hidden;
+    white-space: nowrap;
+    background-color: $dark-color;
+    transform: translateX(-50%);
+    transition: all 100ms linear;
+    z-index: 900;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      border: 5px solid transparent;
+      border-top-color: $dark-color;
+      transform: translateX(-50%);
+    }
+  }
+}

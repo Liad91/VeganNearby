@@ -33,7 +33,7 @@ p.error {
     display: flex;
     top: -3px;
     right: -8px;
-    transition: all 0.2s ease-in;
+    transition: $fast-transition;
     &:hover {
       transform: scale(1.2);
     }
@@ -41,7 +41,7 @@ p.error {
 }
 
 .image-drop {
-  transition: all 0.2s ease-in;
+  transition: $fast-transition;
   &.file-over {
     color: #0089ec !important;
     button {

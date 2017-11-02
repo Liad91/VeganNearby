@@ -1,13 +1,29 @@
 <ng-container *ngIf="!(state | async).loading && !(state | async).error">
-  <header class="flex align-items-center">
-    <h4 class="nowrap m-0 color-white"><strong>{{ (state | async).place.name }}</strong> - {{ (state | async).place.location.city }}</h4>
-    <p class="m-0"><vn-btn-favorite [placeId]="(state | async).place.id" [placeName]="(state | async).place.name"></vn-btn-favorite></p>
-  </header>
-  
-  <div class="flex wrap w-100">
-    <div class="main">
-      <h2>{{ (state | async).place.name }}</h2>
-      <div class="info">
+
+  <agm-map
+    [latitude]="(state | async).place.coordinates.latitude"
+    [longitude]="(state | async).place.coordinates.longitude"
+    [scrollwheel]="false"
+    [styles]="mapStyles"
+    [zoom]="17"
+  >
+    <agm-marker
+      [latitude]="(state | async).place.coordinates.latitude"
+      [longitude]="(state | async).place.coordinates.longitude"
+      [iconUrl]="'assets/icons/marker.png'"
+    >
+    </agm-marker>
+  </agm-map>
+
+  <div class="content">
+    <div class="title mt-2">
+      <h4 class="nowrap"><strong>{{ (state | async).place.name }}</strong> - {{ (state | async).place.location.city }}</h4>
+      <p><vn-stars [rating]="(state | async).place.rating" size="sm"></vn-stars></p>
+    </div>
+    
+    <!-- <vn-btn-favorite [placeId]="(state | async).place.id" [placeName]="(state | async).place.name"></vn-btn-favorite> -->
+    <div class="flex wrap w-100">
+      <div class="info-box">
         <div class="categories">
           <i class="material-icons">restaurant</i>
           <span *ngFor="let category of (state | async).place.categories">{{ category.title }}</span>
@@ -25,34 +41,8 @@
           <vn-price [price]="(state | async).place.price"></vn-price>
         </div>
       </div>
-      <vn-stars [rating]="(state | async).place.rating" size="sm"></vn-stars>
-      <p class="review-count">Based on {{ (state | async).place.review_count }} reviews</p>
-
-      <agm-map
-        class="mb-1"
-        [latitude]="(state | async).place.coordinates.latitude"
-        [longitude]="(state | async).place.coordinates.longitude"
-        [zoom]="14"
-      >
-        <agm-marker
-          [latitude]="(state | async).place.coordinates.latitude"
-          [longitude]="(state | async).place.coordinates.longitude"
-          [iconUrl]="'assets/icons/marker.png'"
-        >
-        </agm-marker>
-      </agm-map>
-    </div>
-
-    <div class="sidebar">
-      <div class="card">
-        <div class="card-image">
-          <vn-carousel class="carousel-slider center" [fullWidth]="true" [indicators]="true">
-            <vn-carousel-item [src]="photo" *ngFor="let photo of (state | async).place.photos"></vn-carousel-item>
-          </vn-carousel>
-        </div>
-      </div>
-    </div>
-  </div>  
+    </div>  
+  </div>
 </ng-container>
 
 <div class="spinner-container" *ngIf="(state | async).loading">

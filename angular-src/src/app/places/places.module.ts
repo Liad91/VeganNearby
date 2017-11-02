@@ -6,19 +6,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 // Components
-import * as Components from './components';
-import { PlaceComponent } from './place/place.component';
 import { PlacesComponent } from './places.component';
 import { PlaceListComponent } from './place-list/place-list.component';
 import { PlaceDetailComponent } from './place-detail/place-detail.component';
-import { FavoritesComponent } from './favorites/favorites.component';
 import { FiltersComponent } from './filters/filters.component';
 import { CuisinesModalComponent } from './filters/cuisines-modal/cuisines-modal.component';
 import { PaginationComponent } from './pagination/pagination.component';
 
 // Guards
-import { PlaceListGuard } from './place-list/place-list.guard';
-import { FavoritesGuard } from './favorites/favorites.guard';
+import { PlaceDetailGuard } from './place-detail/place-detail.guard';
 
 // Modules
 import { PlacesRoutesModule } from './places.routes.module';
@@ -31,14 +27,9 @@ import { placeDetailReducer } from './place-detail/store/place-detail.reducers';
 
 @NgModule({
   declarations: [
-    Components.BtnFavoriteComponent,
-    Components.PriceComponent,
-    Components.StarsComponent,
-    PlaceComponent,
     PlacesComponent,
     PlaceListComponent,
     PlaceDetailComponent,
-    FavoritesComponent,
     FiltersComponent,
     CuisinesModalComponent,
     PaginationComponent
@@ -58,8 +49,7 @@ import { placeDetailReducer } from './place-detail/store/place-detail.reducers';
   ],
   providers: [
     GoogleMapsAPIWrapper,
-    PlaceListGuard,
-    FavoritesGuard
+    PlaceDetailGuard
   ]
 })
 export class PlacesModule { }

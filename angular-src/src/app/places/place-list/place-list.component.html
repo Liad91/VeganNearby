@@ -1,70 +1,76 @@
-<header class="flex align-items-center">
-  <h4 class="nowrap m-0 color-white"><strong>{{ (category | async).title }}</strong> near {{ (location | async) }}</h4>
-  <p class="m-0 color-white" *ngIf="(state | async).total">{{ (state | async).total }} Results</p>
-  <p class="m-0 color-white" *ngIf="!(state | async).total && !(state | async).loading">No Results</p>
+<header>
+  <div class="cover"></div>
+  <h1>Search Results</h1>
 </header>
-
-<div *ngIf="mobileView">
-  <ul id="filters-sidenav" class="side-nav">
-    <vn-filters class="flex column" [sidenavMode]="true"></vn-filters>
-  </ul>
-  <button 
-    vnSidenavButton
-    sidenav="filters-sidenav"
-    [draggable]="false"
-    [closeOnClick]="true"
-    class="btn-floating btn-large"
-  >
-    <i class="material-icons">filter_list</i>
-  </button>
-</div>
-
-<div class="flex">
-  <div class="main flex wrap max-w-100">
-    <div class="places-wrap flex wrap w-100 mb-auto">
-      <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
-        <vn-place
-          class="mb-1 mr-1"
-          [ngClass]="{'marker-hover': place.markerHover}"
-          [place]="place"
-          (click)="getPlace(place.id)"
-          (mouseenter)="place.hover = true"
-          (mouseleave)="place.hover = false"
-          @placeState
-          *ngIf="!(state | async).loading"
-        >
-        </vn-place>
-      </ng-container>
-      <div class="no-results w-100" *ngIf="(state | async).total === 0">
-        <strong>Suggestions for improving the results:</strong>
-        <p class="m-0">Try a different location.</p>
-        <p class="m-0">Try a different establishment.</p>
-        <ng-container *ngIf="filtersApplied | async">
-          <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
-        </ng-container>
+  
+<div class="content"> 
+  <div *ngIf="mobileView">
+    <ul id="filters-sidenav" class="side-nav">
+      <vn-filters class="flex column" [sidenavMode]="true"></vn-filters>
+    </ul>
+    <button 
+      vnSidenavButton
+      sidenav="filters-sidenav"
+      [draggable]="false"
+      [closeOnClick]="true"
+      class="btn-floating btn-large"
+    >
+      <i class="material-icons">filter_list</i>
+    </button>
+  </div>
+  
+  <div class="flex">
+    <div class="filters align-self-flex-start mb-3 mr-2" *ngIf="!mobileView">
+      <div class="title"><h4>Filters</h4></div>
+      <vn-filters class="flex column" [places]="(state | async).places"></vn-filters>
+    </div>
+    <div class="main flex column max-w-100">
+      <div class="title inline w-100">
+        <h4 class="nowrap">{{ filtersState.selectedCategory.title }} near <strong>{{ filtersState.location }}</strong></h4>
+        <p class="badge" *ngIf="(state | async).total">{{ (state | async).total }} Results</p>
+        <p class="badge" *ngIf="!(state | async).total && !(state | async).loading">No Results</p>
       </div>
-      <div class="no-results w-100" *ngIf="(state | async).error ">
-        <h3 class="center-align">Connection Error</h3>
-        <p class="center-align mt-0">Our server may be down. Please try again later.</p>
-        <div class="center-align">
-          <button mz-button (click)="onReload()">Try Again</button>
+      <div class="places-wrap flex wrap w-100">
+        <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
+          <vn-place
+            class="mb-1 mr-1"
+            [ngClass]="{'marker-hover': place.markerHover}"
+            [place]="place"
+            (mouseenter)="place.hover = true"
+            (mouseleave)="place.hover = false"
+            @placeState
+            *ngIf="!(state | async).loading"
+          >
+          </vn-place>
+        </ng-container>
+        <div class="no-results w-100" *ngIf="(state | async).total === 0">
+          <strong>Suggestions for improving the results:</strong>
+          <p class="m-0">Try a different location.</p>
+          <p class="m-0">Try a different establishment.</p>
+          <ng-container *ngIf="filtersState.selectedCuisines.length > 0 || filtersState.selectedPrices.length > 0">
+            <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
+          </ng-container>
+        </div>
+        <div class="no-results w-100" *ngIf="(state | async).error && !(state | async).loading">
+          <h3 class="center-align">Connection Error</h3>
+          <p class="center-align mt-0">Our server may be down. Please try again later.</p>
+          <div class="center-align">
+            <button mz-button (click)="onReload()">Try Again</button>
+          </div>
         </div>
       </div>
+      <vn-pagination
+        class="w-100 center-align mt-auto"
+        [itemsPerPage]="18"
+        [currentPage]="currentPage"
+        [totalItems]="(state | async).total"
+        (pageChange)="onPageChange($event)"
+        *ngIf="!(state | async).loading || ((state | async).loading && currentPage !== 1)"
+      >
+      </vn-pagination>
+      <div class="spinner-wrap" [hidden]="!(state | async).loading">
+        <mz-spinner color="blue" size="big"></mz-spinner>
+      </div>
     </div>
-    <vn-pagination
-      class="w-100 center-align mt-auto"
-      [itemsPerPage]="18"
-      [currentPage]="(state | async).currentPage"
-      [totalItems]="(state | async).total"
-      (pageChange)="onPageChange($event)"
-      *ngIf="!(state | async).loading || ((state | async).loading && (state | async).currentPage !== 1)"
-    >
-    </vn-pagination>
-    <div class="spinner-wrap" [hidden]="!(state | async).loading">
-      <mz-spinner color="blue" size="big"></mz-spinner>
-    </div>
-  </div>
-  <div class="filters align-self-flex-start mb-3" *ngIf="!mobileView">
-    <vn-filters class="flex column"></vn-filters>
   </div>
 </div>

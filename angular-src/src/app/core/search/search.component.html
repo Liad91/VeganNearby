@@ -1,7 +1,7 @@
-<div class="flex w-100" class="search-box" [ngClass]="{nav: activatedRoute === 'places'}">
+<div class="flex w-100" class="search-box" [ngClass]="{nav: mode === 'nav'}">
   <form class="flex w-100" (ngSubmit)="onSubmit()">
     <div class="flex w-70 location">
-      <div id="locate">
+      <div id="locate" *ngIf="mode === 'home'">
         <button
           type="button"
           mz-button
@@ -14,7 +14,7 @@
           mz-icon
           [icon]="locateFailed ? 'location_off' : 'location_on'"
           class="search-icon"
-          [vnColor]="locateFailed ? 'gray' : 'primary'"
+          [vnColor]="locateFailed ? 'gray-300' : 'primary'"
           *ngIf="!locateSpinner"
         >
         </i>
@@ -34,7 +34,7 @@
         (keyup)="onSearchChange($event)"
       >
     </div>
-    <div class="flex w-30 categories" *ngIf="activatedRoute === 'home'">
+    <div class="flex w-30 categories" *ngIf="mode === 'home'">
       <div class="input-field w-100">
         <select mz-select name="category" (change)="onCategoryChange($event)">
           <option [value]="i" *ngFor="let category of state.categories; let i = index" [selected]="state.selectedCategoryIndex === i">{{ category.title }}</option>
@@ -42,8 +42,8 @@
       </div>
     </div>
     <button mz-button type="submit">
-      <i class="align-self-center" mz-icon icon="search" *ngIf="activatedRoute === 'places' || (activatedRoute === 'home' && !state.loading)"></i>
-      <mz-spinner id="search-spinner" size="small" *ngIf="state.loading && activatedRoute === 'home'"></mz-spinner>
+      <i class="align-self-center" mz-icon icon="search" *ngIf="!state.loading"></i>
+      <mz-spinner id="search-spinner" size="small" *ngIf="state.loading"></mz-spinner>
     </button>
   </form>
 </div>

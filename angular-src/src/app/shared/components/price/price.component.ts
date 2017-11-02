@@ -2,27 +2,20 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'vn-price',
-  template: `
-    <ng-container *ngIf="price">
-      <span>{{ title }}
-        <span style="color: #41a700">{{ price }}</span><span style="color: #999">{{ reminder }}</span>
-      </span>
-    </ng-container>
-    <ng-container *ngIf="!price">
-      <span style="color: #999">Not available</span>
-    </ng-container>
-  `
+  templateUrl: './price.component.html',
+  styleUrls: ['./price.component.scss']
 })
 
 export class PriceComponent implements OnInit {
   @Input() public price: string;
+  @Input() public tooltip = false;
   private titles = ['Inexpensive', 'Moderate', 'Pricey', 'Ultra High-End'];
   public reminder = '$$$$';
   public title: string;
 
   ngOnInit() {
     if (this.price) {
-      this.title = this.titles[this.price.length];
+      this.title = this.titles[this.price.length - 1];
       this.reminder = this.reminder.substr(this.price.length);
     }
   }

@@ -6,7 +6,6 @@ import { YelpBusiness } from '../../../models/yelp.model';
 export interface State {
   places: YelpBusiness[];
   total: number;
-  currentPage: number;
   loading: boolean;
   error: boolean;
 }
@@ -14,7 +13,6 @@ export interface State {
 const initialState: State = {
   places: null,
   total: null,
-  currentPage: 1,
   loading: false,
   error: false
 };
@@ -30,11 +28,6 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
       return {
         ...state,
         loading: action.payload
-      };
-    case PlaceListActions.SET_CURRENT_PAGE:
-      return {
-        ...state,
-        currentPage: action.payload
       };
     case PlaceListActions.GET_PLACES_SUCCESS:
       return {

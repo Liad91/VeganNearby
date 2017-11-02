@@ -18,6 +18,11 @@ const routes: Routes = [
     data: { name: 'places' }
   },
   {
+    path: 'favorites',
+    loadChildren: './favorites/favorites.module#FavoritesModule',
+    data: { name: 'favorites' }
+  },
+  {
     path: 'callback',
     component: AuthSocialComponent,
     canActivate: [AuthSocialGuard]

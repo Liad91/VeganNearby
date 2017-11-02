@@ -11,19 +11,20 @@
     </div>
   </div>
   <agm-map
-    [latitude]="state.coordinates.lat"
-    [longitude]="state.coordinates.lng"
+    [latitude]="state.coordinates?.lat"
+    [longitude]="state.coordinates?.lng"
     [streetViewControl]="false"
     [maxZoom]="18"
     [minZoom]="10"
     [zoom]="state.zoom"
+    [styles]="mapStyles"
     [zoomControl]="false"
     (zoomChange)="state.zoom = $event"
     (centerChange)="onMapCenterChange($event)"
     (boundsChange)="mapBounds = $event"
   >
     <agm-marker
-      *ngFor="let place of places | async"
+      *ngFor="let place of places"
       [latitude]="place.coordinates.latitude"
       [longitude]="place.coordinates.longitude"
       [iconUrl]="'assets/icons/marker.png'"
@@ -88,4 +89,4 @@
   </p>
 </div>
 <a mz-button class="hide-on-med-and-up mt-2" (click)="onApply()">Apply</a>
-<a mz-button class="hide-on-med-and-up red" [disabled]="!(filtersApplied | async)" (click)="onReset()">Reset</a>
+<a mz-button class="hide-on-med-and-up red" [disabled]="state.selectedCuisines.length === 0 && state.selectedPrices.length === 0" (click)="onReset()">Reset</a>

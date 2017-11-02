@@ -1,7 +1,10 @@
 export * from './alert-modal/alert-modal.component';
+export * from './btn-favorite/btn-favorite.component';
 export * from './carousel/carousel.component'
 export * from './carousel/carousel-item/carousel-item.component'
-export * from './typed/typed.component';
+export * from './place/place.component';
+export * from './price/price.component';
+export * from './stars/stars.component';
 export * from './tabs/tabs.component';
 export * from './tabs/tab-item/tab-item.component';
-
+export * from './typed/typed.component';

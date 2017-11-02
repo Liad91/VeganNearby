@@ -2,18 +2,32 @@
 
 nav {
   overflow: hidden;
-  background-color: #3f3f3f;
+  background-color: #fff;
+  border-top: 2px solid $primary-color;
+  box-shadow: none;
   
   vn-search {
-    width: 80%;
+    width: 30%;
     
-    @media #{$small-only} {
-      width: 70%;
+    @media #{$small-and-down} {
+      width: 80%;
     }
   }
   
   .logo {
     z-index: 1;
+    width: 170px;
+    height: 35px;
+    background-image: url('../../../assets/images/logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: none;
+
+    @media #{$small-and-down} {
+      width: 150px;
+      height: 31px;
+    }
   }
   
   .btn-search,
@@ -21,6 +35,62 @@ nav {
     i {
       height: 40px;
       line-height: 40px;
+    }
+  }
+
+  ul li {
+    margin-right: 7px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a {
+      position: relative;
+      color: $dark-color;
+      font-size: 14px;
+
+      &:hover {
+        background-color: $body-bg-color;
+
+        .badge {
+          background-color: $body-bg-color;
+          color: $dark-color;
+        }
+      }
+
+      .badge {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        height: auto;
+        min-width: auto;
+        padding: 4px 6px;
+        color: #fff;
+        font-size: 11px;
+        line-height: 1;
+        border-radius: 50%;
+        background-color: #f15c4f;
+        transition: all 0.3s;
+      }
+    }
+  }
+
+  &:not(.home) {
+    .btn-floating i {
+      color: $dark-color;
+    }
+
+    .btn-menu {
+      order: -1;
+    }
+  }
+
+  &.home {
+    background-color: transparent;
+
+    .logo {
+      background-image: url('../../../assets/images/logo_white.png');
     }
   }
 }
@@ -76,7 +146,7 @@ nav {
     margin-bottom: 5px;
     border-radius: 5px;
     cursor: pointer;
-    transition: all 350ms ease-out;
+    transition: $medium-transition;
     
     &:nth-of-type(3n + 3) {
       margin-right: 0;
@@ -97,7 +167,7 @@ nav {
       left: 38px;
       color: #fff;
       transform: scale(0);
-      transition: all 350ms ease-out;
+      transition: $medium-transition;
     }
 
     &.selected {
@@ -114,7 +184,7 @@ nav {
       width: 100%;
       height: 100%;
       border-radius: 5px;
-      transition: all 350ms ease-out;
+      transition: $medium-transition;
     }
   }
 

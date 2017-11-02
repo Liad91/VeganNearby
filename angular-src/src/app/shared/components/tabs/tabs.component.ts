@@ -3,9 +3,10 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  Input,
   NgZone,
   QueryList,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 
 import { TabItemComponent } from './tab-item/tab-item.component';
@@ -15,6 +16,7 @@ import { TabItemComponent } from './tab-item/tab-item.component';
   templateUrl: './tabs.component.html'
 })
 export class TabsComponent implements AfterViewInit {
+  @Input() selected: number;
   @ViewChild('tabs') tabs: ElementRef;
   @ContentChildren(TabItemComponent) tabItems: QueryList<TabItemComponent>;
   private $tabs: JQuery;
@@ -27,10 +29,12 @@ export class TabsComponent implements AfterViewInit {
   }
 
   private initilaize(): void {
+    const selectedTab = this.tabItems.toArray()[this.selected];
+
     this.$tabs = $(this.tabs.nativeElement);
     this.$tabs.tabs();
-    this.$tabs.tabs('select_tab', this.tabItems.first.id);
-    this.tabItems.first.setActive(true);
+    this.$tabs.tabs('select_tab', selectedTab.id);
+    selectedTab.setActive(true);
   }
 
   private setActive(i: number): void {

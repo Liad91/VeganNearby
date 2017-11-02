@@ -4,34 +4,26 @@ import { Routes, RouterModule } from '@angular/router';
 // Components
 import { PlacesComponent } from './places.component';
 import { PlaceListComponent } from './place-list/place-list.component';
-import { FavoritesComponent } from './favorites/favorites.component';
 import { PlaceDetailComponent } from './place-detail/place-detail.component';
 
 // Guards
-import { PlaceListGuard } from './place-list/place-list.guard';
-import { FavoritesGuard } from './favorites/favorites.guard';
+import { PlaceDetailGuard } from './place-detail/place-detail.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: PlacesComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'list' },
+      { path: '', pathMatch: 'full', redirectTo: '/' },
       {
-        path: 'list',
+        path: ':city',
         component: PlaceListComponent,
-        canActivate: [PlaceListGuard],
         data: { name: 'list' }
-      },
-      {
-        path: 'favorites',
-        component: FavoritesComponent,
-        canActivate: [FavoritesGuard],
-        data: { name: 'favorites' }
       },
       {
         path: 'place/:id',
         component: PlaceDetailComponent,
+        canActivate: [PlaceDetailGuard],
         data: { name: 'place' }
       },
     ]

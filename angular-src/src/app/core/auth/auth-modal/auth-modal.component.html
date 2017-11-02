@@ -5,7 +5,7 @@
     <div class="spinner-wrap" *ngIf="(loading | async)">
       <mz-spinner color="blue" size="big"></mz-spinner>
     </div>
-    <vn-tabs>
+    <vn-tabs [selected]="mode === 'login' ? 0 : 1">
       <vn-tab-item id="login" label="Login">
         <ng-template>
           <vn-login></vn-login>

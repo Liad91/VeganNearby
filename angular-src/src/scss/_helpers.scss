@@ -20,9 +20,11 @@
 /** headers */
 @each $header, $size in $header-sizes {
   #{$header} {
+    font-family: $header-font-family;
+    font-weight: bold;
     font-size: $size * 1rem;
     margin: ($size * 1rem / 2) 0;
-    font-weight: bold;
+    color: $dark-color;
   }
 }
 

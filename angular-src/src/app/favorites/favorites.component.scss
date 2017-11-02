@@ -1,7 +1,11 @@
-@import '../../variables';
+@import '../variables';
 
 :host {
   display: block;
+}
+
+header {
+  background-image: url('../../assets/images/favorites-banner.jpg');
 }
 
 .spinner-container {

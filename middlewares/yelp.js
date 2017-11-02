@@ -36,7 +36,9 @@ function getToken() {
   return new Promise((resolve, reject) => {
     request(options, (err, response, body) => {
       if (err || response.statusCode !== 200) {
-        err.message = 'Yelp token request failed';      
+        const error = err || new Error();
+
+        error.message = 'Yelp token request failed';      
         return reject(err);
       }
       body = JSON.parse(body);

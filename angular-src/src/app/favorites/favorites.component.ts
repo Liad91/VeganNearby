@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import { placeStateTrigger } from './animations';
 import { State } from './store/favorites.reducers';
-import * as fromRoot from '../../store/app.reducers';
+import * as fromRoot from '../store/app.reducers';
 import { GetFavorites } from './store/favorites.actions';
-import { YelpBusiness } from './../../models/yelp.model';
-import { PlacesService } from '../places.service';
-import { ToastService } from '../../core/services/toast.service';
+import { YelpBusiness } from '../models/yelp.model';
+import { PlacesService } from '../places/places.service';
+import { ToastService } from '../core/services/toast.service';
 
 @Component({
   selector: 'vn-favorites',
@@ -17,16 +18,25 @@ import { ToastService } from '../../core/services/toast.service';
   animations: [placeStateTrigger]
 })
 
-export class FavoritesComponent implements OnInit {
+export class FavoritesComponent implements OnInit, OnDestroy {
   public state: State;
   public errorLoading = false;
   public connectionError = false;
   public emptyPlaces: string[] = [];
-  private stateSubscription: Subscription
+  private userSubscription: Subscription;
+  private stateSubscription: Subscription;
 
-  constructor(private store: Store<fromRoot.AppState>, private placesService: PlacesService, private toastService: ToastService) {}
+  constructor(
+    private store: Store<fromRoot.AppState>,
+    private router: Router,
+    private placesService: PlacesService,
+    private toastService: ToastService) {}
 
   ngOnInit(): void {
+    this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn)
+      .filter(user => !user)
+      .subscribe(() => this.router.navigate(['/']));
+
     this.stateSubscription = this.store.select(fromRoot.selectFavorites).subscribe(state => {
       this.state = state;
       if (!state.loading && this.state.places.length > 0) {
@@ -69,5 +79,10 @@ export class FavoritesComponent implements OnInit {
   private deleteEmptyPlacesFailure(): void {
     this.errorLoading = false;
     this.toastService.show(`Failed to remove the ${this.emptyPlaces.length > 1 ? 'items' : 'item'} from your favorites`);
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+    this.stateSubscription.unsubscribe();
   }
 }

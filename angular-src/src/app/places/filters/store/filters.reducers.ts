@@ -31,7 +31,7 @@ const initialState: State = {
   zoom: 13,
   radius: 1489,
   categories: Data.categories,
-  selectedCategory: null,
+  selectedCategory: Data.categories[0],
   prices: Data.prices,
   selectedPrices: [],
   cuisines: Data.cuisines,

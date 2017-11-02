@@ -1,0 +1,10 @@
+<ng-container *ngIf="price">
+  <span [ngClass]="{'tooltip-container': tooltip}">
+    <div class="tooltip" *ngIf="tooltip">{{ title }}</div>
+    <span style="color: #41a700">{{ price }}</span><span style="color: #999">{{ reminder }}</span>
+    <ng-container *ngIf="!tooltip">{{ title }}</ng-container>
+  </span>
+</ng-container>
+<ng-container *ngIf="!price">
+  <span style="color: #999">Not Available</span>
+</ng-container>

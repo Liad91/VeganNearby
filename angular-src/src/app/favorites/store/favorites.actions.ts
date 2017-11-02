@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { YelpBusinessResponse } from '../../../models/yelp.model';
+import { YelpBusinessResponse } from '../../models/yelp.model';
 
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';

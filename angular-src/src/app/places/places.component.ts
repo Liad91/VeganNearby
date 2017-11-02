@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ResizeService } from './../core/services/resize.service';
+import { UtilitiesService } from './../core/services/utilities.service';
 import { routeStateTrigger } from './animations';
 
 @Component({
@@ -15,10 +15,10 @@ export class PlacesComponent implements OnInit, OnDestroy {
   public mobileView: boolean;
   private resizeSubscription: Subscription;
 
-  constructor(private resizeService: ResizeService) {}
+  constructor(private utilitiesService: UtilitiesService) {}
 
   ngOnInit(): void {
-    this.resizeSubscription = this.resizeService.screenSize.subscribe(
+    this.resizeSubscription = this.utilitiesService.screenSize.subscribe(
       size => {
         this.mobileView = size === 'xs' || size === 'sm';
       }

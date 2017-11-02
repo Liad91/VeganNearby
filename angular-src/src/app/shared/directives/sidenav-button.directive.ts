@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
+  EventEmitter,
   Input,
   NgZone,
   OnDestroy,
-  Renderer2
+  Output,
+  Renderer2,
 } from '@angular/core';
 
 @Directive({
@@ -17,6 +19,7 @@ export class SidenavButtonDirective implements AfterViewInit, OnDestroy {
   @Input() edge = 'left';
   @Input() draggable = true;
   @Input() closeOnClick = true;
+  @Output() isOpen: EventEmitter<boolean> = new EventEmitter();
   private $button: JQuery;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2, private zone: NgZone) {}
@@ -28,11 +31,13 @@ export class SidenavButtonDirective implements AfterViewInit, OnDestroy {
 
   private initialize(): void {
     this.$button = $(this.elementRef.nativeElement);
-    this.$button.sideNav({
+    this.$button.sideNav(<any>{
       edge: this.edge,
       menuWidth: this.width,
       draggable: this.draggable,
-      closeOnClick: this.closeOnClick
+      closeOnClick: this.closeOnClick,
+      onOpen: () => this.zone.run(() => this.isOpen.emit(true)),
+      onClose: () => this.zone.run(() => this.isOpen.emit(false))
     });
   }
 

@@ -7,9 +7,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/withLatestFrom';
 
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../../store/app.reducers';
 import * as favoritesActions from './favorites.actions';
-import { PlacesService } from '../../places.service';
+import { PlacesService } from '../../places/places.service';
 
 @Injectable()
 export class FavoritesEffects {

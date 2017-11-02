@@ -1,6 +1,6 @@
 import { trigger, transition } from '@angular/animations';
 
-import { slideIn, zoomOut } from '../../shared/animations';
+import { slideIn, zoomOut } from '../shared/animations';
 
 export const placeStateTrigger = trigger('placeState', [
   transition(':enter', slideIn('0, -40px', '200ms ease-out')),

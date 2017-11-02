@@ -19,12 +19,6 @@ export class SetLoading implements Action {
   constructor(public payload: boolean) {}
 }
 
-export class SetCurrentPage implements Action {
-  readonly type = SET_CURRENT_PAGE;
-
-  constructor(public payload: number) {}
-}
-
 export class GetPlacesSuccess {
   readonly type = GET_PLACES_SUCCESS;
 
@@ -38,6 +32,5 @@ export class GetPlacesFailure {
 export type Action =
   | GetPlaces
   | SetLoading
-  | SetCurrentPage
   | GetPlacesSuccess
   | GetPlacesFailure;

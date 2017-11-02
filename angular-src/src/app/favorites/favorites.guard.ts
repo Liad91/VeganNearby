@@ -4,7 +4,7 @@ import { CanActivate, Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
-import * as fromRoot from '../../store/app.reducers';
+import * as fromRoot from '../store/app.reducers';
 
 @Injectable()
 export class FavoritesGuard implements CanActivate {
@@ -12,14 +12,12 @@ export class FavoritesGuard implements CanActivate {
   constructor(private store: Store<fromRoot.AppState>, private router: Router) { }
 
   canActivate() {
-    return this.store.select(fromRoot.selectAuthUser)
-      .take(1)
-      .map(user => {
-        if (user) {
-          return true;
-        }
-        this.router.navigate(['/']);
-        return false;
-      });
+    return this.store.select(fromRoot.selectAuthUserLoggedIn).map(user => {
+      if (user) {
+        return true;
+      }
+      this.router.navigate(['/']);
+      return false;
+    })
   }
 }

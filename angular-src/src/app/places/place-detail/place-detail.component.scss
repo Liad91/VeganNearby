@@ -1,9 +1,9 @@
 @import '../../variables';
 
-header {
+.title {
   p {
     line-height: 0;
-    
+
     &::ng-deep img {
       max-width: 125px;
 
@@ -15,27 +15,16 @@ header {
         max-width: 120px;        
       }
     }
-
-    @media #{$small-and-down} {
-      margin-top: 5px;
-    }
-  }
-
-  @media #{$small-and-down} {
-    margin-bottom: 0;
   }
 }
 
 agm-map {
   display: block;
-  height: 200px;
+  height: 300px;
 }
 
 .main {
-  width: auto;
-  flex-grow: 1;
-
-  .info div {
+  .info-box div {
     display: flex;
     align-items: center;
     margin-bottom: 6px;
@@ -56,12 +45,6 @@ agm-map {
       }
     }
   }
-
-
-}
-
-.sidebar {
-  width: 300px;
 }
 
 .spinner-container {

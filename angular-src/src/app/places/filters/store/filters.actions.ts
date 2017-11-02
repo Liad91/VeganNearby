@@ -25,7 +25,7 @@ export class Search implements Action {
 export class NewSearch implements Action {
   readonly type = NEW_SEARCH;
 
-  constructor(public payload: { location: string, coordinates: LatLngLiteral, selectedCategory: Filter }) {}
+  constructor(public payload: { location: string, coordinates: LatLngLiteral, selectedCategory?: Filter }) {}
 }
 
 export class SetZoom implements Action {

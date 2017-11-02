@@ -1,4 +1,4 @@
-import { YelpBusinessResponse } from '../../../models/yelp.model';
+import { YelpBusinessResponse } from '../../models/yelp.model';
 
 import * as favoritesActions from './favorites.actions';
 

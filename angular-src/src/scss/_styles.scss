@@ -4,68 +4,32 @@
 
 // Global
 // ==========================================================================
-html {
-  font-family: 'Quicksand', 'Roboto' ,sans-serif;
-}
-
 html,
 label {
-  color: $dark-color;
+  color: $font-color;
+}
+
+body {
+  min-height: 100vh;
+  background-color: $body-bg-color;
 }
 
 a {
   cursor: pointer;
-}
-
-header {
-  padding: 15px;
-  background-color: $primary-color;
-
-  h4 {
-    width: 80%;
-    font-weight: 300;
-    line-height: 1.5;
-  }
-
-  p {
-    width: 20%;
-    text-align: right;
-  }
-
-  @media #{$small-and-down} {
-    flex-wrap: wrap;
-
-    h4 {
-      width: 100%;
-      text-align: center;
-    }
-    p {
-      width: 100%;
-      text-align: center;
-    }
-  }
-
-  @media #{$extra-small-only} {
-    margin: 0 -5px 1rem;
-    padding: 25px 5px;
-
-    h4 {
-      font-size: 1.2rem;
-    }
-  }
+  transition: $medium-transition;
 }
 
 .content {
   margin: 0 auto;
   padding: 0 25px;
-  max-width: 1200px;
+  max-width: 1170px;
   @media #{$medium-and-down} {
     max-width: 100%;
     padding: 0 15px;
   }
   @media #{$small-and-down} {
     padding: 0 5px;
-  }
+  } 
 }
 
 .btn, .btn-large, .btn-flat {
@@ -73,13 +37,114 @@ header {
 }
 
 .btn-flat:hover {
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: rgba(0, 0, 0, 0.02);
 }
+
+// Headers & Titles
+// ==========================================================================
+header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  margin-bottom: 2rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  h1 {
+    margin: 0;
+    color: #fff;
+    font-weight: normal;
+    letter-spacing: 6px;
+    line-height: 1.5;
+    z-index: 10;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid $border-color;
+  line-height: 1.5;
+
+  h4 {
+    font-family: $font-family;
+    width: 100%;
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  &.inline {
+    h4 {
+      width: 80%;
+    }
+  }
+
+  p {
+    width: 20%;
+    margin: 0;
+    text-align: right;
+  }
+
+  p.badge {
+    width: auto;
+    margin-left: auto;
+    padding: 2px 15px;
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: $tertiary-color;
+    color: #fff;
+  }
+
+  @media #{$small-and-down} {
+    flex-wrap: wrap;
+
+    &.inline h4,
+    h4 {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    p {
+      width: 100%;
+      text-align: center;
+    }
+    p.badge {
+      width: auto;
+      margin: 0 auto;
+    }
+  }
+
+  @media #{$extra-small-only} {
+    margin: 0 -5px 1rem;
+    padding: 10px 5px;
+
+    h4 {
+      font-size: 1.3rem;
+    }
+  }
+}
+
 
 // Error
 // ==========================================================================
 .error {
-  background-color: #ffc8c6;
+  background-color: #ef9a9a;
   border-radius: 3px;
   border: 1px solid #f17d79;
 }
@@ -92,9 +157,9 @@ header {
   box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
 .pac-item {
-  padding: 3px 10px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  padding: 3px 10px;
+  transition: $fast-transition;
 
   .pac-icon {
     display: none;
@@ -115,7 +180,7 @@ header {
   right: 0;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba($body-bg-color, 0.6);
   z-index: 10;
 
   &:not([hidden]) {

@@ -3,7 +3,7 @@
     <h1 class="hide-on-med-and-down center-align mt-0">Searching for {{ category.alias }}?</h1>
     <h3 class="hide-on-med-and-down center-align mt-0"><vn-typed [strings]="strings"></vn-typed></h3>
     <h2 class="hide-on-med-and-up show-on-medium-and-down center-align mt-0">Find your favorite {{ category.alias }}</h2>
-    <vn-search activatedRoute="home"></vn-search>
+    <vn-search mode="home"></vn-search>
     <div class="bottom">
       
       <p class="mb-0">Our search engine is powered by yelp</p>
@@ -46,7 +46,7 @@
 </div>
   
 <div class="content w-100">
-  <div class="title my-3">
+  <div class="title-big mt-3 mb-2">
     <h1 class="mt-0">Recommended Cities</h1>
     <p class="m-0">Most vegan friendly cities you must explore</p>
   </div>
@@ -72,15 +72,20 @@
     </div>
   </div>
 
-  <div class="title my-3">
-      <h1 class="mt-0">Recommended Places</h1>
-      <p class="m-0">Most vegan friendly places you must explore</p>
-    </div>
-</div>
+  <div class="title-big mt-3 mb-2">
+    <h1 class="mt-0">Recommended Places</h1>
+    <p class="m-0">Most vegan friendly places you must explore</p>
+  </div>
 
-<!-- 
-<footer class="flex w-100 mt-auto">
-	<p class="w-100 center-align">
-		Created with <i mz-icon class="red-text" icon="favorite"></i> by <a href="https://github.com/Liad91" target="_blank">Liad Idan</a>.
-	</p>
-</footer> -->
+  <div class="places flex justify-content-center mb-3">
+    <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error">
+      <h3 class="white-text">Connection Error</h3>
+      <p class="white-text">Our server may be down. Please try again later.</p>
+      <button mz-button (click)="onReload()">Try Again</button>
+    </div>
+    <vn-place [place]="place" *ngFor="let place of (state | async).places"></vn-place>
+    <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading">
+      <mz-spinner size="big" color="blue"></mz-spinner>
+    </div>
+  </div>
+</div>

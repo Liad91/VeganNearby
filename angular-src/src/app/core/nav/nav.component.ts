@@ -8,7 +8,7 @@ import * as fromRoot from './../../store/app.reducers';
 import * as authActions from './../auth/store/auth.actions';
 import { User } from './../../models/user.model';
 import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';
-import { ResizeService } from './../services/resize.service';
+import { UtilitiesService } from './../services/utilities.service';
 import { searchStateTrigger } from './animations';
 import { SidenavButtonDirective } from '../../shared/directives/sidenav-button.directive';
 
@@ -22,22 +22,22 @@ import { SidenavButtonDirective } from '../../shared/directives/sidenav-button.d
 })
 export class NavComponent implements OnInit, OnDestroy {
   @ViewChild(SidenavButtonDirective) sidenavBtn: SidenavButtonDirective;
-  @Input() public activatedRoute: 'home' | 'places';
+  @Input() public activatedRoute: 'home' | 'places' | 'favorites';
   public user: Observable<User>;
   public mobileView: boolean;
   public searchBarOpen = false;
   public backgroundLoading: Observable<boolean>;
   private resizeSubscription: Subscription;
 
-  constructor(private store: Store<fromRoot.AppState>, private modalService: MzModalService, private resizeService: ResizeService) {}
+  constructor(private store: Store<fromRoot.AppState>, private modalService: MzModalService, private utilitiesService: UtilitiesService) {}
 
   ngOnInit(): void {
     this.user = this.store.select(fromRoot.selectAuthUser);
     this.backgroundLoading = this.store.select(fromRoot.selectAuthUserBackgroundLoading);
 
-    this.resizeSubscription = this.resizeService.screenSize.subscribe(
+    this.resizeSubscription = this.utilitiesService.screenSize.subscribe(
       size => {
-        this.mobileView = size === 'xs';
+        this.mobileView = size === 'sm' || size === 'xs';
         if (this.searchBarOpen && !this.mobileView) {
           this.searchBarOpen = false;
         }
@@ -45,15 +45,19 @@ export class NavComponent implements OnInit, OnDestroy {
     );
   }
 
-  public openModal(event: Event): void {
+  public openModal(event: Event, mode: string): void {
     /** prevent sidenav from closing */
     event.stopPropagation();
-    this.modalService.open(AuthModalComponent);
+    this.modalService.open(AuthModalComponent, { mode });
   }
 
   public logout(): void {
     this.store.dispatch(new authActions.Logout());
-    this.sidenavBtn.hide();
+
+    /** close sidenav */
+    if (this.sidenavBtn) {
+      this.sidenavBtn.hide();
+    }
   }
 
   public setBackground(selected: number): void {

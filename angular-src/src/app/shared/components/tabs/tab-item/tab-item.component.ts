@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ContentChild,
-  Input,
-  TemplateRef
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ContentChild, Input, NgZone, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'vn-tab-item',
@@ -16,10 +10,12 @@ export class TabItemComponent {
   @ContentChild(TemplateRef) template;
   public active = false;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef, private zone: NgZone) {}
 
   public setActive(active: boolean): void {
     this.active = active;
-    this.changeDetectorRef.detectChanges();
+    this.zone.run(() => {
+      this.changeDetectorRef.detectChanges();
+    });
   }
 }

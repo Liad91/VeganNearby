@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects'
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // Components
@@ -31,10 +30,9 @@ import { lazyMapsAPILoaderConfigLiteral } from './../config';
     HttpClientModule,
     BrowserAnimationsModule,
     CoreModule,
-    AgmCoreModule.forRoot(lazyMapsAPILoaderConfigLiteral),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    StoreRouterConnectingModule,
+    AgmCoreModule.forRoot(lazyMapsAPILoaderConfigLiteral),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 3 }) : []
   ],
   bootstrap: [AppComponent]

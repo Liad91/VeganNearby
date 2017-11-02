@@ -4,27 +4,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #fff;
-  min-height: calc(100vh - 64px);
-
-  @media #{$small-and-down} {
-    min-height: calc(100vh - 56px);
-  }
 }
 
 vn-nav.sticky {
   position: sticky;
   top: 0;
   z-index: 100;
-}
-
-footer.page-footer {
-  margin-top: auto;
-  padding-top: 0;
-  border-bottom: 2px solid #43a047;
-  
-  .footer-copyright {
-    background-color: $dark-color;
-    font-weight: 400;
-  }
 }

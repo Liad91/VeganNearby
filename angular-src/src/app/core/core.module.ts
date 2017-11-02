@@ -42,7 +42,7 @@ import { SharedModule } from './../shared/shared.module';
   ],
   providers: [
     Services.ConnectionService,
-    Services.ResizeService,
+    Services.UtilitiesService,
     Services.ToastService,
     Services.GeographicalService,
     Services.ModalService,

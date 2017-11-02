@@ -7,7 +7,13 @@ agm-map {
 
 .filter {
   padding-bottom: 1rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $border-color;
+
+  &:first-of-type {
+    .title-inline {
+      padding-top: 0;
+    }
+  }
 
   &:last-of-type {
     padding-bottom: 0;
@@ -21,12 +27,12 @@ agm-map {
     i {
       font-size: 1.5rem;
       margin-right: 7px;
+      color: $dark-color;
     }
 
     h3 {
       margin: 0;
       font-size: 1rem;
-      font-weight: 500;
     }
   }
 
@@ -70,7 +76,7 @@ agm-map {
   display: inline-flex;
   margin-left: auto;
   font-size: 13px;
-  color: #5a5a5a;
+  color: $dark-color;
 
   i {
     font-size: 15px;

@@ -2,13 +2,26 @@
 // Materialize - Custom Variables
 // ==========================================================================
 
+// Font Family
+$font-family: 'Roboto', 'sans-serif';
+$header-font-family: 'Quicksand', 'sans-serif';
+
 // Colors
 $primary-color: color(primary);
 $secondary-color: color(secondary);
+$tertiary-color: color(tertiary);
 $success-color: $secondary-color;
 $warning-color: color(warning);
 $danger-color: color(danger);
-$dark-color: color(dark);
+$dark-color: color(gray-400);
+$font-color: color(gray-300);
+$border-color: color(gray-200);
+$body-bg-color: color(gray-100);
+
+// Transitions
+$fast-transition: all 250ms ease-out;
+$medium-transition: all 350ms ease-out;
+$slow-transition: all 450ms ease-out;
 
 // Media Query Ranges
 $extra-small-screen-up: 600px;

@@ -1,17 +1,20 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/filter';
 
 import { State } from './store/place-list.reducers';
 import * as fromPlaces from '../store/places.reducers';
+import * as fromFilters from '../filters/store/filters.reducers';
 import * as placeListActions from './store/place-list.actions';
 import * as filtersActions from '../filters/store/filters.actions';
-import { GetPlace } from '../place-detail/store/place-detail.actions';
-import { Filter } from '../filters/store/filters.reducers';
-import { ResizeService } from '../../core/services/resize.service';
+
 import { placeStateTrigger } from './animations';
+import { UtilitiesService } from '../../core/services/utilities.service';
+import { GeographicalService } from '../../core/services/index';
 
 @Component({
   selector: 'vn-place-list',
@@ -22,31 +25,96 @@ import { placeStateTrigger } from './animations';
   ]
 })
 export class PlaceListComponent implements OnInit, OnDestroy {
-  @ViewChild('sidebarBtn') sidebarBtn: ElementRef;
   public state: Observable<State>;
+  public filtersState: fromFilters.State;
   public mobileView: boolean;
-  public location: Observable<string>;
-  public category: Observable<Filter>;
-  public filtersApplied: Observable<boolean>;
+  public currentPage = 1;
   private resizeSubscription: Subscription;
+  private filtersStateSubscription: Subscription;
+  private navigationEndSubscription: Subscription;
 
-  constructor(private store: Store<fromPlaces.FeatureState>, private router: Router, private resizeService: ResizeService) {}
+  constructor(
+    private store: Store<fromPlaces.FeatureState>,
+    private router: Router,
+    private route: ActivatedRoute,
+    private utilitiesService: UtilitiesService,
+    private geoService: GeographicalService) {}
 
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceList);
-    this.location = this.store.select(fromPlaces.selectFiltersLocation);
-    this.category = this.store.select(fromPlaces.selectFiltersCategory);
-    this.filtersApplied = this.store.select(fromPlaces.selectFiltersApplied);
-    this.resizeSubscription = this.resizeService.screenSize.subscribe(size => this.onScreenResize(size));
+    this.resizeSubscription = this.utilitiesService.screenSize.subscribe(size => this.onScreenResize(size));
+    this.filtersStateSubscription = this.store.select(fromPlaces.selectFilters).subscribe(state => this.filtersState = state);
+    this.navigationEndSubscription = this.utilitiesService.navigationEnd
+      .filter(snapshot => snapshot.data['name'] && snapshot.data['name'] === 'list')
+      .subscribe(snapshot => this.navigationEndHandler(snapshot));
+  }
+
+  private navigationEndHandler(snapshot: ActivatedRouteSnapshot) {
+    this.store.dispatch(new filtersActions.SetLocation(snapshot.params.city));
+    this.queryParamsHandler(+snapshot.queryParams['p'], +snapshot.queryParams['lat'], +snapshot.queryParams['lng']);
+    this.validatePageNumber();
+  }
+
+  private queryParamsHandler(page: number, lat: number, lng: number): void {
+    /** check and validate coordinates */
+    if (lat && lng && !isNaN(lat) && !isNaN(lng) && lat < 90 && lat > -90 && lng < 180 && lng > -180) {
+      this.store.dispatch(new filtersActions.SetCoordinates({ lat, lng }));
+    }
+    else {
+      this.geoService.geocoder(this.filtersState.location)
+        .then(coordinates => {
+          this.router.navigate(['places', this.filtersState.location], {
+            queryParams: {
+              p: 1,
+              lat: coordinates.lat,
+              lng: coordinates.lng
+            }
+          });
+        })
+        .catch(() => this.router.navigate(['/']));
+      return;
+    }
+
+    /** check and validate page number */
+    if (page && !isNaN(page) && (Math.floor(page) - 1) * 18 < 1000) {
+      this.currentPage = Math.floor(page);
+      this.store.dispatch(new filtersActions.SetOffset(18 * (this.currentPage - 1)));
+    }
+    else {
+      const queryParams = { p: 1, lat: null, lng: null };
+
+      if (this.filtersState.coordinates) {
+        queryParams.lat = this.filtersState.coordinates.lat;
+        queryParams.lng = this.filtersState.coordinates.lng;
+      }
+
+      this.router.navigate(['places', this.filtersState.location], { queryParams });
+      return;
+    }
+
+    /** get places */
+    this.store.dispatch(new placeListActions.GetPlaces());
+  }
+
+  private validatePageNumber(): void {
+    this.state
+      .filter(state => !!state.total)
+      .take(1)
+      .subscribe(state => {
+      if (state.total < (this.currentPage - 1) * 18) {
+        this.router.navigate(['places', this.filtersState.location], {
+          queryParams: {
+            p: 1,
+            lat: this.route.snapshot.params['lat'],
+            lng: this.route.snapshot.params['lng']
+          }
+        });
+      }
+    });
   }
 
   private onScreenResize(size: string): void {
     this.mobileView = size === 'sm' || size === 'xs';
-  }
-
-  public getPlace(id: string) {
-    this.store.dispatch(new GetPlace(id));
-    this.router.navigate(['places', 'place', id]);
   }
 
   public onReload(): void {
@@ -58,9 +126,13 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   }
 
   public onPageChange(page: number): void {
-    this.store.dispatch(new placeListActions.SetCurrentPage(page));
-    this.store.dispatch(new filtersActions.SetOffset(18 * (page - 1)));
-    this.store.dispatch(new placeListActions.GetPlaces());
+    this.router.navigate(['places', this.filtersState.location], {
+      queryParams: {
+        p: page,
+        lat: this.filtersState.coordinates.lat,
+        lng: this.filtersState.coordinates.lng
+      }
+    });
   }
 
   public onResetFilters(): void {
@@ -70,5 +142,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe();
+    this.filtersStateSubscription.unsubscribe();
+    this.navigationEndSubscription.unsubscribe();
   }
 }

@@ -4,12 +4,11 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/take';
 
-
 import * as fromRoot from '../../../store/app.reducers';
 import * as authActions from '../../../core/auth/store/auth.actions';
-import * as favoritesActions from '../../favorites/store/favorites.actions';
+import * as favoritesActions from '../../../favorites/store/favorites.actions';
 
-import { PlacesService } from '../../places.service';
+import { PlacesService } from '../../../places/places.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { ModalService } from '../../../core/services/modal.service';
 import { YelpBusinessResponse } from '../../../models/yelp.model';
@@ -114,7 +113,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
         },
         {
           text: 'Manage Favorites',
-          handler: () => this.router.navigate(['places', 'favorites'])
+          handler: () => this.router.navigate(['favorites'])
         }
       ]
     };

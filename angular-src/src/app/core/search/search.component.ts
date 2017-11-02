@@ -27,7 +27,7 @@ import { GeographicalService } from '../services/geographical.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  @Input() public activatedRoute: 'home' | 'places';
+  @Input() public mode: 'home' | 'nav';
   @ViewChild('search') private searchElementRef: ElementRef;
   public state: State;
   public location: string;
@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     );
     this.initializeAutocomplete();
 
-    if (this.activatedRoute === 'places') {
+    if (this.mode === 'nav') {
       this.store.select(fromRoot.selectFiltersLocation)
         .take(1)
         .subscribe(location => this.location = location);
@@ -130,7 +130,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       return;
     }
     if (!this.coordinates) {
-      if (this.activatedRoute === 'places') {
+      if (this.mode === 'nav') {
         this.store.dispatch(new placeListActions.SetLoading(true));
       }
       this.state.loading = true;
@@ -156,20 +156,25 @@ export class SearchComponent implements OnInit, OnDestroy {
       selectedCategory: this.state.categories[this.state.selectedCategoryIndex]
     }
 
-    if (this.activatedRoute === 'home') {
+    if (this.mode === 'home') {
       this.store.dispatch(new filtersActions.NewSearch(payload));
     }
     else {
       this.store.dispatch(new filtersActions.Search(payload));
     }
+    this.router.navigate(['places', this.location], {
+      queryParams: {
+        p: 1,
+        ...this.coordinates
+      }
+    });
     this.coordinates = null;
-    this.store.dispatch(new placeListActions.GetPlaces());
-    this.store.dispatch(new placeListActions.SetCurrentPage(1));
-    this.router.navigate(['places', 'list']);
   }
 
   ngOnDestroy(): void {
-    this.autocompleteListener.remove();
+    if (this.autocompleteListener) {
+      this.autocompleteListener.remove();
+    }
     this.stateSubscription.unsubscribe();
   }
 }

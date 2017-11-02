@@ -22,10 +22,10 @@
     }
     
     .select-dropdown {
-      border: none;
-      text-align: center;
       margin: 0;
-      font-weight: bold;
+      border: none;
+      font-size: 14px;
+      text-align: center;
     }
 
     ul.dropdown-content {
@@ -39,7 +39,7 @@
         align-items: center;
         justify-content: center;
         padding: 10px 0;
-        transition: all 0.2s ease-in-out;
+        transition: $fast-transition;
 
         &.selected,
         &.active {
@@ -83,8 +83,13 @@
     width: 100%;
     margin-left: 5px;
     margin-right: 3px;
+    font-size: 14px;
     align-self: stretch;
     transition: none;
+    
+    &::-webkit-input-placeholder  {
+      color: $font-color;
+    }
 
     &:focus {
       border: none;
@@ -104,10 +109,8 @@ button[type = submit] {
     font-size: 25px;
   }
 
-  /deep/ {
-    #search-spinner .spinner-layer {
-      border-color: #fff;
-    }
+  mz-spinner::ng-deep .spinner-layer{
+    border-color: #fff;
   }
 }
 
@@ -165,6 +168,9 @@ button[type = submit] {
   background-color: transparent;
 
   form {
+    border: 1px solid $border-color;
+    border-radius: 5px;
+
     .location {
       width: 100%;
       margin-right: 0;
@@ -184,24 +190,30 @@ button[type = submit] {
 
       input {
         height: 2.5rem;
-        font-size: 0.9rem;
+        margin: 0;
+        padding: 0 13px;
         color: $dark-color;
-        margin-right: 0;
       }
     }
 
     button[type = submit] {
-      padding: 0 25px;
       width: 2.5rem;
-      height: 2.5rem;
-      line-height: 2.5rem;
-      border-radius: 0 5px 5px 0;
+      height: auto;
+      line-height: 1;
+      padding: 0;
+      border-radius: 0;
+      background-color: transparent;
       box-shadow: none;
-
+      
       i {
-        font-size: 23px;
-        height: 2.5rem;
-        line-height: 2.5rem;
+        height: auto;
+        color: $primary-color;
+        font-size: 21px;
+        line-height: 1;
+      }
+
+      mz-spinner::ng-deep .spinner-layer {
+        border-color: $primary-color;
       }
     }
   }

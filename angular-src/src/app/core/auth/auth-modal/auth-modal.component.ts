@@ -1,4 +1,11 @@
-import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize/dist';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,7 +21,7 @@ import { AuthService } from '../auth.service';
 })
 export class AuthModalComponent extends MzBaseModal implements OnInit, OnDestroy {
   @ViewChild('modal')	public modal: MzModalComponent;
-  public mode = 'login';
+  @Input() mode = 'login';
   public loading: Observable<boolean>;
   private closeSubscription: Subscription;
 
