@@ -144,9 +144,28 @@ header {
 // Error
 // ==========================================================================
 .error {
-  background-color: #ef9a9a;
-  border-radius: 3px;
+  color: #fff;
   border: 1px solid #f17d79;
+  border-radius: 3px;
+  background-color: #ef9a9a;
+
+  h3 {
+    margin-bottom: 0 !important;
+  }
+
+  p {
+    margin-top: 0;
+  }
+  
+  button {
+    background-color: darken(#ef9a9a, 5%);
+    box-shadow: none;
+
+    &:hover {
+      background-color: darken(#ef9a9a, 10%);
+      box-shadow: none;
+    }
+  }
 }
 
 // Google autocomplete

@@ -80,12 +80,12 @@
   <div class="places flex justify-content-center mb-3">
     <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error">
       <h3 class="white-text">Connection Error</h3>
-      <p class="white-text">Our server may be down. Please try again later.</p>
+      <p class="white-text">Ooops, something went wromg. Please try again later.</p>
       <button mz-button (click)="onReload()">Try Again</button>
     </div>
     <vn-place [place]="place" *ngFor="let place of (state | async).places"></vn-place>
     <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading">
-      <mz-spinner size="big" color="blue"></mz-spinner>
+      <mz-spinner size="medium" color="blue"></mz-spinner>
     </div>
   </div>
 </div>

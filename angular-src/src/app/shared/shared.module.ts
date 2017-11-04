@@ -23,6 +23,8 @@ import * as Pipes from './pipes';
     Directives.ActiveDirective,
     Directives.SidenavButtonDirective,
     Directives.ImagePreviewDirective,
+    Pipes.DayPipe,
+    Pipes.HourPipe,
     Pipes.SearchFilterPipe
   ],
   entryComponents: [
@@ -50,6 +52,8 @@ import * as Pipes from './pipes';
     Directives.ActiveDirective,
     Directives.SidenavButtonDirective,
     Directives.ImagePreviewDirective,
+    Pipes.DayPipe,
+    Pipes.HourPipe,
     Pipes.SearchFilterPipe
   ]
 })

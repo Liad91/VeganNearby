@@ -53,7 +53,7 @@
         </div>
         <div class="no-results w-100" *ngIf="(state | async).error && !(state | async).loading">
           <h3 class="center-align">Connection Error</h3>
-          <p class="center-align mt-0">Our server may be down. Please try again later.</p>
+          <p class="center-align mt-0">Ooops, something went wromg. Please try again later.</p>
           <div class="center-align">
             <button mz-button (click)="onReload()">Try Again</button>
           </div>

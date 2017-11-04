@@ -75,4 +75,31 @@ router.get('/business', authenticate, (req, res, next) => {
   });
 });
 
+router.get('/reviews', authenticate, (req, res, next) => {
+  if (!req.query['id']) {
+    const err = new Error('Business ID is required');
+    return next(err);
+  }
+
+  const options = {
+    method: 'GET',
+    uri: `https://api.yelp.com/v3/businesses/${req.query['id']}/reviews`,
+    headers: { authorization: res.yelpToken }
+  };
+
+  request(options, (err, response, body) => {
+    if (err) {
+      err.message = 'Yelp search request failed';      
+      return next(err);
+    }
+    if (response.statusCode > 499) {
+      const err = new Error('Yelp search request failed');
+
+      return next(err);
+    }
+    body = JSON.parse(body);
+    res.send(body);
+  });
+});
+
 module.exports = router;

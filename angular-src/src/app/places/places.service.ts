@@ -11,12 +11,13 @@ import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 
-import { ConnectionService } from './../core/services/connection.service';
 import {
+  YelpBusinessResponse,
+  YelpReviewsResponse,
   YelpSearchParams,
-  YelpSearchResponse,
-  YelpBusinessResponse
+  YelpSearchResponse
 } from './../models/yelp.model';
+import { ConnectionService } from './../core/services/connection.service';
 import { State } from './filters/store/filters.reducers';
 
 @Injectable()
@@ -99,6 +100,17 @@ export class PlacesService {
     return this.http.get<YelpBusinessResponse>(`${this.connectionService.serverUrl}/yelp/business`, {
       params: new HttpParams().set('id', id)
     })
-      .timeout(this.connectionService.reqTimeout)
+      .timeout(this.connectionService.reqTimeout);
+  }
+
+  public getReviewsById(id: string): Observable<YelpReviewsResponse> {
+    return this.http.get<YelpReviewsResponse>(`${this.connectionService.serverUrl}/yelp/reviews`, {
+      params: new HttpParams().set('id', id)
+    })
+      .timeout(this.connectionService.reqTimeout);
+  }
+
+  public getPlaceDetail(id: string): Observable<(YelpReviewsResponse | YelpBusinessResponse)[]> {
+    return Observable.forkJoin([this.getPlaceById(id), this.getReviewsById(id)]);
   }
 }

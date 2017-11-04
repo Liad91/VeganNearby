@@ -22,7 +22,8 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
     case PlaceListActions.GET_PLACES:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: false
       };
     case PlaceListActions.SET_LOADING:
       return {
@@ -34,8 +35,7 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
         ...state,
         places: action.payload.businesses,
         total: action.payload.total,
-        loading: false,
-        error: false
+        loading: false
       };
     case PlaceListActions.GET_PLACES_FAILURE:
       return {

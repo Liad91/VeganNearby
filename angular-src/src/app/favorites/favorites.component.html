@@ -22,7 +22,7 @@
   </div>
   <div class="center-align mt-2" *ngIf="(connectionError || state.error) && !state.loading">
     <h3>Connection Error</h3>
-    <p>Our server may be down. Please try again later.</p>
+    <p>Ooops, something went wromg. Please try again later.</p>
     <button mz-button (click)="onReload()">Try Again</button>
   </div>
   <div class="spinner-container flex align-items-center justify-content-center" *ngIf="state.loading">
