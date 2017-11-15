@@ -5,14 +5,16 @@ import { LatLngLiteral } from '@agm/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/filter';
 
-import { State } from './store/home.reducers';
+import { State } from './store/home.reducer';
 import * as homeActions from './store/home.actions';
-import * as fromRoot from '../../store/app.reducers';
+import * as fromRoot from '../../store/app.reducer';
+import { UtilitiesService } from '../services';
 import { PlacesService } from '../../places/places.service';
-import { Filter } from '../../places/filters/store/filters.reducers';
+import { Filter } from '../../places/filters/store/filters.reducer';
 import { NewSearch } from '../../places/filters/store/filters.actions';
 import { GetPlaces } from '../../places/place-list/store/place-list.actions';
 
@@ -24,6 +26,7 @@ import { GetPlaces } from '../../places/place-list/store/place-list.actions';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription;
+  private mobileView: Observable<boolean>;
   public state: Observable<State>
   public category: Filter;
   public strings: string[];
@@ -35,10 +38,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     'surya-new-york-3'
   ];
 
-  constructor(private store: Store<fromRoot.AppState>, private router: Router, private placesService: PlacesService) {}
+  constructor(
+    private store: Store<fromRoot.AppState>,
+    private router: Router,
+    private utilitiesService: UtilitiesService,
+    private placesService: PlacesService) {}
 
   ngOnInit(): void {
     this.state = this.store.select(fromRoot.selectHome);
+    this.mobileView = this.utilitiesService.screenSize.map(size => size === 'sm' || size === 'xs');
+
     this.categorySubscription = this.store.select(fromRoot.selectSearchselectedCategory).subscribe(
       category => {
         this.category = category;

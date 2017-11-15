@@ -10,8 +10,7 @@ import * as Pipes from './pipes';
   declarations: [
     Components.AlertModalComponent,
     Components.BtnFavoriteComponent,
-    Components.CarouselComponent,
-    Components.CarouselItemComponent,
+    Components.LightboxModalComponent,
     Components.PlaceComponent,
     Components.PriceComponent,
     Components.StarsComponent,
@@ -28,7 +27,8 @@ import * as Pipes from './pipes';
     Pipes.SearchFilterPipe
   ],
   entryComponents: [
-    Components.AlertModalComponent
+    Components.AlertModalComponent,
+    Components.LightboxModalComponent
   ],
   imports: [
     CommonModule,
@@ -39,8 +39,7 @@ import * as Pipes from './pipes';
     MaterializeModule,
     Components.AlertModalComponent,
     Components.BtnFavoriteComponent,
-    Components.CarouselComponent,
-    Components.CarouselItemComponent,
+    Components.LightboxModalComponent,
     Components.PlaceComponent,
     Components.PriceComponent,
     Components.StarsComponent,

@@ -1,4 +1,4 @@
-<vn-nav [activatedRoute]="routerName" class="flex w-100 align-self-flex-start"></vn-nav>
+<vn-nav class="flex w-100 align-self-flex-start" [activatedRoute]="routeName | async"></vn-nav>
 <router-outlet></router-outlet>
 <footer class="page-footer w-100">
   <div class="footer-copyright">

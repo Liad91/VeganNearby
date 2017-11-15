@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/withLatestFrom';
 
-import * as fromRoot from '../../store/app.reducers';
+import * as fromRoot from '../../store/app.reducer';
 import * as favoritesActions from './favorites.actions';
 import { PlacesService } from '../../places/places.service';
 

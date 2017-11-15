@@ -1,8 +1,8 @@
 <div class="header flex">
   <div class="content flex column justify-content-center w-100">
-    <h1 class="hide-on-med-and-down center-align mt-0">Searching for {{ category.alias }}?</h1>
-    <h3 class="hide-on-med-and-down center-align mt-0"><vn-typed [strings]="strings"></vn-typed></h3>
-    <h2 class="hide-on-med-and-up show-on-medium-and-down center-align mt-0">Find your favorite {{ category.alias }}</h2>
+    <h1 class="center-align mt-0" *ngIf="!(mobileView | async)">Searching for {{ category.alias }}?</h1>
+    <h3 class="center-align mt-0" *ngIf="!(mobileView | async)"><vn-typed [strings]="strings"></vn-typed></h3>
+    <h2 class="center-align mt-0" *ngIf="(mobileView | async)">Find your favorite {{ category.alias }}</h2>
     <vn-search mode="home"></vn-search>
     <div class="bottom">
       
@@ -83,7 +83,7 @@
       <p class="white-text">Ooops, something went wromg. Please try again later.</p>
       <button mz-button (click)="onReload()">Try Again</button>
     </div>
-    <vn-place [place]="place" *ngFor="let place of (state | async).places"></vn-place>
+    <vn-place [place]="place" [ngClass]="{list: (mobileView | async)}" *ngFor="let place of (state | async).places"></vn-place>
     <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading">
       <mz-spinner size="medium" color="blue"></mz-spinner>
     </div>

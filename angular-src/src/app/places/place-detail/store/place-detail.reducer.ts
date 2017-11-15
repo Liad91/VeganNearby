@@ -3,10 +3,10 @@ import { YelpBusinessResponse, YelpReviewsResponse } from '../../../models/yelp.
 import * as placeDetailActions from './place-detail.actions';
 
 export interface State {
-  place: YelpBusinessResponse,
-  reviews: YelpReviewsResponse,
-  loading: string,
-  error: string,
+  place: YelpBusinessResponse;
+  reviews: YelpReviewsResponse;
+  loading: string;
+  error: string;
 }
 
 const initialState = {

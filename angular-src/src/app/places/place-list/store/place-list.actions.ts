@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 
-import { State } from '../../filters/store/filters.reducers'
 import { YelpSearchResponse } from '../../../models/yelp.model';
 
 export const GET_PLACES = 'GET_PLACES';

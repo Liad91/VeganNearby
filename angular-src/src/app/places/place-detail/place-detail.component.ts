@@ -5,9 +5,11 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/filter';
 
 
-import * as fromPlaces from '../store/places.reducers';
-import { GetPlace } from './store/place-detail.actions';
-import { State } from './store/place-detail.reducers';
+import * as fromPlaces from '../store/places.reducer';
+import { GetPlace, GetReviews } from './store/place-detail.actions';
+import { State } from './store/place-detail.reducer';
+import { ModalService } from '../../core/services/modal.service';
+import { UtilitiesService } from '../../core/services/utilities.service';
 
 @Component({
   selector: 'vn-place-detail',
@@ -50,7 +52,10 @@ export class PlaceDetailComponent implements OnInit {
   ];
 
 
-  constructor(private store: Store<fromPlaces.FeatureState>) {}
+  constructor(
+    private store: Store<fromPlaces.FeatureState>,
+    private utilitiesService: UtilitiesService,
+    private modalService: ModalService) {}
 
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceDetail);
@@ -66,6 +71,22 @@ export class PlaceDetailComponent implements OnInit {
         };
 
         this.isOpen = state.place.hours[0].is_open_now;
-      })
+      });
+  }
+
+  public openLightbox(active: number): void {
+    this.state.take(1).subscribe(state => {
+      this.modalService.openLightbox({ images: state.place.photos, active });
+    });
+  }
+
+  public onReloadPage(): void {
+    this.store.dispatch(new GetPlace(this.utilitiesService.navigationEnd.getValue().params.id));
+  }
+
+  public onReloadReviews(): void {
+    this.state.take(1).subscribe(state => {
+      this.store.dispatch(new GetReviews(state.place.id));
+    })
   }
 }

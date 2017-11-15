@@ -1,12 +1,11 @@
-<nav [ngClass]="{home: activatedRoute === 'home'}" [@searchState]="searchBarOpen">
+<nav [ngClass]="{home: activatedRoute === 'home', sticky: activatedRoute !== 'home' && mobileView}" [@searchState]="searchBarOpen">
   <div class="flex justify-content-space-between align-items-center content h-100">
 
     <a class="logo" *ngIf="!searchBarOpen" routerLink="/"></a>
 
     <ul class="ml-3 mr-auto" *ngIf="activatedRoute !== 'home' && !mobileView">
-      <li><a routerLink="/">Home</a></li>
       <ng-container *ngIf="(user | async)">
-        <li><a routerLink="/favorites">
+        <li><a routerLinkActive="active" routerLink="/favorites">
           Favorites
           <span class="badge right">{{ (user | async).favorites.length }}</span>
         </a></li>
@@ -17,7 +16,6 @@
         <li><a (click)="openModal($event, 'login')">Login</a></li>
         <li><a (click)="openModal($event, 'register')">Register</a></li>
       </ng-container>
-      
     </ul>
 
     <button

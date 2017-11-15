@@ -1,0 +1,17 @@
+<mz-modal id="lightbox" [options]="modalOptions">
+  <mz-modal-header>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="main flex" [@imageState]="options.active">
+      <ng-container *ngFor="let image of options.images; let i = index">
+        <img [src]="image" *ngIf="i === options.active" >
+      </ng-container>
+      <div class="action prev" (click)="prev()">
+          <i class="material-icons">navigate_before</i>
+        </div>
+      <div class="action next" (click)="next()">
+        <i class="material-icons">navigate_next</i>
+      </div>
+    </div>
+  </mz-modal-content>
+</mz-modal>

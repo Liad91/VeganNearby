@@ -93,7 +93,8 @@ h3 {
         img {
           width: 50px;
           height: 50px;
-          border-radius: 50%;
+          border: 1px solid $border-color;
+          border-radius: 3px;
           margin-right: 8px;
         }
     
@@ -165,6 +166,36 @@ h3 {
           font-size: 1.5rem;
         }
       }
+    }
+
+    .images img {
+      cursor: pointer;
+      width: 33%;
+      height: 100px;
+      opacity: 0.8;
+      filter: blur(0);
+      transition: $fast-transition;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media #{$small-and-down} {
+    .page-left,
+    .page-right {
+      width: 100%;
+    }
+
+    .page-left {
+      margin-right: 0;
+    }
+  }
+
+  @media #{$extra-small-only} {
+    .page-left .info {
+      width: 100%;
     }
   }
 }

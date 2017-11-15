@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { LatLngLiteral } from '@agm/core';
 
-import { Filter } from './filters.reducers';
+import { Filter } from './filters.reducer';
 
 export const SEARCH = 'SEARCH';
 export const NEW_SEARCH = 'NEW_SEARCH';

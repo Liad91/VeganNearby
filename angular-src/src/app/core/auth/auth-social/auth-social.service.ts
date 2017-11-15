@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AppState } from './../../../store/app.reducers';
+import { AppState } from './../../../store/app.reducer';
 import * as authActions from './../store/auth.actions';
 import { ConnectionService } from './../../services/connection.service';
 import { ToastService } from './../../services/toast.service';

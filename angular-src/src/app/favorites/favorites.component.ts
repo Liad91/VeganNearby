@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import { placeStateTrigger } from './animations';
-import { State } from './store/favorites.reducers';
-import * as fromRoot from '../store/app.reducers';
+import { State } from './store/favorites.reducer';
+import * as fromRoot from '../store/app.reducer';
 import { GetFavorites } from './store/favorites.actions';
 import { YelpBusiness } from '../models/yelp.model';
 import { PlacesService } from '../places/places.service';

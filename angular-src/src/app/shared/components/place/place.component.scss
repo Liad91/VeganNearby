@@ -9,7 +9,7 @@
   &:focus {
     transform: translateY(-5px);
   }
-
+  
   @media screen and (max-width: 480px) {
     width: 100%;
     margin-right: 0;
@@ -149,4 +149,62 @@
       }
     }
   }
+}
+
+:host.list {
+  width: 100%;
+  margin-right: 0;
+  margin-bottom: 0.5rem;
+
+  &:hover,
+  &:focus {
+    transform: translateX(5px);
+  }
+
+  .place-card {
+    flex-wrap: nowrap;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+
+    & > img {
+      width: 110px;
+      height: 110px;
+      border-radius: 5px 0 0 5px;
+    }
+
+    vn-btn-favorite::ng-deep button {
+      top: 0;
+
+      i {
+        color: $danger-color;
+      }
+
+      mz-spinner .spinner-layer {
+        border-color: $danger-color;
+      }  
+    }
+    
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      width: calc(100% - 150px);
+      padding: 5px 15px 0;
+      box-shadow: none;
+
+      .name {
+        width: 80%;
+      }
+
+      .details,
+      .rating {
+        margin-top: auto;
+      }
+
+      .rating span {
+        display: none;
+      }
+    }
+  }  
 }

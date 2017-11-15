@@ -13,11 +13,11 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/take';
 
-import * as fromRoot from '../../store/app.reducers';
+import * as fromRoot from '../../store/app.reducer';
 import * as searchActions from './store/search.actions';
 import * as filtersActions from '../../places/filters/store/filters.actions';
 import * as placeListActions from '../../places/place-list/store/place-list.actions';
-import { State } from './store/search.reducers';
+import { State } from './store/search.reducer';
 import { ToastService } from '../services/toast.service';
 import { GeographicalService } from '../services/geographical.service';
 
@@ -66,8 +66,6 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.autocompleteListener = autocomplete.addListener('place_changed', () => {
           /** Handle not formatted address from autocomplete */
           if (!autocomplete.getPlace().formatted_address) {
-            this.toastService.show('Sorry, but we didn\'t understand the location you entered');
-            this.location = null;
             return;
           }
           this.autocompleSuccess(autocomplete.getPlace());

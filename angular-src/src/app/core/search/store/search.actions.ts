@@ -1,7 +1,7 @@
 import { LatLngLiteral } from '@agm/core';
 import { Action } from '@ngrx/store';
 
-import { Filter } from '../../../places/filters/store/filters.reducers';
+import { Filter } from '../../../places/filters/store/filters.reducer';
 
 export const NAV_SEARCH = 'NAV_SEARCH';
 export const HOME_SEARCH = 'HOME_SEARCH';

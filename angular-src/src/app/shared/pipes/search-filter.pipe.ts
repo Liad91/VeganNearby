@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-import { Filter } from '../../places/filters/store/filters.reducers';
+import { Filter } from '../../places/filters/store/filters.reducer';
 
 @Pipe({
   name: 'searchFilter'

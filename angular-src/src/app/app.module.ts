@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
 // Store
-import { reducers } from './store/app.reducers';
+import { reducers } from './store/app.reducer';
 import { effects } from './store/app.effects';
 
 // Config

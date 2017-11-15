@@ -64,12 +64,12 @@
           </agm-marker>
         </agm-map>
 
-        <div class="reviews mb-3">
+        <div class="reviews mb-3" *ngIf="(state | async).reviews?.reviews.length">
           <h3>Latest Reviews</h3>
           <ul>
             <li *ngFor="let review of (state | async).reviews.reviews">
               <div class="user flex align-items-center">
-                <img [src]="review.user.image_url">
+                <img [src]="review.user.image_url || 'assets/images/user_review.png'">
                 <div class="details">
                   <h6 class="m-0">{{ review.user.name }}</h6>
                   <div class="flex align-items-center">
@@ -88,7 +88,7 @@
           <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error === 'reviews'">
             <h3 class="white-text">Connection Error</h3>
             <p class="white-text">Ooops, something went wromg. Please try again later.</p>
-            <button mz-button (click)="onReload()">Try Again</button>
+            <button mz-button (click)="onReloadReviews()">Try Again</button>
           </div>
     
           <!-- reviews loader -->
@@ -103,9 +103,7 @@
           <h3>Working Hours</h3>
           <span class="is-open ml-auto" [vnBgColor]="isOpen ? 'secondary' : 'danger'">Now {{ isOpen ? 'Open' : 'Closed' }}</span>
         </div>
-        
-
-        <ul class="mt-0 mb-1">
+        <ul class="mt-0 mb-2">
           <ng-container *ngFor="let day of (state | async).place.hours[0].open; let i = index">
             <ng-container *ngIf="i === 0 || (state | async).place.hours[0].open[i - 1].day !== day.day; else sameDay">
               <li><strong>{{ day.day | day }}</strong> {{ (day.start | hour) + ' - ' + (day.end | hour) }}</li>
@@ -114,20 +112,33 @@
               <li class="same-day">{{ (day.start | hour) + ' - ' + (day.end | hour) }}</li>
             </ng-template>
           </ng-container>
-          
-          
         </ul>
+
         <h3>Transactions</h3>
-        <ul class="m-0">
+        <ul class="m-0 mb-2">
           <li><strong>Pickup</strong> <i class="material-icons" [vnColor]="transactions.pickup ? 'tertiary' : 'danger'">{{ transactions.pickup ? 'check_circle' : 'cancel' }}</i></li>
           <li><strong>Delivery</strong> <i class="material-icons" [vnColor]="transactions.delivery ? 'tertiary' : 'danger'">{{ transactions.delivery ? 'check_circle' : 'cancel' }}</i></li>
           <li><strong>Reservation</strong> <i class="material-icons" [vnColor]="transactions.reservation ? 'tertiary' : 'danger'">{{ transactions.reservation ? 'check_circle' : 'cancel' }}</i></li>
         </ul>
+
+        <h3>Images</h3>
+        <div class="images flex justify-content-space-between">
+          <img [src]="image" *ngFor="let image of (state | async).place.photos; let i = index" (click)="openLightbox(i)">
+        </div>
       </div>
     </div>
   </div>
 </ng-container>
 
+<!-- page error message -->
+<div class="error center-align align-self-flex-start w-70 py-2 ml-auto mr-auto" *ngIf="(state | async).error === 'page'">
+  <h3 class="white-text">Connection Error</h3>
+  <p class="white-text">Ooops, something went wromg. Please try again later.</p>
+  <p class="white-text">*If this message not eventually replaced, the required place may not be reachable anymore.</p>
+  <button mz-button (click)="onReloadPage()">Try Again</button>
+</div>
+
+<!-- page loader -->
 <div class="spinner-container" *ngIf="(state | async).loading === 'page'">
   <div class="spinner-wrap">
     <mz-spinner color="blue" size="big"></mz-spinner>

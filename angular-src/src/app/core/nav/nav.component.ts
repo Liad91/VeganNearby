@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import * as fromRoot from './../../store/app.reducers';
+import * as fromRoot from './../../store/app.reducer';
 import * as authActions from './../auth/store/auth.actions';
 import { User } from './../../models/user.model';
 import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';

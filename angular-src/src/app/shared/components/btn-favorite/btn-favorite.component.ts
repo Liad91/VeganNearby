@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/take';
 
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../../../store/app.reducer';
 import * as authActions from '../../../core/auth/store/auth.actions';
 import * as favoritesActions from '../../../favorites/store/favorites.actions';
 

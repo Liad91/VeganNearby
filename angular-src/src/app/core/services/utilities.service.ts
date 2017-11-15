@@ -38,8 +38,12 @@ export class UtilitiesService {
         return route;
       })
       .map(route => route.snapshot)
-      .do(() => window.scrollTo(0, 0))
+      .do(snapshot => snapshot.fragment !== 'stay' ? this.scrollToTop() : null)
       .subscribe(this.navigationEnd);
+  }
+
+  private scrollToTop(): void {
+    window.scrollTo(0, 0);
   }
 
   private getScreenSize(): string {

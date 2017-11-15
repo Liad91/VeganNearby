@@ -10,7 +10,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/exhaustMap';
 
 import * as authActions from './auth.actions';
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../../../store/app.reducer';
 import { GetFavorites } from '../../../favorites/store/favorites.actions';
 import { AuthService, AuthResponse } from './../auth.service';
 

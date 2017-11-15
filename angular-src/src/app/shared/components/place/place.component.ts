@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { AppState } from '../../../store/app.reducers';
+import { AppState } from '../../../store/app.reducer';
 import { GetPlace, SetPlace } from '../../../places/place-detail/store/place-detail.actions';
 import { YelpBusiness, YelpBusinessResponse } from '../../../models/yelp.model';
 

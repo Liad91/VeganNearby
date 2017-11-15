@@ -4,9 +4,9 @@
 </header>
   
 <div class="content"> 
-  <div *ngIf="mobileView">
+  <div *ngIf="(screenSize | async) === 'sm' || (screenSize | async) === 'xs'">
     <ul id="filters-sidenav" class="side-nav">
-      <vn-filters class="flex column" [sidenavMode]="true"></vn-filters>
+      <vn-filters class="flex column" [sidenavMode]="true" [places]="(state | async).places"></vn-filters>
     </ul>
     <button 
       vnSidenavButton
@@ -20,7 +20,7 @@
   </div>
   
   <div class="flex">
-    <div class="filters align-self-flex-start mb-3 mr-2" *ngIf="!mobileView">
+    <div class="filters align-self-flex-start mb-3 mr-2" *ngIf="(screenSize | async) !== 'sm' && (screenSize | async) !== 'xs'">
       <div class="title"><h4>Filters</h4></div>
       <vn-filters class="flex column" [places]="(state | async).places"></vn-filters>
     </div>
@@ -34,7 +34,7 @@
         <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
           <vn-place
             class="mb-1 mr-1"
-            [ngClass]="{'marker-hover': place.markerHover}"
+            [ngClass]="{'list': (screenSize | async) === 'xs'}"
             [place]="place"
             (mouseenter)="place.hover = true"
             (mouseleave)="place.hover = false"

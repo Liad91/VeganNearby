@@ -25,22 +25,19 @@
   }
   
   h2 {
-    @media #{$medium-only} {
+    @media #{$medium-and-down} {
       font-size: 2.2rem;
       margin-bottom: 1rem;
     }
     
-    @media #{$small-only} {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    
     @media #{$extra-small-only} {
-      margin: 0 auto;    
       width: 100%;
+      margin: 0 auto;
+      font-size: 1.6rem;
       max-width: 520px;
       padding-top: 30px;
-      background-color: rgba(0, 0, 0, 0.6);
+      color: $dark-color; 
+      background-color: rgba(255, 255, 255, 0.6);
       border-radius: 5px 5px 0 0;
     }
   }
@@ -165,20 +162,22 @@
 vn-search {
   width: 45%;
   min-width: 700px;
-  margin: 0 auto;
+  margin: 1rem auto -1rem;
   max-width: 100%;
 
   @media #{$small-and-down} {
     min-width: 0;
-    max-width: 520px;
   }
 
   @media #{$small-only} {
     width: 90%;
+    max-width: 650px;
   }
 
   @media #{$extra-small-only} {
     width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
   }
 }
 
@@ -270,7 +269,7 @@ vn-search {
 
   @media #{$extra-small-only} {
     .city {
-      height: 160px;
+      height: 250px;
       border-radius: 5px;
       width: 100%;
       margin-bottom: 0.5rem;
@@ -289,7 +288,7 @@ vn-search {
       }
   
       &.big {
-        height: 160px;
+        height: 250px;
         width: 100%;
         
         &:first-of-type {
@@ -300,13 +299,23 @@ vn-search {
           margin-left: 0;
         }
       }
+
+      h3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        padding: 0;
+        font-size: 1.6rem;
+        background: rgba(0, 0, 0, 0.6);
+      }
     }
 
     .center {
       width: 100%;
 
       & > div {
-        height: 160px;
+        height: 250px;
         margin-bottom: 0.5rem;
 
         &:first-child {
@@ -321,35 +330,26 @@ vn-search {
   min-height: 250px;
   position: relative;
 
-  vn-place {
-    width: calc(25% - calc(30px / 4));
-    margin-right: 10px;
-
-    &:nth-of-type(3n+3) {
+  @media #{$medium-and-up} {
+    vn-place {
+      width: calc(25% - calc(30px / 4));
       margin-right: 10px;
-    }
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-
-    &::ng-deep .place-card > img {
-      border-radius: 8px 8px 0 0;
+  
+      &:nth-of-type(3n+3) {
+        margin-right: 10px;
+      }
+  
+      &:last-of-type {
+        margin-right: 0;
+      }
+  
+      &::ng-deep .place-card > img {
+        border-radius: 8px 8px 0 0;
+      }
     }
   }
 
-  @media #{$small-only} {
+  @media #{$small-and-down} {
     flex-wrap: wrap;
-    justify-content: space-around;
-
-    vn-place {
-      width: 300px;
-      margin-right: 0;
-      margin-bottom: 1rem;
-
-      &:nth-of-type(2n+2) {
-        margin-right: 0;
-      }
-    }
   }
 }

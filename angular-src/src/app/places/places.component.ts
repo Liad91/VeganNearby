@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 import { UtilitiesService } from './../core/services/utilities.service';
 import { routeStateTrigger } from './animations';
@@ -11,25 +11,12 @@ import { routeStateTrigger } from './animations';
   styleUrls: ['./places.component.scss'],
   animations: [ routeStateTrigger ]
 })
-export class PlacesComponent implements OnInit, OnDestroy {
-  public mobileView: boolean;
-  private resizeSubscription: Subscription;
+export class PlacesComponent implements OnInit {
+  public routeName: Observable<string>;
 
   constructor(private utilitiesService: UtilitiesService) {}
 
   ngOnInit(): void {
-    this.resizeSubscription = this.utilitiesService.screenSize.subscribe(
-      size => {
-        this.mobileView = size === 'xs' || size === 'sm';
-      }
-    );
-  }
-
-  public getAnimationState(outlet: RouterOutlet): string {
-    return outlet.activatedRouteData['state'] || 'root';
-  }
-
-  ngOnDestroy(): void {
-    this.resizeSubscription.unsubscribe();
+    this.routeName = this.utilitiesService.navigationEnd.map(snapshot => snapshot.data['name'] || 'root');
   }
 }

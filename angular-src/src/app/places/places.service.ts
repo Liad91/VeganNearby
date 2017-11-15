@@ -18,7 +18,7 @@ import {
   YelpSearchResponse
 } from './../models/yelp.model';
 import { ConnectionService } from './../core/services/connection.service';
-import { State } from './filters/store/filters.reducers';
+import { State } from './filters/store/filters.reducer';
 
 @Injectable()
 export class PlacesService {

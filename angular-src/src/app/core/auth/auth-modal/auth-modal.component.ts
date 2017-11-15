@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../../../store/app.reducer';
 import { AuthService } from '../auth.service';
 
 @Component({

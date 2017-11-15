@@ -2,8 +2,8 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize/dist';
 
 export interface AlertModalOptions {
-  title: string,
-  message?: string,
+  title: string;
+  message?: string;
   buttons: [
     {
       text: string,
@@ -13,7 +13,7 @@ export interface AlertModalOptions {
       text: string,
       handler: () => void
     }
-  ]
+  ];
 }
 
 @Component({

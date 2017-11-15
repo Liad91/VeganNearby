@@ -22,7 +22,8 @@
 }
 
 mz-modal#auth,
-mz-modal#alert {
+mz-modal#alert,
+mz-modal#lightbox {
   .modal {
     display: table !important;
     max-width: 350px;
@@ -44,6 +45,12 @@ mz-modal#alert {
 mz-modal#auth {
   .modal {
     border-top: 5px solid $primary-color;
+  }
+}
+
+mz-modal#lightbox {
+  .modal {
+    max-width: 550px;
   }
 }
 

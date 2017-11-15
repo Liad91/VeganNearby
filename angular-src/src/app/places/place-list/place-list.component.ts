@@ -6,9 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/filter';
 
-import { State } from './store/place-list.reducers';
-import * as fromPlaces from '../store/places.reducers';
-import * as fromFilters from '../filters/store/filters.reducers';
+import { State } from './store/place-list.reducer';
+import * as fromPlaces from '../store/places.reducer';
+import * as fromFilters from '../filters/store/filters.reducer';
 import * as placeListActions from './store/place-list.actions';
 import * as filtersActions from '../filters/store/filters.actions';
 
@@ -27,11 +27,10 @@ import { GeographicalService } from '../../core/services/index';
 export class PlaceListComponent implements OnInit, OnDestroy {
   public state: Observable<State>;
   public filtersState: fromFilters.State;
-  public mobileView: boolean;
-  public currentPage = 1;
-  private resizeSubscription: Subscription;
+  public screenSize: Observable<string>;
   private filtersStateSubscription: Subscription;
   private navigationEndSubscription: Subscription;
+  public currentPage = 1;
 
   constructor(
     private store: Store<fromPlaces.FeatureState>,
@@ -42,7 +41,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceList);
-    this.resizeSubscription = this.utilitiesService.screenSize.subscribe(size => this.onScreenResize(size));
+    this.screenSize = this.utilitiesService.screenSize;
     this.filtersStateSubscription = this.store.select(fromPlaces.selectFilters).subscribe(state => this.filtersState = state);
     this.navigationEndSubscription = this.utilitiesService.navigationEnd
       .filter(snapshot => snapshot.data['name'] && snapshot.data['name'] === 'list')
@@ -113,10 +112,6 @@ export class PlaceListComponent implements OnInit, OnDestroy {
     });
   }
 
-  private onScreenResize(size: string): void {
-    this.mobileView = size === 'sm' || size === 'xs';
-  }
-
   public onReload(): void {
     this.store.dispatch(new placeListActions.GetPlaces());
   }
@@ -141,7 +136,6 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.resizeSubscription.unsubscribe();
     this.filtersStateSubscription.unsubscribe();
     this.navigationEndSubscription.unsubscribe();
   }

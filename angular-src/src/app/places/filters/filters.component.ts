@@ -19,10 +19,10 @@ import { MzModalService } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
-import * as fromPlaces from '../store/places.reducers';
+import * as fromPlaces from '../store/places.reducer';
 import * as filtersActions from './store/filters.actions';
 import { YelpBusiness } from '../../models/yelp.model';
-import { Filter, State } from './store/filters.reducers';
+import { Filter, State } from './store/filters.reducer';
 import { GetPlaces } from '../place-list/store/place-list.actions';
 import { UtilitiesService } from '../../core/services/utilities.service';
 import { GeographicalService } from '../../core/services/geographical.service';
@@ -175,7 +175,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
           p: 1,
           lat: this.state.coordinates.lat,
           lng: this.state.coordinates.lng
-        }
+        },
+        fragment: 'stay'
       });
     }
   }

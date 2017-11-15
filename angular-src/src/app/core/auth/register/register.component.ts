@@ -4,7 +4,7 @@ import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../../../store/app.reducer';
 import * as authActions from '../store/auth.actions';
 import { AuthService } from '../auth.service';
 import { AuthSocialService } from '../auth-social/auth-social.service';

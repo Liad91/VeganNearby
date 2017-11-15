@@ -5,6 +5,13 @@ nav {
   background-color: #fff;
   border-top: 2px solid $primary-color;
   box-shadow: none;
+
+  &.sticky {
+    position: fixed;
+    top: 0;
+    z-index: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
   
   vn-search {
     width: 30%;
@@ -50,6 +57,7 @@ nav {
       color: $dark-color;
       font-size: 14px;
 
+      &.active,
       &:hover {
         background-color: $body-bg-color;
 

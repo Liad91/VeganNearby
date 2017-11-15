@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/exhaustMap';
 
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../../../store/app.reducer';
 import * as homeActions from './home.actions';
 import { PlacesService } from '../../../places/places.service';
 

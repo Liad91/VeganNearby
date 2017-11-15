@@ -22,8 +22,8 @@ import { SharedModule } from './../shared/shared.module';
 
 // Store
 import { effects } from './store/places.effects';
-import { placeListReducer } from './place-list/store/place-list.reducers';
-import { placeDetailReducer } from './place-detail/store/place-detail.reducers';
+import { placeListReducer } from './place-list/store/place-list.reducer';
+import { placeDetailReducer } from './place-detail/store/place-detail.reducer';
 
 @NgModule({
   declarations: [

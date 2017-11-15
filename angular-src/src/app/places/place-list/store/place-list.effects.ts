@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/exhaustMap';
 
-import * as fromRoot from '../../../store/app.reducers';
+import * as fromRoot from '../../../store/app.reducer';
 import * as placeListActions from './place-list.actions';
 import { SearchCompleted } from '../../../core/search/store/search.actions';
 import { PlacesService } from '../../places.service';

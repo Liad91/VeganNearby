@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/take';
 
-import * as fromPlaces from '../store/places.reducers';
+import * as fromPlaces from '../store/places.reducer';
 import { GetPlace } from './store/place-detail.actions';
 
 @Injectable()

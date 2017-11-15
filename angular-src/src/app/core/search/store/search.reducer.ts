@@ -1,4 +1,4 @@
-import { Filter } from '../../../places/filters/store/filters.reducers';
+import { Filter } from '../../../places/filters/store/filters.reducer';
 import { categories } from '../../../places/data';
 import * as searchActions from './search.actions';
 

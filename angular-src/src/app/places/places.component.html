@@ -1,6 +1,5 @@
-<!-- <vn-nav mode="page" class="flex w-100 align-self-flex-start" [ngClass]="{sticky: mobileView}"></vn-nav> -->
 <section class="w-100">
-  <div [@routeState]="getAnimationState(outlet)">
-    <router-outlet #outlet="outlet"></router-outlet>      
+  <div [@routeState]="routeName | async">
+    <router-outlet></router-outlet>      
   </div>
 </section>

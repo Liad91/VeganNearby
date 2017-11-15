@@ -1,10 +1,10 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
 
-import * as fromAuth from '../core/auth/store/auth.reducers';
-import * as fromHome from '../core/home/store/home.reducers';
-import * as fromSearch from '../core/search/store/search.reducers';
-import * as fromFilters from '../places/filters/store/filters.reducers';
-import * as fromFavorites from '../favorites/store/favorites.reducers';
+import * as fromAuth from '../core/auth/store/auth.reducer';
+import * as fromHome from '../core/home/store/home.reducer';
+import * as fromSearch from '../core/search/store/search.reducer';
+import * as fromFilters from '../places/filters/store/filters.reducer';
+import * as fromFavorites from '../favorites/store/favorites.reducer';
 
 export interface AppState {
   auth: fromAuth.State;
