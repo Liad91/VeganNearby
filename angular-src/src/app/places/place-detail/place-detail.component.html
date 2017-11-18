@@ -101,7 +101,7 @@
       <div class="page-right">
         <div class="inline flex align-items-center mb-1">
           <h3>Working Hours</h3>
-          <span class="is-open ml-auto" [vnBgColor]="isOpen ? 'secondary' : 'danger'">Now {{ isOpen ? 'Open' : 'Closed' }}</span>
+          <span class="is-open ml-auto" [vnBgColor]="isOpen ? 'tertiary' : 'danger'">Now {{ isOpen ? 'Open' : 'Closed' }}</span>
         </div>
         <ul class="mt-0 mb-2">
           <ng-container *ngFor="let day of (state | async).place.hours[0].open; let i = index">
@@ -116,9 +116,9 @@
 
         <h3>Transactions</h3>
         <ul class="m-0 mb-2">
-          <li><strong>Pickup</strong> <i class="material-icons" [vnColor]="transactions.pickup ? 'tertiary' : 'danger'">{{ transactions.pickup ? 'check_circle' : 'cancel' }}</i></li>
-          <li><strong>Delivery</strong> <i class="material-icons" [vnColor]="transactions.delivery ? 'tertiary' : 'danger'">{{ transactions.delivery ? 'check_circle' : 'cancel' }}</i></li>
-          <li><strong>Reservation</strong> <i class="material-icons" [vnColor]="transactions.reservation ? 'tertiary' : 'danger'">{{ transactions.reservation ? 'check_circle' : 'cancel' }}</i></li>
+          <li><strong>Pickup</strong> <i class="material-icons" [vnColor]="transactions.pickup ? 'secondary' : 'danger'">{{ transactions.pickup ? 'check_circle' : 'cancel' }}</i></li>
+          <li><strong>Delivery</strong> <i class="material-icons" [vnColor]="transactions.delivery ? 'secondary' : 'danger'">{{ transactions.delivery ? 'check_circle' : 'cancel' }}</i></li>
+          <li><strong>Reservation</strong> <i class="material-icons" [vnColor]="transactions.reservation ? 'secondary' : 'danger'">{{ transactions.reservation ? 'check_circle' : 'cancel' }}</i></li>
         </ul>
 
         <h3>Images</h3>

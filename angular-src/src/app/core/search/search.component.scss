@@ -91,7 +91,7 @@
     transition: none;
     
     &::-webkit-input-placeholder  {
-      color: $dark-color;
+      color: $gray-color;
     }
 
     &:focus {
@@ -172,7 +172,7 @@ button[type = submit] {
 
   form {
     border: 1px solid $border-color;
-    border-radius: 5px;
+    border-radius: 3px;
 
     .location {
       width: 100%;
@@ -210,13 +210,20 @@ button[type = submit] {
       
       i {
         height: auto;
-        color: $primary-color;
+        color: $gray-color;
         font-size: 21px;
         line-height: 1;
+        transition: $fast-transition;
       }
 
       mz-spinner::ng-deep .spinner-layer {
-        border-color: $primary-color;
+        border-color: $gray-color;
+      }
+
+      &:hover {
+        i {
+          color: $dark-color;
+        }
       }
     }
   }

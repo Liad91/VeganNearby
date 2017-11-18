@@ -3,21 +3,6 @@
 
     <a class="logo" *ngIf="!searchBarOpen" routerLink="/"></a>
 
-    <ul class="ml-3 mr-auto" *ngIf="activatedRoute !== 'home' && !mobileView">
-      <ng-container *ngIf="(user | async)">
-        <li><a routerLinkActive="active" routerLink="/favorites">
-          Favorites
-          <span class="badge right">{{ (user | async).favorites.length }}</span>
-        </a></li>
-        <li><a (click)="logout()">Logout</a></li>
-      </ng-container>
-      
-      <ng-container *ngIf="!(user | async)">
-        <li><a (click)="openModal($event, 'login')">Login</a></li>
-        <li><a (click)="openModal($event, 'register')">Register</a></li>
-      </ng-container>
-    </ul>
-
     <button
       class="btn btn-menu btn-floating btn-flat waves-effect"
       [ngClass]="activatedRoute !== 'home' ? 'waves-dark' : 'waves-light'"
@@ -25,13 +10,61 @@
       sidenav="menu-sidenav"
       [width]="350"
       *ngIf="activatedRoute === 'home' || activatedRoute !== 'home' && mobileView && !searchBarOpen"
-    >
+    > 
       <i class="material-icons">menu</i>
     </button>
 
     <ng-container *ngIf="activatedRoute !== 'home'">
       <vn-search mode="nav" class="flex align-items-center" *ngIf="!mobileView || searchBarOpen"></vn-search>
     </ng-container>
+
+    <div class="pages flex align-items-center ml-auto" *ngIf="activatedRoute !== 'home' && !mobileView">
+      <ng-container *ngIf="(user | async)">
+        <div class="btn-favorites">
+          <a 
+            class="btn-flat btn-floating waves-effect waves-dark"
+            routerLink="/favorites"
+            vnTooltip
+            tooltip="Favorites"
+            position="bottom"
+          >
+            <i class="material-icons">favorite_border</i>
+          </a>
+          <span class="badge right">{{ (user | async).favorites.length }}</span>
+        </div>
+        
+        <a
+          class="btn-flat btn-floating waves-effect waves-dark"
+          (click)="logout()"
+          vnTooltip
+          tooltip="Logout"
+          position="bottom"
+        >
+          <i class="material-icons">exit_to_app</i>
+        </a>
+      </ng-container>
+      
+      <ng-container *ngIf="!(user | async)">
+        <a
+          class="btn-flat btn-floating waves-effect waves-dark"
+          (click)="openModal($event, 'register')"
+          vnTooltip
+          tooltip="Register"
+          position="bottom"
+        >
+          <i class="material-icons">create</i>
+        </a>
+        <a
+          class="btn-flat btn-floating waves-effect waves-dark"
+          (click)="openModal($event, 'login')"
+          vnTooltip
+          tooltip="Login"
+          position="bottom"
+        >
+          <i class="material-icons">power_settings_new</i>
+        </a>
+      </ng-container>
+    </div>
 
     <button
       class="btn btn-search btn-floating btn-flat waves-effect waves-dark"

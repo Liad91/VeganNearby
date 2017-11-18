@@ -172,12 +172,12 @@ h3 {
       cursor: pointer;
       width: 33%;
       height: 100px;
-      opacity: 0.8;
+      opacity: 1;
       filter: blur(0);
       transition: $fast-transition;
 
       &:hover {
-        opacity: 1;
+        opacity: 0.8;
       }
     }
   }
