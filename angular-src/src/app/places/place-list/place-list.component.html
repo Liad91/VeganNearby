@@ -35,6 +35,7 @@
           <vn-place
             class="mb-1 mr-1"
             [ngClass]="{'list': (screenSize | async) === 'xs'}"
+            [listMode]="(screenSize | async) === 'xs'"
             [place]="place"
             (mouseenter)="place.hover = true"
             (mouseleave)="place.hover = false"

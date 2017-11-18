@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { placeStateTrigger } from './animations';
@@ -10,6 +11,7 @@ import { GetFavorites } from './store/favorites.actions';
 import { YelpBusiness } from '../models/yelp.model';
 import { PlacesService } from '../places/places.service';
 import { ToastService } from '../core/services/toast.service';
+import { UtilitiesService } from '../core/services/utilities.service';
 
 @Component({
   selector: 'vn-favorites',
@@ -23,6 +25,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   public errorLoading = false;
   public connectionError = false;
   public emptyPlaces: string[] = [];
+  public screenSize: Observable<string>;
   private userSubscription: Subscription;
   private stateSubscription: Subscription;
 
@@ -30,9 +33,11 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.AppState>,
     private router: Router,
     private placesService: PlacesService,
-    private toastService: ToastService) {}
+    private toastService: ToastService,
+    private utilitiesService: UtilitiesService) {}
 
   ngOnInit(): void {
+    this.screenSize = this.utilitiesService.screenSize;
     this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn)
       .filter(user => !user)
       .subscribe(() => this.router.navigate(['/']));

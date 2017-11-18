@@ -32,7 +32,15 @@
   <div *ngIf="state.places.length > 0 && !connectionError && !state.loading">
     <div class="flex wrap w-100 align-self-flex-start mb-2">
       <ng-container *ngFor="let place of state.places">
-        <vn-place @placeState [place]="place" class="mb-1 mr-1" *ngIf="place.name"></vn-place>
+        <vn-place 
+          @placeState
+          class="mb-1 mr-1"
+          [ngClass]="{'list': (screenSize | async) === 'xs'}"
+          [listMode]="(screenSize | async) === 'xs'"
+          [place]="place"
+          *ngIf="place.name"
+        >
+        </vn-place>
       </ng-container>
     </div>
   </div>

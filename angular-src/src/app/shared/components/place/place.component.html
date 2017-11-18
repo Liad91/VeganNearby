@@ -1,4 +1,4 @@
-<div class="place-card flex wrap w-100">
+<div class="place-card flex wrap w-100" (click)="listMode ? getPlaceDetail() : null">
   <img [src]="place.image_url || 'assets/images/business.png'" [alt]="place.name" (click)="getPlaceDetail()">
   <vn-btn-favorite [placeId]="place.id" [placeName]="place.name"></vn-btn-favorite>
   <div class="info w-100">
@@ -9,7 +9,7 @@
     <div class="details flex align-items-center w-100">
       <div class="phone flex align-items-center">
         <i class="material-icons">phone</i>
-        <a [href]="'tel:' + place.phone"  *ngIf="place.display_phone">{{ place.display_phone }}</a>
+        <a [href]="'tel:' + place.phone"  *ngIf="place.display_phone" (click)="$event.stopPropagation()">{{ place.display_phone }}</a>
         <span *ngIf="!place.display_phone">Not Available</span>
       </div>
       <div class="price">
@@ -20,7 +20,7 @@
     <div class="rating flex align-items-center w-100">
       <vn-stars [rating]="place.rating" size="sm"></vn-stars>
       <span>{{ place.review_count }} Reviews</span>
-      <a class="ml-auto" [href]="place.url" target="_blank"><img class="w-100 h-100" src="assets/images/yelp_logo.png" alt="yelp"></a>
+      <a class="ml-auto" [href]="place.url" target="_blank" (click)="$event.stopPropagation()"><img class="w-100 h-100" src="assets/images/yelp_logo.png" alt="yelp"></a>
     </div>
   </div>
 </div>

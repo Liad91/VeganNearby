@@ -13,6 +13,7 @@ import { YelpBusiness, YelpBusinessResponse } from '../../../models/yelp.model';
 })
 export class PlaceComponent {
   @Input() public place: YelpBusiness | YelpBusinessResponse;
+  @Input() public listMode = false;
 
   getPlaceDetail(): void {
     if ((this.place as YelpBusinessResponse).hours) {
