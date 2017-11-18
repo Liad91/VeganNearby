@@ -165,12 +165,12 @@
   .place-card {
     flex-wrap: nowrap;
     border: 1px solid $border-color;
-    border-radius: 5px;
+    border-radius: 3px;
 
     & > img {
       width: 110px;
       height: 110px;
-      border-radius: 5px 0 0 5px;
+      border-radius: 3px 0 0 3px;
     }
 
     vn-btn-favorite::ng-deep button {
