@@ -26,8 +26,14 @@ ul.pagination li {
     }
   }
 
-  &.disabled a {
-    color: $font-color;
+  &.disabled {
+    &:hover {
+      background-color: transparent;
+    }
+
+    a {
+      color: $gray-color;
+    }
   }
 
   &:hover {
