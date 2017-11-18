@@ -1,5 +1,5 @@
-<ul class="pagination">
-  <li [ngClass]="{disabled: currentPage === 1}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(currentPage - 1)"><i class="material-icons">chevron_left</i></a></li>
+<ul class="pagination flex justify-content-center">
+  <li [ngClass]="{disabled: currentPage === 1}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(currentPage - 1)">Previous</a></li>
   <li [ngClass]="currentPage === page ? 'active' : 'waves-effect'" *ngFor="let page of pages"><a (click)="onPageChange(page)">{{ page }}</a></li>  
-  <li [ngClass]="{disabled: currentPage === totalPages}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(currentPage + 1)"><i class="material-icons">chevron_right</i></a></li>
+  <li [ngClass]="{disabled: currentPage === totalPages}" *ngIf="totalPages > paginationLength"><a (click)="onPageChange(currentPage + 1)">Next</a></li>
 </ul>

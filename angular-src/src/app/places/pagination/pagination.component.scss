@@ -1,0 +1,41 @@
+@import '../../variables';
+
+ul.pagination li {
+  border-radius: 0;
+  border: 1px solid $border-color;
+  border-right-width: 0;
+
+  &:first-child {
+    border-radius: 3px 0 0 3px;
+  }
+
+  &:last-child {
+    border-right-width: 1px;
+    border-radius: 0 3px 3px 0;
+  }
+
+  &.active {
+    background-color: $secondary-color;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+
+    a {
+      color:#fff;
+    }
+  }
+
+  &.disabled a {
+    color: $font-color;
+  }
+
+  &:hover {
+    background-color: #eee;
+  }
+
+  a {
+    font-size: 14px;
+    color: $secondary-color;
+  }
+}
