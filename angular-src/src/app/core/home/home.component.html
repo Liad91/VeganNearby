@@ -14,34 +14,18 @@
     </div>
   </div>
 </div>
-<div class="banners flex px-2">
-  <div class="banner">
-    <img src="assets/icons/earth.png" alt="earth">
-    <div class="text">
-      <h4>for the planet</h4>
-      <p>Lorem ipsum dolor sit amet.</p>
+<div class="banners flex px-2" [ngClass]="{open: bannerOpen}">
+  <div class="banner" [ngClass]="{flip: banner.checked}" *ngFor="let banner of banners" (click)="flipBanner(banner)">
+    <div class="front">
+      <img [src]="banner.icon">
+      <div class="text">
+        <h4>{{ banner.title }}</h4>
+        <p>{{ banner.subtitle }}</p>
+      </div>
     </div>
-  </div>
-  <div class="banner">
-    <img src="assets/icons/cow.png" alt="cow">
-    <div class="text">
-        <h4>for the animales</h4>
-        <p>Lorem ipsum dolor sit amet.</p>
-      </div>
-  </div>
-  <div class="banner">
-    <img src="assets/icons/peace.png" alt="peace">
-    <div class="text">
-        <h4>for nonviolence</h4>
-        <p>Lorem ipsum dolor sit amet.</p>
-      </div>
-  </div>
-  <div class="banner">
-    <img src="assets/icons/health.png" alt="health">
-    <div class="text">
-        <h4>for yourself</h4>
-        <p>Lorem ipsum dolor sit amet.</p>
-      </div>
+    <div class="back">
+      <p>{{ banner.text }}</p>
+    </div>
   </div>
 </div>
   

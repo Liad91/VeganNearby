@@ -39,7 +39,7 @@
               <span></span>
             </div>
           </div>
-          <div class="info price">
+          <div class="info price" *ngIf="(state | async).place.price">
             <i class="material-icons">attach_money</i>
             <div class="text">
               <h5>Price</h5>
@@ -122,7 +122,7 @@
         </ul>
 
         <h3>Images</h3>
-        <div class="images flex justify-content-space-between">
+        <div [ngClass]="{'justify-content-space-between': (state | async).place.photos.length === 3}" class="images flex">
           <img [src]="image" *ngFor="let image of (state | async).place.photos; let i = index" (click)="openLightbox(i)">
         </div>
       </div>

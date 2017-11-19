@@ -168,16 +168,42 @@ h3 {
       }
     }
 
-    .images img {
-      cursor: pointer;
-      width: 33%;
-      height: 100px;
-      opacity: 1;
-      filter: blur(0);
-      transition: $fast-transition;
+    .images {
+      img {
+        cursor: pointer;
+        width: 33%;
+        height: 100px;
+        opacity: 1;
+        filter: blur(0);
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        transition: $fast-transition;
 
-      &:hover {
-        opacity: 0.8;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      &:not(.justify-content-space-between) {
+        img:first-child {
+          margin-right: 5px;
+        }
+      }
+
+      @media #{$small-only} {
+        img {
+          height: 130px;
+        }
+      }
+  
+      @media #{$small-and-down} {
+        justify-content: center;
+        margin-bottom: 3rem;
+  
+        img {
+          width: 30%;
+          margin-right: 5px;
+        }
       }
     }
   }
