@@ -103,7 +103,7 @@
     }
 
     &.flip {
-      background-color: lighten(#151414, 5%);
+      background-color: $primary-color;
       transform: scaleY(-1);
 
       .front {
