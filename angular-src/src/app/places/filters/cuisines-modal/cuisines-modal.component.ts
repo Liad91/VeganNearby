@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/take';
@@ -7,6 +6,7 @@ import 'rxjs/add/operator/take';
 import * as fromPlaces from '../../store/places.reducer';
 import { Filter } from '../store/filters.reducer';
 import { SetCuisines, SetOffset } from '../store/filters.actions';
+import { GetPlaces } from 'app/places/place-list/store/place-list.actions';
 
 @Component({
   selector: 'vn-cuisines',
@@ -29,7 +29,7 @@ export class CuisinesModalComponent extends MzBaseModal implements OnInit {
     opacity: 0.5,
   };
 
-  constructor(private store: Store<fromPlaces.FeatureState>, private router: Router) {
+  constructor(private store: Store<fromPlaces.FeatureState>) {
     super();
   }
 
@@ -72,9 +72,7 @@ export class CuisinesModalComponent extends MzBaseModal implements OnInit {
     if (this.touched) {
       this.store.dispatch(new SetCuisines(this.cuisineIndexes));
       this.store.dispatch(new SetOffset(null));
-      this.store.select(fromPlaces.selectFiltersLocation)
-        .take(1)
-        .subscribe(location => this.router.navigate(['places', location]));
+      this.store.dispatch(new GetPlaces());
     }
     this.modal.close();
   }

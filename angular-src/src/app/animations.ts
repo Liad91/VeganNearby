@@ -113,8 +113,10 @@ function slideOutLeft(enter: string, leave: string) {
 export const mobileRouteStateTrigger = trigger('mobileRouteState', [
   transition('home => list', slideContentDown('vn-place-list')),
   transition('m-home => list', slideContentDown('vn-place-list')),
+  transition('nma-home => list', slideContentDown('vn-place-list')),
   transition('m-home => m-list', slideInUp('vn-place-list', 'vn-home')),
   transition('home => m-list', slideInUp('vn-place-list', 'vn-home')),
+  transition('nma-home => m-list', slideInUp('vn-place-list', 'vn-home')),
 
   transition('list => home', fadeOut('vn-home', 'vn-place-list')),
   transition('m-list => home', fadeOut('vn-home', 'vn-place-list')),
@@ -123,8 +125,10 @@ export const mobileRouteStateTrigger = trigger('mobileRouteState', [
 
   transition('home => place', slideContentDown('vn-place-detail')),
   transition('m-home => place', slideContentDown('vn-place-detail')),
+  transition('nma-home => place', slideContentDown('vn-place-detail')),
   transition('m-home => m-place', slideInUp('vn-place-detail', 'vn-home')),
   transition('home => m-place', slideInUp('vn-place-detail', 'vn-home')),
+  transition('nma-home => m-place', slideInUp('vn-place-detail', 'vn-home')),
 
   transition('place => home', fadeOut('vn-home', 'vn-place-detail')),
   transition('m-place => home', fadeOut('vn-home', 'vn-place-detail')),
@@ -133,18 +137,24 @@ export const mobileRouteStateTrigger = trigger('mobileRouteState', [
 
   transition('home => favorites', slideContentDown('vn-favorites')),
   transition('m-home => favorites', slideContentDown('vn-favorites')),
+  transition('nma-home => favorites', slideContentDown('vn-favorites')),
   transition('m-home => m-favorites', slideInUp('vn-favorites', 'vn-home')),
   transition('home => m-favorites', slideInUp('vn-favorites', 'vn-home')),
+  transition('nma-home => m-favorites', slideInUp('vn-favorites', 'vn-home')),
 
   transition('favorites => home', fadeOut('vn-home', 'vn-favorites')),
   transition('m-favorites => home', fadeOut('vn-home', 'vn-favorites')),
+  transition('nma-favorites => home', fadeOut('vn-home', 'vn-favorites')),
   transition('m-favorites => m-home', slideOutDown('vn-home', 'vn-favorites')),
   transition('favorites => m-home', slideOutDown('vn-home', 'vn-favorites')),
+  transition('nma-favorites => m-home', slideOutDown('vn-home', 'vn-favorites')),
 
   transition('favorites => place', slideContentDown('vn-place-detail')),
   transition('m-favorites => place', slideContentDown('vn-place-detail')),
+  transition('nma-favorites => place', slideContentDown('vn-place-detail')),
   transition('m-favorites => m-place', slideInRight('vn-place-detail', 'vn-favorites')),
   transition('favorites => m-place', slideInRight('vn-place-detail', 'vn-favorites')),
+  transition('nma-favorites => m-place', slideInRight('vn-place-detail', 'vn-favorites')),
 
   transition('place => favorites', slideContentDown('vn-favorites')),
   transition('m-place => favorites', slideContentDown('vn-favorites')),
@@ -158,8 +168,10 @@ export const mobileRouteStateTrigger = trigger('mobileRouteState', [
 
   transition('favorites => list', slideContentDown('vn-place-list')),
   transition('m-favorites => list', slideContentDown('vn-place-list')),
+  transition('nma-favorites => list', slideContentDown('vn-place-list')),
   transition('m-favorites => m-list', slideOutLeft('vn-place-list', 'vn-favorites')),
   transition('favorites => m-list', slideOutLeft('vn-place-list', 'vn-favorites')),
+  transition('nma-favorites => m-list', slideOutLeft('vn-place-list', 'vn-favorites')),
 
   transition('list => place', slideContentDown('vn-place-detail')),
   transition('m-list => place', slideContentDown('vn-place-detail')),

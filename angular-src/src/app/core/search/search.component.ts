@@ -7,7 +7,6 @@ import {
   ElementRef,
   Renderer2
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { LatLngLiteral, MapsAPILoader } from '@agm/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,6 +18,7 @@ import * as filtersActions from '../../places/filters/store/filters.actions';
 import * as placeListActions from '../../places/place-list/store/place-list.actions';
 import { State } from './store/search.reducer';
 import { ToastService } from '../services/toast.service';
+import { UtilitiesService } from '../services/utilities.service';
 import { GeographicalService } from '../services/geographical.service';
 
 @Component({
@@ -38,9 +38,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   private autocompleteListener: google.maps.MapsEventListener;
 
   constructor(private renderer: Renderer2,
-              private router: Router,
               private store: Store<fromRoot.AppState>,
               private geoService: GeographicalService,
+              private utilitiesService: UtilitiesService,
               private mapsApiLoader: MapsAPILoader,
               private toastService: ToastService) {}
 
@@ -160,12 +160,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     else {
       this.store.dispatch(new filtersActions.Search(payload));
     }
-    this.router.navigate(['places', this.location], {
+    this.utilitiesService.navigate(['places', this.location], {
       queryParams: {
         p: 1,
         ...this.coordinates
       }
-    });
+    }, { scroll: true });
     this.coordinates = null;
   }
 

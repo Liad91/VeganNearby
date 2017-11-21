@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/take';
@@ -14,6 +13,7 @@ import { ModalService } from '../../../core/services/modal.service';
 import { YelpBusinessResponse } from '../../../models/yelp.model';
 import { AlertModalOptions } from '../../../shared/components/index';
 import { AuthModalComponent } from '../../../core/auth/auth-modal/auth-modal.component';
+import { UtilitiesService } from 'app/core/services/utilities.service';
 
 @Component({
   selector: 'vn-btn-favorite',
@@ -32,7 +32,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.AppState>,
-    private router: Router,
+    private utilitiesService: UtilitiesService,
     private placesService: PlacesService,
     private toastService: ToastService,
     private modalService: ModalService) {}
@@ -113,7 +113,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
         },
         {
           text: 'Manage Favorites',
-          handler: () => this.router.navigate(['favorites'])
+          handler: () => this.utilitiesService.navigate(['favorites'], {}, { scroll: true })
         }
       ]
     };

@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../store/app.reducer';
 import { GetPlace, SetPlace } from '../../../places/place-detail/store/place-detail.actions';
 import { YelpBusiness, YelpBusinessResponse } from '../../../models/yelp.model';
+import { UtilitiesService } from '../../../core/services/utilities.service';
 
 @Component({
   selector: 'vn-place',
@@ -22,8 +22,8 @@ export class PlaceComponent {
     else {
       this.store.dispatch(new GetPlace(this.place.id));
     }
-    this.router.navigate(['places', 'place', this.place.id]);
+    this.utilitiesService.navigate(['places', 'place', this.place.id], {}, { scroll: true });
   }
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>, private utilitiesService: UtilitiesService) {}
 }

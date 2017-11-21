@@ -1,7 +1,7 @@
 <nav [ngClass]="{home: activatedRoute === 'home', sticky: activatedRoute !== 'home' && mobileView}" [@searchState]="searchBarOpen">
   <div class="flex justify-content-space-between align-items-center content h-100">
 
-    <a class="logo" *ngIf="!searchBarOpen" routerLink="/"></a>
+    <a class="logo" *ngIf="!searchBarOpen" (click)="navigate('/')"></a>
 
     <button
       class="btn btn-menu btn-floating btn-flat waves-effect"
@@ -23,16 +23,15 @@
         <div class="btn-favorites">
           <a 
             class="btn-flat btn-floating waves-effect waves-dark"
-            routerLink="/favorites"
             vnTooltip
             tooltip="Favorites"
             position="bottom"
+            (click)="navigate('/favorites')"
           >
             <i class="material-icons">favorite_border</i>
           </a>
           <span class="badge right">{{ (user | async).favorites.length }}</span>
         </div>
-        
         <a
           class="btn-flat btn-floating waves-effect waves-dark"
           (click)="logout()"
@@ -99,8 +98,8 @@
     </div>
   </li>
 
-  <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-    <a routerLink="/">
+  <li [ngClass]="{active: activatedRoute === 'home'}">
+    <a fragment="no-animation" (click)="navigate('/', {noMobileAnimation: true})">
       <i class="material-icons">home</i>Home
     </a>
   </li>
@@ -121,8 +120,8 @@
   </ng-container>
 
   <ng-container *ngIf="(user | async)">
-    <li routerLinkActive="active">
-      <a routerLink="/favorites">
+    <li [ngClass]="{active: activatedRoute === 'favorites'}">
+      <a (click)="navigate('/favorites', {noMobileAnimation: true})">
         <i class="material-icons">favorite</i>Favorites
         <span class="badge right">{{ (user | async).favorites.length }}/20</span>
       </a>  

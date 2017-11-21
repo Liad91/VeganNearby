@@ -1,4 +1,4 @@
-<div [@mobileRouteState]="(mobileView | async) ? 'm-' + (routeName | async) : (routeName | async)">
+<div [@mobileRouteState]="(routeAnimationState | async)">
   <vn-nav class="flex w-100 align-self-flex-start" [activatedRoute]="routeName | async"></vn-nav>
   <router-outlet></router-outlet>
 </div>

@@ -45,6 +45,10 @@ export class NavComponent implements OnInit, OnDestroy {
     );
   }
 
+  public navigate(url: string, data?: any) {
+    this.utilitiesService.navigate([url], {}, { scroll: true, ...data });
+  }
+
   public openModal(event: Event, mode: string): void {
     /** prevent sidenav from closing */
     event.stopPropagation();

@@ -77,13 +77,16 @@ nav {
 
       .badge {
         position: absolute;
-        top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 13px;
         right: 3px;
-        height: auto;
-        min-width: auto;
-        padding: 4px 6px;
+        height: 19px;
+        min-width: 19px;
+        padding: 0;
         color: #fff;
-        font-size: 9px;
+        font-size: 10px;
         line-height: 1;
         border-radius: 50%;
         background-color: $danger-color;

@@ -3,6 +3,7 @@ import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
   NavigationEnd,
+  NavigationExtras,
   Router
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -15,10 +16,16 @@ import 'rxjs/add/operator/filter';
 export class UtilitiesService {
   public screenSize = new BehaviorSubject<string>(this.getScreenSize());
   public navigationEnd = new BehaviorSubject<ActivatedRouteSnapshot>(this.activatedRoute.snapshot);
+  public navigationData = new BehaviorSubject<any>({});
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.screenResizeSubscriber();
     this.navigationEndSubscriber();
+  }
+
+  public navigate(commands: any[], extras: NavigationExtras = {}, data: any = {}) {
+    this.navigationData.next(data);
+    this.router.navigate(commands, extras);
   }
 
   private screenResizeSubscriber(): void {
@@ -38,12 +45,14 @@ export class UtilitiesService {
         return route;
       })
       .map(route => route.snapshot)
-      .do(snapshot => snapshot.fragment !== 'stay' ? this.scrollToTop() : null)
+      .do(() => this.scrollToTop())
       .subscribe(this.navigationEnd);
   }
 
   private scrollToTop(): void {
-    window.scrollTo(0, 0);
+    if (this.navigationData.getValue()['scroll']) {
+      window.scrollTo(0, 0);
+    }
   }
 
   private getScreenSize(): string {

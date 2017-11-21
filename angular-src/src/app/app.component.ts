@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/delay';
 
 import {AppState} from './store/app.reducer';
@@ -17,6 +19,8 @@ import { mobileRouteStateTrigger } from './animations';
 })
 export class AppComponent implements OnInit {
   public routeName: Observable<string>;
+  public routeAnimationState: Observable<string>;
+
   public mobileView: Observable<boolean>;
 
   constructor(private store: Store<AppState>, private utilitiesService: UtilitiesService) {}
@@ -28,6 +32,17 @@ export class AppComponent implements OnInit {
       this.store.dispatch(new authActions.Authenticate(token));
     }
     this.routeName = this.utilitiesService.navigationEnd.map(snapshot => snapshot.data['name'] || 'root');
-    this.mobileView = this.utilitiesService.screenSize.map(size => size === 'sm' || size === 'xs');
+
+    this.routeAnimationState = this.utilitiesService.navigationEnd
+      .withLatestFrom(this.utilitiesService.screenSize)
+      .map(([snapshot, size]) => {
+        if (size === 'sm' || size === 'xs') {
+          if (this.utilitiesService.navigationData.getValue()['noMobileAnimation']) {
+            return `nma-${snapshot.data['name'] || 'root'}`;
+          }
+          return `m-${snapshot.data['name'] || 'root'}`;
+        }
+        return `${snapshot.data['name'] || 'root'}`;
+      });
   }
 }

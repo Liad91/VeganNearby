@@ -1,6 +1,5 @@
 import { YelpBusinessResponse } from '../../models/yelp.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { LatLngLiteral } from '@agm/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -94,7 +93,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.AppState>,
-    private router: Router,
     private utilitiesService: UtilitiesService,
     private placesService: PlacesService) {}
 
@@ -173,12 +171,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch(new NewSearch(payload));
-    this.router.navigate(['places', location], {
+    this.utilitiesService.navigate(['places', location], {
       queryParams: {
         p: 1,
         ...payload.coordinates
       }
-    });
+    }, { scroll: true });
   }
 
   public onReload() {

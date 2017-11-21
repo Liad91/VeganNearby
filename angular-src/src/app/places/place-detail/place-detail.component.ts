@@ -70,7 +70,9 @@ export class PlaceDetailComponent implements OnInit {
           reservation: state.place.transactions.indexOf('restaurant_reservation') > -1,
         };
 
-        this.isOpen = state.place.hours[0].is_open_now;
+        if (state.place.hours) {
+          this.isOpen = state.place.hours[0].is_open_now;
+        }
       });
   }
 

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -31,7 +30,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.AppState>,
-    private router: Router,
     private placesService: PlacesService,
     private toastService: ToastService,
     private utilitiesService: UtilitiesService) {}
@@ -40,7 +38,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.screenSize = this.utilitiesService.screenSize;
     this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn)
       .filter(user => !user)
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe(() => this.utilitiesService.navigate(['/'], {}, { scroll: true }));
 
     this.stateSubscription = this.store.select(fromRoot.selectFavorites).subscribe(state => {
       this.state = state;

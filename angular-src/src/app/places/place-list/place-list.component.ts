@@ -50,7 +50,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   private navigationEndHandler(snapshot: ActivatedRouteSnapshot) {
     this.store.dispatch(new filtersActions.SetLocation(snapshot.params.city));
-    this.queryParamsHandler(+snapshot.queryParams['p'], +snapshot.queryParams['lat'], +snapshot.queryParams['lng']);
+    this.queryParamsHandler(Number(snapshot.queryParams['p']), Number(snapshot.queryParams['lat']), Number(snapshot.queryParams['lng']));
     this.validatePageNumber();
   }
 

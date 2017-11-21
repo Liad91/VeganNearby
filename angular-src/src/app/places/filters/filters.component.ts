@@ -13,7 +13,6 @@ import {
   GoogleMapsAPIWrapper,
   AgmMap
 } from '@agm/core';
-import { Router } from '@angular/router';
 import { Action, Store } from '@ngrx/store';
 import { MzModalService } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription';
@@ -75,7 +74,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromPlaces.FeatureState>,
-    private router: Router,
     private mapsApiLoader: MapsAPILoader,
     private modalService: MzModalService,
     private geoService: GeographicalService,
@@ -170,14 +168,13 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.store.dispatch(new GetPlaces());
     }
     else {
-      this.router.navigate(['places', this.state.location], {
+      this.utilitiesService.navigate(['places', this.state.location], {
         queryParams: {
           p: 1,
           lat: this.state.coordinates.lat,
           lng: this.state.coordinates.lng
         },
-        fragment: 'stay'
-      });
+      }, { noScroll: true });
     }
   }
 
