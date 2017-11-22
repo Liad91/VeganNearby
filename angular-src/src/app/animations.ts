@@ -30,7 +30,7 @@ function slideInUp(enter: string, leave: string) {
     query(`header`, style({ marginTop: '0' }), { optional: true }),
     group([
       query(`${enter}`, [
-        style({ top: '50%', zIndex: '100', backgroundColor: '#f9f9f9', minHeight: '95vh'}),
+        style({ top: '50%', zIndex: '100', backgroundColor: '#f9f9f9', minHeight: '100vh'}),
         animate('250ms ease-out', style({ top: '56px' }))
       ], { optional: true }),
       query(`${leave}`, style({ display: 'block' }), { optional: true })
@@ -47,7 +47,7 @@ function slideOutDown(enter: string, leave: string) {
       query('nav', animate('250ms ease-out', style({ backgroundColor: 'transparent' })), { optional: true }),
       query(`${enter}`, style({ display: 'block' }), { optional: true }),
       query(`${leave}`, [
-        style({ top: '56px', zIndex: '100', backgroundColor: '#f9f9f9', minHeight: '95vh'}),
+        style({ top: '56px', zIndex: '100', backgroundColor: '#f9f9f9', minHeight: '100vh'}),
         animate('250ms ease-out', style({ top: '100%' }))
       ], { optional: true })
     ])
@@ -60,7 +60,7 @@ function slideInRight(enter: string, leave: string) {
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
     group([
       query(`${enter}`, [
-        style({ left: '100%', zIndex: '200', backgroundColor: '#f9f9f9' }),
+        style({ left: '100%', zIndex: '200', backgroundColor: '#f9f9f9', minHeight: '100vh' }),
         animate('250ms ease-out', style({ left: '0' }))
       ], { optional: true }),
       query(`${leave}`, style({ display: 'block', zIndex: '100', backgroundColor: '#f9f9f9' }), { optional: true })
@@ -75,7 +75,7 @@ function slideOutRight(enter: string, leave: string) {
     group([
       query(`${enter}`, style({ display: 'block', zIndex: '100', backgroundColor: '#f9f9f9' }), { optional: true }),
       query(`${leave}`, [
-        style({ left: '0', zIndex: '200', backgroundColor: '#f9f9f9' }),
+        style({ left: '0', zIndex: '200', backgroundColor: '#f9f9f9', minHeight: '100vh' }),
         animate('250ms ease-out', style({ left: '100%' }))
       ], { optional: true })
     ])
@@ -88,7 +88,7 @@ function slideInLeft(enter: string, leave: string) {
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
     group([
       query(`${enter}`, [
-        style({ right: '100%', zIndex: '200', backgroundColor: '#f9f9f9' }),
+        style({ right: '100%', zIndex: '200', backgroundColor: '#f9f9f9', minHeight: '100vh' }),
         animate('250ms ease-out', style({ right: '0' }))
       ], { optional: true }),
       query(`${leave}`, style({ display: 'block', zIndex: '100', backgroundColor: '#f9f9f9' }), { optional: true })
@@ -103,7 +103,7 @@ function slideOutLeft(enter: string, leave: string) {
     group([
       query(`${enter}`, style({ display: 'block', zIndex: '100', backgroundColor: '#f9f9f9' }), { optional: true }),
       query(`${leave}`, [
-        style({ right: '0', zIndex: '200', backgroundColor: '#f9f9f9' }),
+        style({ right: '0', zIndex: '200', backgroundColor: '#f9f9f9', minHeight: '100vh' }),
         animate('250ms ease-out', style({ right: '100%' }))
       ], { optional: true })
     ])

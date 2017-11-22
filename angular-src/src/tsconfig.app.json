@@ -7,7 +7,8 @@
     "types": [
       "googlemaps",
       "jquery",
-      "materialize-css"
+      "materialize-css",
+      "webfontloader"
     ]
   },
   "exclude": [

@@ -11,7 +11,7 @@ import 'rxjs/add/operator/exhaustMap';
 
 import * as authActions from './auth.actions';
 import * as fromRoot from '../../../store/app.reducer';
-import { GetFavorites } from '../../../favorites/store/favorites.actions';
+import { GetFavorites, ResetFavorites } from '../../../favorites/store/favorites.actions';
 import { AuthService, AuthResponse } from './../auth.service';
 
 @Injectable()
@@ -68,10 +68,11 @@ export class AuthEffects {
     .do(response => this.onLoginSuccess(response))
     .do(response => this.getFavorites(response.user.favorites));
 
-  @Effect({ dispatch: false })
+  @Effect()
   logout = this.actions
     .ofType(authActions.LOGOUT)
-    .do(response => this.authService.removeToken());
+    .do(response => this.authService.removeToken())
+    .map(() => new ResetFavorites());
 
   constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private authService: AuthService) {}
 

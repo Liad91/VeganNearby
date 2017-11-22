@@ -9,9 +9,17 @@
       vnSidenavButton
       sidenav="menu-sidenav"
       [width]="350"
-      *ngIf="activatedRoute === 'home' || activatedRoute !== 'home' && mobileView && !searchBarOpen"
+      *ngIf="activatedRoute === 'home' || activatedRoute !== 'home' && activatedRoute !== 'place' && mobileView && !searchBarOpen"
     > 
       <i class="material-icons">menu</i>
+    </button>
+
+    <button
+      class="btn btn-menu btn-floating btn-flat waves-effect"
+      *ngIf="activatedRoute === 'place' && mobileView && !searchBarOpen"
+      (click)="goBack()"
+    > 
+      <i class="material-icons">arrow_back</i>
     </button>
 
     <ng-container *ngIf="activatedRoute !== 'home'">
@@ -30,7 +38,7 @@
           >
             <i class="material-icons">favorite_border</i>
           </a>
-          <span class="badge right">{{ (user | async).favorites.length }}</span>
+          <span class="badge right" *ngIf="(user | async).favorites.length">{{ (user | async).favorites.length }}</span>
         </div>
         <a
           class="btn-flat btn-floating waves-effect waves-dark"
@@ -83,7 +91,7 @@
         <div class="background">
           <img src="assets/images/menu-background-1.jpg">
         </div>
-        <img class="circle" src="assets/images/user.jpg">
+        <img class="circle" src="assets/images/user.png">
         <span class="white-text name pb-1">Wellcome Guest</span>
       </ng-container>
 
@@ -91,7 +99,7 @@
         <div class="background">
           <img [src]="'assets/images/menu-background-' + (user | async).background + '.jpg'">
         </div>
-        <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.jpg'">
+        <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.png'">
         <span class="white-text name">{{ (user | async).username }}</span>
         <span class="email">{{ (user | async).email }}</span>
       </ng-container>
@@ -138,7 +146,7 @@
       <mz-spinner class="ml-auto" size="small" *ngIf="(backgroundLoading | async)"></mz-spinner>
     </a></li>
     <div class="flex wrap px-1">
-      <div class="background-item" [ngClass]="{selected:  (user | async).background === index}" (click)="setBackground(index)" *ngFor="let index of [1,2,3,4,5,6]">
+      <div class="background-item" [ngClass]="{selected:  (user | async).background === index}" (click)="setBackground(index)" *ngFor="let index of [1,2,3,4,5,6,7,8,9]">
         <img [src]="'assets/images/menu-background-' + index + '.jpg'">
       </div>
     </div>

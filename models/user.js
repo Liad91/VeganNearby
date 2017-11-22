@@ -78,7 +78,7 @@ userSchema.method('setBackground', function(index) {
   const user = this;
 
   return new Promise((resolve, reject) => {
-    if (index < 1 || index > 6) {
+    if (index < 1 || index > 9) {
       return reject();
     }
     else {

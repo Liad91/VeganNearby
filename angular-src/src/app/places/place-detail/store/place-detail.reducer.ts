@@ -12,8 +12,8 @@ export interface State {
 const initialState = {
   place: null,
   reviews: null,
-  loading: '',
-  error: ''
+  loading: null,
+  error: null
 };
 
 export function placeDetailReducer(state = initialState, action: placeDetailActions.Action): State {
@@ -22,44 +22,44 @@ export function placeDetailReducer(state = initialState, action: placeDetailActi
       return {
         ...state,
         loading: 'page',
-        error: ''
+        error: null
       };
     case placeDetailActions.SET_PLACE:
       return {
         ...state,
         place: action.payload,
         loading: 'reviews',
-        error: ''
+        error: null
       };
     case placeDetailActions.GET_REVIEWS:
       return {
         ...state,
         loading: 'reviews',
-        error: ''
+        error: null
       };
     case placeDetailActions.GET_PLACE_SUCCESS:
       return {
         ...state,
         place: (action.payload[0] as YelpBusinessResponse),
         reviews: (action.payload[1] as YelpReviewsResponse),
-        loading: ''
+        loading: null
       };
     case placeDetailActions.GET_PLACE_FAILURE:
       return {
         ...state,
-        loading: '',
+        loading: null,
         error: 'page'
       };
     case placeDetailActions.GET_REVIEWS_SUCCESS:
       return {
         ...state,
         reviews: action.payload,
-        loading: ''
+        loading: null
       };
-    case placeDetailActions.GET_PLACE_FAILURE:
+    case placeDetailActions.GET_REVIEWS_FAILURE:
       return {
         ...state,
-        loading: '',
+        loading: null,
         error: 'reviews'
       };
     default:

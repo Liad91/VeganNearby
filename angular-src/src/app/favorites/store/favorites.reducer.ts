@@ -49,6 +49,8 @@ export function favoritesReducer(state = initialState, action: favoritesActions.
         loading: false,
         error: true
       };
+    case favoritesActions.RESET_FAVORITES:
+      return initialState;
     default:
       return state;
   }

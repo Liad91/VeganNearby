@@ -6,16 +6,14 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/app.reducer';
 import * as authActions from '../store/auth.actions';
 import { AuthService } from '../auth.service';
+import { errorStateTrigger } from '../../../shared/animations';
 import { AuthSocialService } from '../auth-social/auth-social.service';
-import { errorStateTrigger } from '../animations';
 
 @Component({
   selector: 'vn-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  animations: [
-    errorStateTrigger
-  ]
+  animations: [errorStateTrigger]
 })
 
 export class LoginComponent implements OnInit, OnDestroy {

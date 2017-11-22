@@ -8,7 +8,8 @@ import * as fromRoot from '../../../store/app.reducer';
 import * as authActions from '../store/auth.actions';
 import { AuthService } from '../auth.service';
 import { AuthSocialService } from '../auth-social/auth-social.service';
-import { errorStateTrigger, imgPreviewStateTrigger } from '../animations';
+import { errorStateTrigger } from '../../../shared/animations';
+import { imgPreviewStateTrigger } from '../animations';
 
 @Component({
   selector: 'vn-register',

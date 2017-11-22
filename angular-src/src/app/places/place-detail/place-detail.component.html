@@ -4,10 +4,10 @@
 </header>
 
 <ng-container *ngIf="(state | async).loading !== 'page' && (state | async).error !== 'page'">
-  <div class="content">
+  <div class="content" @placeState>
     <div class="title mt-2">
       <h4 class="nowrap"><strong>{{ (state | async).place.name }}</strong> {{ (state | async).place.location.city }}</h4>
-      <p><vn-stars [rating]="(state | async).place.rating" size="sm"></vn-stars></p>
+      <p><vn-stars [rating]="(state | async).place.rating"></vn-stars></p>
     </div>
     <div class="details flex wrap mb-1">
       <div class="page-left">
@@ -73,21 +73,21 @@
                 <div class="details">
                   <h6 class="m-0">{{ review.user.name }}</h6>
                   <div class="flex align-items-center">
-                    <vn-stars [rating]="review.rating" size="sm"></vn-stars>
+                    <vn-stars [rating]="review.rating"></vn-stars>
                     <div class="date">{{ review.time_created }}</div>
                   </div>
                   
                 </div>
               </div>
               <div class="text">
-                <p>{{ review.text }}</p>
+                <p>{{ review.text.slice(0, -3) }} <a [href]="review.url" target="_blank">read more...</a></p>
               </div>
             </li>
           </ul>
           <!-- reviews error message -->
-          <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error === 'reviews'">
-            <h3 class="white-text">Connection Error</h3>
-            <p class="white-text">Ooops, something went wromg. Please try again later.</p>
+          <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error === 'reviews'" @errorState>
+            <h3>Connection Error</h3>
+            <p>Ooops, something went wromg. Please try again later.</p>
             <button mz-button (click)="onReloadReviews()">Try Again</button>
           </div>
     
@@ -133,10 +133,10 @@
 </ng-container>
 
 <!-- page error message -->
-<div class="error center-align align-self-flex-start w-70 py-2 ml-auto mr-auto" *ngIf="(state | async).error === 'page'">
-  <h3 class="white-text">Connection Error</h3>
-  <p class="white-text">Ooops, something went wromg. Please try again later.</p>
-  <p class="white-text">*If this message not eventually replaced, the required place may not be reachable anymore.</p>
+<div class="error center-align align-self-flex-start w-70 py-2 mx-auto" *ngIf="(state | async).error === 'page'" @errorState>
+  <h3>Place Not Found</h3>
+  <p>Ooops, something went wromg. Please try again later.</p>
+  <p>*If this message not eventually replaced, the required place may not be reachable anymore.</p>
   <button mz-button (click)="onReloadPage()">Try Again</button>
 </div>
 

@@ -18,7 +18,7 @@
     </div>
 
     <div class="rating flex align-items-center w-100">
-      <vn-stars [rating]="place.rating" size="sm"></vn-stars>
+      <vn-stars [rating]="place.rating"></vn-stars>
       <span>{{ place.review_count }} Reviews</span>
       <a class="ml-auto" [href]="place.url" target="_blank" (click)="$event.stopPropagation()"><img class="w-100 h-100" src="assets/images/yelp_logo.png" alt="yelp"></a>
     </div>

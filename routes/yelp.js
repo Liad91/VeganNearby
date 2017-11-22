@@ -71,6 +71,10 @@ router.get('/business', authenticate, (req, res, next) => {
       return next(err);
     }
     body = JSON.parse(body);
+
+    if (body.error) {
+      return next(err);
+    }
     res.send(body);
   });
 });
@@ -98,6 +102,10 @@ router.get('/reviews', authenticate, (req, res, next) => {
       return next(err);
     }
     body = JSON.parse(body);
+
+    if (body.error) {
+      return next(err);
+    }
     res.send(body);
   });
 });

@@ -164,7 +164,10 @@ export class FiltersComponent implements OnInit, OnDestroy {
   private dispatchActions() {
     const queryParams = this.utilitiesService.navigationEnd.getValue().queryParams;
 
-    if (+queryParams.p === 1 && +queryParams.lat === this.state.coordinates.lat && +queryParams.lng === this.state.coordinates.lng) {
+    if (
+      Number(queryParams.p) === 1 &&
+      Number(queryParams.lat) === this.state.coordinates.lat &&
+      Number(queryParams.lng) === this.state.coordinates.lng) {
       this.store.dispatch(new GetPlaces());
     }
     else {
@@ -173,8 +176,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
           p: 1,
           lat: this.state.coordinates.lat,
           lng: this.state.coordinates.lng
-        },
-      }, { noScroll: true });
+        }
+      });
     }
   }
 

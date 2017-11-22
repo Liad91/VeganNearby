@@ -13,6 +13,7 @@ import * as placeListActions from './store/place-list.actions';
 import * as filtersActions from '../filters/store/filters.actions';
 
 import { placeStateTrigger } from './animations';
+import { errorStateTrigger } from '../../shared/animations';
 import { UtilitiesService } from '../../core/services/utilities.service';
 import { GeographicalService } from '../../core/services/index';
 
@@ -21,7 +22,8 @@ import { GeographicalService } from '../../core/services/index';
   templateUrl: './place-list.component.html',
   styleUrls: ['./place-list.component.scss'],
   animations: [
-    placeStateTrigger
+    placeStateTrigger,
+    errorStateTrigger
   ]
 })
 export class PlaceListComponent implements OnInit, OnDestroy {

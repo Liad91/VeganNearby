@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+import { errorStateTrigger } from '../shared/animations';
 import { placeStateTrigger } from './animations';
 import { State } from './store/favorites.reducer';
 import * as fromRoot from '../store/app.reducer';
@@ -16,7 +17,10 @@ import { UtilitiesService } from '../core/services/utilities.service';
   selector: 'vn-favorites',
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
-  animations: [placeStateTrigger]
+  animations: [
+    placeStateTrigger,
+    errorStateTrigger
+  ]
 })
 
 export class FavoritesComponent implements OnInit, OnDestroy {

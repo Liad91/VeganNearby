@@ -14,6 +14,7 @@ import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class UtilitiesService {
+  public referrer = false;
   public screenSize = new BehaviorSubject<string>(this.getScreenSize());
   public navigationEnd = new BehaviorSubject<ActivatedRouteSnapshot>(this.activatedRoute.snapshot);
   public navigationData = new BehaviorSubject<any>({});
@@ -24,6 +25,7 @@ export class UtilitiesService {
   }
 
   public navigate(commands: any[], extras: NavigationExtras = {}, data: any = {}) {
+    this.referrer = true;
     this.navigationData.next(data);
     this.router.navigate(commands, extras);
   }
@@ -42,9 +44,8 @@ export class UtilitiesService {
         while (route.firstChild) {
           route = route.firstChild;
         }
-        return route;
+        return route.snapshot;
       })
-      .map(route => route.snapshot)
       .do(() => this.scrollToTop())
       .subscribe(this.navigationEnd);
   }

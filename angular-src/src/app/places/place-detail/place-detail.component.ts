@@ -10,11 +10,17 @@ import { GetPlace, GetReviews } from './store/place-detail.actions';
 import { State } from './store/place-detail.reducer';
 import { ModalService } from '../../core/services/modal.service';
 import { UtilitiesService } from '../../core/services/utilities.service';
+import { errorStateTrigger } from '../../shared/animations';
+import { placeStateTrigger } from './animations';
 
 @Component({
   selector: 'vn-place-detail',
   templateUrl: './place-detail.component.html',
-  styleUrls: ['./place-detail.component.scss']
+  styleUrls: ['./place-detail.component.scss'],
+  animations: [
+    placeStateTrigger,
+    errorStateTrigger
+  ]
 })
 
 export class PlaceDetailComponent implements OnInit {
@@ -61,7 +67,7 @@ export class PlaceDetailComponent implements OnInit {
     this.state = this.store.select(fromPlaces.selectPlaceDetail);
 
     this.state
-      .filter(state => !!state.place)
+      .filter(state => !!state.place && state.error !== 'page')
       .take(1)
       .subscribe(state => {
         this.transactions = {

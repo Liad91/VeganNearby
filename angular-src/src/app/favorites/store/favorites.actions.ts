@@ -7,6 +7,7 @@ export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';
 export const REMOVE_FROM_FAVORITES = 'REMOVE_FROM_FAVORITES';
 export const GET_FAVORITES_SUCCESS = 'GET_FAVORITES_SUCCESS';
 export const GET_FAVORITES_FAILURE = 'GET_FAVORITES_FAILURE';
+export const RESET_FAVORITES = 'RESET_FAVORITES';
 
 export class GetFavorites implements Action {
   readonly type = GET_FAVORITES;
@@ -34,9 +35,14 @@ export class GetFavoritesFailure implements Action {
   readonly type = GET_FAVORITES_FAILURE;
 }
 
+export class ResetFavorites implements Action {
+  readonly type = RESET_FAVORITES;
+}
+
 export type Action =
   | GetFavorites
   | AddToFavorites
   | RemoveFromFavorites
   | GetFavoritesSuccess
-  | GetFavoritesFailure;
+  | GetFavoritesFailure
+  | ResetFavorites;

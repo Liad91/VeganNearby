@@ -94,6 +94,11 @@
   margin-right: auto;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /** width & height */
 @each $size in (100, 90, 80, 75, 70, 50, 45, 40, 30, 25, 20, 5) {
   .min-w-#{$size} {

@@ -52,12 +52,10 @@
             <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
           </ng-container>
         </div>
-        <div class="no-results w-100" *ngIf="(state | async).error && !(state | async).loading">
-          <h3 class="center-align">Connection Error</h3>
-          <p class="center-align mt-0">Ooops, something went wromg. Please try again later.</p>
-          <div class="center-align">
-            <button mz-button (click)="onReload()">Try Again</button>
-          </div>
+        <div class="error center-align align-self-flex-start w-70 py-2 mx-auto" *ngIf="(state | async).error && !(state | async).loading" @errorState>
+          <h3>Connection Error</h3>
+          <p>Ooops, something went wromg. Please try again later.</p>
+          <button mz-button (click)="onReload()">Try Again</button>
         </div>
       </div>
       <vn-pagination

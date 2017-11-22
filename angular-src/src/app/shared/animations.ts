@@ -37,3 +37,7 @@ export function zoomIn(position: string, duration: string) {
 export function zoomOut(position: string, duration: string) {
   return useAnimation(outAnimation, { params: { position: `scale(${position})`, duration: duration } } );
 }
+
+export const errorStateTrigger = trigger('errorState', [
+  transition(':enter', zoomIn('0.5', '250ms'))
+]);
