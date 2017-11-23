@@ -1,11 +1,11 @@
-const Strategy = require('passport-facebook').Strategy;
-const facebook = require('../../config/credentials').facebook;
+const Strategy = require('passport-twitter').Strategy;
+const twitter = require('../../../config').twitter;
 
 const options = {
-  clientID: facebook.appId,
-  clientSecret: facebook.appSecret,
-  callbackURL: facebook.callbackURL,
-  profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
+  consumerKey: twitter.consumerKey,
+  consumerSecret: twitter.consumerSecret,
+  callbackURL: twitter.callbackURL,
+  userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
 }
 
 const strategy = new Strategy(options, verify);
@@ -16,7 +16,7 @@ function verify(accessToken, refreshToken, profile, done) {
     email: profile.emails[0].value,
     password: profile.id,    
     avatarUrl: profile.photos[0].value
-  }
+  };
 
   return done(null, user);
 }

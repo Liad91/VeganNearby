@@ -52,7 +52,7 @@
             <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
           </ng-container>
         </div>
-        <div class="error center-align align-self-flex-start w-70 py-2 mx-auto" *ngIf="(state | async).error && !(state | async).loading" @errorState>
+        <div class="error center-align align-self-flex-start w-90 py-2 mx-auto" *ngIf="(state | async).error && !(state | async).loading" @errorState>
           <h3>Connection Error</h3>
           <p>Ooops, something went wromg. Please try again later.</p>
           <button mz-button (click)="onReload()">Try Again</button>
@@ -64,7 +64,7 @@
         [currentPage]="currentPage"
         [totalItems]="(state | async).total"
         (pageChange)="onPageChange($event)"
-        *ngIf="!(state | async).loading || ((state | async).loading && currentPage !== 1)"
+        *ngIf="!(state | async).loading || ((state | async).loading && currentPage !== 1 && (screenSize | async) !== 'sm' && (screenSize | async) !== 'xs')"
       >
       </vn-pagination>
       <div class="spinner-wrap" [hidden]="!(state | async).loading">

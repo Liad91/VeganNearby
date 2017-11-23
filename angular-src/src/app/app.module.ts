@@ -19,7 +19,7 @@ import { effects } from './store/app.effects';
 
 // Config
 import { environment } from '../environments/environment';
-import { lazyMapsAPILoaderConfigLiteral } from './../config';
+import { googleApiKey } from './../config';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,10 @@ import { lazyMapsAPILoaderConfigLiteral } from './../config';
     CoreModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    AgmCoreModule.forRoot(lazyMapsAPILoaderConfigLiteral),
+    AgmCoreModule.forRoot({
+      apiKey: googleApiKey,
+      libraries: ['places', 'geometry']
+    }),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 3 }) : []
   ],
   bootstrap: [AppComponent]

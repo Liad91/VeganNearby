@@ -6,10 +6,10 @@ const Jimp = require("jimp");
 const router = express.Router();
 
 const User = require('../models/user');
-const jwtSecret = require('../config/credentials').jwtSecret;
+const jwtSecret = require('../../config').jwtSecret;
 const upload = require('../middlewares/multer').single('avatar');
 
-// Register
+/** Register */
 router.post('/register',(req, res, next) => {
   upload(req, res, err => {
     if (err) {
@@ -80,7 +80,7 @@ router.post('/register',(req, res, next) => {
   });
 });
 
-// Login
+/** Login */
 router.post('/login', (req, res, next) => {
   User.findOne({email: req.body.email})
     .then(user => {
@@ -113,7 +113,7 @@ router.post('/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// Update user background
+/** Update user background */
 router.put('/background', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
   const token = buildToken(user._id);
@@ -125,7 +125,7 @@ router.put('/background', passport.authenticate('jwt', { session: false }), (req
     .catch(() => res.status(403).end());
 });
 
-// Add to favorites
+/** Add to favorites */
 router.put('/favorites/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
   const token = buildToken(user._id);
@@ -137,7 +137,7 @@ router.put('/favorites/add', passport.authenticate('jwt', { session: false }), (
     .catch(() => res.status(403).end());
 });
 
-// Remove from favorites
+/** Remove from favorites */
 router.put('/favorites/remove', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
   const token = buildToken(user._id);
@@ -149,7 +149,7 @@ router.put('/favorites/remove', passport.authenticate('jwt', { session: false })
     .catch(() => res.status(403).end());
 });
 
-// Authentication
+/** Authentication */
 router.post('/authenticate', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
   const newToken = buildToken(user._id);

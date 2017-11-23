@@ -1,8 +1,9 @@
 # compiled output
 /public
+/dist
 
 # dependencies
 /node_modules
 
 # configurations
-/config
+/config/index.js

@@ -1,7 +1,7 @@
 const request = require('request');
 const NodeCache = require( "node-cache" );
 
-const yelp = require('../config/credentials').yelp;
+const yelp = require('../../config').yelp;
 const myCache = new NodeCache();
 
 function authenticate(req, res, next) {

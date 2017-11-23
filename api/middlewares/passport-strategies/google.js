@@ -1,11 +1,10 @@
-const Strategy = require('passport-twitter').Strategy;
-const twitter = require('../../config/credentials').twitter;
+const Strategy = require('passport-google-oauth').OAuth2Strategy;
+const google = require('../../../config').google;
 
 const options = {
-  consumerKey: twitter.consumerKey,
-  consumerSecret: twitter.consumerSecret,
-  callbackURL: twitter.callbackURL,
-  userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
+  clientID: google.clientID,
+  clientSecret: google.clientSecret,
+  callbackURL: google.callbackURL
 }
 
 const strategy = new Strategy(options, verify);

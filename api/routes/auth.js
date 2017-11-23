@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const findOrCreate = require('../middlewares/user').findOrCreate;
-const jwtSecret = require('../config/credentials').jwtSecret;
+const jwtSecret = require('../../config').jwtSecret;
 const router = express.Router();
 
 const callbackOprtions = { 

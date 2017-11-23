@@ -1,6 +1,6 @@
 const url = require('url');
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../config/credentials').jwtSecret;
+const jwtSecret = require('../../config').jwtSecret;
 const User = require('../models/user');
 
 function findOrCreate(req, res, next) {
