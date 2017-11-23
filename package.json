@@ -1,6 +1,6 @@
 {
   "name": "vegannearby",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Find the top vegan restaurants, cafes and bars near you",
   "main": "app.js",
   "scripts": {

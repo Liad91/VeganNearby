@@ -37,7 +37,7 @@ export class TabsComponent implements AfterViewInit {
     selectedTab.setActive(true);
   }
 
-  private setActive(i: number): void {
+  public setActive(i: number): void {
     this.tabItems.forEach((item, index) => index === i ? item.setActive(true) : item.setActive(false));
   }
 }
