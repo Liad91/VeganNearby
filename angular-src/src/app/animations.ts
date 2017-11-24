@@ -1,6 +1,6 @@
 import { trigger, transition, group, query, style, animate } from '@angular/animations';
 
-function slideContentDown(enter: string) {
+export function slideContentDown(enter: string) {
   return [
     query('nav', style({ zIndex: '100' }), { optional: true }),
     query(`${enter} .content, ${enter} header`, [
@@ -10,7 +10,7 @@ function slideContentDown(enter: string) {
   ];
 }
 
-function fadeOut(enter: string, leave: string) {
+export function fadeOut(enter: string, leave: string) {
   return [
     query('nav', style({ backgroundColor: '#fff' }), { optional: true }),
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
@@ -23,7 +23,7 @@ function fadeOut(enter: string, leave: string) {
   ];
 }
 
-function slideInUp(enter: string, leave: string) {
+export function slideInUp(enter: string, leave: string) {
   return [
     query('nav', style({ zIndex: '200' }), { optional: true }),
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
@@ -38,7 +38,7 @@ function slideInUp(enter: string, leave: string) {
   ];
 }
 
-function slideOutDown(enter: string, leave: string) {
+export function slideOutDown(enter: string, leave: string) {
   return [
     query('nav', style({  backgroundColor: '#fff', zIndex: '200' }), { optional: true }),
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
@@ -54,7 +54,7 @@ function slideOutDown(enter: string, leave: string) {
   ];
 }
 
-function slideInRight(enter: string, leave: string) {
+export function slideInRight(enter: string, leave: string) {
   return [
     query('nav', style({ position: 'absolute', zIndex: '300' }), { optional: true }),
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
@@ -68,7 +68,7 @@ function slideInRight(enter: string, leave: string) {
   ];
 }
 
-function slideOutRight(enter: string, leave: string) {
+export function slideOutRight(enter: string, leave: string) {
   return [
     query('nav', style({ position: 'absolute', zIndex: '300' }), { optional: true }),
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
@@ -82,7 +82,7 @@ function slideOutRight(enter: string, leave: string) {
   ];
 }
 
-function slideInLeft(enter: string, leave: string) {
+export function slideInLeft(enter: string, leave: string) {
   return [
     query('nav', style({ position: 'absolute', zIndex: '300' }), { optional: true }),
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),
@@ -96,7 +96,7 @@ function slideInLeft(enter: string, leave: string) {
   ];
 }
 
-function slideOutLeft(enter: string, leave: string) {
+export function slideOutLeft(enter: string, leave: string) {
   return [
     query('nav', style({ position: 'absolute', zIndex: '300' }), { optional: true }),
     query(`${enter}, ${leave}`, style({ position: 'absolute', width: '100%' }), { optional: true }),

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 
 // Components
 import { LoginComponent } from './auth/login/login.component';
@@ -23,6 +22,7 @@ import { AuthSocialGuard } from './auth/auth-social/auth-social.guard';
 
 // Modules
 import { AppRoutesModule } from './../app-routes.module';
+import { FileUploadModule } from 'ng2-file-upload';
 import { SharedModule } from './../shared/shared.module';
 
 @NgModule({
@@ -32,8 +32,6 @@ import { SharedModule } from './../shared/shared.module';
     AuthModalComponent,
     AuthSocialComponent,
     HomeComponent,
-    FileDropDirective,
-    FileSelectDirective,
     NavComponent,
     SearchComponent
   ],
@@ -56,6 +54,7 @@ import { SharedModule } from './../shared/shared.module';
     ReactiveFormsModule,
     CommonModule,
     AppRoutesModule,
+    FileUploadModule,
     SharedModule
   ],
   exports: [

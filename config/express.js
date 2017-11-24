@@ -15,7 +15,7 @@ module.exports = (db) => {
   app.use(cors());
 
   /** Set static folder */
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, '..', 'dist')));
 
   /** Parse incoming requests */
   app.use(bodyParser.json({limit: '1mb'}));

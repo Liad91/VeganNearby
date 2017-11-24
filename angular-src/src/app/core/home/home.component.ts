@@ -32,7 +32,7 @@ interface Banner {
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription;
-  private mobileView: Observable<boolean>;
+  public mobileView: Observable<boolean>;
   public state: Observable<State>
   public category: Filter;
   public strings: string[];

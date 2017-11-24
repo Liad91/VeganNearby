@@ -16,4 +16,17 @@ footer.page-footer {
     background-color: #212121;
     font-weight: 400;
   }
+
+  @media #{$extra-small-only} {
+    text-align: center;
+    font-size: 12px;
+
+    .footer-copyright .container {
+      width: 95%;
+
+      & > a + a {
+        margin-right: 45%;
+      }
+    }
+  }
 }
