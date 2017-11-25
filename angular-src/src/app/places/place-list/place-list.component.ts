@@ -3,8 +3,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/filter';
+import { take, filter } from 'rxjs/operators';
 
 import { State } from './store/place-list.reducer';
 import * as fromPlaces from '../store/places.reducer';
@@ -44,7 +43,10 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceList);
     this.screenSize = this.utilitiesService.screenSize;
-    this.filtersStateSubscription = this.store.select(fromPlaces.selectFilters).subscribe(state => this.filtersState = state);
+
+    this.filtersStateSubscription = this.store.select(fromPlaces.selectFilters)
+      .subscribe(state => this.filtersState = state);
+
     this.navigationEndSubscription = this.utilitiesService.navigationEnd
       .filter(snapshot => snapshot.data['name'] && snapshot.data['name'] === 'list')
       .subscribe(snapshot => this.navigationEndHandler(snapshot));
@@ -99,8 +101,10 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   private validatePageNumber(): void {
     this.state
-      .filter(state => !!state.total)
-      .take(1)
+      .pipe(
+        filter(state => !!state.total),
+        take(1)
+      )
       .subscribe(state => {
       if (state.total < (this.currentPage - 1) * 18) {
         this.router.navigate(['places', this.filtersState.location], {

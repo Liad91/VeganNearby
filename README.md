@@ -15,7 +15,6 @@ Find the top vegan restaurants, cafes and bars near you.
 * And Many More..
 
 ### Installation
-
 ```sh
 $ git clone https://github.com/Liad91/VeganNearby.git
 $ cd VeganNearby
@@ -24,33 +23,39 @@ $ cd angular-src
 $ npm install
 ```
 
-### Build required folders and config files
-
-```
+#### Build required folders and config files
+```sh
 $ npm run build
 ```
 
-### Edit the following files
-```
-VeganNearby/config/index.js
-VeganNearby/angular-src/src/config.ts
-```
+#### Create credentials for the following APIs
+- Yelp - https://www.yelp.com/fusion
+- Twitter - https://apps.twitter.com
+- Google - https://developers.google.com
+- Facebook - https://developers.facebook.com
 
-### Start the server
+#### Edit the following files
+- VeganNearby/config/index.js
+- VeganNearby/angular-src/src/config.ts
 
-```
+#### Make sure that Angular CLI is installed and up to date
+```sh
+$ npm install -g @angular/cli@latest
+``` 
+
+#### Start the server
+```sh
 $ npm start
 ```
 
-### Run Angular (in a new tab)
-
-```
+#### Run Angular (in a new tab)
+```sh
 $ cd angular-src
 $ ng serve
 ```
 
 ### Todos
-- [ ] Upgrade Angular to v5.0.0
+- [x] Upgrade Angular to v5.0.0
 - [ ] Upgrade Materialize to v1.0.0
 - [ ] Add edit profile page
 - [ ] Write unit tests

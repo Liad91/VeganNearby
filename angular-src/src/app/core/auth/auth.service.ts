@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/timeout';
+import { timeout, mapTo } from 'rxjs/operators';
 
 import { ConnectionService } from './../services/connection.service';
 import { User } from './../../models/user.model';
 
 
 export interface AuthResponse {
-  user: User,
-  token: string
+  user: User;
+  token: string;
 }
 
 @Injectable()
@@ -22,26 +22,35 @@ export class AuthService {
 
   public register(user: FormData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.connectionService.serverUrl}/users/register`, user)
-      .timeout(this.connectionService.reqTimeout);
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
   }
 
   public login(user: User): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.connectionService.serverUrl}/users/login`, user)
-      .timeout(this.connectionService.reqTimeout);
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
   }
 
   public setUserBackground(index: number): Observable<number> {
     return this.http.put(`${this.connectionService.serverUrl}/users/background`, { index }, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
     })
-      .timeout(this.connectionService.reqTimeout)
-      .map(() => index);
+      .pipe(
+        timeout(this.connectionService.reqTimeout),
+        mapTo(index)
+      );
   }
 
   public authenticate(token: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.connectionService.serverUrl}/auth/jwt`, {}, {
       headers: new HttpHeaders().set('Authorization', token)
-    }).timeout(this.connectionService.reqTimeout);
+    })
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
   }
 
   public storeToken(token: string) {

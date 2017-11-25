@@ -17,6 +17,6 @@ export class AuthSocialComponent implements OnInit {
         window.opener.dispatchEvent(event);
         window.close();
       }
-    )
+    );
   }
 }

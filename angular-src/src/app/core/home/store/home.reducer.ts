@@ -3,7 +3,7 @@ import * as homeActions from './home.actions';
 import { YelpBusinessResponse } from '../../../models/yelp.model';
 
 export interface State {
-  places: YelpBusinessResponse[]
+  places: YelpBusinessResponse[];
   loading: boolean;
   error: boolean;
 }

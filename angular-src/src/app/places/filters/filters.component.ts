@@ -143,7 +143,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   public updatePrices(price: Filter): void {
     if (this.sidenavMode) {
-      this.actions.push(new filtersActions.UpdatePrices(price))
+      this.actions.push(new filtersActions.UpdatePrices(price));
     }
     else {
       this.store.dispatch(new filtersActions.UpdatePrices(price));
@@ -153,7 +153,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   public updateCuisines(cuisine: Filter): void {
     if (this.sidenavMode) {
-      this.actions.push(new filtersActions.UpdateCuisines(cuisine))
+      this.actions.push(new filtersActions.UpdateCuisines(cuisine));
     }
     else {
       this.store.dispatch(new filtersActions.UpdateCuisines(cuisine));

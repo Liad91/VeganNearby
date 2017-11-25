@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/delay';
+import { map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import * as WebFont from 'webfontloader/webfontloader';
 
@@ -31,18 +28,24 @@ export class AppComponent implements OnInit {
     this.loadFonts();
     this.authenticate();
 
-    this.routeName = this.utilitiesService.navigationEnd.map(snapshot => snapshot.data['name'] || 'root');
+    this.routeName = this.utilitiesService.navigationEnd
+      .pipe(
+        map(snapshot => snapshot.data['name'] || 'root')
+      );
+
     this.routeAnimationState = this.utilitiesService.navigationEnd
-      .withLatestFrom(this.utilitiesService.screenSize)
-      .map(([snapshot, size]) => {
-        if (size === 'sm' || size === 'xs') {
-          if (this.utilitiesService.navigationData.getValue()['noMobileAnimation']) {
-            return `nma-${snapshot.data['name'] || 'root'}`;
+      .pipe(
+        withLatestFrom(this.utilitiesService.screenSize),
+        map(([snapshot, size]) => {
+          if (size === 'sm' || size === 'xs') {
+            if (this.utilitiesService.navigationData.getValue()['noMobileAnimation']) {
+              return `nma-${snapshot.data['name'] || 'root'}`;
+            }
+            return `m-${snapshot.data['name'] || 'root'}`;
           }
-          return `m-${snapshot.data['name'] || 'root'}`;
-        }
-        return `${snapshot.data['name'] || 'root'}`;
-      });
+          return `${snapshot.data['name'] || 'root'}`;
+        })
+      );
   }
 
   private loadFonts() {

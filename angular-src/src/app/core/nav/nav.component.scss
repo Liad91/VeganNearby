@@ -115,6 +115,7 @@ nav {
 }
 
 .side-nav {
+  padding-bottom: 0; 
   transition: width 0.25s ease-in-out;
 
   .user-view {
@@ -213,7 +214,7 @@ nav {
 
     .background-item.selected::after {
       font-size: 30px;
-      top: 7px;
+      top: 12.5px;
       left: 31px;
     }
 

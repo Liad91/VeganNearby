@@ -32,7 +32,7 @@ export class YelpBusiness {
   rating: number;
   review_count: number;
   url: string;
-  transactions: string[]
+  transactions: string[];
 }
 
 export class YelpSearchResponse {

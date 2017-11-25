@@ -10,7 +10,7 @@ import {
 import { LatLngLiteral, MapsAPILoader } from '@agm/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/take';
+import { take } from 'rxjs/operators';
 
 import * as fromRoot from '../../store/app.reducer';
 import * as searchActions from './store/search.actions';
@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public location: string;
   public locateSpinner = false;
   public locateFailed = false;
-  public stateSubscription: Subscription
+  public stateSubscription: Subscription;
   private coordinates: LatLngLiteral;
   private autocompleteListener: google.maps.MapsEventListener;
 
@@ -52,7 +52,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     if (this.mode === 'nav') {
       this.store.select(fromRoot.selectFiltersLocation)
-        .take(1)
+        .pipe(
+          take(1)
+        )
         .subscribe(location => this.location = location);
     }
   }
@@ -95,7 +97,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private geolocationSuccess(coordinates: LatLngLiteral): Promise<string> {
-    this.coordinates = coordinates
+    this.coordinates = coordinates;
     return this.geoService.geocoder(coordinates);
   }
 
@@ -152,7 +154,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       location: this.location,
       coordinates: this.coordinates,
       selectedCategory: this.state.categories[this.state.selectedCategoryIndex]
-    }
+    };
 
     if (this.mode === 'home') {
       this.store.dispatch(new filtersActions.NewSearch(payload));

@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { map } from 'rxjs/operators';
 
 import { AppState } from './../../../store/app.reducer';
 import * as authActions from './../store/auth.actions';
@@ -16,8 +18,10 @@ export class AuthSocialService {
   public callbackSubscription: Subscription;
 
   constructor(private store: Store<AppState>, private toastService: ToastService, private connectionService: ConnectionService) {
-    this.callback = Observable.fromEvent(window, 'socialCallback')
-      .map((event: CustomEvent) => event.detail);
+    this.callback = fromEvent(window, 'socialCallback')
+      .pipe(
+        map((event: CustomEvent) => event.detail)
+      );
   }
 
   public login(network: string): void {

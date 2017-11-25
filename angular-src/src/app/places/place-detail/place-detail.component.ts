@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/filter';
-
+import { take, filter } from 'rxjs/operators';
 
 import * as fromPlaces from '../store/places.reducer';
 import { GetPlace, GetReviews } from './store/place-detail.actions';
@@ -24,7 +22,7 @@ import { placeStateTrigger } from './animations';
 })
 
 export class PlaceDetailComponent implements OnInit {
-  public state: Observable<State>
+  public state: Observable<State>;
   public transactions: { pickup: boolean, delivery: boolean, reservation: boolean };
   public isOpen: boolean;
 
@@ -67,8 +65,10 @@ export class PlaceDetailComponent implements OnInit {
     this.state = this.store.select(fromPlaces.selectPlaceDetail);
 
     this.state
-      .filter(state => !!state.place && state.error !== 'page')
-      .take(1)
+      .pipe(
+        filter(state => !!state.place && state.error !== 'page'),
+        take(1)
+      )
       .subscribe(state => {
         this.transactions = {
           pickup: state.place.transactions.indexOf('pickup') > -1,
@@ -83,9 +83,13 @@ export class PlaceDetailComponent implements OnInit {
   }
 
   public openLightbox(active: number): void {
-    this.state.take(1).subscribe(state => {
-      this.modalService.openLightbox({ images: state.place.photos, active });
-    });
+    this.state
+      .pipe(
+        take(1)
+      )
+      .subscribe(state => {
+        this.modalService.openLightbox({ images: state.place.photos, active });
+      });
   }
 
   public onReloadPage(): void {
@@ -93,8 +97,12 @@ export class PlaceDetailComponent implements OnInit {
   }
 
   public onReloadReviews(): void {
-    this.state.take(1).subscribe(state => {
-      this.store.dispatch(new GetReviews(state.place.id));
-    })
+    this.state
+      .pipe(
+        take(1)
+      )
+      .subscribe(state => {
+        this.store.dispatch(new GetReviews(state.place.id));
+      });
   }
 }

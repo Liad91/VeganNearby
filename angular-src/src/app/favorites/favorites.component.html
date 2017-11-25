@@ -13,9 +13,9 @@
     <h3>No favorites to display</h3>
   </div>
   <div class="error flex align-items-flex-end mb-1" *ngIf="emptyPlaces.length > 0">
-    <p>Unable to retrieve <strong>{{ emptyPlaces.length }} {{emptyPlaces.length > 1 ? 'items' : 'item' }}</strong> from your favorites.</p>
+    <p>Unable to retrieve <strong>{{ emptyPlaces.length }} {{ emptyPlaces.length > 1 ? 'items' : 'item' }}</strong> from your favorites.</p>
     <a (click)="onReload()">Try Again</a>
-    <a (click)="deleteEmptyPlaces()">Delete The {{emptyPlaces.length > 1 ? 'Items' : 'Item' }}</a>
+    <a (click)="deleteEmptyPlaces()">Delete The {{ emptyPlaces.length > 1 ? 'Items' : 'Item' }}</a>
     <div class="spinner-wrap" *ngIf="errorLoading">
       <mz-spinner color="blue" size="small"></mz-spinner>
     </div>

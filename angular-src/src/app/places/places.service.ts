@@ -4,11 +4,8 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/timeout';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/forkJoin';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { mapTo, retry, catchError, timeout, switchMap } from 'rxjs/operators';
 
 import {
   YelpBusinessResponse,
@@ -42,7 +39,9 @@ export class PlacesService {
     }
 
     return this.http.post<YelpSearchResponse>(`${this.connectionService.serverUrl}/yelp/search`, params)
-      .timeout(this.connectionService.reqTimeout);
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
   }
 
   public getFavorites(favorites: string[]): Observable<YelpBusinessResponse[]> {
@@ -50,12 +49,14 @@ export class PlacesService {
 
     favorites.forEach(id => {
       const request = this.getPlaceById(id)
-        .retry(2)
-        .catch(() => of(this.catchFavoriteError(id)));
+        .pipe(
+          retry(2),
+          catchError(() => of(this.catchFavoriteError(id)))
+        );
 
       requests.push(request);
     });
-    return Observable.forkJoin(requests);
+    return forkJoin(requests);
   }
 
   private catchFavoriteError(id: string) {
@@ -66,20 +67,27 @@ export class PlacesService {
   }
 
   public addToFavorites(id: string): Observable<YelpBusinessResponse> {
-    return this.getPlaceById(id).switchMap(response => {
-      return this.http.put(`${this.connectionService.serverUrl}/users/favorites/add`, { id }, {
-        headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
-      })
-        .timeout(this.connectionService.reqTimeout)
-        .map(() => response);
-    });
+    return this.getPlaceById(id)
+      .pipe(
+        switchMap(response => {
+          return this.http.put(`${this.connectionService.serverUrl}/users/favorites/add`, { id }, {
+            headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
+          })
+            .pipe(
+              timeout(this.connectionService.reqTimeout),
+              mapTo(response)
+            );
+        })
+      );
   }
 
   public removeFromFavorites(id: string): Observable<any> {
     return this.http.put(`${this.connectionService.serverUrl}/users/favorites/remove`, { id }, {
       headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
     })
-      .timeout(this.connectionService.reqTimeout);
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
   }
 
   public removeManyFromFavorites(ids: string[]): Observable<any> {
@@ -88,28 +96,35 @@ export class PlacesService {
     ids.forEach(id => {
       const request = this.http.put(`${this.connectionService.serverUrl}/users/favorites/remove`, { id }, {
         headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
-      }).timeout(this.connectionService.reqTimeout);
+      })
+        .pipe(
+          timeout(this.connectionService.reqTimeout)
+        );
 
       requests.push(request);
     });
-    return Observable.forkJoin(requests);
+    return forkJoin(requests);
   }
 
   public getPlaceById(id: string): Observable<YelpBusinessResponse> {
     return this.http.get<YelpBusinessResponse>(`${this.connectionService.serverUrl}/yelp/business`, {
       params: new HttpParams().set('id', id)
     })
-      .timeout(this.connectionService.reqTimeout);
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
   }
 
   public getReviewsById(id: string): Observable<YelpReviewsResponse> {
     return this.http.get<YelpReviewsResponse>(`${this.connectionService.serverUrl}/yelp/reviews`, {
       params: new HttpParams().set('id', id)
     })
-      .timeout(this.connectionService.reqTimeout);
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
   }
 
   public getPlaceDetail(id: string): Observable<(YelpReviewsResponse | YelpBusinessResponse)[]> {
-    return Observable.forkJoin([this.getPlaceById(id), this.getReviewsById(id)]);
+    return forkJoin([this.getPlaceById(id), this.getReviewsById(id)]);
   }
 }

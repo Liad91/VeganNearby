@@ -20,7 +20,7 @@ export const reducers: ActionReducerMap<AppState> = {
   favorites: fromFavorites.favoritesReducer,
   filters: fromFilters.filtersReducer,
   search: fromSearch.searchReducer
-}
+};
 
 export const selectAuth = (state: AppState) => state.auth;
 export const selectHome = (state: AppState) => state.home;
@@ -45,4 +45,4 @@ export function favoriteFactory(id: string) {
     }
     return false;
   });
-};
+}

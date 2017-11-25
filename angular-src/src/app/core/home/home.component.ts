@@ -4,9 +4,7 @@ import { LatLngLiteral } from '@agm/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/filter';
+import { map, take, filter } from 'rxjs/operators';
 
 import { State } from './store/home.reducer';
 import * as homeActions from './store/home.actions';
@@ -33,7 +31,7 @@ interface Banner {
 export class HomeComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription;
   public mobileView: Observable<boolean>;
-  public state: Observable<State>
+  public state: Observable<State>;
   public category: Filter;
   public strings: string[];
   public bannerOpen = false;
@@ -98,18 +96,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.state = this.store.select(fromRoot.selectHome);
-    this.mobileView = this.utilitiesService.screenSize.map(size => size === 'sm' || size === 'xs');
+    this.mobileView = this.utilitiesService.screenSize
+      .pipe(
+        map(size => size === 'sm' || size === 'xs')
+      );
 
-    this.categorySubscription = this.store.select(fromRoot.selectSearchselectedCategory).subscribe(
-      category => {
-        this.category = category;
-        this.setStrings();
-      }
-    );
+    this.categorySubscription = this.store.select(fromRoot.selectSearchselectedCategory)
+      .subscribe(
+        category => {
+          this.category = category;
+          this.setStrings();
+        }
+      );
 
     this.state
-      .filter(state => !state.places)
-      .take(1)
+      .pipe(
+        filter(state => !state.places),
+        take(1)
+      )
       .subscribe(() => this.store.dispatch(new homeActions.GetPlaces(this.recomendedPlaces)));
   }
 

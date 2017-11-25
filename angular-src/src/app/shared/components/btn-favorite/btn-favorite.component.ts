@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/take';
+import { take } from 'rxjs/operators';
 
 import * as fromRoot from '../../../store/app.reducer';
 import * as authActions from '../../../core/auth/store/auth.actions';
@@ -13,7 +13,7 @@ import { ModalService } from '../../../core/services/modal.service';
 import { YelpBusinessResponse } from '../../../models/yelp.model';
 import { AlertModalOptions } from '../../../shared/components/index';
 import { AuthModalComponent } from '../../../core/auth/auth-modal/auth-modal.component';
-import { UtilitiesService } from 'app/core/services/utilities.service';
+import { UtilitiesService } from '../../../core/services/utilities.service';
 
 @Component({
   selector: 'vn-btn-favorite',
@@ -42,7 +42,9 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
       this.user = user;
       if (user) {
         this.store.select(fromRoot.favoriteFactory(this.placeId))
-          .take(1)
+          .pipe(
+            take(1)
+          )
           .subscribe(favorite => this.favorite = favorite);
 
         this.favoritesLengthSubscription = this.store.select(fromRoot.selectAuthUserFavoritesLength)
@@ -72,10 +74,11 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
           this.alertMaxFavorites();
         }
         else {
-          this.placesService.addToFavorites(this.placeId).subscribe(
-            place => this.addToFavoritesSuccess(place),
-            () => this.addToFavoritesFailure()
-          );
+          this.placesService.addToFavorites(this.placeId)
+            .subscribe(
+              place => this.addToFavoritesSuccess(place),
+              () => this.addToFavoritesFailure()
+            );
         }
       }
     }
@@ -122,10 +125,11 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
   }
 
   private removeFromFavorites() {
-    this.placesService.removeFromFavorites(this.placeId).subscribe(
-      () => this.removeFromFavoritesSuccess(),
-      () => this.removeFromFavoritesFailure()
-    );
+    this.placesService.removeFromFavorites(this.placeId)
+      .subscribe(
+        () => this.removeFromFavoritesSuccess(),
+        () => this.removeFromFavoritesFailure()
+      );
   }
 
   private addToFavoritesSuccess(place: YelpBusinessResponse): void {

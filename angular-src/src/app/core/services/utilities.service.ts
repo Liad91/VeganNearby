@@ -8,9 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mapTo';
-import 'rxjs/add/operator/filter';
+import { map, mapTo, filter, tap } from 'rxjs/operators';
 
 @Injectable()
 export class UtilitiesService {
@@ -32,21 +30,25 @@ export class UtilitiesService {
 
   private screenResizeSubscriber(): void {
     Observable.fromEvent(window, 'resize')
-      .map(this.getScreenSize)
+      .pipe(
+        map(this.getScreenSize)
+      )
       .subscribe(this.screenSize);
   }
 
   private navigationEndSubscriber(): void {
     this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .mapTo(this.activatedRoute)
-      .map(route => {
-        while (route.firstChild) {
-          route = route.firstChild;
-        }
-        return route.snapshot;
-      })
-      .do(() => this.scrollToTop())
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        mapTo(this.activatedRoute),
+        map(route => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route.snapshot;
+        }),
+        tap(() => this.scrollToTop())
+      )
       .subscribe(this.navigationEnd);
   }
 

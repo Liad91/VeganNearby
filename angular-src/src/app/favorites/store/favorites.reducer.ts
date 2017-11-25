@@ -3,9 +3,9 @@ import { YelpBusinessResponse } from '../../models/yelp.model';
 import * as favoritesActions from './favorites.actions';
 
 export interface State {
-  places: YelpBusinessResponse[],
-  loading: boolean,
-  error: boolean
+  places: YelpBusinessResponse[];
+  loading: boolean;
+  error: boolean;
 }
 
 const initialState = {

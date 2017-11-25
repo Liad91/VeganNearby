@@ -4,6 +4,7 @@ import { MzModalService } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { take } from 'rxjs/operators';
 
 import * as fromRoot from './../../store/app.reducer';
 import * as authActions from './../auth/store/auth.actions';
@@ -40,14 +41,15 @@ export class NavComponent implements OnInit, OnDestroy {
     this.user = this.store.select(fromRoot.selectAuthUser);
     this.backgroundLoading = this.store.select(fromRoot.selectAuthUserBackgroundLoading);
 
-    this.resizeSubscription = this.utilitiesService.screenSize.subscribe(
-      size => {
-        this.mobileView = size === 'sm' || size === 'xs';
-        if (this.searchBarOpen && !this.mobileView) {
-          this.searchBarOpen = false;
+    this.resizeSubscription = this.utilitiesService.screenSize
+      .subscribe(
+        size => {
+          this.mobileView = size === 'sm' || size === 'xs';
+          if (this.searchBarOpen && !this.mobileView) {
+            this.searchBarOpen = false;
+          }
         }
-      }
-    );
+      );
   }
 
   public navigate(url: string, data?: any) {
@@ -74,11 +76,15 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   public setBackground(selected: number): void {
-    this.user.take(1).subscribe(user => {
-      if (user.background !== selected) {
-        this.store.dispatch(new authActions.SetUserBackground(selected));
-      }
-    });
+    this.user
+      .pipe(
+        take(1)
+      )
+      .subscribe(user => {
+        if (user.background !== selected) {
+          this.store.dispatch(new authActions.SetUserBackground(selected));
+        }
+      });
   }
 
   ngOnDestroy(): void {

@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/take';
+import { take } from 'rxjs/operators';
 
 import * as fromPlaces from '../../store/places.reducer';
 import { Filter } from '../store/filters.reducer';
 import { SetCuisines, SetOffset } from '../store/filters.actions';
-import { GetPlaces } from 'app/places/place-list/store/place-list.actions';
+import { GetPlaces } from '../../place-list/store/place-list.actions';
 
 @Component({
   selector: 'vn-cuisines',
@@ -34,8 +34,17 @@ export class CuisinesModalComponent extends MzBaseModal implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(fromPlaces.selectFiltersCuisines).take(1).subscribe(cuisines => this.cuisines = cuisines);
-    this.store.select(fromPlaces.selectFiltersDisplayedCuisines).take(1).subscribe(indexes => this.displayedCuisinesIndexes = indexes);
+    this.store.select(fromPlaces.selectFiltersCuisines)
+      .pipe(
+        take(1)
+      )
+      .subscribe(cuisines => this.cuisines = cuisines);
+
+    this.store.select(fromPlaces.selectFiltersDisplayedCuisines)
+      .pipe(
+        take(1)
+      )
+      .subscribe(indexes => this.displayedCuisinesIndexes = indexes);
 
     this.displayedCuisinesIndexes.forEach(index => {
       if (this.cuisines[index].checked) {

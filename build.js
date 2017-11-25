@@ -2,7 +2,8 @@ const fs = require('fs.extra');
 const path = require('path');
 
 const configs = {
-  db: 'mongodb://localhost:XXXXX/vegannearby',
+  dbUrl: 'mongodb://localhost:XXXXX/vegannearby',
+  appUrl: 'http://localhost:4200',
   jwtSecret: 'XXXXX-XXXXX-XXXXX-XXXXX',
   yelp: {
     client_id: "XXXXX-XXXXX-XXXXX-XXXXX",

@@ -3,11 +3,13 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const findOrCreate = require('../middlewares/user').findOrCreate;
 const jwtSecret = require('../../config').jwtSecret;
+const config = require('../../config');
+
 const router = express.Router();
 
 const callbackOprtions = { 
   session: false,
-  failureRedirect : 'http://localhost:4200/callback?err="failure"'
+  failureRedirect : `${config.appUrl}/callback?err="failure"`
 };
 
 router.post('/jwt', passport.authenticate('jwt', { session: false }), (req, res, next) => {

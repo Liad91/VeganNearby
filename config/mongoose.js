@@ -3,11 +3,11 @@ const config = require('./index');
 
 module.exports = () => {
   /** Connect to MongoDB */
-  mongoose.connect(config.db);
+  mongoose.connect(config.dbUrl);
 
   /** On connection established */
   mongoose.connection.once('connected', () => {
-    console.log(`Connected to database ${config.db}`);
+    console.log(`Connected to database ${config.dbUrl}`);
   })
 
   /** Handle connection error */

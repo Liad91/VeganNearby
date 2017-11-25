@@ -11,9 +11,6 @@ const passport = require('../api/middlewares/passport');
 const app = express();
 
 module.exports = (db) => {
-  /** Enable CORS - Cross Origin Resource Sharing */
-  app.use(cors());
-
   /** Set static folder */
   app.use(express.static(path.join(__dirname, '..', 'dist')));
 
@@ -29,7 +26,7 @@ module.exports = (db) => {
 
   /** Set morgan */
   /** Log only 4xx and 5xx responses to morgan.log */
-  if (process.env.NODE_ENV) {
+  if (process.env.NODE_ENV === 'production') {
     app.use(morgan('common', {
       skip: (req, res) => res.statusCode < 400,
       stream: fs.createWriteStream(path.join(__dirname, '..', 'morgan.log'), {flags: 'a'})
@@ -43,8 +40,31 @@ module.exports = (db) => {
   /** Initialize Passport */
   passport(app);
 
-  /** Set routes */
+  /** 
+   * Allow CORS - Cross Origin Resource Sharing (in development) 
+   * Redirect non www requests (in production)
+  */
+  if (process.env.NODE_ENV === 'production') {
+    app.get('/*', (req, res, next) => {
+      if (req.headers.host.slice(0, 4) === 'www.') {
+        return next();
+      }
+      res.redirect(301, `${req.protocol}://www.${req.headers.host}/${req.url}`);
+    })
+  }
+  else {
+    app.use(cors());
+  }
+
+  /** Set API routes */
   routes(app);
+
+  /** Fallback to Angular (in production) */
+  if (process.env.NODE_ENV === 'production') {
+    app.get('/*',  (req, res, next) => {
+      res.sendFile(path.join(__dirname, '..', 'dist', 'index.html')); 
+    });
+  }
 
   /** Catch 404 */
   app.use((req, res, next) => {
