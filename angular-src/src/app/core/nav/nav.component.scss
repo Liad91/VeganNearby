@@ -184,8 +184,8 @@ nav {
       content: 'check_circle';
       font-family: 'Material Icons';
       font-size: 35px;
-      top: 5px;
-      left: 38px;
+      top: 9px;
+      left: 34px;
       color: #fff;
       transform: scale(0);
       transition: $medium-transition;
@@ -215,7 +215,7 @@ nav {
     .background-item.selected::after {
       font-size: 30px;
       top: 12.5px;
-      left: 31px;
+      left: 29px;
     }
 
     .user-view {

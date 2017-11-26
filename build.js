@@ -4,7 +4,7 @@ const path = require('path');
 const configs = {
   dbUrl: 'mongodb://localhost:XXXXX/vegannearby',
   appUrl: 'http://localhost:4200',
-  jwtSecret: 'XXXXX-XXXXX-XXXXX-XXXXX',
+  secret: 'XXXXX-XXXXX-XXXXX-XXXXX',
   yelp: {
     client_id: "XXXXX-XXXXX-XXXXX-XXXXX",
     client_secret: "XXXXX-XXXXX-XXXXX-XXXXX"

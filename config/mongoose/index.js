@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
-const config = require('./index');
+const config = require('./../index');
 
 module.exports = () => {
+  /** Set mongoose promise library */
+  mongoose.Promise = global.Promise;
+
   /** Connect to MongoDB */
-  mongoose.connect(config.dbUrl);
+  mongoose.connect(config.dbUrl, { useMongoClient: true });
 
   /** On connection established */
   mongoose.connection.once('connected', () => {

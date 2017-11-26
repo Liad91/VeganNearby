@@ -1,6 +1,6 @@
 const url = require('url');
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../../config').jwtSecret;
+const config = require('../../config');
 const User = require('../models/user');
 
 function findOrCreate(req, res, next) {
@@ -13,7 +13,7 @@ function findOrCreate(req, res, next) {
     err.type = 'not-found';
 
     res.redirect(url.format({
-      pathname: 'http://localhost:4200/callback',
+      pathname: `${config.appUrl}/callback`,
       query: { err: 'failure' }
     }));
     return next(err);
@@ -40,7 +40,7 @@ function findOrCreate(req, res, next) {
       };
       
       res.redirect(url.format({
-        pathname: 'http://localhost:4200/callback',
+        pathname: `${config.appUrl}/callback`,
         query: query
       }));
     })
@@ -48,7 +48,7 @@ function findOrCreate(req, res, next) {
 }
 
 function buildToken(userId) {
-  return `JWT ${jwt.sign({ userId }, jwtSecret, { expiresIn: '2h' })}`;
+  return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '2h' })}`;
 }
 
 module.exports = { findOrCreate };

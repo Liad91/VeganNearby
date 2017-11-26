@@ -2,7 +2,6 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const findOrCreate = require('../middlewares/user').findOrCreate;
-const jwtSecret = require('../../config').jwtSecret;
 const config = require('../../config');
 
 const router = express.Router();
@@ -36,7 +35,7 @@ router.get('/twitter', passport.authenticate('twitter'));
 router.get('/twitter/callback', passport.authenticate('twitter', callbackOprtions), findOrCreate);
 
 function buildToken(userId) {
-  return `JWT ${jwt.sign({ userId }, jwtSecret, { expiresIn: '2h' })}`;
+  return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '2h' })}`;
 }
 
 module.exports = router;

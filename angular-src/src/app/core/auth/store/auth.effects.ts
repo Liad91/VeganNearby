@@ -101,7 +101,7 @@ export class AuthEffects {
   }
 
   private onLoginFailure(error: HttpErrorResponse): Observable<authActions.LoginFailure> {
-    this.authService.loginFailure.next(JSON.parse(error.error));
+    this.authService.loginFailure.next(error.error);
     return of(new authActions.LoginFailure());
   }
 

@@ -1,13 +1,13 @@
+const fs = require('fs');
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
 const Jimp = require("jimp");
-const router = express.Router();
-
 const User = require('../models/user');
-const jwtSecret = require('../../config').jwtSecret;
+const config = require('../../config');
 const upload = require('../middlewares/multer').single('avatar');
+
+const router = express.Router();
 
 /** Register */
 router.post('/register',(req, res, next) => {
@@ -162,7 +162,7 @@ router.post('/authenticate', passport.authenticate('jwt', { session: false }), (
 });
 
 function buildToken(userId) {
-  return `JWT ${jwt.sign({ userId }, jwtSecret, { expiresIn: '2h' })}`;
+  return `JWT ${jwt.sign({ userId }, config.secret, { expiresIn: '2h' })}`;
 }
 
 module.exports = router;

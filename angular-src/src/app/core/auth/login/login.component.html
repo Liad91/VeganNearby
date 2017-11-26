@@ -1,5 +1,5 @@
 <div class="flex wrap">
-  <p @errorState class="error center-align mt-0 w-100" *ngIf="formErrorMessage">{{ formErrorMessage }}</p>    
+  <p @errorState class="error white-text center-align mt-0 w-100" *ngIf="formErrorMessage">{{ formErrorMessage }}</p>    
   <form class="flex w-100 wrap" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
     <mz-input-container class="auth w-100">
       <input
