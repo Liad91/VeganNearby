@@ -1,20 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize/dist';
 
-export interface AlertModalOptions {
-  title: string;
-  message?: string;
-  buttons: [
-    {
-      text: string,
-      handler?: () => void
-    },
-    {
-      text: string,
-      handler: () => void
-    }
-  ];
-}
+import { ModalService, AlertModalOptions } from './../../../core/services/modal.service';
 
 @Component({
   selector: 'vn-alert-modal',
@@ -24,19 +11,21 @@ export interface AlertModalOptions {
 
 export class AlertModalComponent extends MzBaseModal {
   @Input() public options: AlertModalOptions;
-  @ViewChild('modal')	public modal: MzModalComponent;
   private completed = false;
+
+  constructor(private modalService: ModalService) {
+    super();
+  }
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
-    endingTop: '0',
     opacity: 0.5,
     complete: this.onComplete.bind(this)
   };
 
   public onCancel(): void {
     this.completed = true;
-    this.modal.close();
+    this.modalService.close();
     if (this.options.buttons[0].handler) {
       this.options.buttons[0].handler();
     }
@@ -44,7 +33,7 @@ export class AlertModalComponent extends MzBaseModal {
 
   public onConfirm(): void {
     this.completed = true;
-    this.modal.close();
+    this.modalService.close();
     this.options.buttons[1].handler();
   }
 

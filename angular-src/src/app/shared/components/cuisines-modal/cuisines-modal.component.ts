@@ -3,10 +3,11 @@ import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
-import * as fromPlaces from '../../store/places.reducer';
-import { Filter } from '../store/filters.reducer';
-import { SetCuisines, SetOffset } from '../store/filters.actions';
-import { GetPlaces } from '../../place-list/store/place-list.actions';
+import * as fromPlaces from '../../../places/store/places.reducer';
+import { Filter } from '../../../places/filters/store/filters.reducer';
+import { SetCuisines, SetOffset } from '../../../places/filters/store/filters.actions';
+import { GetPlaces } from '../../../places/place-list/store/place-list.actions';
+import { ModalService } from './../../../core/services/modal.service';
 
 @Component({
   selector: 'vn-cuisines',
@@ -15,7 +16,6 @@ import { GetPlaces } from '../../place-list/store/place-list.actions';
 })
 
 export class CuisinesModalComponent extends MzBaseModal implements OnInit {
-  @ViewChild('modal')	public modal: MzModalComponent;
   public cuisines: Filter[];
   public displayedCuisinesIndexes: number[];
   private selectedCuisineIndexes: number[] = [];
@@ -24,12 +24,11 @@ export class CuisinesModalComponent extends MzBaseModal implements OnInit {
   public disable = false;
 
   public modalOptions: Materialize.ModalOptions = {
-    dismissible: false,
-    endingTop: '0',
+    dismissible: true,
     opacity: 0.5,
   };
 
-  constructor(private store: Store<fromPlaces.FeatureState>) {
+  constructor(private store: Store<fromPlaces.FeatureState>, private modalService: ModalService) {
     super();
   }
 
@@ -38,7 +37,11 @@ export class CuisinesModalComponent extends MzBaseModal implements OnInit {
       .pipe(
         take(1)
       )
-      .subscribe(cuisines => this.cuisines = cuisines);
+      .subscribe(cuisines => this.cuisines = cuisines.map(cuisine => {
+        return {
+          ...cuisine
+        };
+      }));
 
     this.store.select(fromPlaces.selectFiltersDisplayedCuisines)
       .pipe(
@@ -83,20 +86,10 @@ export class CuisinesModalComponent extends MzBaseModal implements OnInit {
       this.store.dispatch(new SetOffset(null));
       this.store.dispatch(new GetPlaces());
     }
-    this.modal.close();
+    this.modalService.close();
   }
 
   public onCancel(): void {
-    this.modal.close();
-    if (this.touched) {
-      this.cuisines.forEach((cuisine, index) => {
-        if (this.selectedCuisineIndexes.indexOf(index) > -1) {
-          cuisine.checked = true;
-        }
-        else {
-          cuisine.checked = false;
-        }
-      });
-    }
+    this.modalService.close();
   }
 }

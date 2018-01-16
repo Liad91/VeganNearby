@@ -27,7 +27,6 @@ export class AuthModalComponent extends MzBaseModal implements OnInit, OnDestroy
 
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
-    endingTop: '0',
     opacity: 0.5
   };
 

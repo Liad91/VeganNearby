@@ -1,5 +1,8 @@
 <mz-modal id="lightbox" [options]="modalOptions">
   <mz-modal-header>
+    <button class="close" type="button" mz-button [float]="true" (click)="onClose()">
+      <i class="mdi mdi-close"></i>
+    </button>
   </mz-modal-header>
   <mz-modal-content>
     <div class="main flex" [@imageState]="options.active">
@@ -7,10 +10,10 @@
         <img [src]="image" *ngIf="i === options.active" >
       </ng-container>
       <div class="action prev" (click)="prev()">
-          <i class="material-icons">navigate_before</i>
+          <i class="mdi mdi-chevron-left mdi-24px"></i>
         </div>
       <div class="action next" (click)="next()">
-        <i class="material-icons">navigate_next</i>
+        <i class="mdi mdi-chevron-right mdi-24px"></i>
       </div>
     </div>
   </mz-modal-content>

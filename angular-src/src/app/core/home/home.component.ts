@@ -9,11 +9,11 @@ import { map, take, filter } from 'rxjs/operators';
 import { State } from './store/home.reducer';
 import * as homeActions from './store/home.actions';
 import * as fromRoot from '../../store/app.reducer';
-import { UtilitiesService } from '../services';
+import { UtilitiesService } from '../services/utilities.service';
 import { PlacesService } from '../../places/places.service';
 import { Filter } from '../../places/filters/store/filters.reducer';
 import { NewSearch } from '../../places/filters/store/filters.actions';
-import { GetPlaces } from '../../places/place-list/store/place-list.actions';
+import { GetPlaces, ResetPlaces } from '../../places/place-list/store/place-list.actions';
 
 interface Banner {
   checked: boolean;
@@ -174,6 +174,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         payload.coordinates = {lat: 52.52000659999999, lng: 13.404953999999975};
     }
 
+    this.store.dispatch(new ResetPlaces());
     this.store.dispatch(new NewSearch(payload));
     this.utilitiesService.navigate(['places', location], {
       queryParams: {

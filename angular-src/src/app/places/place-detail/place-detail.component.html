@@ -3,18 +3,19 @@
   <h1>More Details</h1>
 </header>
 
-<ng-container *ngIf="(state | async).loading !== 'page' && (state | async).error !== 'page'">
-  <div class="content" @placeState>
-    <div class="title mt-2">
+
+<div class="content">
+  <div @placeState *ngIf="(state | async).loading !== 'page' && (state | async).error !== 'page'">
+    <div class="title">
       <h4 class="nowrap"><strong>{{ (state | async).place.name }}</strong> {{ (state | async).place.location.city }}</h4>
       <p><vn-stars [rating]="(state | async).place.rating"></vn-stars></p>
     </div>
-    <div class="details flex wrap mb-1">
+    <div class="details flex wrap">
       <div class="page-left">
         <h3>Information</h3>
         <div class="flex wrap w-100 mb-1">
           <div class="info categories">
-            <i class="material-icons">restaurant</i>
+            <i class="mdi mdi-silverware-variant mdi-24px"></i>
             <div class="text">
               <h5>Categories</h5>
               <div>
@@ -23,7 +24,7 @@
             </div>
           </div>
           <div class="info address" >
-            <i class="material-icons">location_on</i>
+            <i class="mdi mdi-map-marker mdi-24px"></i>
             <div class="text">
               <h5>Address</h5>
               <div>
@@ -32,7 +33,7 @@
             </div>
           </div>
           <div class="info phone" *ngIf="(state | async).place.display_phone">
-            <i class="material-icons">phone</i>
+            <i class="mdi mdi-phone mdi-24px"></i>
             <div class="text">
               <h5>Phone</h5>
               <a [href]="'tel:' + (state | async).place.phone">{{ (state | async).place.display_phone }}</a>
@@ -40,7 +41,7 @@
             </div>
           </div>
           <div class="info price" *ngIf="(state | async).place.price">
-            <i class="material-icons">attach_money</i>
+            <i class="mdi mdi-currency-usd mdi-24px"></i>
             <div class="text">
               <h5>Price</h5>
               <vn-price [price]="(state | async).place.price"></vn-price>
@@ -118,9 +119,9 @@
 
         <h3>Transactions</h3>
         <ul class="m-0 mb-2">
-          <li><strong>Pickup</strong> <i class="material-icons" [vnColor]="transactions.pickup ? 'secondary' : 'danger'">{{ transactions.pickup ? 'check_circle' : 'cancel' }}</i></li>
-          <li><strong>Delivery</strong> <i class="material-icons" [vnColor]="transactions.delivery ? 'secondary' : 'danger'">{{ transactions.delivery ? 'check_circle' : 'cancel' }}</i></li>
-          <li><strong>Reservation</strong> <i class="material-icons" [vnColor]="transactions.reservation ? 'secondary' : 'danger'">{{ transactions.reservation ? 'check_circle' : 'cancel' }}</i></li>
+          <li><strong>Pickup</strong> <i class="mdi mdi-24px" [ngClass]="transactions.pickup ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i></li>
+          <li><strong>Delivery</strong> <i class="mdi mdi-24px"  [ngClass]="transactions.delivery ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i></li>
+          <li><strong>Reservation</strong> <i class="mdi mdi-24px" [ngClass]="transactions.reservation ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i></li>
         </ul>
 
         <h3>Images</h3>
@@ -130,19 +131,18 @@
       </div>
     </div>
   </div>
-</ng-container>
 
-<!-- page error message -->
-<div class="error center-align align-self-flex-start w-70 py-2 mx-auto" *ngIf="(state | async).error === 'page'" @errorState>
-  <h3>Place Not Found</h3>
-  <p>Ooops, something went wromg. Please try again later.</p>
-  <p>*If this message not eventually replaced, the required place may not be reachable anymore.</p>
-  <button mz-button (click)="onReloadPage()">Try Again</button>
-</div>
-
-<!-- page loader -->
-<div class="spinner-container" *ngIf="(state | async).loading === 'page'">
-  <div class="spinner-wrap">
-    <mz-spinner color="blue" size="big"></mz-spinner>
+  <!-- page error message -->
+  <div class="error center-align align-self-flex-start w-70 py-2 mx-auto" *ngIf="(state | async).error === 'page'" @errorState>
+    <h3>Place Not Found</h3>
+    <p>Ooops, something went wromg. Please try again later.</p>
+    <p>*If this message not eventually replaced, the required place may not be reachable anymore.</p>
+    <button mz-button (click)="onReloadPage()">Try Again</button>
+  </div>
+  
+  <!-- page loader -->
+  <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading === 'page'">
+    <mz-spinner size="big" color="blue"></mz-spinner>
   </div>
 </div>
+

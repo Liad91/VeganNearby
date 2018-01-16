@@ -3,7 +3,8 @@ import { Action } from '@ngrx/store';
 import { YelpSearchResponse } from '../../../models/yelp.model';
 
 export const GET_PLACES = 'GET_PLACES';
-export const SET_LOADING = 'SET_LOADING';
+export const SET_PLACES_LOADING = 'SET_PLACES_LOADING';
+export const RESET_PLACES = 'RESET_PLACES';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const GET_PLACES_SUCCESS = 'GET_PLACES_SUCCESS';
 export const GET_PLACES_FAILURE = 'GET_PLACES_FAILURE';
@@ -12,10 +13,14 @@ export class GetPlaces implements Action {
   readonly type = GET_PLACES;
 }
 
-export class SetLoading implements Action {
-  readonly type = SET_LOADING;
+export class SetPacesLoading implements Action {
+  readonly type = SET_PLACES_LOADING;
 
   constructor(public payload: boolean) {}
+}
+
+export class ResetPlaces implements Action {
+  readonly type = RESET_PLACES;
 }
 
 export class GetPlacesSuccess {
@@ -30,6 +35,7 @@ export class GetPlacesFailure {
 
 export type Action =
   | GetPlaces
-  | SetLoading
+  | SetPacesLoading
+  | ResetPlaces
   | GetPlacesSuccess
   | GetPlacesFailure;

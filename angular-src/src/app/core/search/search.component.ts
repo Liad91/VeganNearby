@@ -131,16 +131,17 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
     if (!this.coordinates) {
       if (this.mode === 'nav') {
-        this.store.dispatch(new placeListActions.SetLoading(true));
+        this.store.dispatch(new placeListActions.SetPacesLoading(true));
+        this.store.dispatch(new searchActions.SetSearchLoading(true));
       }
-      this.state.loading = true;
       this.geoService.geocoder(this.location)
         .then(coordinates => {
           this.coordinates = coordinates;
           this.dispatchActions();
         })
         .catch(() => {
-          this.store.dispatch(new placeListActions.SetLoading(false));
+          this.store.dispatch(new placeListActions.SetPacesLoading(false));
+          this.store.dispatch(new searchActions.SetSearchLoading(false));
           this.toastService.show('Something went wrong, please try again');
         });
     }
@@ -157,11 +158,27 @@ export class SearchComponent implements OnInit, OnDestroy {
     };
 
     if (this.mode === 'home') {
+      this.store.dispatch(new placeListActions.ResetPlaces());
       this.store.dispatch(new filtersActions.NewSearch(payload));
     }
     else {
+      const { queryParams } = this.utilitiesService.navigationEnd.getValue();
+
+      /** Prevent searching for similar coordinates in the place-list page */
+      if (queryParams.lat && queryParams.lng) {
+        if (Number(queryParams.p) === 1 &&
+          Number(queryParams.lat) === this.coordinates.lat &&
+          Number(queryParams.lng) === this.coordinates.lng) {
+          this.store.dispatch(new placeListActions.SetPacesLoading(false));
+          this.store.dispatch(new searchActions.SetSearchLoading(false));
+          return;
+        }
+      }
+
+      this.store.dispatch(new placeListActions.ResetPlaces());
       this.store.dispatch(new filtersActions.Search(payload));
     }
+
     this.utilitiesService.navigate(['places', this.location], {
       queryParams: {
         p: 1,
@@ -176,5 +193,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.autocompleteListener.remove();
     }
     this.stateSubscription.unsubscribe();
+
+    // Fix autocomplete DOM nodes leak
+    $('.pac-container').remove();
   }
 }

@@ -14,7 +14,6 @@ import {
   AgmMap
 } from '@agm/core';
 import { Action, Store } from '@ngrx/store';
-import { MzModalService } from 'ng2-materialize';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
@@ -23,9 +22,10 @@ import * as filtersActions from './store/filters.actions';
 import { YelpBusiness } from '../../models/yelp.model';
 import { Filter, State } from './store/filters.reducer';
 import { GetPlaces } from '../place-list/store/place-list.actions';
+import { ModalService } from './../../core/services/modal.service';
 import { UtilitiesService } from '../../core/services/utilities.service';
 import { GeographicalService } from '../../core/services/geographical.service';
-import { CuisinesModalComponent } from './cuisines-modal/cuisines-modal.component';
+import { CuisinesModalComponent } from './../../shared/components/cuisines-modal/cuisines-modal.component';
 
 @Component({
   selector: 'vn-filters',
@@ -75,7 +75,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<fromPlaces.FeatureState>,
     private mapsApiLoader: MapsAPILoader,
-    private modalService: MzModalService,
+    private modalService: ModalService,
     private geoService: GeographicalService,
     private utilitiesService: UtilitiesService) {}
 
@@ -164,8 +164,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   private dispatchActions() {
     const queryParams = this.utilitiesService.navigationEnd.getValue().queryParams;
 
-    if (
-      Number(queryParams.p) === 1 &&
+    if (Number(queryParams.p) === 1 &&
       Number(queryParams.lat) === this.state.coordinates.lat &&
       Number(queryParams.lng) === this.state.coordinates.lng) {
       this.store.dispatch(new GetPlaces());

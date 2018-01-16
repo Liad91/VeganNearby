@@ -10,7 +10,6 @@ import { PlacesComponent } from './places.component';
 import { PlaceListComponent } from './place-list/place-list.component';
 import { PlaceDetailComponent } from './place-detail/place-detail.component';
 import { FiltersComponent } from './filters/filters.component';
-import { CuisinesModalComponent } from './filters/cuisines-modal/cuisines-modal.component';
 import { PaginationComponent } from './pagination/pagination.component';
 
 // Guards
@@ -31,11 +30,7 @@ import { placeDetailReducer } from './place-detail/store/place-detail.reducer';
     PlaceListComponent,
     PlaceDetailComponent,
     FiltersComponent,
-    CuisinesModalComponent,
     PaginationComponent
-  ],
-  entryComponents: [
-    CuisinesModalComponent
   ],
   imports: [
     FormsModule,

@@ -19,13 +19,7 @@ Find the top vegan restaurants, cafes and bars near you.
 $ git clone https://github.com/Liad91/VeganNearby.git
 $ cd VeganNearby
 $ npm install
-$ cd angular-src
-$ npm install
-```
-
-#### Build required folders and config files
-```sh
-$ npm run build
+$ npm run angular-install
 ```
 
 #### Create credentials for the following APIs
@@ -34,24 +28,19 @@ $ npm run build
 - Google - https://developers.google.com
 - Facebook - https://developers.facebook.com
 
-#### Edit the following files
-- VeganNearby/config/index.js
-- VeganNearby/angular-src/src/config.ts
+#### Build required folders and set configs
+```sh
+$ npm run build
+```
 
 #### Make sure that Angular CLI is installed and up to date
 ```sh
 $ npm install -g @angular/cli@latest
 ``` 
 
-#### Start the server
+#### Start developing 
 ```sh
-$ npm start
-```
-
-#### Run Angular (in a new tab)
-```sh
-$ cd angular-src
-$ ng serve
+$ npm run dev
 ```
 
 ### Todos

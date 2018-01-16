@@ -9,18 +9,18 @@ import {
 
 const slideLeft = group([
   query(':enter', [
-    style({ left: '100%' }),
+    style({ transform: 'translateX(100%)' }),
     animate('250ms ease-out')
   ], { optional: true }),
-  query(':leave', animate('250ms ease-out', style({ left: '-100%' })), { optional: true })
+  query(':leave', animate('250ms ease-out', style({ transform: 'translateX(-100%)' })), { optional: true })
 ]);
 
 const slideRight = group([
   query(':enter', [
-    style({ left: '-100%' }),
+    style({ transform: 'translateX(-100%)' }),
     animate('250ms ease-out')
   ], { optional: true }),
-  query(':leave', animate('250ms ease-out', style({ left: '100%' })), { optional: true })
+  query(':leave', animate('250ms ease-out', style({ transform: 'translateX(100%)' })), { optional: true })
 ]);
 
 export const imageStateTrigger = trigger('imageState', [

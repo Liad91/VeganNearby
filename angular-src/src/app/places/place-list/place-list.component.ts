@@ -14,7 +14,7 @@ import * as filtersActions from '../filters/store/filters.actions';
 import { placeStateTrigger } from './animations';
 import { errorStateTrigger } from '../../shared/animations';
 import { UtilitiesService } from '../../core/services/utilities.service';
-import { GeographicalService } from '../../core/services/index';
+import { GeographicalService } from '../../core/services/geographical.service';
 
 @Component({
   selector: 'vn-place-list',
@@ -127,12 +127,14 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   }
 
   public onPageChange(page: number): void {
-    this.router.navigate(['places', this.filtersState.location], {
+    this.utilitiesService.navigate(['places', this.filtersState.location], {
       queryParams: {
         p: page,
         lat: this.filtersState.coordinates.lat,
         lng: this.filtersState.coordinates.lng
       }
+    }, {
+      scroll: 'smooth'
     });
   }
 

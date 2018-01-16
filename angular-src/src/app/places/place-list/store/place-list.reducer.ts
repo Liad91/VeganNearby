@@ -22,13 +22,19 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
     case PlaceListActions.GET_PLACES:
       return {
         ...state,
+        places: null,
         loading: true,
         error: false
       };
-    case PlaceListActions.SET_LOADING:
+    case PlaceListActions.SET_PLACES_LOADING:
       return {
         ...state,
         loading: action.payload
+      };
+
+    case PlaceListActions.RESET_PLACES:
+      return {
+        ...initialState
       };
     case PlaceListActions.GET_PLACES_SUCCESS:
       return {

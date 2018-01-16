@@ -9,11 +9,11 @@ import * as favoritesActions from '../../../favorites/store/favorites.actions';
 
 import { PlacesService } from '../../../places/places.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { ModalService } from '../../../core/services/modal.service';
+import { ModalService, AlertModalOptions } from '../../../core/services/modal.service';
 import { YelpBusinessResponse } from '../../../models/yelp.model';
-import { AlertModalOptions } from '../../../shared/components/index';
 import { AuthModalComponent } from '../../../core/auth/auth-modal/auth-modal.component';
 import { UtilitiesService } from '../../../core/services/utilities.service';
+import { AlertModalComponent } from './../alert-modal/alert-modal.component';
 
 @Component({
   selector: 'vn-btn-favorite',
@@ -103,7 +103,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
       ]
     };
 
-    this.modalService.openAlert(options);
+    this.modalService.openAlert(AlertModalComponent, options);
   }
 
   private alertMaxFavorites() {
@@ -121,7 +121,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
       ]
     };
 
-    this.modalService.openAlert(options);
+    this.modalService.openAlert(AlertModalComponent, options);
   }
 
   private removeFromFavorites() {

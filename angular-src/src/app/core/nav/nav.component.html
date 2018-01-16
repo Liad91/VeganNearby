@@ -11,7 +11,7 @@
       [width]="350"
       *ngIf="activatedRoute === 'home' || activatedRoute !== 'home' && activatedRoute !== 'place' && mobileView && !searchBarOpen"
     > 
-      <i class="material-icons">menu</i>
+      <i class="mdi mdi-menu mdi-24px"></i>
     </button>
 
     <button
@@ -19,7 +19,7 @@
       *ngIf="activatedRoute === 'place' && mobileView && !searchBarOpen"
       (click)="goBack()"
     > 
-      <i class="material-icons">arrow_back</i>
+      <i class="mdi mdi-arrow-left mdi-24px"></i>
     </button>
 
     <ng-container *ngIf="activatedRoute !== 'home'">
@@ -36,7 +36,7 @@
             position="bottom"
             (click)="navigate('/favorites')"
           >
-            <i class="material-icons">favorite_border</i>
+            <i class="mdi mdi-heart-outline mdi-24px"></i>
           </a>
           <span class="badge right" *ngIf="(user | async).favorites.length">{{ (user | async).favorites.length }}</span>
         </div>
@@ -47,7 +47,7 @@
           tooltip="Logout"
           position="bottom"
         >
-          <i class="material-icons">exit_to_app</i>
+          <i class="mdi mdi-logout-variant mdi-24px"></i>
         </a>
       </ng-container>
       
@@ -59,7 +59,7 @@
           tooltip="Register"
           position="bottom"
         >
-          <i class="material-icons">create</i>
+          <i class="mdi mdi-account-plus-outline mdi-24px"></i>
         </a>
         <a
           class="btn-flat btn-floating waves-effect waves-dark"
@@ -68,7 +68,7 @@
           tooltip="Login"
           position="bottom"
         >
-          <i class="material-icons">power_settings_new</i>
+          <i class="mdi mdi-login-variant mdi-24px"></i>
         </a>
       </ng-container>
     </div>
@@ -78,7 +78,7 @@
       (click)="searchBarOpen = !searchBarOpen"
       *ngIf="activatedRoute !== 'home' && mobileView"
     >
-      <i mz-icon [icon]="searchBarOpen ? 'close' : 'search'" align="left"></i>
+      <i class="mdi mdi-24px left" [ngClass]="searchBarOpen ? 'mdi-close' : 'mdi-magnify'"></i>
     </button>
   </div>
 </nav>
@@ -107,21 +107,21 @@
   </li>
 
   <li [ngClass]="{active: activatedRoute === 'home'}">
-    <a fragment="no-animation" (click)="navigate('/', {noMobileAnimation: true})">
-      <i class="material-icons">home</i>Home
+    <a fragment="no-animation" (click)="navigate('/')">
+      <i class="mdi mdi-home-outline mdi-24px"></i>Home
     </a>
   </li>
 
   <ng-container *ngIf="!(user | async)">
     <li class="mt-1">
       <a (click)="openModal($event, 'register')">
-        <i class="material-icons">create</i>
+        <i class="mdi mdi-account-plus-outline mdi-24px"></i>
         Register
       </a>
     </li>
     <li>
       <a (click)="openModal($event, 'login')">
-        <i class="material-icons">power_settings_new</i>
+        <i class="mdi mdi-login-variant mdi-24px"></i>
         Login
       </a>
     </li>
@@ -129,14 +129,14 @@
 
   <ng-container *ngIf="(user | async)">
     <li [ngClass]="{active: activatedRoute === 'favorites'}">
-      <a (click)="navigate('/favorites', {noMobileAnimation: true})">
-        <i class="material-icons">favorite</i>Favorites
+      <a (click)="navigate('/favorites')">
+        <i class="mdi mdi-heart-outline mdi-24px"></i>Favorites
         <span class="badge right">{{ (user | async).favorites.length }}/20</span>
       </a>  
     </li>
     <li>
       <a (click)="logout()">
-        <i class="material-icons">exit_to_app</i>
+        <i class="mdi mdi-logout-variant mdi-24px"></i>
         Logout
       </a>
     </li>

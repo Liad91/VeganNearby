@@ -138,6 +138,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onClose(): void {
+    this.authService.closeModal.next();
+  }
+
   public onSubmit(): void {
     if (this.form.invalid) {
       this.validateFormControls();

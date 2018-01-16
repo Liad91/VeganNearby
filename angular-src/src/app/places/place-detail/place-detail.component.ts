@@ -10,6 +10,7 @@ import { ModalService } from '../../core/services/modal.service';
 import { UtilitiesService } from '../../core/services/utilities.service';
 import { errorStateTrigger } from '../../shared/animations';
 import { placeStateTrigger } from './animations';
+import { LightboxModalComponent } from '../../shared/components/lightbox-modal/lightbox-modal.component';
 
 @Component({
   selector: 'vn-place-detail',
@@ -73,7 +74,7 @@ export class PlaceDetailComponent implements OnInit {
         this.transactions = {
           pickup: state.place.transactions.indexOf('pickup') > -1,
           delivery: state.place.transactions.indexOf('delivery') > -1,
-          reservation: state.place.transactions.indexOf('restaurant_reservation') > -1,
+          reservation: state.place.transactions.indexOf('restaurant_reservation') > -1
         };
 
         if (state.place.hours) {
@@ -88,7 +89,7 @@ export class PlaceDetailComponent implements OnInit {
         take(1)
       )
       .subscribe(state => {
-        this.modalService.openLightbox({ images: state.place.photos, active });
+        this.modalService.openLightbox(LightboxModalComponent, { images: state.place.photos, active });
       });
   }
 

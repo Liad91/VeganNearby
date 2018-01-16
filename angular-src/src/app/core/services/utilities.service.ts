@@ -54,7 +54,12 @@ export class UtilitiesService {
 
   private scrollToTop(): void {
     if (this.navigationData.getValue()['scroll']) {
-      window.scrollTo(0, 0);
+      const behavior = this.navigationData.getValue()['scroll'] === 'smooth' ? 'smooth' : 'auto';
+      window.scrollTo({
+        behavior,
+        left: 0,
+        top: 0
+      });
     }
   }
 

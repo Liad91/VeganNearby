@@ -1,5 +1,9 @@
 @import '../../variables';
 
+:host {
+  display: block;
+}
+
 header {
   background-image: url('../../../assets/images/place-banner.jpg');
 }
@@ -33,17 +37,22 @@ h3 {
     margin-right: 2rem;
 
     .info {
-      display: flex;
+      display: flex;;
       align-items: center;
       width: 50%;
       margin-bottom: 1.5rem;
     
       & > i {
         margin-right: 10px;
-        padding: 10px;
+        padding: 6px;
         color: $tertiary-color;
         border: 2px solid;
         border-radius: 50%;
+
+        &:before {
+          width: 36px;
+          text-align: center;
+        }
       }
     
       h5 {
@@ -146,12 +155,16 @@ h3 {
     
     ul {
       li {
-        display: flex;
+        display: flex;;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: flex-start;
         padding: 8px 0;
         border-top: 1px dashed #ccc;
         
+        &.same-day {
+          justify-content: flex-end;
+        }
+
         &.same-day,
         &:first-child {
           padding-top: 0;

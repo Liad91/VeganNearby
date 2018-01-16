@@ -3,7 +3,10 @@
 // ==========================================================================
 
 .modal {
-  bottom: 0;
+  top: 50% !important;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%) !important;
   border-radius: 5px;
   
   .modal-content {
@@ -25,7 +28,6 @@ mz-modal#auth,
 mz-modal#alert,
 mz-modal#lightbox {
   .modal {
-    display: table !important;
     max-width: 350px;
     @media #{$extra-large-and-up} {
      width: 35%; 
@@ -50,6 +52,7 @@ mz-modal#auth {
 
 mz-modal#lightbox {
   .modal {
+    overflow-y: visible;
     max-width: 550px;
   }
 }
@@ -58,10 +61,9 @@ mz-modal#cuisines {
   .modal {
     height: 80%;
     max-width: 950px;
-    overflow: hidden;
 
     .modal-content {
-      display: flex;
+      display: flex;;
       flex-direction: column;
       height: 100%;
     }

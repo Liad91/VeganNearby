@@ -1,11 +1,11 @@
-<div [@mobileRouteState]="(routeAnimationState | async)">
+<div [@routeState]="(routeName | async)">
   <vn-nav class="flex w-100 align-self-flex-start" [activatedRoute]="routeName | async"></vn-nav>
   <router-outlet></router-outlet>
 </div>
 <footer class="page-footer w-100">
   <div class="footer-copyright">
     <div class="container">
-    © Copyright 2017 - Designed & Developed by <a href="mailto:liad.idan@gmail.com">Liad Idan</a>
+    © Copyright 2018 - Designed & Developed by <a href="mailto:liad.idan@gmail.com">Liad Idan</a>
     <a class="grey-text text-lighten-4 right" href="http://www.github.com/Liad91/VeganNearby" target="_blank">Github</a>
     </div>
   </div>

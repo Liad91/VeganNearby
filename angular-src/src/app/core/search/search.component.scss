@@ -37,7 +37,7 @@
       li {
         text-align: center;
         min-height: 40px;
-        display: flex;
+        display: flex;;
         align-items: center;
         justify-content: center;
         padding: 10px 0;
@@ -71,7 +71,7 @@
   margin-right: 10px;
 
   #locate {
-    display: flex;
+    display: flex;;
     justify-content: center;
     align-items: center;
     padding-left: 5px;
@@ -102,7 +102,7 @@
 }
 
 button[type = submit] {
-  display: flex;
+  display: flex;;
   justify-content: center;
   height: auto;
   max-width: 50px;
@@ -144,7 +144,7 @@ button[type = submit] {
       }
 
       .location {
-        display: flex;
+        display: flex;;
         color: #fff;
 
         input {

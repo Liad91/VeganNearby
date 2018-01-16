@@ -5,7 +5,6 @@ mz-modal#cuisines ::ng-deep {
     font-family: $font-family;
     font-weight: 400;
     position: sticky;
-    height: auto;
     top: 0;
     z-index: 10;
 
@@ -55,9 +54,7 @@ mz-modal#cuisines ::ng-deep {
   }
   
   & .modal-content > p {
-    height: auto;
     background-color: $body-bg-color;
-    overflow-y: scroll;
 
     mz-modal-content {
       display: block;

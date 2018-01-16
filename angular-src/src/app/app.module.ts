@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { AgmCoreModule } from '@agm/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -29,6 +30,7 @@ import { googleApiKey } from './../config';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     CoreModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),

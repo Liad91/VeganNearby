@@ -23,6 +23,11 @@ export function searchReducer(state = initialState, action: searchActions.Action
         ...state,
         selectedCategoryIndex: action.payload
       };
+    case searchActions.SET_SEARCH_LOADING:
+      return {
+        ...state,
+        loading: action.payload
+      };
     case searchActions.NAV_SEARCH:
     case searchActions.HOME_SEARCH:
       return {

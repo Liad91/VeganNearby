@@ -1,9 +1,9 @@
 const express = require('express');
 const request = require('request');
-const authenticate = require('./../middlewares/yelp').authenticate;
+const config = require('../../config');
 const router = express.Router();
 
-router.post('/search', authenticate, (req, res, next) => {
+router.post('/search', (req, res, next) => {
   const queryParams = req.body;
 
   if (!queryParams.location && (!queryParams.longitude || !queryParams.latitude)) {
@@ -16,7 +16,7 @@ router.post('/search', authenticate, (req, res, next) => {
   const options = {
     method: 'GET',
     uri: 'https://api.yelp.com/v3/businesses/search',
-    headers: { authorization: res.yelpToken },
+    headers: { authorization: `Bearer ${config.yelp.apiKey}` },
     qs: queryParams,
   };
 
@@ -48,7 +48,7 @@ router.post('/search', authenticate, (req, res, next) => {
   });
 });
 
-router.get('/business', authenticate, (req, res, next) => {
+router.get('/business', (req, res, next) => {
   if (!req.query['id']) {
     const err = new Error('Business ID is required');
     return next(err);
@@ -57,7 +57,7 @@ router.get('/business', authenticate, (req, res, next) => {
   const options = {
     method: 'GET',
     uri: `https://api.yelp.com/v3/businesses/${req.query['id']}`,
-    headers: { authorization: res.yelpToken }
+    headers: { authorization: `Bearer ${config.yelp.apiKey}` }
   };
 
   request(options, (err, response, body) => {
@@ -79,7 +79,7 @@ router.get('/business', authenticate, (req, res, next) => {
   });
 });
 
-router.get('/reviews', authenticate, (req, res, next) => {
+router.get('/reviews', (req, res, next) => {
   if (!req.query['id']) {
     const err = new Error('Business ID is required');
     return next(err);
@@ -88,7 +88,7 @@ router.get('/reviews', authenticate, (req, res, next) => {
   const options = {
     method: 'GET',
     uri: `https://api.yelp.com/v3/businesses/${req.query['id']}/reviews`,
-    headers: { authorization: res.yelpToken }
+    headers: { authorization: `Bearer ${config.yelp.apiKey}` }
   };
 
   request(options, (err, response, body) => {

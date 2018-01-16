@@ -5,7 +5,6 @@ import { MaterializeModule } from 'ng2-materialize';
 import * as Components from './components';
 import * as Directives from './directives';
 import * as Pipes from './pipes';
-
 @NgModule({
   declarations: [
     Components.AlertModalComponent,
@@ -17,6 +16,7 @@ import * as Pipes from './pipes';
     Components.TypedComponent,
     Components.TabsComponent,
     Components.TabItemComponent,
+    Components.CuisinesModalComponent,
     Directives.ColorDirective,
     Directives.BackgroundColorDirective,
     Directives.ImagePreviewDirective,
@@ -28,7 +28,8 @@ import * as Pipes from './pipes';
   ],
   entryComponents: [
     Components.AlertModalComponent,
-    Components.LightboxModalComponent
+    Components.LightboxModalComponent,
+    Components.CuisinesModalComponent
   ],
   imports: [
     CommonModule,

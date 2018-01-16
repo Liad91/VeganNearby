@@ -35,6 +35,8 @@ export class TabsComponent implements AfterViewInit {
     this.$tabs.tabs();
     this.$tabs.tabs('select_tab', selectedTab.id);
     selectedTab.setActive(true);
+
+    setTimeout(() => this.$tabs.tabs('select_tab', selectedTab.id), 0);
   }
 
   public setActive(i: number): void {

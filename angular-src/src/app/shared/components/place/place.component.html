@@ -1,5 +1,7 @@
 <div class="place-card flex wrap w-100" (click)="listMode ? getPlaceDetail() : null">
-  <img [src]="place.image_url || 'assets/images/business.png'" [alt]="place.name" (click)="getPlaceDetail()">
+  <div class="image">
+    <img [src]="place.image_url" [alt]="place.name" (click)="getPlaceDetail()" *ngIf="place.image_url">
+  </div>
   <vn-btn-favorite [placeId]="place.id" [placeName]="place.name"></vn-btn-favorite>
   <div class="info w-100">
     <div class="name nowrap w-90">
@@ -8,7 +10,7 @@
     
     <div class="details flex align-items-center w-100">
       <div class="phone flex align-items-center">
-        <i class="material-icons">phone</i>
+        <i class="mdi mdi-phone"></i>
         <a [href]="'tel:' + place.phone"  *ngIf="place.display_phone" (click)="$event.stopPropagation()">{{ place.display_phone }}</a>
         <span *ngIf="!place.display_phone">Not Available</span>
       </div>

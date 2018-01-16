@@ -3,6 +3,6 @@
   [ngClass]="{favorite: loading || favorite}"
   (click)="manageFavorite($event)"
 >
-  <i mz-icon [icon]="favorite ? 'favorite' : 'favorite_border'" *ngIf="!loading"></i>
+  <i class="mdi" [ngClass]="favorite ? 'mdi-heart' : 'mdi-heart-outline'" *ngIf="!loading"></i>
   <mz-spinner size="small" *ngIf="loading"></mz-spinner>
 </button>

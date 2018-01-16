@@ -2,11 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MzBaseModal } from 'ng2-materialize/dist';
 
 import { imageStateTrigger } from './animations';
-
-export interface LightboxModalOptions {
-  images: string[];
-  active: number;
-}
+import { ModalService, LightboxModalOptions } from '../../../core/services/modal.service';
 
 @Component({
   selector: 'vn-lightbox-modal',
@@ -14,15 +10,21 @@ export interface LightboxModalOptions {
   styleUrls: ['./lightbox-modal.component.scss'],
   animations: [imageStateTrigger]
 })
-
 export class LightboxModalComponent extends MzBaseModal {
   @Input() public options: LightboxModalOptions;
 
+  constructor(private modalService: ModalService) {
+    super();
+  }
+
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
-    endingTop: '0',
     opacity: 0.8
   };
+
+  public onClose(): void {
+    this.modalService.close();
+  }
 
   public next(): void {
     if (this.options.active + 1 !== this.options.images.length) {

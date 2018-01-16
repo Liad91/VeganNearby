@@ -32,7 +32,7 @@
   }
 
   @media screen and (min-width: 701px) {
-    width: calc(33.3% - calc(2rem / 3));   
+    width: calc(33.3% - (2rem / 3));   
 
     &:nth-of-type(3n+3) {
       margin-right: 0;
@@ -46,11 +46,19 @@
   background-color: #fff;
   font-size: 0.9rem;
 
-  & > img {
+  .image {
     cursor: pointer;
     width: 100%;
     height: 160px;
-    filter: contrast(1.2) brightness(0.6);
+    background-image: url('../../../../assets/images/business.png');
+    border-radius: 3px 3px 0 0;
+
+    img {
+      filter: contrast(1.2) brightness(0.6);
+      width: 100%;
+      height: 100%;
+      border-radius: 3px 3px 0 0;
+    }
   }
 
   vn-btn-favorite::ng-deep button {
@@ -91,7 +99,8 @@
 
   .info {
     padding: 12px 12px 3px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.23);
+    border: 1px solid $border-color;
+    border-radius: 0 0 3px 3px;
 
     h4 {
       cursor: pointer;
@@ -167,10 +176,18 @@
     border: 1px solid $border-color;
     border-radius: 3px;
 
-    & > img {
+    .image {
       width: 110px;
       height: 110px;
       border-radius: 3px 0 0 3px;
+      background-image: url('../../../../assets/images/business.png');
+  
+      img {
+        filter: contrast(1.2) brightness(0.6);
+        width: 100%;
+        height: 100%;
+        border-radius: 3px 0 0 3px;
+      }
     }
 
     vn-btn-favorite::ng-deep button {
@@ -187,12 +204,13 @@
     
 
     .info {
-      display: flex;
+      display: flex;;
       flex-direction: column;
       flex-grow: 1;
       width: calc(100% - 150px);
       padding: 5px 15px 0;
-      box-shadow: none;
+      border: none;
+      border-radius: 0;
 
       .name {
         width: 80%;

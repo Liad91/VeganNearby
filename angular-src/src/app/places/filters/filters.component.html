@@ -1,6 +1,6 @@
 <div class="filter map">
   <div class="title-inline flex align-items-center">
-    <i class="material-icons">map</i>
+    <i class="mdi mdi-map mdi-24px"></i>
     <h3>Map</h3>
     <div class="switch flex ml-auto">
       <label>
@@ -37,7 +37,7 @@
 </div>
 <div class="filter">
   <div class="title-inline flex align-items-center">
-    <i class="material-icons">business</i>
+    <i class="mdi mdi-domain mdi-24px"></i>
     <h3>Establishment Type</h3>
   </div>
   <p class="radio-field" *ngFor="let category of state.categories">
@@ -54,7 +54,7 @@
 </div>
 <div class="filter">
   <div class="title-inline flex align-items-center">
-    <i class="material-icons">attach_money</i>
+    <i class="mdi mdi-currency-usd mdi-24px"></i>
     <h3>Price</h3>
   </div>
   <p class="checkbox-field"  *ngFor="let price of state.prices">
@@ -70,11 +70,11 @@
 </div>
 <div class="filter" *ngIf="state.selectedCategory.alias === 'restaurants'">
   <div class="title-inline flex align-items-center">
-    <i class="material-icons">restaurant</i>
+    <i class="mdi mdi-silverware-variant mdi-24px"></i>
     <h3>Cuisine</h3>
-    <div class="more align-items-center" (click)="openModal()">
+    <div class="more" (click)="openModal()">
       <span>Show More</span>
-      <i class="material-icons">arrow_drop_down</i>
+      <i class="mdi mdi-menu-down"></i>
     </div>
   </div>
   <p class="checkbox-field" *ngFor="let index of state.displayedCuisinesIndex">

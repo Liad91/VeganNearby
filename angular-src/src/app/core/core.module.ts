@@ -13,6 +13,7 @@ import { SearchComponent } from './search/search.component';
 
 // Services
 import * as Services from './services';
+
 import { AuthService } from './auth/auth.service';
 import { AuthSocialService } from './auth/auth-social/auth-social.service';
 import { PlacesService } from '../places/places.service';

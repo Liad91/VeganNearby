@@ -15,7 +15,7 @@
       [closeOnClick]="true"
       class="btn-floating btn-large"
     >
-      <i class="material-icons">filter_list</i>
+      <i class="mdi mdi-filter-outline mdi-24px"></i>
     </button>
   </div>
   
@@ -40,7 +40,6 @@
             (mouseenter)="place.hover = true"
             (mouseleave)="place.hover = false"
             @placeState
-            *ngIf="!(state | async).loading"
           >
           </vn-place>
         </ng-container>
@@ -58,18 +57,19 @@
           <button mz-button (click)="onReload()">Try Again</button>
         </div>
       </div>
-      <vn-pagination
-        class="w-100 center-align mt-auto mb-3"
-        [itemsPerPage]="18"
-        [currentPage]="currentPage"
-        [totalItems]="(state | async).total"
-        (pageChange)="onPageChange($event)"
-        *ngIf="!(state | async).loading || ((state | async).loading && currentPage !== 1 && (screenSize | async) !== 'sm' && (screenSize | async) !== 'xs')"
-      >
-      </vn-pagination>
+     
       <div class="spinner-wrap" [hidden]="!(state | async).loading">
         <mz-spinner color="blue" size="big"></mz-spinner>
       </div>
     </div>
   </div>
+  <vn-pagination
+  class="w-100 center-align mt-auto mb-3"
+  [itemsPerPage]="18"
+  [currentPage]="currentPage"
+  [totalItems]="(state | async).total"
+  (pageChange)="onPageChange($event)"
+  *ngIf="!(state | async).loading || ((state | async).loading && (screenSize | async) !== 'sm' && (screenSize | async) !== 'xs')"
+>
+</vn-pagination>
 </div>

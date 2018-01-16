@@ -14,7 +14,7 @@
           >
             <p class="m-0">Drag a image here</p>
             <button type="button" mz-button [float]="true" (click)="select.click()">
-              <i mz-icon icon="add"></i>
+              <i class="mdi mdi-plus"></i>
             </button>
             <input
               #select
@@ -34,7 +34,7 @@
             vnBgColor="danger"
             *ngIf="userImageFile"
           >
-            <i mz-icon icon="remove"></i>
+            <i class="mdi mdi-minus"></i>
           </button>
         </div>
       </div>
@@ -78,5 +78,6 @@
         >
       </mz-input-container>
       <button mz-button class="w-100 p-0" type="submit">Continue</button>
+      <button mz-button class="w-100 p-0 mt-1" vnBgColor="danger" type="button" (click)="onClose()">Cancel</button>
     </form>
   </div>
