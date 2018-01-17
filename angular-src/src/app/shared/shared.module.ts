@@ -1,10 +1,29 @@
 import { NgModule, Directive } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterializeModule } from 'ng2-materialize';
+import {
+  MzButtonModule,
+  MzInjectionModule,
+  MzInputModule,
+  MzModalModule,
+  MzSpinnerModule,
+  MzToastModule,
+  MzValidationModule
+} from 'ng2-materialize';
 
 import * as Components from './components';
 import * as Directives from './directives';
 import * as Pipes from './pipes';
+
+const materializeModules = [
+  MzButtonModule,
+  MzInjectionModule,
+  MzInputModule,
+  MzModalModule,
+  MzSpinnerModule,
+  MzToastModule,
+  MzValidationModule
+];
+
 @NgModule({
   declarations: [
     Components.AlertModalComponent,
@@ -33,11 +52,11 @@ import * as Pipes from './pipes';
   ],
   imports: [
     CommonModule,
-    MaterializeModule.forRoot()
+    materializeModules,
   ],
   exports: [
     CommonModule,
-    MaterializeModule,
+    materializeModules,
     Components.AlertModalComponent,
     Components.BtnFavoriteComponent,
     Components.LightboxModalComponent,
