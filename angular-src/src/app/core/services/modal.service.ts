@@ -54,6 +54,7 @@ export class ModalService {
   public close(): void {
     if (this.modal) {
       this.modal.instance.modalComponent.close();
+      this.modal = null;
     }
   }
 }

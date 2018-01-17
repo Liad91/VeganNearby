@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public banners: Banner[] = [
     {
       checked: false,
-      icon: 'assets/icons/earth.png',
+      icon: 'earth',
       title: 'for the planet',
       subtitle: 'Fight against climate change.',
       text: `
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
     {
       checked: false,
-      icon: 'assets/icons/cow.png',
+      icon: 'paw',
       title: 'for the animales',
       subtitle: 'Save more than 100 animals a year.',
       text: `
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
     {
       checked: false,
-      icon: 'assets/icons/peace.png',
+      icon: 'cow',
       title: 'for nonviolence',
       subtitle: 'All living creatures fear death.',
       text: `
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
     {
       checked: false,
-      icon: 'assets/icons/health.png',
+      icon: 'heart-pulse',
       title: 'for yourself',
       subtitle: 'Vegan diet is great for your health.',
       text: `

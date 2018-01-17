@@ -97,15 +97,15 @@
     transition-property: height, background-color, transform;
 
     &:hover {
-      background-color: lighten(#151414, 5%);
+      background-color: #232323;
 
-      img {
+      i {
         transform: translateY(-5px);
       }
     }
 
     &.flip {
-      background-color: $primary-color;
+      background-color: #232323;
       transform: scaleY(-1);
 
       .front {
@@ -133,7 +133,7 @@
       justify-content: center;
       padding: 2rem 0.5rem;
 
-      img {
+      i {
         max-width: 32px;
         margin-right: 20px;
         transition: $fast-transition;
@@ -219,7 +219,7 @@
       .front {
         flex-direction: column;
 
-        img {
+        i {
           margin-right: 0;
           margin-bottom: 1rem;
         }

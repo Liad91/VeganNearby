@@ -5,6 +5,7 @@ import {
   MzInjectionModule,
   MzInputModule,
   MzModalModule,
+  MzSelectModule,
   MzSpinnerModule,
   MzToastModule,
   MzValidationModule
@@ -19,6 +20,7 @@ const materializeModules = [
   MzInjectionModule,
   MzInputModule,
   MzModalModule,
+  MzSelectModule,
   MzSpinnerModule,
   MzToastModule,
   MzValidationModule

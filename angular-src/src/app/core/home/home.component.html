@@ -17,7 +17,7 @@
 <div class="banners flex px-2" [ngClass]="{open: bannerOpen}">
   <div class="banner" [ngClass]="{flip: banner.checked}" *ngFor="let banner of banners" (click)="flipBanner(banner)">
     <div class="front">
-      <img [src]="banner.icon">
+      <i class="mdi mdi-{{banner.icon}} mdi-36px"></i>
       <div class="text">
         <h4>{{ banner.title }}</h4>
         <p>{{ banner.subtitle }}</p>

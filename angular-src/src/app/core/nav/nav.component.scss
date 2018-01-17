@@ -127,6 +127,16 @@ nav {
       filter: brightness(0.6);
     }
 
+    .circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        line-height: 1;
+      }
+    }
+
     .name {
       margin-top: 10px;
     }
