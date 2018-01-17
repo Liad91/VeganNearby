@@ -8,6 +8,7 @@ import * as authActions from '../store/auth.actions';
 import { AuthService } from '../auth.service';
 import { errorStateTrigger } from '../../../shared/animations';
 import { AuthSocialService } from '../auth-social/auth-social.service';
+import { ModalService } from './../../services/modal.service';
 
 @Component({
   selector: 'vn-login',
@@ -36,7 +37,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService, private authSocialService: AuthSocialService) {}
+  constructor(
+    private store: Store<fromRoot.AppState>,
+    private authService: AuthService,
+    private authSocialService: AuthSocialService,
+    private modalService: ModalService) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -80,7 +85,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public onClose(): void {
-    this.authService.closeModal.next();
+    this.modalService.close();
   }
 
   public onSubmit(): void {

@@ -1,9 +1,4 @@
-<mz-modal
-  #modal
-  id="cuisines"
-  class="h-100 flex column justify-content-center align-items-center"
-  [options]="modalOptions"
->
+<mz-modal id="cuisines" class="h-100 flex column justify-content-center align-items-center" [options]="modalOptions">
   <mz-modal-header class="flex warp">
       <input
         #search
@@ -11,7 +6,7 @@
         placeholder="Search for cuisines"
         type="text"
         ngModel
-      >   
+      >
     <div class="actions w-50 flex justify-content-flex-end align-items-center">
       <button mz-button (click)="onCancel()" vnBgColor="danger">Cancel</button>
       <button mz-button (click)="onApply()">Apply</button>

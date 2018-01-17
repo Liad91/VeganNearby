@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
+import { Component, OnInit } from '@angular/core';
+import { MzBaseModal } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 

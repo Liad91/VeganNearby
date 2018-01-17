@@ -15,7 +15,6 @@ export interface AuthResponse {
 
 @Injectable()
 export class AuthService {
-  public closeModal = new Subject<any>();
   public loginFailure = new Subject<any>();
 
   constructor(private http: HttpClient, private connectionService: ConnectionService) {}

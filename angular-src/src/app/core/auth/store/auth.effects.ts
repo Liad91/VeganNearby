@@ -10,6 +10,7 @@ import * as authActions from './auth.actions';
 import * as fromRoot from '../../../store/app.reducer';
 import { GetFavorites, ResetFavorites } from '../../../favorites/store/favorites.actions';
 import { AuthService, AuthResponse } from './../auth.service';
+import { ModalService } from './../../services/modal.service';
 
 @Injectable()
 export class AuthEffects {
@@ -92,12 +93,16 @@ export class AuthEffects {
       map(() => new ResetFavorites())
     );
 
-  constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private authService: AuthService) {}
+  constructor(
+    private store: Store<fromRoot.AppState>,
+    private actions: Actions,
+    private authService: AuthService,
+    private modalService: ModalService) {}
 
   private onLoginSuccess(response: AuthResponse): void {
     this.getFavorites(response.user.favorites);
     this.authService.storeToken(response.token);
-    this.authService.closeModal.next();
+    this.modalService.close();
   }
 
   private onLoginFailure(error: HttpErrorResponse): Observable<authActions.LoginFailure> {

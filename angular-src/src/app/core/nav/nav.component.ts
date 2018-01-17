@@ -1,6 +1,5 @@
 import { Component, ViewChild, Input, OnDestroy, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
-import { MzModalService } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -13,6 +12,7 @@ import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';
 import { UtilitiesService } from './../services/utilities.service';
 import { searchStateTrigger } from './animations';
 import { SidenavButtonDirective } from '../../shared/directives/sidenav-button.directive';
+import { ModalService } from './../services/modal.service';
 
 @Component({
   selector: 'vn-nav',
@@ -34,7 +34,7 @@ export class NavComponent implements OnInit, OnDestroy {
   constructor(
     private location: Location,
     private store: Store<fromRoot.AppState>,
-    private modalService: MzModalService,
+    private modalService: ModalService,
     private utilitiesService: UtilitiesService) {}
 
   ngOnInit(): void {
@@ -60,10 +60,10 @@ export class NavComponent implements OnInit, OnDestroy {
     this.utilitiesService.referrer ? this.location.back() : this.navigate('/');
   }
 
-  public openModal(event: Event, mode: string): void {
+  public openModal(event: Event, mode: 'login' | 'register'): void {
     /** prevent sidenav from closing */
     event.stopPropagation();
-    this.modalService.open(AuthModalComponent, { mode });
+    this.modalService.openAuth(AuthModalComponent, mode);
   }
 
   public logout(): void {

@@ -83,7 +83,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
       }
     }
     else {
-      this.modalService.open(AuthModalComponent);
+      this.modalService.openAuth(AuthModalComponent, 'login');
     }
   }
 

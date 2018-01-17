@@ -1,5 +1,5 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { MzBaseModal, MzModalComponent } from 'ng2-materialize/dist';
+import { Component, Input } from '@angular/core';
+import { MzBaseModal } from 'ng2-materialize/dist';
 
 import { ModalService, AlertModalOptions } from './../../../core/services/modal.service';
 
