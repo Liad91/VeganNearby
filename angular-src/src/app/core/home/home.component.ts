@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       checked: false,
       icon: 'paw',
-      title: 'for the animales',
+      title: 'for the animals',
       subtitle: 'Save more than 100 animals a year.',
       text: `
         Did you know that every vegan saves more than 100 animals a year?
