@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MzBaseModal } from 'ng2-materialize/dist';
+import { MzBaseModal } from 'ng2-materialize';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 

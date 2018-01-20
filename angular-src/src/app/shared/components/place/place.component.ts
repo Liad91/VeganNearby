@@ -16,8 +16,8 @@ export class PlaceComponent {
   @Input() public listMode = false;
 
   getPlaceDetail(): void {
-    if ((this.place as YelpBusinessResponse).hours) {
-      this.store.dispatch(new SetPlace((this.place as YelpBusinessResponse)));
+    if ((<YelpBusinessResponse>this.place).hours) {
+      this.store.dispatch(new SetPlace(<YelpBusinessResponse>this.place));
     }
     else {
       this.store.dispatch(new GetPlace(this.place.id));

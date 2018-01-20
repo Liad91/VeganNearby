@@ -40,8 +40,8 @@ export function placeDetailReducer(state = initialState, action: placeDetailActi
     case placeDetailActions.GET_PLACE_SUCCESS:
       return {
         ...state,
-        place: (action.payload[0] as YelpBusinessResponse),
-        reviews: (action.payload[1] as YelpReviewsResponse),
+        place: <YelpBusinessResponse>action.payload[0],
+        reviews: <YelpReviewsResponse>action.payload[1],
         loading: null
       };
     case placeDetailActions.GET_PLACE_FAILURE:

@@ -22,20 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public errorSubscription: Subscription;
   public formErrorMessage: string;
   public socialNetworks = ['google', 'twitter', 'facebook'];
-
-  public errorMessageResources = {
-    email: {
-      required: 'Email is required.',
-      email: 'Invalid email address.',
-      unique: 'The email address has already been taken',
-      validation: 'Email is invalid'
-    },
-    password: {
-      required: 'Password is required.',
-      minlength: 'The entered password is too short.',
-      validation: 'Password is invalid'
-    }
-  };
+  public errorMessageResources;
 
   constructor(
     private store: Store<fromRoot.AppState>,
@@ -45,7 +32,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeForm();
-    this.errorSubscription = this.authService.loginFailure.subscribe(error => this.errorHandler(error));
+    this.errorMessageResources = this.authService.errorMessageResources;
+    this.errorSubscription = this.authService.error.subscribe(
+      error => this.formErrorMessage = this.authService.formErrorHandler(error, this.form)
+    );
   }
 
   private initializeForm(): void {
@@ -60,53 +50,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authSocialService.login(network);
   }
 
-  private errorHandler(error): void {
-    switch (error.type) {
-      case 'authentication':
-        this.formErrorMessage = 'Email or password is incorrect';
-        break;
-      case 'validation':
-        for (const control in error.message) {
-          if ((error.message as Object).hasOwnProperty(control)) {
-            const err = {};
-
-            err[error.message[control]] = true;
-            this.form.get(control).setErrors(err);
-          }
-        }
-        break;
-      case 'upload':
-      case 'required':
-        this.formErrorMessage = error.message;
-        break;
-      default:
-        this.formErrorMessage = 'Oops something went wrong! Please try again later';
-    }
-  }
-
   public onClose(): void {
     this.modalService.close();
   }
 
   public onSubmit(): void {
     if (this.form.invalid) {
-      this.validateFormControls();
+      this.authService.validateFormControls(this.form);
       return;
     }
     if (this.formErrorMessage) {
       this.formErrorMessage = null;
     }
     this.store.dispatch(new authActions.Login(this.form.value));
-  }
-
-  private validateFormControls(): void {
-    Object.keys(this.form.controls).forEach(key => {
-      const control = this.form.controls[key];
-
-      if (control.invalid) {
-        control.markAsDirty();
-      }
-    });
   }
 
   ngOnDestroy(): void {

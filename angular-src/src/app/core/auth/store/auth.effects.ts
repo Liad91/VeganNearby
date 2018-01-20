@@ -23,7 +23,7 @@ export class AuthEffects {
         .pipe(
           tap(response => this.onLoginSuccess(response)),
           map(response => new authActions.LoginSuccess(response)),
-          catchError((error: HttpErrorResponse) => this.onLoginFailure(error))
+          catchError((error: HttpErrorResponse) => this.errorHandler(error))
         )
       )
     );
@@ -37,7 +37,21 @@ export class AuthEffects {
         .pipe(
           tap((response => this.onLoginSuccess(response))),
           map(response => new authActions.LoginSuccess(response)),
-          catchError((error: HttpErrorResponse) => this.onLoginFailure(error))
+          catchError((error: HttpErrorResponse) => this.errorHandler(error))
+        )
+      )
+    );
+
+  @Effect()
+  update = this.actions
+    .ofType(authActions.UPDATE)
+    .pipe (
+      map((action: authActions.Update) => action.payload),
+      exhaustMap(user => this.authService.update(user)
+        .pipe(
+          tap(response => this.onUpdateSuccess(response)),
+          map(response => new authActions.UpdateSuccess(response)),
+          catchError((error: HttpErrorResponse) => this.onUpdateFailure(error))
         )
       )
     );
@@ -105,9 +119,19 @@ export class AuthEffects {
     this.modalService.close();
   }
 
-  private onLoginFailure(error: HttpErrorResponse): Observable<authActions.LoginFailure> {
-    this.authService.loginFailure.next(error.error);
-    return of(new authActions.LoginFailure());
+  private onUpdateSuccess(response: AuthResponse): void {
+    this.authService.storeToken(response.token);
+    this.modalService.close();
+  }
+
+  private onUpdateFailure(error: HttpErrorResponse): Observable<authActions.UpdateFailure> {
+    this.authService.error.next(error.error);
+    return of(new authActions.UpdateFailure());
+  }
+
+  private errorHandler(error: HttpErrorResponse): Observable<authActions.ErrorOccurred> {
+    this.authService.error.next(error.error);
+    return of(new authActions.ErrorOccurred());
   }
 
   private getFavorites(favorites: string[]): void {

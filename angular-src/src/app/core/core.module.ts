@@ -7,6 +7,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthModalComponent } from './auth/auth-modal/auth-modal.component';
 import { AuthSocialComponent } from './auth/auth-social/auth-social.component';
+import { EditModalComponent } from './auth/edit-modal/edit-modal.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { SearchComponent } from './search/search.component';
@@ -32,12 +33,14 @@ import { SharedModule } from './../shared/shared.module';
     RegisterComponent,
     AuthModalComponent,
     AuthSocialComponent,
+    EditModalComponent,
     HomeComponent,
     NavComponent,
     SearchComponent
   ],
   entryComponents: [
-    AuthModalComponent
+    AuthModalComponent,
+    EditModalComponent
   ],
   providers: [
     Services.ConnectionService,

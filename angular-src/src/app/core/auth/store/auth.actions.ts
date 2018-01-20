@@ -4,13 +4,16 @@ import { User } from './../../../models/user.model';
 import { AuthResponse } from './../auth.service';
 
 export const LOGIN = 'LOGIN';
+export const UPDATE = 'UPDATE';
 export const LOGOUT = 'LOGOUT';
 export const REGISTER = 'REGISTER';
 export const SET_TOKEN = 'SET_TOKEN';
 export const SOCIAL_LOGIN = 'SOCIAL_LOGIN';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+export const UPDATE_FAILURE = 'UPDATE_FAILURE';
+export const ERROR_OCCURRED = 'ERROR_OCCURRED';
 export const SET_USER_BACKGROUND = 'SET_USER_BACKGROUND';
 export const SOCIAL_LOGIN_SUCCESS = 'SOCIAL_LOGIN_SUCCESS';
 export const ADD_TO_USER_FAVORITES = 'ADD_TO_USER_FAVORITES';
@@ -22,6 +25,12 @@ export class Login implements Action {
   readonly type = LOGIN;
 
   constructor(public payload: User) {}
+}
+
+export class Update implements Action {
+  readonly type = UPDATE;
+
+  constructor(public payload: FormData) {}
 }
 
 export class Logout implements Action {
@@ -56,8 +65,18 @@ export class LoginSuccess implements Action {
   constructor(public payload: AuthResponse) {}
 }
 
-export class LoginFailure implements Action {
-  readonly type = LOGIN_FAILURE;
+export class UpdateSuccess implements Action {
+  readonly type = UPDATE_SUCCESS;
+
+  constructor(public payload: AuthResponse) {}
+}
+
+export class UpdateFailure implements Action {
+  readonly type = UPDATE_FAILURE;
+}
+
+export class ErrorOccurred implements Action {
+  readonly type = ERROR_OCCURRED;
 }
 
 export class SetUserBackground implements Action {
@@ -96,13 +115,16 @@ export class SetUserBackgroundFailure implements Action {
 
 export type Action =
   | Login
+  | Update
   | Logout
   | Register
   | SetToken
   | SocialLogin
   | Authenticate
   | LoginSuccess
-  | LoginFailure
+  | UpdateSuccess
+  | UpdateFailure
+  | ErrorOccurred
   | SetUserBackground
   | SocialLoginSuccess
   | AddToUserFavorites

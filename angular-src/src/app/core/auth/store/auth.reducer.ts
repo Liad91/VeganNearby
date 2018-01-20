@@ -6,6 +6,7 @@ export interface State {
   token: string;
   user: User;
   loading: boolean;
+  updateLoading: boolean;
   backgroundLoading: boolean;
 }
 
@@ -14,6 +15,7 @@ const initialState: State = {
   token: null,
   user: null,
   loading: false,
+  updateLoading: false,
   backgroundLoading: false
 };
 
@@ -23,10 +25,15 @@ export function authReducer(state = initialState, action: authActions.Action): S
     case authActions.REGISTER:
     case authActions.SOCIAL_LOGIN:
     case authActions.AUTHENTICATE:
-     return {
-       ...state,
-       loading: true
-     };
+      return {
+        ...state,
+        loading: true
+      };
+    case authActions.UPDATE:
+      return {
+        ...state,
+        updateLoading: true
+      };
     case authActions.SET_USER_BACKGROUND:
       return {
         ...state,
@@ -40,7 +47,18 @@ export function authReducer(state = initialState, action: authActions.Action): S
         authenticate: true,
         loading: false
       };
-    case authActions.LOGIN_FAILURE:
+    case authActions.UPDATE_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        updateLoading: false
+      };
+    case authActions.UPDATE_FAILURE:
+      return {
+        ...state,
+        updateLoading: false
+      };
+    case authActions.ERROR_OCCURRED:
       return {
         ...state,
         loading: false

@@ -1,6 +1,6 @@
 import { ComponentRef, Injectable, Type } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { MzModalService, MzBaseModal,  } from 'ng2-materialize/dist';
+import { MzModalService, MzBaseModal,  } from 'ng2-materialize';
 import { map, mapTo, filter, tap } from 'rxjs/operators';
 
 export interface AlertModalOptions {

@@ -49,7 +49,7 @@ export class AuthSocialService {
       return this.handleResponse(null);
     }
 
-    if (!data._id || !data.username || !data.email || !data.avatarUrl) {
+    if (!data._id || !data.username || !data.email) {
       this.toastService.show('Connection failed');
       return this.handleResponse(null);
     }
@@ -105,7 +105,7 @@ export class AuthSocialService {
       this.store.dispatch(new authActions.SocialLoginSuccess(response));
     }
     else {
-      this.store.dispatch(new authActions.LoginFailure());
+      this.store.dispatch(new authActions.ErrorOccurred());
     }
     this.callbackSubscription.unsubscribe();
   }

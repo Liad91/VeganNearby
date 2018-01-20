@@ -127,6 +127,19 @@ nav {
       filter: brightness(0.6);
     }
 
+    a {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      opacity: 0.5;
+      background-color: rgba(0,0,0,0.8);
+      transition: $slow-transition;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
     .circle {
       display: flex;
       align-items: center;

@@ -6,6 +6,7 @@
   top: 50% !important;
   left: 50%;
   right: 50%;
+  max-height: 90%;
   transform: translate(-50%, -50%) !important;
   border-radius: 5px;
   
@@ -26,6 +27,7 @@
 
 mz-modal#auth,
 mz-modal#alert,
+mz-modal#edit,
 mz-modal#lightbox {
   .modal {
     max-width: 350px;
@@ -44,7 +46,8 @@ mz-modal#lightbox {
   }
 }
 
-mz-modal#auth {
+mz-modal#auth,
+mz-modal#edit {
   .modal {
     border-top: 5px solid $primary-color;
   }

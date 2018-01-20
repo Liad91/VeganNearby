@@ -30,6 +30,7 @@ export const selectSearch = (state: AppState) => state.search;
 
 export const selectAuthUser = createSelector(selectAuth, (state: fromAuth.State) => state.user);
 export const selectAuthLoading = createSelector(selectAuth, (state: fromAuth.State) => state.loading);
+export const selectAuthUpdateLoading = createSelector(selectAuth, (state: fromAuth.State) => state.updateLoading);
 export const selectAuthUserLoggedIn  = createSelector(selectAuth, (state: fromAuth.State) => Boolean(state.user));
 export const selectAuthUserFavoritesLength  = createSelector(selectAuth, (state: fromAuth.State) => state.user.favorites.length);
 export const selectAuthUserBackgroundLoading  = createSelector(selectAuth, (state: fromAuth.State) => state.backgroundLoading);

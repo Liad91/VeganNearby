@@ -46,5 +46,5 @@ $ npm run dev
 ### Todos
 - [x] Upgrade Angular to v5.0.0
 - [ ] Upgrade Materialize to v1.0.0
-- [ ] Add edit profile page
+- [x] Add edit profile page
 - [ ] Write unit tests

@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         vegans are less likely to develop heart disease, cancer, diabetes, or high blood pressure than meat-eaters are.
         Vegans get all the nutrients that they need to be healthy, such as plant protein, fiber, and minerals,
         without all the nasty stuff in meat that slows you down and makes you sick, such as cholesterol and saturated animal fat.`
-    },
+    }
   ];
 
   constructor(

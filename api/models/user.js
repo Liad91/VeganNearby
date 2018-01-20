@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
   const user = this;
+
   if (user.isNew) {
     user.background = 1;
     bcrypt.genSalt(10, (err, salt) => {
@@ -56,8 +57,9 @@ userSchema.method('comparePassword', function(password) {
   });
 });
 
-userSchema.method('setAvatar', function(url) {  
-  return this.update({avatarUrl: url});
+userSchema.method('setAvatar', function(avatarUrl) {
+  this.avatarUrl = avatarUrl;
+  return this.save();
 });
 
 userSchema.method('addToFavorites', function(id) {

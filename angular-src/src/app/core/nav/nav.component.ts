@@ -9,6 +9,7 @@ import * as fromRoot from './../../store/app.reducer';
 import * as authActions from './../auth/store/auth.actions';
 import { User } from './../../models/user.model';
 import { AuthModalComponent } from '../auth/auth-modal/auth-modal.component';
+import { EditModalComponent } from '../auth/edit-modal/edit-modal.component';
 import { UtilitiesService } from './../services/utilities.service';
 import { searchStateTrigger } from './animations';
 import { SidenavButtonDirective } from '../../shared/directives/sidenav-button.directive';
@@ -60,10 +61,21 @@ export class NavComponent implements OnInit, OnDestroy {
     this.utilitiesService.referrer ? this.location.back() : this.navigate('/');
   }
 
-  public openModal(event: Event, mode: 'login' | 'register'): void {
+  public openAuthModal(event: Event, mode: 'login' | 'register'): void {
     /** prevent sidenav from closing */
     event.stopPropagation();
     this.modalService.openAuth(AuthModalComponent, mode);
+  }
+
+  public openEditModal(event: Event): void {
+    /** prevent sidenav from closing */
+    event.stopPropagation();
+
+    this.user
+      .pipe(
+        take(1)
+      )
+      .subscribe(user => this.modalService.open(EditModalComponent, { user }));
   }
 
   public logout(): void {

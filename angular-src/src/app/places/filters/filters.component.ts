@@ -83,7 +83,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.stateSubscription = this.store.select(fromPlaces.selectFilters).subscribe(state => this.state = state);
 
     // TODO: Use (dragEnd) after https://github.com/SebastianM/angular-google-maps/pull/1159 will merged
-    this.dragEndSubscription = (this.map._mapsWrapper as GoogleMapsAPIWrapper)
+    this.dragEndSubscription = (<GoogleMapsAPIWrapper>this.map._mapsWrapper)
       .subscribeToMapEvent('dragend')
       .subscribe(() => this.onDragEnd());
   }

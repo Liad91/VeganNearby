@@ -1,0 +1,89 @@
+<mz-modal id="edit" [options]="modalOptions">
+  <mz-modal-header></mz-modal-header>
+  <mz-modal-content>
+    <div class="spinner-wrap" *ngIf="(loading | async)">
+      <mz-spinner color="blue" size="big"></mz-spinner>
+    </div>
+    <div class="flex wrap p-2">
+      <p @errorState class="error white-text center-align w-100 mt-0" *ngIf="formErrorMessage">{{ formErrorMessage }}</p>
+      <p @errorState class="error white-text center-align mt-0" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p>    
+      <form class="flex w-100 wrap" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="flex w-100 image-upload">
+          <div class="image-wrap">
+            <div
+              ng2FileDrop
+              class="flex justify-content-center align-items-center image-drop"
+              (fileOver)="onFileOver($event)"
+              [uploader]="uploader"
+              [ngClass]="{'file-over': hasDropZoneOver, 'color-danger': uploadErrorMessage}"
+              *ngIf="!userImageFile && ! userImageUrl"
+            >
+              <p class="m-0">Drag a image here</p>
+              <button type="button" mz-button [float]="true" (click)="select.click()">
+                <i class="mdi mdi-plus"></i>
+              </button>
+              <input
+                #select
+                type="file"
+                accept="image/*"
+                ng2FileSelect
+                [uploader]="uploader"
+                [hidden]="true"
+              />
+            </div>
+            <img @imgPreviewState [vnImgPreview]="userImageFile" *ngIf="userImageFile">
+            <button 
+              type="button"
+              mz-button
+              [float]="true"
+              (click)="onResetUploader()"
+              vnBgColor="danger"
+              *ngIf="userImageFile"
+            >
+              <i class="mdi mdi-minus"></i>
+            </button>
+            <img @imgPreviewState [src]="userImageUrl" *ngIf="userImageUrl">
+            <button 
+              type="button"
+              mz-button
+              [float]="true"
+              (click)="userImageUrl = ''"
+              vnBgColor="danger"
+              *ngIf="userImageUrl"
+            >
+              <i class="mdi mdi-minus"></i>
+            </button>
+          </div>
+        </div>
+        <mz-input-container class="auth w-100">
+          <input
+            mz-input
+            mz-validation
+            required
+            id="edit-username"
+            type="text"
+            placeholder="username"
+            label="Username:"
+            formControlName="username"
+            [errorMessageResource]="errorMessageResources.username"
+          >
+        </mz-input-container>
+        <mz-input-container class="auth w-100">
+          <input
+            mz-input
+            mz-validation
+            required
+            id="edit-email"
+            type="email"
+            placeholder="example@domain.com"
+            label="Email:"
+            formControlName="email"
+            [errorMessageResource]="errorMessageResources.email"
+          >
+        </mz-input-container>
+        <button mz-button class="w-100 p-0" type="submit">Save</button>
+        <button mz-button class="w-100 p-0 mt-1" vnBgColor="danger" type="button" (click)="onClose()">Cancel</button>
+      </form>
+    </div>
+  </mz-modal-content>
+</mz-modal>

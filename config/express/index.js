@@ -6,6 +6,9 @@ const app = express();
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 module.exports = (db) => {
+  /** Serve static files */
+  app.use(express.static('public'));
+
   /** Parse incoming requests */
   app.use(bodyParser.json({limit: '1mb'}));
 

@@ -19,7 +19,7 @@ function findOrCreate(req, res, next) {
     return next(err);
   }
 
-  if (!profile.username || !profile.email || !profile.password || !profile.avatarUrl) {
+  if (!profile.username || !profile.email || !profile.password) {
     const err = new Error('Profile fileds missing');
 
     err.status = 403;

@@ -28,6 +28,15 @@
 
     <div class="pages flex align-items-center ml-auto" *ngIf="activatedRoute !== 'home' && !mobileView">
       <ng-container *ngIf="(user | async)">
+        <a
+          class="btn-flat btn-floating waves-effect"
+          (click)="openEditModal($event)"
+          vnTooltip
+          tooltip="Edit Profile"
+          position="bottom"
+        >
+          <i class="mdi mdi-account-edit mdi-24px"></i>
+        </a>
         <div class="btn-favorites">
           <a 
             class="btn-flat btn-floating waves-effect waves-dark"
@@ -54,16 +63,16 @@
       <ng-container *ngIf="!(user | async)">
         <a
           class="btn-flat btn-floating waves-effect waves-dark"
-          (click)="openModal($event, 'register')"
+          (click)="openAuthModal($event, 'register')"
           vnTooltip
           tooltip="Register"
           position="bottom"
         >
-          <i class="mdi mdi-account-plus-outline mdi-24px"></i>
+          <i class="mdi mdi-account-plus mdi-24px"></i>
         </a>
         <a
           class="btn-flat btn-floating waves-effect waves-dark"
-          (click)="openModal($event, 'login')"
+          (click)="openAuthModal($event, 'login')"
           vnTooltip
           tooltip="Login"
           position="bottom"
@@ -101,7 +110,19 @@
         <div class="background">
           <img [src]="'assets/images/menu-background-' + (user | async).background + '.jpg'">
         </div>
-        <img class="circle" [src]="(user | async).avatarUrl || 'assets/images/user.png'">
+        <a
+          class="btn-flat btn-floating waves-effect"
+          (click)="openEditModal($event)"
+          vnTooltip
+          tooltip="Edit Profile"
+          position="bottom"
+        >
+          <i class="mdi mdi-pencil mdi-18px"></i>
+        </a>
+        <img class="circle" [src]="(user | async).avatarUrl" *ngIf="(user | async).avatarUrl">
+        <div class="circle" vnBgColor="gray-500" *ngIf="!(user | async).avatarUrl">
+          <i class="mdi mdi-account mdi-48px white-text"></i>
+        </div>
         <span class="white-text name">{{ (user | async).username }}</span>
         <span class="email">{{ (user | async).email }}</span>
       </ng-container>
@@ -116,13 +137,13 @@
 
   <ng-container *ngIf="!(user | async)">
     <li class="mt-1">
-      <a (click)="openModal($event, 'register')">
+      <a (click)="openAuthModal($event, 'register')">
         <i class="mdi mdi-account-plus-outline mdi-24px"></i>
         Register
       </a>
     </li>
     <li>
-      <a (click)="openModal($event, 'login')">
+      <a (click)="openAuthModal($event, 'login')">
         <i class="mdi mdi-login-variant mdi-24px"></i>
         Login
       </a>

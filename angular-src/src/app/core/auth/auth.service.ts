@@ -1,8 +1,10 @@
+import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { timeout, mapTo } from 'rxjs/operators';
+import { FileLikeObject } from 'ng2-file-upload';
 
 import { ConnectionService } from './../services/connection.service';
 import { User } from './../../models/user.model';
@@ -15,7 +17,29 @@ export interface AuthResponse {
 
 @Injectable()
 export class AuthService {
-  public loginFailure = new Subject<any>();
+  public error = new Subject<any>();
+  public allowedMimeType = ['image/png', 'image/jpg', 'image/jpeg'];
+  public maxFileSize = 1024 * 1024; // 1MB
+
+  public errorMessageResources = {
+    username: {
+      required: 'Username is required.',
+      minlength: 'The entered username is too short.',
+      unique: 'The username has already been taken',
+      validation: 'Username is invalid'
+    },
+    email: {
+      required: 'Email is required.',
+      email: 'Invalid email address.',
+      unique: 'The email address has already been taken',
+      validation: 'Email is invalid'
+    },
+    password: {
+      required: 'Password is required.',
+      minlength: 'The entered password is too short.',
+      validation: 'Password is invalid'
+    }
+  };
 
   constructor(private http: HttpClient, private connectionService: ConnectionService) {}
 
@@ -28,6 +52,15 @@ export class AuthService {
 
   public login(user: User): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.connectionService.serverUrl}/users/login`, user)
+      .pipe(
+        timeout(this.connectionService.reqTimeout)
+      );
+  }
+
+  public update(user: FormData): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.connectionService.serverUrl}/users/update`, user, {
+      headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
+    })
       .pipe(
         timeout(this.connectionService.reqTimeout)
       );
@@ -58,5 +91,54 @@ export class AuthService {
 
   public removeToken() {
     localStorage.clear();
+  }
+
+  public validateFormControls(form: FormGroup): void {
+    for (const key in form.controls) {
+      if (form.controls.hasOwnProperty(key)) {
+        const control = form.controls[key];
+
+        if (control.invalid) {
+          control.markAsDirty();
+        }
+      }
+    }
+  }
+
+  public formErrorHandler(error, form: FormGroup): string {
+    switch (error.type) {
+      case 'authentication':
+        return 'Email or password is incorrect';
+      case 'validation':
+        for (const control in error.message) {
+          if (error.message.hasOwnProperty(control)) {
+            const err = {};
+
+            err[error.message[control]] = true;
+            form.get(control).setErrors(err);
+          }
+        }
+        return '';
+      case 'upload':
+      case 'required':
+        return error.message;
+      default:
+        return 'Oops something went wrong! Please try again later';
+    }
+  }
+
+  public onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any): string {
+    switch (filter.name) {
+      case 'fileSize':
+        return `Maximum upload size exceeded (${Math.floor(this.maxFileSize / 1000000)}Mb allowed)`;
+      case 'mimeType':
+        const allowedTypes = this.allowedMimeType.map(type => type.substr(6) ).join(', ');
+
+        return `Type is not allowed. Allowed types: "${allowedTypes}"`;
+      case 'queueLimit':
+        return 'You can\'t upload more than one image';
+      default:
+        return 'Unknown error please try again later';
+    }
   }
 }
