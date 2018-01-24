@@ -5,7 +5,6 @@ const inquirer = require('inquirer');
 let googleApiKey;
 
 const configs = {
-  dbUrl: 'mongodb://localhost:27017/vegannearby',
   appUrl: 'http://localhost:4200',
   yelp: {},
   facebook: {
@@ -20,6 +19,12 @@ const configs = {
 };
 
 const questions = [
+  {
+    type: 'input',
+    name: 'dbUrl',
+    message: 'Enter Your Database URL:',
+    default: 'mongodb://localhost:27017/vegannearby'
+  },
   {
     type: 'input',
     name: 'jwtSecret',
@@ -78,6 +83,7 @@ const questions = [
 
 inquirer.prompt(questions)
   .then(answers => {
+    configs.dbUrl = answers.dbUrl;
     configs.secret = answers.jwtSecret;
     configs.yelp.apiKey = answers.yelpApiKey;
     configs.facebook.appId = answers.fbAppId;
@@ -93,6 +99,7 @@ inquirer.prompt(questions)
     try {
       fs.mkdirRecursiveSync('./public/images/users');
       fs.mkdirRecursiveSync('./public/images/temp');
+      console.info('folder structure created successfully');
     }
     catch (err) {
       throw err;
@@ -105,6 +112,7 @@ inquirer.prompt(questions)
         `module.exports = ${JSON.stringify(configs, null, 2)}`,
         'utf-8'
       );
+      console.info('server config file created successfully');
     }
     catch (err) {
       throw err;
@@ -117,6 +125,7 @@ inquirer.prompt(questions)
         `export const googleApiKey = '${googleApiKey}';\n`,
         'utf-8'
       );
+      console.info('client config file created successfully');
     }
     catch (err) {
       throw err;
