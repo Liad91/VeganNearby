@@ -1,6 +1,6 @@
 import { trigger, transition, group, query, style, animate } from '@angular/animations';
 
-function fadeOut(enter: string, leave: string) {
+export function fadeOut(enter: string, leave: string) {
   return [
     query('nav', style({ backgroundColor: '#fff' }), { optional: true }),
     query(leave, style({ position: 'fixed', top: '0', left: '0', right: '0', bottom: '0' }), { optional: true }),
@@ -13,7 +13,7 @@ function fadeOut(enter: string, leave: string) {
   ];
 }
 
-function fadeIn(enter: string) {
+export function fadeIn(enter: string) {
   return [
     query('nav', style({ backgroundColor: 'transparent' }), { optional: true }),
     query(enter, style({ opacity: '0' }), { optional: true }),
