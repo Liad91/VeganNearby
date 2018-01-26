@@ -23,5 +23,35 @@
         "/assets/**"
       ]
     }
+  },
+  {
+    "name": "fonts",
+    "resources": {
+      "files": [
+        "/*.svg",
+        "/*.ttf",
+        "/*.eot",
+        "/*.woff",
+        "/*.woff2"
+      ],
+      "urls": [
+        "https://fonts.googleapis.com/**",
+        "https://fonts.gstatic.com/**"
+      ]
+    }
+  }],
+  "dataGroups": [{
+    "name": "recommended-places",
+    "urls": [
+      "/business?id=mortys-delicatessen-san-francisco",
+      "/business?id=grano-frutta-e-farina-roma",
+      "/business?id=grilld-healthy-burgers-sydney",
+      "/business?id=surya-new-york-3"
+    ],
+    "cacheConfig": {
+      "strategy": "performance",
+      "maxSize": 4,
+      "maxAge": "3d"
+    }
   }]
 }
