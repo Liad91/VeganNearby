@@ -8,29 +8,6 @@ const routes = require('../../api/routes');
 const config = require('../../config');
 
 module.exports = (app) => {
-  /** Redirect non www requests (in production) */
-  app.get('/*', (req, res, next) => {
-    if (req.get('host').slice(0, 4) === 'www.') {
-      return next();
-    }
-    res.redirect(301, `${req.protocol}://www.${req.get('host')}${req.url}`);
-  });
-
-  /** Serve gzipped files for JS and CSS */
-  app.get('*.js', (req, res, next) => {
-    req.url = req.url + '.gz';
-    res.set('Content-Encoding', 'gzip');
-    res.set('Content-Type', 'text/javascript');
-    next();
-  });
-
-  app.get('*.css', (req, res, next) => {
-    req.url = req.url + '.gz';
-    res.set('Content-Encoding', 'gzip');
-    res.set('Content-Type', 'text/css');
-    next();
-  });
-
   /** Set static folder */
   app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 

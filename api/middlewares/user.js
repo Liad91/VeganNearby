@@ -13,7 +13,7 @@ function findOrCreate(req, res, next) {
     err.type = 'not-found';
 
     res.redirect(url.format({
-      pathname: `${config.appUrl}/callback`,
+      pathname: `${config.clientUrl}/callback`,
       query: { err: 'failure' }
     }));
     return next(err);
@@ -40,7 +40,7 @@ function findOrCreate(req, res, next) {
       };
       
       res.redirect(url.format({
-        pathname: `${config.appUrl}/callback`,
+        pathname: `${config.clientUrl}/callback`,
         query: query
       }));
     })

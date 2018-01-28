@@ -2,7 +2,7 @@
 
 Find the top vegan restaurants, cafes and bars near you.
 
-### Tech
+## Tech
 * [node.js](https://nodejs.org) - evented I/O for the backend.
 * [Express](http://expressjs.com) - fast node.js network app framework.
 * [mongoose](https://github.com/Automattic/mongoose) - MongoDB object modeling designed to work in an asynchronous environment.
@@ -14,36 +14,59 @@ Find the top vegan restaurants, cafes and bars near you.
 * [typed.js](https://github.com/mattboldt/typed.js) - A JavaScript Typing Animation Library.
 * And Many More..
 
-### Installation
+## Installation
 ```sh
 $ git clone https://github.com/Liad91/VeganNearby.git
 $ cd VeganNearby
+```
+#### npm
+```sh
 $ npm install
-$ npm run angular-install
+$ npm run install-client
+```
+#### yarn
+```sh
+$ yarn install
+$ yarn run yarn-install-client
 ```
 
-#### Create credentials for the following APIs
+### Create credentials for the following APIs
 - Yelp - https://www.yelp.com/fusion
 - Twitter - https://apps.twitter.com
 - Google - https://developers.google.com
 - Facebook - https://developers.facebook.com
 
-#### Build required folders and set configs
+### Build required folders and set configs
+#### npm
 ```sh
 $ npm run build
 ```
+#### yarn
+```sh
+$ yarn run build
+```
 
-#### Make sure that Angular CLI is installed and up to date
+### Make sure that Angular CLI is installed and up to date
+#### npm
 ```sh
 $ npm install -g @angular/cli@latest
 ``` 
+#### yarn
+```sh
+$ yarn global add @angular/cli@latest
+``` 
 
-#### Start developing 
+### Start developing 
+#### npm
 ```sh
 $ npm run dev
 ```
+#### yarn
+```sh
+$ yarn run dev
+```
 
-### Todos
+## Todos
 - [x] Upgrade Angular to v5.0.0
 - [ ] Upgrade Materialize to v1.0.0
 - [x] Add edit profile page

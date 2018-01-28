@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('../../api/middlewares/passport');
@@ -7,7 +8,7 @@ const environment = process.env.NODE_ENV === 'production' ? 'production' : 'deve
 
 module.exports = (db) => {
   /** Serve static files */
-  app.use(express.static('public'));
+  app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 
   /** Parse incoming requests */
   app.use(bodyParser.json({limit: '1mb'}));

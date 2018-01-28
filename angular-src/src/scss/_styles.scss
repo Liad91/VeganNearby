@@ -78,6 +78,18 @@ header {
       font-size: 2rem;
     }
   }
+
+  & + .content {
+    background-color: #fff;
+    padding: 2rem 25px;
+
+    @media #{$medium-and-down} {
+      padding: 2rem 15px;
+    }
+    @media #{$small-and-down} {
+      padding: 2rem 10px;
+    } 
+  }
 }
 
 .title {
@@ -147,14 +159,6 @@ header {
     }
   }
 }
-
-// Content
-// ==========================================================================
-header + .content {
-  background-color: #fff;
-  padding: 2rem 25px;
-}
-
 
 // Error
 // ==========================================================================

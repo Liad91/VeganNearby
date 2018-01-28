@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
 let googleApiKey;
 
 const configs = {
-  appUrl: 'http://localhost:4200',
+  clientUrl: process.env.CLIENT_URL || 'http://localhost:4200',
   yelp: {},
   facebook: {
     callbackURL: 'http://localhost:3000/auth/facebook/callback'
