@@ -6,9 +6,9 @@
   "scripts": {
     "build": "node build",
     "start": "nodemon app.js",
-    "client": "cd angular-src && ng serve",
-    "install-client": "cd angular-src && npm install",
-    "yarn-install-client": "cd angular-src && yarn install",
+    "client": "cd client && ng serve",
+    "install-client": "cd client && npm install",
+    "yarn-install-client": "cd client && yarn install",
     "dev": "concurrently \"npm run start\" \"npm run client\""
   },
   "author": "Liad Idan",
