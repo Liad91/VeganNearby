@@ -16,6 +16,7 @@ import {
 import { Action, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { take } from 'rxjs/operators';
 
 import * as fromPlaces from '../store/places.reducer';
 import * as filtersActions from './store/filters.actions';
@@ -168,6 +169,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
       Number(queryParams.lat) === this.state.coordinates.lat &&
       Number(queryParams.lng) === this.state.coordinates.lng) {
       this.store.dispatch(new GetPlaces());
+      this.utilitiesService.screenSize
+        .pipe(take(1))
+        .subscribe(size => size === 'sm' || size === 'xs' ? window.scrollTo(0, 0) : null);
     }
     else {
       this.utilitiesService.navigate(['places', this.state.location], {

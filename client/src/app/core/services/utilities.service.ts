@@ -54,7 +54,14 @@ export class UtilitiesService {
 
   private scrollToTop(): void {
     if (this.navigationData.getValue()['scroll']) {
+      const screenSize = this.screenSize.getValue();
+
+      if (screenSize === 'sm' || screenSize === 'xs') {
+        return window.scrollTo(0, 0);
+      }
+
       const behavior = this.navigationData.getValue()['scroll'] === 'smooth' ? 'smooth' : 'auto';
+
       window.scrollTo({
         behavior,
         left: 0,

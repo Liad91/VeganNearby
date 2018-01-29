@@ -186,8 +186,6 @@ header {
       margin-bottom: 1rem;
     }
   }
-
-
   
   button {
     background-color: darken($danger-color, 5%);
@@ -198,6 +196,10 @@ header {
       background-color: darken($danger-color, 10%);
       box-shadow: none;
     }
+  }
+
+  @media #{$extra-small-only} {
+    width: 100%;
   }
 }
 

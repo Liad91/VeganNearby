@@ -34,6 +34,7 @@ export function placeDetailReducer(state = initialState, action: placeDetailActi
     case placeDetailActions.GET_REVIEWS:
       return {
         ...state,
+        reviews: null,
         loading: 'reviews',
         error: null
       };
