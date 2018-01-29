@@ -1,7 +1,7 @@
 {
   "index": "/index.html",
   "assetGroups": [{
-    "name": "app",
+    "name": "VeganNearby",
     "installMode": "prefetch",
     "resources": {
       "files": [
@@ -41,17 +41,15 @@
     }
   }],
   "dataGroups": [{
-    "name": "recommended-places",
+    "name": "api-performance",
     "urls": [
-      "/business?id=mortys-delicatessen-san-francisco",
-      "/business?id=grano-frutta-e-farina-roma",
-      "/business?id=grilld-healthy-burgers-sydney",
-      "/business?id=surya-new-york-3"
+      "/business/**",
+      "https://s3-media3.fl.yelpcdn.com/bphoto/**"
     ],
     "cacheConfig": {
       "strategy": "performance",
-      "maxSize": 4,
-      "maxAge": "3d"
+      "maxSize": 100,
+      "maxAge": "1d"
     }
   }]
 }
