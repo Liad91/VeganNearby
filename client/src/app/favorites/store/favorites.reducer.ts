@@ -14,12 +14,6 @@ const initialState = {
   error: false
 };
 
-function removeFromFavorites(state: State, id: string) {
-  const index = state.places.findIndex(place => place.id === id);
-
-  state.places.splice(index, 1);
-}
-
 export function favoritesReducer(state = initialState, action: favoritesActions.Action): State {
   switch (action.type) {
     case favoritesActions.GET_FAVORITES:
@@ -28,14 +22,14 @@ export function favoritesReducer(state = initialState, action: favoritesActions.
         loading: true
       };
     case favoritesActions.ADD_TO_FAVORITES:
-      state.places.push(action.payload);
       return {
-        ...state
+        ...state,
+        places: state.places.concat(action.payload)
       };
     case favoritesActions.REMOVE_FROM_FAVORITES:
-      removeFromFavorites(state, action.payload);
       return {
-        ...state
+        ...state,
+        places: state.places.filter(place => place.id !== action.payload)
       };
     case favoritesActions.GET_FAVORITES_SUCCESS:
       return {

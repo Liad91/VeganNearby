@@ -130,8 +130,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
     this.utilitiesService.navigate(['places', this.filtersState.location], {
       queryParams: {
         p: page,
-        lat: this.filtersState.coordinates.lat,
-        lng: this.filtersState.coordinates.lng
+        ...this.filtersState.coordinates
       }
     }, {
       scroll: 'smooth'

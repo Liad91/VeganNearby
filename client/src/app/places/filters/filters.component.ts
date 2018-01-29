@@ -173,8 +173,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.utilitiesService.navigate(['places', this.state.location], {
         queryParams: {
           p: 1,
-          lat: this.state.coordinates.lat,
-          lng: this.state.coordinates.lng
+          ...this.state.coordinates
         }
       });
     }

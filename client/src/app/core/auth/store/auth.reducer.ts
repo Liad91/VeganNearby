@@ -66,19 +66,28 @@ export function authReducer(state = initialState, action: authActions.Action): S
     case authActions.LOGOUT:
       return initialState;
     case authActions.ADD_TO_USER_FAVORITES:
-      state.user.favorites.push(action.payload);
-      return {
-        ...state
-      };
-    case authActions.REMOVE_FROM_USER_FAVORITES:
-      state.user.favorites.splice(state.user.favorites.indexOf(action.payload), 1);
-      return {
-        ...state
-      };
-    case authActions.SET_USER_BACKGROUND_SUCCESS:
-      state.user.background = action.payload;
       return {
         ...state,
+        user: {
+          ...state.user,
+          favorites: state.user.favorites.concat(action.payload)
+        }
+      };
+    case authActions.REMOVE_FROM_USER_FAVORITES:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          favorites: state.user.favorites.filter(favorite => favorite !== action.payload)
+        }
+      };
+    case authActions.SET_USER_BACKGROUND_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          background: action.payload
+        },
         backgroundLoading: false
       };
     case authActions.SET_USER_BACKGROUND_FAILURE:

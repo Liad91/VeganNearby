@@ -25,6 +25,14 @@ export interface State {
   offset: number;
 }
 
+interface StateProps {
+  prices?: Filter[];
+  selectedPrices?: string[];
+  cuisines?: Filter[];
+  selectedCuisines?: string[];
+  displayedCuisinesIndex?: number[];
+}
+
 const initialState: State = {
   location: null,
   coordinates: null,
@@ -41,45 +49,75 @@ const initialState: State = {
   offset: null
 };
 
-function updateSelectedArray(filterArray: string[], filter: Filter): void {
+function updateSelectedArray(filterArray: string[], filter: Filter): string[] {
   filter.checked = !filter.checked;
 
   if (filter.checked) {
-    filterArray.push(filter.alias);
+    return filterArray.concat(filter.alias);
   }
   else {
-    filterArray.splice(filterArray.indexOf(filter.alias), 1);
+    return filterArray.filter(value => value !== filter.alias);
   }
 }
 
-function resetFilters(state: State) {
+function resetFilters(state: State): StateProps {
+  const props: StateProps = {};
+
   if (state.selectedPrices.length > 0) {
-    state.prices.forEach(filter => filter.checked = false);
-    state.selectedPrices.splice(0, state.selectedPrices.length);
+    props.selectedPrices = [];
+    props.prices = state.prices.map(price => {
+      return {
+        ...price,
+        checked: false
+      };
+    });
   }
+
   if (state.selectedCuisines.length > 0) {
-    state.cuisines.forEach(filter => filter.checked = false);
-    state.selectedCuisines.splice(0, state.selectedCuisines.length);
+    state.selectedCuisines = [];
+    props.cuisines = state.cuisines.map(cuisine => {
+      return {
+        ...cuisine,
+        checked: false
+      };
+    });
   }
+  return props;
 }
 
-function setCuisines(state: State, indexes: number[]) {
+function setCuisines(state: State, indexes: number[]): StateProps {
+  const props: StateProps = {
+    displayedCuisinesIndex: state.displayedCuisinesIndex.slice(),
+    selectedCuisines: state.selectedCuisines.slice(),
+    cuisines: state.cuisines.map(cuisine => {
+      return { ...cuisine };
+    })
+  };
+
   if (state.selectedCuisines.length > 0) {
-    state.cuisines.forEach(filter => filter.checked = false);
-    state.selectedCuisines.splice(0, state.selectedCuisines.length);
+    props.selectedCuisines = [];
+    props.cuisines = state.cuisines.map(cuisine => {
+      return {
+        ...cuisine,
+        checked: false
+      };
+    });
   }
 
   indexes.forEach(index => {
-    state.cuisines[index].checked = true;
-    state.selectedCuisines.push(state.cuisines[index].alias);
+    props.cuisines[index].checked = true;
+    props.selectedCuisines.push(props.cuisines[index].alias);
 
-    if (state.displayedCuisinesIndex.indexOf(index) > -1) {
-      state.displayedCuisinesIndex.splice(state.displayedCuisinesIndex.indexOf(index), 1);
+    if (props.displayedCuisinesIndex.indexOf(index) > -1) {
+      props.displayedCuisinesIndex.splice(props.displayedCuisinesIndex.indexOf(index), 1);
     }
   });
-  state.displayedCuisinesIndex.unshift(...indexes);
-  state.displayedCuisinesIndex.splice(5, state.displayedCuisinesIndex.length);
-  state.displayedCuisinesIndex.sort((a, b) => +(a > b));
+
+  props.displayedCuisinesIndex.unshift(...indexes);
+  props.displayedCuisinesIndex.splice(5, props.displayedCuisinesIndex.length);
+  props.displayedCuisinesIndex.sort((a, b) => Number(a > b));
+
+  return props;
 }
 
 export function filtersReducer(state = initialState, action: filtersActions.Action): State {
@@ -93,9 +131,9 @@ export function filtersReducer(state = initialState, action: filtersActions.Acti
         offset: null
       };
     case filtersActions.NEW_SEARCH:
-      resetFilters(state);
       return {
         ...initialState,
+        ...resetFilters(state),
         ...action.payload
       };
     case filtersActions.SET_ZOOM:
@@ -124,9 +162,9 @@ export function filtersReducer(state = initialState, action: filtersActions.Acti
         location: action.payload
       };
     case filtersActions.SET_CUISINES:
-      setCuisines(state, action.payload);
       return {
-        ...state
+        ...state,
+        ...setCuisines(state, action.payload)
       };
     case filtersActions.SET_COORDINATES:
       return {
@@ -134,19 +172,19 @@ export function filtersReducer(state = initialState, action: filtersActions.Acti
         coordinates: action.payload
       };
     case filtersActions.RESET_FILTERS:
-      resetFilters(state);
       return {
-        ...state
+        ...state,
+        ...resetFilters(state)
       };
     case filtersActions.UPDATE_PRICES:
-      updateSelectedArray(state.selectedPrices, action.payload);
       return {
-        ...state
+        ...state,
+        selectedPrices: updateSelectedArray(state.selectedPrices, action.payload)
       };
     case filtersActions.UPDATE_CUISINES:
-      updateSelectedArray(state.selectedCuisines, action.payload);
       return {
-        ...state
+        ...state,
+        selectedCuisines: updateSelectedArray(state.selectedCuisines, action.payload)
       };
     default:
       return state;
