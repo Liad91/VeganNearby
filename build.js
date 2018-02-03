@@ -121,7 +121,7 @@ inquirer.prompt(questions)
     /** Create config file for Angular */
     try {
       fs.writeFileSync(
-        path.resolve('angular-src', 'src', 'config.ts'),
+        path.resolve('client', 'src', 'config.ts'),
         `export const googleApiKey = '${googleApiKey}';\n`,
         'utf-8'
       );
