@@ -1,6 +1,6 @@
 # VeganNearby
 
-Find the top vegan restaurants, cafes and bars near you.
+Find the top vegan restaurants, cafes and bars near you. [Demo](https://vegannearby.com)
 
 ## Tech
 * [node.js](https://nodejs.org) - evented I/O for the backend.
