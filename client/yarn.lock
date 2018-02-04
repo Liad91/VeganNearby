@@ -134,12 +134,6 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/http@^5.2.2":
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-5.2.2.tgz#d33c128d5737f8d701bbac3e7e23d831deec3457"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/language-service@^5.2.2":
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-5.2.2.tgz#2829214885096c4168566a9f74364a8fed641a49"
