@@ -2,36 +2,15 @@
   <form class="flex w-100" (ngSubmit)="onSubmit()">
     <div class="flex w-70 location">
       <div id="locate" *ngIf="mode === 'home'">
-        <button
-          type="button"
-          mz-button
-          [flat]="true"
-          [float]="true"
-          (click)="getLocation()"
-          [disabled]="locateSpinner || locateFailed"
-        >
-        <i 
-          class="mdi search-icon"
-          [ngClass]="locateFailed ? 'mdi-map-marker-off' : 'mdi-map-marker'"
-          [vnColor]="locateFailed ? 'gray-300' : 'primary'"
-          *ngIf="!locateSpinner"
-        >
-        </i>
+        <button type="button" mz-button [flat]="true" [float]="true" (click)="getLocation()" [disabled]="locateSpinner || locateFailed">
+          <i class="mdi search-icon" [ngClass]="locateFailed ? 'mdi-map-marker-off' : 'mdi-map-marker'" [vnColor]="locateFailed ? 'gray-300' : 'primary'"
+            *ngIf="!locateSpinner">
+          </i>
           <mz-spinner color="blue" size="small" *ngIf="locateSpinner"></mz-spinner>
         </button>
       </div>
-      <input
-        #search
-        type="text"
-        name="location"
-        [(ngModel)]="location"
-        class="search-input"
-        placeholder="{{ state.categories[state.selectedCategoryIndex].title }} near..."
-        autocorrect="off"
-        autocapitalize="off"
-        spellcheck="off"
-        (keyup)="onSearchChange($event)"
-      >
+      <input #search type="text" name="location" [(ngModel)]="location" class="search-input" placeholder="Search Vegan {{ state.categories[state.selectedCategoryIndex].title }} Near..."
+        autocorrect="off" autocapitalize="off" spellcheck="off" (keyup)="onSearchChange($event)">
     </div>
     <div class="flex w-30 categories" *ngIf="mode === 'home'">
       <div class="input-field w-100">

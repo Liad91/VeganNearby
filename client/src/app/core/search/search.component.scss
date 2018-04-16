@@ -14,53 +14,50 @@
   background-color: #fff;
   margin-right: 10px;
 
+  .select-wrapper {
+    border: 1px solid $border-color;
+    border-radius: 3px;
+  }
+
   .input-field {
     margin-top: 0;
 
     .caret {
       right: 10px;
-      color: $dark-color;
+      color: $font-color;
     }
     
     .select-dropdown {
       margin: 0;
       border: none;
       font-size: 14px;
-      color: $dark-color;
+      color: $font-color;
       text-align: center;
     }
 
     ul.dropdown-content {
       background-color: #fff;
-      border-radius: 3px;
+      border-radius: 0;
+      margin-top: 3.1rem;
 
       li {
         text-align: center;
-        min-height: 40px;
+        min-height: 3rem;
         display: flex;;
         align-items: center;
         justify-content: center;
         padding: 10px 0;
         transition: $fast-transition;
 
-        &.selected,
-        &.active {
-          background-color: $primary-color;
-    
-          span {
-            color: #fff; 
-          }
-        }
-
         span {
-          color: $dark-color;
+          color: $font-color;
           padding: 0;
-          font-size: 1rem;
+          font-size: 14px;
         }
       }
 
       &.active {
-        border-radius: 3px;
+        border-radius: 0;
       }
     }
   }
@@ -69,6 +66,7 @@
 .location {
   background: #fff;
   margin-right: 10px;
+  border: 1px solid $border-color;
 
   #locate {
     display: flex;;
@@ -91,7 +89,7 @@
     transition: none;
     
     &::-webkit-input-placeholder  {
-      color: $gray-color;
+      color: $font-color;
     }
 
     &:focus {
@@ -107,6 +105,7 @@ button[type = submit] {
   height: auto;
   max-width: 50px;
   background-color: $primary-color;
+  box-shadow: none;
 
   i {
     font-size: 25px;
@@ -120,7 +119,6 @@ button[type = submit] {
 @media #{$extra-small-only} {
   .search-box:not(.nav) {
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 0 0 5px 5px;
 
     form {
@@ -131,16 +129,10 @@ button[type = submit] {
         width: 100%;
         margin-right: 0;
         margin-bottom: 15px;
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid  rgba(255, 255, 255, 0.7);
       }
 
       .categories ::ng-deep {
         height: 42px;
-
-        ul.dropdown-content {
-          background: rgba(255, 255, 255, 0.8);
-        }
       }
 
       .location {
@@ -178,6 +170,7 @@ button[type = submit] {
       width: 100%;
       margin-right: 0;
       border-radius: 5px 0 0 5px;
+      border: none;
 
       button {
         width: 2rem;

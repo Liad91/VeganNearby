@@ -13,7 +13,7 @@ if (environment.production) {
 
 WebFont.load({
   google: {
-    families: ['Raleway:400,500,600']
+    families: ['Raleway:400,500,600,700']
   },
   timeout: 2000
 });

@@ -1,81 +1,125 @@
 <div class="header flex">
   <div class="content flex column justify-content-center w-100">
-    <h1 class="center-align mt-0" *ngIf="!(mobileView | async)">Searching for {{ category.alias }}?</h1>
-    <h3 class="center-align mt-0" *ngIf="!(mobileView | async)"><vn-typed [strings]="strings"></vn-typed></h3>
-    <h2 class="center-align mt-0" *ngIf="(mobileView | async)">Find your favorite {{ category.alias }}</h2>
-    <vn-search mode="home"></vn-search>
-    <div class="bottom">
-      
-      <p class="mb-0">Our search engine is powered by yelp</p>
-      <p class="small">The most popular restaurant finder!</p>
-      <a href="https://www.yelp.com" target="_blank">
-        <img src="assets/images/yelp_logo.png" alt="yelp logo">
-      </a> 
+    <div class="header-title">
+      <h1 class="center-align mt-0">Looking for {{ category.alias }}?</h1>
+      <h3 class="center-align mt-0" *ngIf="!(mobileView | async)">
+        <vn-typed [strings]="strings"></vn-typed>
+      </h3>
+      <h3 class="center-align mt-0" *ngIf="(mobileView | async)">Let us help you to find it!</h3>
+    </div>
+    <div class="search-form">
+      <vn-search mode="home"></vn-search>
     </div>
   </div>
 </div>
-<div class="banners flex px-2" [ngClass]="{open: bannerOpen}">
-  <div class="banner" [ngClass]="{flip: banner.checked}" *ngFor="let banner of banners" (click)="flipBanner(banner)">
-    <div class="front">
-      <i class="mdi mdi-{{banner.icon}} mdi-36px"></i>
-      <div class="text">
-        <h4>{{ banner.title }}</h4>
-        <p>{{ banner.subtitle }}</p>
-      </div>
-    </div>
-    <div class="back">
-      <p>{{ banner.text }}</p>
-    </div>
-  </div>
-</div>
-  
-<div class="content w-100">
-  <div class="title-big mt-3 mb-2">
-    <h1 class="mt-0">Recommended Cities</h1>
-    <p class="m-0">Most vegan friendly cities you must explore</p>
-  </div>
 
-  <div class="cities flex wrap w-100">
-    <div class="city big" (click)="searchCity('Los Angeles, CA, USA')">
-      <div class="los-angeles"></div>
-      <h3>Los Angeles</h3>
+<section class="secondary">
+  <div class="content w-100">
+    <div class="title-big">
+      <h1 class="mt-0">Browse
+        <span class="primary">our</span>
+        cities
+      </h1>
+      <p class="m-0">Find out how many lovely places we have on our directory</p>
     </div>
-    <div class="center">
+
+    <div class="cities flex wrap w-100">
+      <div class="city big" (click)="searchCity('Los Angeles, CA, USA')">
+        <div class="los-angeles">
+          <h3>Los Angeles</h3>
+          <div class="results">9126 results</div>
+        </div>
+      </div>
       <div class="city" (click)="searchCity('New York, NY, USA')">
-        <div class="new-york"></div>
-        <h3>New York</h3>
+        <div class="new-york">
+          <h3>New York</h3>
+          <div class="results">8051 results</div>
+        </div>
       </div>
       <div class="city" (click)="searchCity('Toronto, ON, Canada')">
-        <div class="toronto"></div>
-        <h3>Toronto</h3>
+        <div class="toronto">
+          <h3>Toronto</h3>
+          <div class="results">1448 results</div>
+        </div>
+      </div>
+      <div class="city" (click)="searchCity('London, UK')">
+        <div class="berlin">
+          <h3>London</h3>
+          <div class="results">1270 results</div>
+        </div>
+      </div>
+      <div class="city" (click)="searchCity('Berlin, Germany')">
+        <div class="berlin">
+          <h3>Berlin</h3>
+          <div class="results">783 results</div>
+        </div>
       </div>
     </div>
-    <div class="city big" (click)="searchCity('Berlin, Germany')">
-      <div class="berlin"></div>
-      <h3>Berlin</h3>
-    </div>
   </div>
+</section>
 
-  <div class="title-big mt-3 mb-2">
-    <h1 class="mt-0">Recommended Places</h1>
-    <p class="m-0">Most vegan friendly places you must explore</p>
-  </div>
+<section class="divided">
+  <div class="content w-100">
+    <div class="title-big">
+      <h1 class="mt-0">Why you
+        <span class="primary">should</span>
+        go vegan
+      </h1>
+    </div>
 
-  <div class="places flex justify-content-center mb-3">
-    <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error">
-      <h3 class="white-text">Connection Error</h3>
-      <p class="white-text">Ooops, something went wromg. Please try again later.</p>
-      <button mz-button (click)="onReload()">Try Again</button>
-    </div>
-    <vn-place
-      [place]="place"
-      [ngClass]="{list: (mobileView | async)}"
-      [listMode]="(mobileView | async)"
-      *ngFor="let place of (state | async).places"
-    >
-    </vn-place>
-    <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading">
-      <mz-spinner size="medium" color="blue"></mz-spinner>
+    <div class="reasons">
+      <div class="reason flex">
+        <i class="mdi mdi-leaf"></i>
+        <p>
+          <strong>Help to save animals:</strong> Every vegan saves more than 100 animals a year! There is simply no easier way to
+          help animals and prevent suffering.</p>
+      </div>
+
+      <div class="reason flex">
+        <i class="mdi mdi-leaf"></i>
+        <p>
+          <strong>Save the planet:</strong> Consuming meat is actually one of the worst things that you can do for the Earth. It
+          is wasteful and causes enormous amounts of pollution.</p>
+      </div>
+
+      <div class="reason flex">
+        <i class="mdi mdi-leaf"></i>
+        <p>
+          <strong>Help feed the world:</strong> Eating meat takes tons of crops and water to raise farmed animals. All that plant
+          food could be used much more efficiently if it were fed directly to people.</p>
+      </div>
+
+      <div class="reason flex">
+        <i class="mdi mdi-leaf"></i>
+        <p>
+          <strong>Vegan diet is great for your health:</strong> According to the Academy of Nutrition and Dietetics, vegans are less
+          likely to develop heart disease, cancer, diabetes, or high blood pressure than meat-eaters are.</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<section class="secondary">
+  <div class="content w-100">
+    <div class="title-big">
+      <h1 class="mt-0">Our
+        <span class="primary">featured</span>
+        places
+      </h1>
+      <p class="m-0">Currently trending places on town, worth to check them out</p>
+    </div>
+
+    <div class="places flex justify-content-center">
+      <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error">
+        <h3 class="white-text">Connection Error</h3>
+        <p class="white-text">Ooops, something went wromg. Please try again later.</p>
+        <button mz-button (click)="onReload()">Try Again</button>
+      </div>
+      <vn-place [place]="place" [ngClass]="{list: (mobileView | async)}" [listMode]="(mobileView | async)" *ngFor="let place of (state | async).places">
+      </vn-place>
+      <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading">
+        <mz-spinner size="medium" color="blue"></mz-spinner>
+      </div>
+    </div>
+  </div>
+</section>
