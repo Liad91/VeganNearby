@@ -9,6 +9,7 @@ import { map, take, filter } from 'rxjs/operators';
 import { State } from './store/home.reducer';
 import * as homeActions from './store/home.actions';
 import * as fromRoot from '../../store/app.reducer';
+import { categoryStateTrigger } from './animations';
 import { UtilitiesService } from '../services/utilities.service';
 import { PlacesService } from '../../places/places.service';
 import { Filter } from '../../places/filters/store/filters.reducer';
@@ -18,7 +19,10 @@ import { GetPlaces, ResetPlaces } from '../../places/place-list/store/place-list
 @Component({
   selector: 'vn-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    categoryStateTrigger
+  ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription;

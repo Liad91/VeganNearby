@@ -1,92 +1,60 @@
-<div class="filter map">
-  <div class="title-inline flex align-items-center">
-    <i class="mdi mdi-map mdi-24px"></i>
-    <h3>Map</h3>
-    <div class="switch flex ml-auto">
-      <label>
-        update when dragging
-        <input type="checkbox" [checked]="updateOnDrag" (change)="updateOnDrag = !updateOnDrag">
-        <span class="lever"></span>
-      </label>
-    </div>
-  </div>
-  <agm-map
-    [latitude]="state.coordinates?.lat"
-    [longitude]="state.coordinates?.lng"
-    [streetViewControl]="false"
-    [maxZoom]="18"
-    [minZoom]="10"
-    [zoom]="state.zoom"
-    [styles]="mapStyles"
-    [zoomControl]="false"
-    (zoomChange)="state.zoom = $event"
-    (centerChange)="onMapCenterChange($event)"
-    (boundsChange)="mapBounds = $event"
-  >
-    <agm-marker
-      *ngFor="let place of places"
-      [latitude]="place.coordinates.latitude"
-      [longitude]="place.coordinates.longitude"
-      [iconUrl]="'assets/icons/marker.png'"
-      [title]="place.name"
-      (mouseOver)="place.markerHover = true"
-      (mouseOut)="place.markerHover = false"
-    >
-    </agm-marker>
-  </agm-map>
-</div>
+<agm-map [latitude]="state.coordinates?.lat" [longitude]="state.coordinates?.lng" [streetViewControl]="false" [maxZoom]="18"
+  [minZoom]="10" [zoom]="state.zoom" [styles]="mapStyles" [zoomControl]="false" (zoomChange)="state.zoom = $event" (centerChange)="onMapCenterChange($event)"
+  (boundsChange)="mapBounds = $event">
+  <agm-marker *ngFor="let place of places" [latitude]="place.coordinates.latitude" [longitude]="place.coordinates.longitude"
+    [iconUrl]="'assets/icons/marker.png'" [title]="place.name" (mouseOver)="place.markerHover = true" (mouseOut)="place.markerHover = false">
+  </agm-marker>
+</agm-map>
+
 <div class="filter">
-  <div class="title-inline flex align-items-center">
-    <i class="mdi mdi-domain mdi-24px"></i>
-    <h3>Establishment Type</h3>
+  <p>Map</p>
+  <div class="fields">
+    <p class="checkbox-field">
+      <input type="checkbox" class="filled-in" id="filled-in-box" [checked]="updateOnDrag" (change)="updateOnDrag = !updateOnDrag"
+      />
+      <label for="filled-in-box">Update when dragging</label>
+    </p>
   </div>
-  <p class="radio-field" *ngFor="let category of state.categories">
-    <input 
-      type="radio"
-      name="establishment"
-      [id]="category.alias"        
-      class="with-gap"
-      [checked]="category.title === state.selectedCategory.title"
-      (change)="onCategoryChanged(category)"
-    >
-    <label [for]="category.alias">{{ category.title }}</label>
-  </p>
+  <!-- <div class="switch flex ml-auto">
+    <label>
+      update when dragging
+      <input type="checkbox" [checked]="updateOnDrag" (change)="updateOnDrag = !updateOnDrag">
+      <span class="lever"></span>
+    </label>
+  </div> -->
 </div>
+
+
 <div class="filter">
-  <div class="title-inline flex align-items-center">
-    <i class="mdi mdi-currency-usd mdi-24px"></i>
-    <h3>Price</h3>
+  <p>Establishment Type</p>
+  <div class="fields">
+    <p class="radio-field" *ngFor="let category of state.categories">
+      <input type="radio" name="establishment" [id]="category.alias" [checked]="category.title === state.selectedCategory.title"
+        (change)="onCategoryChanged(category)">
+      <label [for]="category.alias">{{ category.title }}</label>
+    </p>
   </div>
-  <p class="checkbox-field"  *ngFor="let price of state.prices">
-    <input
-      type="checkbox"
-      [id]="price.alias"      
-      class="filled-in"
-      [checked]="price.checked"
-      (change)="updatePrices(price)"
-    >
-    <label [for]="price.alias">{{ price.title }}</label>
-  </p>
+</div>
+
+<div class="filter">
+  <p>Price</p>
+  <div class="fields">
+    <p class="checkbox-field" *ngFor="let price of state.prices">
+      <input type="checkbox" [id]="price.alias" class="filled-in" [checked]="price.checked" (change)="updatePrices(price)">
+      <label [for]="price.alias">{{ price.title }}</label>
+    </p>
+  </div>
 </div>
 <div class="filter" *ngIf="state.selectedCategory.alias === 'restaurants'">
-  <div class="title-inline flex align-items-center">
-    <i class="mdi mdi-silverware-variant mdi-24px"></i>
-    <h3>Cuisine</h3>
-    <div class="more" (click)="openModal()">
-      <span>Show More</span>
-      <i class="mdi mdi-menu-down"></i>
-    </div>
+  <p>Cuisine</p>
+  <!-- <div class="more" (click)="openModal()">
+    <span>Show More</span>
+    <i class="mdi mdi-menu-down"></i>
+  </div> -->
+  <div class="fields">
+    <p class="checkbox-field" *ngFor="let index of state.displayedCuisinesIndex">
+      <input type="checkbox" [id]="state.cuisines[index].alias" class="filled-in" [checked]="state.cuisines[index].checked" (change)="updateCuisines(state.cuisines[index])">
+      <label [for]="state.cuisines[index].alias">{{ state.cuisines[index].title }}</label>
+    </p>
   </div>
-  <p class="checkbox-field" *ngFor="let index of state.displayedCuisinesIndex">
-    <input
-      type="checkbox"
-      [id]="state.cuisines[index].alias"
-      class="filled-in"
-      [checked]="state.cuisines[index].checked"
-      (change)="updateCuisines(state.cuisines[index])"
-    >
-    <label [for]="state.cuisines[index].alias">{{ state.cuisines[index].title }}</label>
-  </p>
 </div>
-<a mz-button class="hide-on-med-and-up mt-2" (click)="onApply()">Apply</a>
-<a mz-button class="hide-on-med-and-up red" [disabled]="state.selectedCuisines.length === 0 && state.selectedPrices.length === 0" (click)="onReset()">Reset</a>

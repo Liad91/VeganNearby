@@ -14,9 +14,11 @@
     </div>
     <div class="flex w-30 categories" *ngIf="mode === 'home'">
       <div class="input-field w-100">
-        <select mz-select name="category" (change)="onCategoryChange($event)">
-          <option [value]="i" *ngFor="let category of state.categories; let i = index" [selected]="state.selectedCategoryIndex === i">{{ category.title }}</option>
-        </select>
+        <mz-select-container>
+          <select mz-select name="category" (change)="onCategoryChange($event)">
+            <option [value]="i" *ngFor="let category of state.categories; let i = index" [selected]="state.selectedCategoryIndex === i">{{ category.title }}</option>
+          </select>
+        </mz-select-container>
       </div>
     </div>
     <button mz-button type="submit">

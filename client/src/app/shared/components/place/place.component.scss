@@ -108,10 +108,11 @@
       font-size: 1.1rem;
       line-height: 1.5;
       margin-bottom: 5px;
-      transition: $medium-transition;
+      transition: color 0.25s ease-out;
+      will-change: color;
 
       &:hover {
-        color: $secondary-color;
+        color: $primary-color;
       }
     }
 

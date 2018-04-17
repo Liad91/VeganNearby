@@ -1,7 +1,12 @@
 <div class="header flex">
   <div class="content flex column justify-content-center w-100">
-    <div class="header-title">
-      <h1 class="center-align mt-0">Looking for {{ category.alias }}?</h1>
+    <div class="flex column align-items-center">
+      <div class="header-1">
+        <h1 class="mt-0">Looking for</h1>
+        <h1 class="mt-0 category" *ngIf="category.alias === 'restaurants'" @categoryState>&nbsp;restaurant?</h1>
+        <h1 class="mt-0 category" *ngIf="category.alias === 'cafes'" @categoryState>&nbsp;cafe?</h1>
+        <h1 class="mt-0 category" *ngIf="category.alias === 'bars'" @categoryState>&nbsp;bar?</h1>
+      </div>
       <h3 class="center-align mt-0" *ngIf="!(mobileView | async)">
         <vn-typed [strings]="strings"></vn-typed>
       </h3>

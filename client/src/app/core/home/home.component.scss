@@ -15,6 +15,11 @@
   background-size: cover;
   background-position: 50% 26%;
 
+  .header-1 {
+    position: relative;
+    display: flex;
+  }
+
   h1,
   h2,
   h3 {
@@ -24,13 +29,13 @@
   h1 {
     margin-bottom: 10px;
     font-weight: 700;
-    font-size: 2.6rem;
+    font-size: 2.8rem;
     text-transform: uppercase;
   }
   
   h3 {
     font-weight: 400;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     margin: 0;
   }
 
@@ -51,14 +56,20 @@
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: center;
   margin: 0 auto;
   width: 1000px;
   height: 94px;
-  padding: 1rem;
+  padding: 0 1.5rem;
   transform: translate(0, 45%);
   background: #fff;
   box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
+  border-radius: 10px;
+
+  vn-search {
+    width: 100%;
+  }
 
   @media #{$medium-and-down} {
     width: 850px;
@@ -71,7 +82,7 @@
   @media #{$extra-small-only} { 
     width: 100%;
     height: 196px;
-    padding: 0;
+    padding: 0 10px;
     border-radius: 0;
     transform: translate(0, 100%);
   }
@@ -224,7 +235,7 @@ section {
 
     &:hover {
       & > div {
-        box-shadow: 1px 2px 10px 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.35);
       }
       .results {
         background-color: $primary-color;
@@ -242,7 +253,7 @@ section {
       background-repeat: no-repeat;
       background-size: cover;
       border-radius: 10px;
-      transition: box-shadow 0.3s ease-out;
+      transition: box-shadow 0.25s cubic-bezier(0.445, 0.05, 0.55, 0.95);
       will-change: box-shadow;
     }
 
@@ -260,8 +271,6 @@ section {
       font-size: 1.6rem;
       text-align: center;
       color: #fff;
-      transition: color 0.3s ease-out;
-      will-change: color;
     }
 
     .results {
@@ -270,7 +279,7 @@ section {
       color: #fff;
       border: 2px solid #fff;
       border-radius: 10px;
-      transition: 0.2s ease-out;
+      transition: 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
       transition-property:  background-color, border-color;
       will-change: background-color, border-color;
     }

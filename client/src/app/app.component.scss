@@ -7,25 +7,22 @@
 }
 
 footer.page-footer {
+  font-family: $header-font-family;
+  text-align: center;
   margin-top: auto;
   padding-top: 0;
   font-size: 14px;
   
   .footer-copyright {
-    background-color: #212121;
+    background-color: #0b0b0b;
     font-weight: 400;
   }
 
   @media #{$extra-small-only} {
-    text-align: center;
     font-size: 12px;
 
     .footer-copyright .container {
       width: 95%;
-
-      & > a + a {
-        margin-right: 45%;
-      }
     }
   }
 }

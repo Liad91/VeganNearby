@@ -4,31 +4,33 @@
   display: block;
 }
 
-header {
-  background-image: url('../../../assets/images/list-banner.jpg');
-  background-position: 50% 80%;
+section {
+  position: relative;
+
+  ::ng-deep agm-map,
+  .content-left {
+    height: calc(100vh - 114px);
+  }
+
+  ::ng-deep agm-map {
+    position: absolute;
+    top: 0; 
+    bottom: 0;
+    right: 0;
+    width: 50%;
+
+    & > div {
+      width: 100% !important;
+    }
+  }
+
+  .content-left {
+    width: 50%;
+    overflow-y: scroll;
+    padding: 2rem;
+  }
 }
 
-#filters-sidenav {
-  width: 100% !important;
-  padding-bottom: 0;
-  
-  vn-filters {
-    padding: 10px;
-  }
-  
-  & + button {
-    position: fixed;
-    top: 50vh;
-    left: 15px;
-    z-index: 200;
-  }
-}
-
-.filters {
-  min-width: 280px;
-  width: 280px;
-}
 
 .main {
   position: relative;

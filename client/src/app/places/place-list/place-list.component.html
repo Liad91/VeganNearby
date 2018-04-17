@@ -1,46 +1,20 @@
-<header>
-  <div class="cover"></div>
-  <h1>Search Results</h1>
-</header>
-  
-<div class="content"> 
-  <div *ngIf="(screenSize | async) === 'sm' || (screenSize | async) === 'xs'">
-    <ul id="filters-sidenav" class="side-nav">
-      <vn-filters class="flex column" [sidenavMode]="true" [places]="(state | async).places"></vn-filters>
-    </ul>
-    <button 
-      vnSidenavButton
-      sidenav="filters-sidenav"
-      [draggable]="false"
-      [closeOnClick]="true"
-      class="btn-floating btn-large"
-    >
-      <i class="mdi mdi-filter-outline mdi-24px"></i>
-    </button>
-  </div>
-  
-  <div class="flex">
-    <div class="filters align-self-flex-start mb-3 mr-2" *ngIf="(screenSize | async) !== 'sm' && (screenSize | async) !== 'xs'">
-      <div class="title"><h4>Filters</h4></div>
+<section>
+  <div class="content-left">
+    <div class="filters">
       <vn-filters class="flex column" [places]="(state | async).places"></vn-filters>
     </div>
-    <div class="main flex column max-w-100">
+    <div class="main flex column">
       <div class="title inline w-100">
-        <h4 class="nowrap">{{ filtersState.selectedCategory.title }} near <strong>{{ filtersState.location }}</strong></h4>
+        <h4 class="nowrap">{{ filtersState.selectedCategory.title }} near
+          <strong>{{ filtersState.location }}</strong>
+        </h4>
         <p class="badge" *ngIf="(state | async).total">{{ (state | async).total }} Results</p>
         <p class="badge" *ngIf="!(state | async).total && !(state | async).loading">No Results</p>
       </div>
       <div class="places-wrap flex wrap w-100">
         <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
-          <vn-place
-            class="mb-1 mr-1"
-            [ngClass]="{'list': (screenSize | async) === 'xs'}"
-            [listMode]="(screenSize | async) === 'xs'"
-            [place]="place"
-            (mouseenter)="place.hover = true"
-            (mouseleave)="place.hover = false"
-            @placeState
-          >
+          <vn-place class="mb-1 mr-1" [ngClass]="{'list': (screenSize | async) === 'xs'}" [listMode]="(screenSize | async) === 'xs'"
+            [place]="place" (mouseenter)="place.hover = true" (mouseleave)="place.hover = false" @placeState>
           </vn-place>
         </ng-container>
         <div class="no-results w-100" *ngIf="(state | async).total === 0">
@@ -51,25 +25,20 @@
             <a (click)="onResetFilters()">Reset</a> the filters or try deselecting a tag or two.
           </ng-container>
         </div>
-        <div class="error center-align align-self-flex-start w-90 py-2 mx-auto" *ngIf="(state | async).error && !(state | async).loading" @errorState>
+        <div class="error center-align align-self-flex-start w-90 py-2 mx-auto" *ngIf="(state | async).error && !(state | async).loading"
+          @errorState>
           <h3>Connection Error</h3>
           <p>Ooops, something went wromg. Please try again later.</p>
           <button mz-button (click)="onReload()">Try Again</button>
         </div>
       </div>
-     
+
       <div class="spinner-wrap" [hidden]="!(state | async).loading">
         <mz-spinner color="blue" size="big"></mz-spinner>
       </div>
     </div>
+    <vn-pagination class="w-100 center-align mt-auto mb-3" [itemsPerPage]="18" [currentPage]="currentPage" [totalItems]="(state | async).total"
+      (pageChange)="onPageChange($event)" *ngIf="!(state | async).loading || ((state | async).loading && (screenSize | async) !== 'sm' && (screenSize | async) !== 'xs')">
+    </vn-pagination>
   </div>
-  <vn-pagination
-  class="w-100 center-align mt-auto mb-3"
-  [itemsPerPage]="18"
-  [currentPage]="currentPage"
-  [totalItems]="(state | async).total"
-  (pageChange)="onPageChange($event)"
-  *ngIf="!(state | async).loading || ((state | async).loading && (screenSize | async) !== 'sm' && (screenSize | async) !== 'xs')"
->
-</vn-pagination>
-</div>
+</section>

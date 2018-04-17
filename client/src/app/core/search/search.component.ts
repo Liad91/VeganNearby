@@ -38,11 +38,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   private autocompleteListener: google.maps.MapsEventListener;
 
   constructor(private renderer: Renderer2,
-              private store: Store<fromRoot.AppState>,
-              private geoService: GeographicalService,
-              private utilitiesService: UtilitiesService,
-              private mapsApiLoader: MapsAPILoader,
-              private toastService: ToastService) {}
+    private store: Store<fromRoot.AppState>,
+    private geoService: GeographicalService,
+    private utilitiesService: UtilitiesService,
+    private mapsApiLoader: MapsAPILoader,
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.stateSubscription = this.store.select('search').subscribe(

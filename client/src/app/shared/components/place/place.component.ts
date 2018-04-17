@@ -15,6 +15,8 @@ export class PlaceComponent {
   @Input() public place: YelpBusiness | YelpBusinessResponse;
   @Input() public listMode = false;
 
+  constructor(private store: Store<AppState>, private utilitiesService: UtilitiesService) { }
+
   getPlaceDetail(): void {
     if ((<YelpBusinessResponse>this.place).hours) {
       this.store.dispatch(new SetPlace(<YelpBusinessResponse>this.place));
@@ -24,6 +26,4 @@ export class PlaceComponent {
     }
     this.utilitiesService.navigate(['places', 'place', this.place.id], {}, { scroll: true });
   }
-
-  constructor(private store: Store<AppState>, private utilitiesService: UtilitiesService) {}
 }

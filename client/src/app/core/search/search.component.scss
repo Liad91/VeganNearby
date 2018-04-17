@@ -1,17 +1,10 @@
 @import '../../variables';
 
-.search-box {
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.24);
-
-  &,
-  form > * {
-    border-radius: 3px;
-  }
+.search-box form > * {
+  border-radius: 3px;
 }
 
 .categories ::ng-deep {
-  background-color: #fff;
   margin-right: 10px;
 
   .select-wrapper {
@@ -118,9 +111,6 @@ button[type = submit] {
 
 @media #{$extra-small-only} {
   .search-box:not(.nav) {
-    padding: 20px;
-    border-radius: 0 0 5px 5px;
-
     form {
       flex-wrap: wrap;
 

@@ -18,7 +18,7 @@ import { State } from './filters/store/filters.reducer';
 @Injectable()
 export class PlacesService {
 
-  constructor(private http: HttpClient, private connectionService: ConnectionService) {}
+  constructor(private http: HttpClient, private connectionService: ConnectionService) { }
 
   public getPlaces(state: State) {
     const params = new YelpSearchParams();

@@ -19,55 +19,55 @@ export const UPDATE_CUISINES = 'UPDATE_CUISINES';
 export class Search implements Action {
   readonly type = SEARCH;
 
-  constructor(public payload: { location: string, coordinates: LatLngLiteral }) {}
+  constructor(public payload: { location: string, coordinates: LatLngLiteral }) { }
 }
 
 export class NewSearch implements Action {
   readonly type = NEW_SEARCH;
 
-  constructor(public payload: { location: string, coordinates: LatLngLiteral, selectedCategory?: Filter }) {}
+  constructor(public payload: { location: string, coordinates: LatLngLiteral, selectedCategory?: Filter }) { }
 }
 
 export class SetZoom implements Action {
   readonly type = SET_ZOOM;
 
-  constructor(public payload: number) {}
+  constructor(public payload: number) { }
 }
 
 export class SetOffset implements Action {
   readonly type = SET_OFFSET;
 
-  constructor(public payload: number) {}
+  constructor(public payload: number) { }
 }
 
 export class SetRadius implements Action {
   readonly type = SET_RADIUS;
 
-  constructor(public payload: number) {}
+  constructor(public payload: number) { }
 }
 
 export class SetCategory implements Action {
   readonly type = SET_CATEGORY;
 
-  constructor(public payload: Filter) {}
+  constructor(public payload: Filter) { }
 }
 
 export class SetLocation implements Action {
   readonly type = SET_LOCATION;
 
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export class SetCuisines implements Action {
   readonly type = SET_CUISINES;
 
-  constructor(public payload: number[]) {}
+  constructor(public payload: number[]) { }
 }
 
 export class SetCoordinates implements Action {
   readonly type = SET_COORDINATES;
 
-  constructor(public payload: LatLngLiteral) {}
+  constructor(public payload: LatLngLiteral) { }
 }
 
 export class ResetFilters implements Action {
@@ -77,13 +77,13 @@ export class ResetFilters implements Action {
 export class UpdatePrices implements Action {
   readonly type = UPDATE_PRICES;
 
-  constructor(public payload: Filter) {}
+  constructor(public payload: Filter) { }
 }
 
 export class UpdateCuisines implements Action {
   readonly type = UPDATE_CUISINES;
 
-  constructor(public payload: Filter) {}
+  constructor(public payload: Filter) { }
 }
 
 export type Action =
