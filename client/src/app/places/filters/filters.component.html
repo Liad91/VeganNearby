@@ -15,27 +15,17 @@
       <label for="filled-in-box">Update when dragging</label>
     </p>
   </div>
-  <!-- <div class="switch flex ml-auto">
-    <label>
-      update when dragging
-      <input type="checkbox" [checked]="updateOnDrag" (change)="updateOnDrag = !updateOnDrag">
-      <span class="lever"></span>
-    </label>
-  </div> -->
 </div>
-
-
 <div class="filter">
   <p>Establishment Type</p>
   <div class="fields">
-    <p class="radio-field" *ngFor="let category of state.categories">
+    <p class="radio-field" *ngFor="let category of state.categories; let i = index">
       <input type="radio" name="establishment" [id]="category.alias" [checked]="category.title === state.selectedCategory.title"
-        (change)="onCategoryChanged(category)">
+        (change)="onCategoryChanged(category, i)">
       <label [for]="category.alias">{{ category.title }}</label>
     </p>
   </div>
 </div>
-
 <div class="filter">
   <p>Price</p>
   <div class="fields">
@@ -46,11 +36,10 @@
   </div>
 </div>
 <div class="filter" *ngIf="state.selectedCategory.alias === 'restaurants'">
-  <p>Cuisine</p>
-  <!-- <div class="more" (click)="openModal()">
-    <span>Show More</span>
-    <i class="mdi mdi-menu-down"></i>
-  </div> -->
+  <div class="more">
+    <p>Cuisine</p>
+    <span (click)="openModal()">Show More</span>
+  </div>
   <div class="fields">
     <p class="checkbox-field" *ngFor="let index of state.displayedCuisinesIndex">
       <input type="checkbox" [id]="state.cuisines[index].alias" class="filled-in" [checked]="state.cuisines[index].checked" (change)="updateCuisines(state.cuisines[index])">

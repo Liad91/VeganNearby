@@ -1,7 +1,7 @@
 <div class="header flex">
   <div class="content flex column justify-content-center w-100">
     <div class="flex column align-items-center">
-      <div class="header-1">
+      <div class="flex wrap justify-content-center">
         <h1 class="mt-0">Looking for</h1>
         <h1 class="mt-0 category" *ngIf="category.alias === 'restaurants'" @categoryState>&nbsp;restaurant?</h1>
         <h1 class="mt-0 category" *ngIf="category.alias === 'cafes'" @categoryState>&nbsp;cafe?</h1>
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="city" (click)="searchCity('London, UK')">
-        <div class="berlin">
+        <div class="london">
           <h3>London</h3>
           <div class="results">1270 results</div>
         </div>

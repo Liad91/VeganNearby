@@ -7,14 +7,8 @@ export const placeStateTrigger = trigger('placeState', [
   transition(':enter', [
     style({
       opacity: 0,
-      transform: 'translateX(-100%)'
+      transform: 'scale(0.8)'
     }),
-    animate('350ms ease-out')
-  ]),
-  transition(':leave', [
-    animate('350ms ease-out', style({
-      opacity: 0,
-      transform: 'translateX(100%)'
-    }))
+    animate('300ms ease-out')
   ])
 ]);

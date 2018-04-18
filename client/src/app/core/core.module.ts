@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { LoginComponent } from './auth/login/login.component';
@@ -54,7 +54,6 @@ import { SharedModule } from './../shared/shared.module';
     AuthSocialGuard
   ],
   imports: [
-    FormsModule,
     ReactiveFormsModule,
     CommonModule,
     AppRoutesModule,
@@ -66,4 +65,4 @@ import { SharedModule } from './../shared/shared.module';
     NavComponent
   ]
 })
-export class CoreModule {}
+export class CoreModule { }

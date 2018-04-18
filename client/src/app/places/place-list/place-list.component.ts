@@ -31,6 +31,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   public screenSize: Observable<string>;
   private filtersStateSubscription: Subscription;
   private navigationEndSubscription: Subscription;
+  public showFilters = false;
   public currentPage = 1;
 
   constructor(
@@ -38,7 +39,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private utilitiesService: UtilitiesService,
-    private geoService: GeographicalService) {}
+    private geoService: GeographicalService) { }
 
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceList);
@@ -106,16 +107,16 @@ export class PlaceListComponent implements OnInit, OnDestroy {
         take(1)
       )
       .subscribe(state => {
-      if (state.total < (this.currentPage - 1) * 18) {
-        this.router.navigate(['places', this.filtersState.location], {
-          queryParams: {
-            p: 1,
-            lat: this.route.snapshot.params['lat'],
-            lng: this.route.snapshot.params['lng']
-          }
-        });
-      }
-    });
+        if (state.total < (this.currentPage - 1) * 18) {
+          this.router.navigate(['places', this.filtersState.location], {
+            queryParams: {
+              p: 1,
+              lat: this.route.snapshot.params['lat'],
+              lng: this.route.snapshot.params['lng']
+            }
+          });
+        }
+      });
   }
 
   public onReload(): void {
@@ -133,8 +134,8 @@ export class PlaceListComponent implements OnInit, OnDestroy {
         ...this.filtersState.coordinates
       }
     }, {
-      scroll: 'smooth'
-    });
+        scroll: 'smooth'
+      });
   }
 
   public onResetFilters(): void {

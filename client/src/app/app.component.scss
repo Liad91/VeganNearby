@@ -16,9 +16,13 @@ footer.page-footer {
   .footer-copyright {
     background-color: #0b0b0b;
     font-weight: 400;
+
+    @media screen and (max-width: 550px) {
+      min-height: 56px;
+    }
   }
 
-  @media #{$extra-small-only} {
+  @media screen and (max-width: 650px) {
     font-size: 12px;
 
     .footer-copyright .container {

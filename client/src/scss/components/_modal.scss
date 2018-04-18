@@ -9,6 +9,7 @@
   max-height: 90%;
   transform: translate(-50%, -50%) !important;
   border-radius: 5px;
+  background-color: #fff;
   
   .modal-content {
     padding: 0;
@@ -34,13 +35,13 @@ mz-modal#lightbox {
     @media #{$extra-large-and-up} {
      width: 35%; 
     }
-    @media only screen and (max-width: $large-screen) {
+    @media screen and (max-width: $large-screen) {
       width: 50%;
     }
-    @media only screen and (max-width: $medium-screen) {
+    @media screen and (max-width: $medium-screen) {
       width: 70%;
     }
-    @media only screen and (max-width: $small-screen) {
+    @media screen and (max-width: $small-screen) {
       width: 85%;
     }
   }
@@ -62,23 +63,25 @@ mz-modal#lightbox {
 
 mz-modal#cuisines {
   .modal {
-    height: 80%;
-    max-width: 950px;
+    height: 60%;
+    max-width: 700px;
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-track {
+      border-radius: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      border-radius: 20px;
+    }
 
     .modal-content {
       display: flex;;
       flex-direction: column;
-      height: 100%;
+      position: relative;
     }
 
-    @media #{$extra-large-and-up} {
-      width: 65%;
-    }
-    @media only screen and (max-width: $large-screen) {
-      width: 75%;
-    }
-    @media only screen and (max-width: $medium-screen) {
-      height: 95%;
+    @media screen and (max-width: $small-screen) {
       width: 90%;
     }
   }

@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule, Directive } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -54,10 +55,12 @@ const materializeModules = [
   ],
   imports: [
     CommonModule,
+    FormsModule,
     materializeModules,
   ],
   exports: [
     CommonModule,
+    FormsModule,
     materializeModules,
     Components.AlertModalComponent,
     Components.BtnFavoriteComponent,

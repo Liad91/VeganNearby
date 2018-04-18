@@ -20,6 +20,7 @@ export class CuisinesModalComponent extends MzBaseModal implements OnInit {
   public displayedCuisinesIndexes: number[];
   private selectedCuisineIndexes: number[] = [];
   public cuisineIndexes: number[];
+  public searchValue = '';
   public touched = false;
   public disable = false;
 

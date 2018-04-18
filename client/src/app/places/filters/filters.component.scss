@@ -12,25 +12,72 @@ agm-map {
   border-bottom: 1px solid $border-color;
 
   &:first-of-type {
-    padding-top: 0;
+    border-top: 1px solid $border-color;
   }
 
   &:last-of-type {
-    padding-bottom: 0;
     border-bottom-width: 0;
   }
   
-  & > p {
-    margin: 0;
-    width: 22%;
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-
   .fields {
     display: flex;
     flex-wrap: wrap;
     width: 78%;
+    
+    @media #{$medium-only} {
+      width: 75%;
+    }
+
+    @media #{extra-small-only} {
+      width: 60%;
+    }
+  }
+  
+  & > p,
+  .more {
+    margin: 0;
+    width: 22%;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    @media #{$medium-only} {
+      width: 25%;
+    }
+
+    @media #{$extra-small-only} {
+      width: 40%;
+    }
+  }
+
+  .more {
+    p {
+      margin: 0;
+    }
+
+    span {
+      position: relative;
+      font-size: 12px;
+      color: $secondary-color;
+      cursor: pointer;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        bottom: -2px;
+        height: 1px;
+        background-color: $secondary-color;
+        border-radius: 3px;
+        transition: transform 0.25s ease-out;
+        will-change: transform;
+        transform: scale(0)
+      }
+
+      &:hover::after {
+        transform: none;
+      }
+    }
   }
 
   [type="radio"] {
@@ -91,11 +138,12 @@ agm-map {
   [type="radio"],
   [type="checkbox"] {
     & + label {
-      font-size: 0.9rem;
-      padding-left: 2.2rem;
-      font-size: 13px;
+      display: flex;
+      align-items: center;
       height: 16px;
       line-height: 16px;
+      padding-left: 1.8rem;
+      font-size: 13px;
 
       &::after {
         height: 16px;
@@ -116,7 +164,7 @@ agm-map {
 
   p.checkbox-field,
   p.radio-field {
-    margin: 0 0 0 1rem;
+    margin: 0.5rem 0 0.5rem 1rem;
     min-width: 110px;
   }
   

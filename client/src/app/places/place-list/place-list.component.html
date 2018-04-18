@@ -1,7 +1,18 @@
 <section>
-  <div class="content-left">
-    <div class="filters">
-      <vn-filters class="flex column" [places]="(state | async).places"></vn-filters>
+  <div class="content-left scrollbar">
+    <div class="settings">
+      <div class="panel flex align-items-center">
+        <div class="panel-item filters" (click)="showFilters = !showFilters">
+          <i class="mdi mdi-tune"></i>
+        </div>
+        <div class="panel-item grid">
+          <i class="mdi mdi-grid"></i>
+        </div>
+        <div class="panel-item list">
+          <i class="mdi mdi-format-list-bulleted"></i>
+        </div>
+      </div>
+      <vn-filters class="flex column" [ngClass]="showFilters ? 'open' : 'close'" [places]="(state | async).places"></vn-filters>
     </div>
     <div class="main flex column">
       <div class="title inline w-100">
@@ -38,7 +49,7 @@
       </div>
     </div>
     <vn-pagination class="w-100 center-align mt-auto mb-3" [itemsPerPage]="18" [currentPage]="currentPage" [totalItems]="(state | async).total"
-      (pageChange)="onPageChange($event)" *ngIf="!(state | async).loading || ((state | async).loading && (screenSize | async) !== 'sm' && (screenSize | async) !== 'xs')">
+      (pageChange)="onPageChange($event)" *ngIf="!(state | async).loading">
     </vn-pagination>
   </div>
 </section>

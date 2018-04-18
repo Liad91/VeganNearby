@@ -17,6 +17,7 @@ $dark-color: color(gray-500);
 $font-color: color(gray-400);
 $gray-color: color(gray-300);
 $border-color: color(gray-200);
+$border-color-light: color(gray-150);
 $secondary-background: color(gray-100);
 
 // Transitions
@@ -34,15 +35,15 @@ $small-screen: 959px;
 $medium-screen: 1279px;
 $large-screen: 1919px;
 
-$small-and-up: "only screen and (min-width : #{$extra-small-screen-up})";
-$medium-and-up: "only screen and (min-width : #{$small-screen-up})";
-$large-and-up: "only screen and (min-width : #{$medium-screen-up})";
-$extra-large-and-up: "only screen and (min-width : #{$large-screen-up})";
-$small-and-down: "only screen and (max-width : #{$small-screen})";
-$medium-and-down: "only screen and (max-width : #{$medium-screen})";
-$large-and-down: "only screen and (max-width : #{$large-screen})";
-$extra-small-only: "only screen and (max-width : #{$extra-small-screen})";
-$small-only: "only screen and (min-width : #{$extra-small-screen-up}) and (max-width : #{$small-screen})";
-$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})";
-$large-only: "only screen and (min-width : #{$medium-screen-up}) and (max-width : #{$large-screen})";
-$extra-large-only: "only screen and (min-width : #{$large-screen-up})";
+$small-and-up: "screen and (min-width : #{$extra-small-screen-up})";
+$medium-and-up: "screen and (min-width : #{$small-screen-up})";
+$large-and-up: "screen and (min-width : #{$medium-screen-up})";
+$extra-large-and-up: "screen and (min-width : #{$large-screen-up})";
+$small-and-down: "screen and (max-width : #{$small-screen})";
+$medium-and-down: "screen and (max-width : #{$medium-screen})";
+$large-and-down: "screen and (max-width : #{$large-screen})";
+$extra-small-only: "screen and (max-width : #{$extra-small-screen})";
+$small-only: "screen and (min-width : #{$extra-small-screen-up}) and (max-width : #{$small-screen})";
+$medium-only: "screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})";
+$large-only: "screen and (min-width : #{$medium-screen-up}) and (max-width : #{$large-screen})";
+$extra-large-only: "screen and (min-width : #{$large-screen-up})";

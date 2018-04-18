@@ -1,30 +1,17 @@
 <mz-modal id="cuisines" class="h-100 flex column justify-content-center align-items-center" [options]="modalOptions">
-  <mz-modal-header class="flex warp">
-      <input
-        #search
-        id="search-input"
-        placeholder="Search for cuisines"
-        type="text"
-        ngModel
-      >
-    <div class="actions w-50 flex justify-content-flex-end align-items-center">
-      <button mz-button (click)="onCancel()" vnBgColor="danger">Cancel</button>
-      <button mz-button (click)="onApply()">Apply</button>
-    </div>
+  <mz-modal-header>
+    <input id="search-input" placeholder="Search Cuisine" type="text" [(ngModel)]="searchValue">
   </mz-modal-header>
   <mz-modal-content fxLayout="row wrap">
-    <div class="list flex w-100 wrap justify-content-flex-start align-items-flex-start">
-      <p class="checkbox-field filter w-20" *ngFor="let cuisine of cuisines | searchFilter:search.value; let i = index">
-        <input
-          type="checkbox"
-          [id]="'modal-' + cuisine.alias"
-          class="filled-in"
-          [checked]="cuisine.checked"
-          [disabled]="disable && !cuisine.checked"
-          (change)="onDataChanged(cuisine, i)"
-        >
+    <div class="list flex w-100 wrap justify-content-space-between align-items-flex-start">
+      <p class="checkbox-field filter" *ngFor="let cuisine of cuisines | searchFilter:searchValue; let i = index">
+        <input type="checkbox" [id]="'modal-' + cuisine.alias" class="filled-in" [checked]="cuisine.checked" [disabled]="disable && !cuisine.checked"
+          (change)="onDataChanged(cuisine, i)">
         <label [for]="'modal-' + cuisine.alias">{{ cuisine.title }}</label>
       </p>
+    </div>
+    <div class="modal-btn">
+      <button mz-button (click)="onApply()">Apply</button>
     </div>
   </mz-modal-content>
 </mz-modal>

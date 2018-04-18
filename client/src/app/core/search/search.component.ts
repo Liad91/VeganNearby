@@ -118,7 +118,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public onCategoryChange(event: any): void {
-    this.store.dispatch(new searchActions.SetSearchCategory(+event.target.value));
+    this.store.dispatch(new searchActions.SetSearchCategory(Number(event.target.value)));
   }
 
   public onSubmit(): void {
