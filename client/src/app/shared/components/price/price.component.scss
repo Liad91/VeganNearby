@@ -1,4 +1,17 @@
 @import '../../../variables';
+
+.price {
+  display: inline-block;
+  margin: 0;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #999;
+
+  .highlight {
+    color: $primary-color;
+  }
+}
+
 .tooltip-container {
   position: relative;
   display: block;

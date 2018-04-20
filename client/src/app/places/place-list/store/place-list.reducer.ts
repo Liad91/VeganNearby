@@ -5,6 +5,7 @@ import { YelpBusiness } from '../../../models/yelp.model';
 
 export interface State {
   places: YelpBusiness[];
+  view: 'grid' | 'list';
   total: number;
   loading: boolean;
   error: boolean;
@@ -12,6 +13,7 @@ export interface State {
 
 const initialState: State = {
   places: null,
+  view: 'grid',
   total: null,
   loading: false,
   error: false
@@ -26,12 +28,17 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
         loading: true,
         error: false
       };
+
+    case PlaceListActions.SET_VIEW:
+      return {
+        ...state,
+        view: action.payload
+      };
     case PlaceListActions.SET_PLACES_LOADING:
       return {
         ...state,
         loading: action.payload
       };
-
     case PlaceListActions.RESET_PLACES:
       return {
         ...initialState

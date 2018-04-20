@@ -1,28 +1,35 @@
-<div class="place-card flex wrap w-100" (click)="listMode ? getPlaceDetail() : null">
-  <div class="image">
-    <img [src]="place.image_url" [alt]="place.name" (click)="getPlaceDetail()" *ngIf="place.image_url">
-  </div>
+<div class="place-card flex column" (click)="listMode ? getPlaceDetail() : null">
   <vn-btn-favorite [placeId]="place.id" [placeName]="place.name"></vn-btn-favorite>
-  <div class="info w-100">
-    <div class="name nowrap w-90">
-      <h4 class="mt-0" (click)="getPlaceDetail()">{{ place.name }}</h4>
-    </div>
-    
-    <div class="details flex align-items-center w-100">
-      <div class="phone flex align-items-center">
+  <div class="place-card-image">
+    <img class="w-100 h-100" [src]="place.image_url" [alt]="place.name" (click)="getPlaceDetail()" *ngIf="place.image_url" />
+    <div class="overlay"></div>
+  </div>
+
+  <div class="place-card-content">
+    <div class="place-card-text">
+      <h4 class="nowrap mt-0" (click)="getPlaceDetail()">{{ place.name }}</h4>
+      <p class="nowrap m-0">
+        <i class="mdi mdi-map-marker-outline"></i>
+        {{ place.location.address1 }}
+        <ng-container *ngIf="!place.location.address1">
+          {{ place.location.display_address }}
+        </ng-container>
+      </p>
+
+      <p class="nowrap m-0 phone" *ngIf="place.display_phone">
         <i class="mdi mdi-phone"></i>
-        <a [href]="'tel:' + place.phone"  *ngIf="place.display_phone" (click)="$event.stopPropagation()">{{ place.display_phone }}</a>
-        <span *ngIf="!place.display_phone">Not Available</span>
-      </div>
-      <div class="price">
-        <vn-price [price]="place.price" [tooltip]="true"></vn-price>
-      </div>
+        {{ place.display_phone }}
+      </p>
     </div>
 
-    <div class="rating flex align-items-center w-100">
+    <div class="place-card-info flex align-items-center">
       <vn-stars [rating]="place.rating"></vn-stars>
-      <span>{{ place.review_count }} Reviews</span>
-      <a class="ml-auto" [href]="place.url" target="_blank" (click)="$event.stopPropagation()"><img class="w-100 h-100" src="assets/images/yelp_logo.png" alt="yelp"></a>
+      (
+      <span>{{ place.review_count }}</span>
+      <span>reviews</span>
+      )
+      <vn-price [price]="place.price"></vn-price>
     </div>
   </div>
+
 </div>

@@ -7,8 +7,11 @@
 <div class="content">
   <div @placeState *ngIf="(state | async).loading !== 'page' && (state | async).error !== 'page'">
     <div class="title">
-      <h4 class="nowrap"><strong>{{ (state | async).place.name }}</strong> {{ (state | async).place.location.city }}</h4>
-      <p><vn-stars [rating]="(state | async).place.rating"></vn-stars></p>
+      <h4 class="nowrap">
+        <strong>{{ (state | async).place.name }}</strong> {{ (state | async).place.location.city }}</h4>
+      <p>
+        <vn-stars [rating]="(state | async).place.rating"></vn-stars>
+      </p>
     </div>
     <div class="details flex wrap">
       <div class="page-left">
@@ -23,7 +26,7 @@
               </div>
             </div>
           </div>
-          <div class="info address" >
+          <div class="info address">
             <i class="mdi mdi-map-marker mdi-24px"></i>
             <div class="text">
               <h5>Address</h5>
@@ -44,24 +47,15 @@
             <i class="mdi mdi-currency-usd mdi-24px"></i>
             <div class="text">
               <h5>Price</h5>
-              <vn-price [price]="(state | async).place.price"></vn-price>
+              <vn-price [price]="(state | async).place.price" [textOnly]="true"></vn-price>
             </div>
           </div>
         </div>
         <h3>Map</h3>
-        <agm-map
-          class="mb-2"
-          [latitude]="(state | async).place.coordinates.latitude"
-          [longitude]="(state | async).place.coordinates.longitude"
-          [scrollwheel]="false"
-          [styles]="mapStyles"
-          [zoom]="17"
-        >
-          <agm-marker
-            [latitude]="(state | async).place.coordinates.latitude"
-            [longitude]="(state | async).place.coordinates.longitude"
-            [iconUrl]="'assets/icons/marker.png'"
-          >
+        <agm-map class="mb-2" [latitude]="(state | async).place.coordinates.latitude" [longitude]="(state | async).place.coordinates.longitude"
+          [scrollwheel]="false" [styles]="mapStyles" [zoom]="17">
+          <agm-marker [latitude]="(state | async).place.coordinates.latitude" [longitude]="(state | async).place.coordinates.longitude"
+            [iconUrl]="'assets/icons/marker.png'">
           </agm-marker>
         </agm-map>
 
@@ -77,11 +71,13 @@
                     <vn-stars [rating]="review.rating"></vn-stars>
                     <div class="date">{{ review.time_created }}</div>
                   </div>
-                  
+
                 </div>
               </div>
               <div class="text">
-                <p>{{ review.text.slice(0, -3) }} <a [href]="review.url" target="_blank">read more...</a></p>
+                <p>{{ review.text.slice(0, -3) }}
+                  <a [href]="review.url" target="_blank">read more...</a>
+                </p>
               </div>
             </li>
           </ul>
@@ -91,7 +87,7 @@
             <p>Ooops, something went wromg. Please try again later.</p>
             <button mz-button (click)="onReloadReviews()">Try Again</button>
           </div>
-    
+
           <!-- reviews loader -->
           <div class="spinner-wrap mt-2" *ngIf="(state | async).loading === 'reviews'">
             <mz-spinner color="blue" size="medium"></mz-spinner>
@@ -108,20 +104,30 @@
           <ul class="mt-0 mb-2">
             <ng-container *ngFor="let day of (state | async).place.hours[0].open; let i = index">
               <ng-container *ngIf="i === 0 || (state | async).place.hours[0].open[i - 1].day !== day.day; else sameDay">
-                <li><strong>{{ day.day | day }}</strong> {{ (day.start | hour) + ' - ' + (day.end | hour) }}</li>
+                <li>
+                  <strong>{{ day.day | day }}</strong> {{ (day.start | hour) + ' - ' + (day.end | hour) }}</li>
               </ng-container>
               <ng-template #sameDay>
                 <li class="same-day">{{ (day.start | hour) + ' - ' + (day.end | hour) }}</li>
               </ng-template>
             </ng-container>
           </ul>
-        </ng-container> 
+        </ng-container>
 
         <h3>Transactions</h3>
         <ul class="m-0 mb-2">
-          <li><strong>Pickup</strong> <i class="mdi mdi-24px" [ngClass]="transactions.pickup ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i></li>
-          <li><strong>Delivery</strong> <i class="mdi mdi-24px"  [ngClass]="transactions.delivery ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i></li>
-          <li><strong>Reservation</strong> <i class="mdi mdi-24px" [ngClass]="transactions.reservation ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i></li>
+          <li>
+            <strong>Pickup</strong>
+            <i class="mdi mdi-24px" [ngClass]="transactions.pickup ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i>
+          </li>
+          <li>
+            <strong>Delivery</strong>
+            <i class="mdi mdi-24px" [ngClass]="transactions.delivery ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i>
+          </li>
+          <li>
+            <strong>Reservation</strong>
+            <i class="mdi mdi-24px" [ngClass]="transactions.reservation ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline'" vnColor="tertiary"></i>
+          </li>
         </ul>
 
         <h3>Images</h3>
@@ -139,10 +145,9 @@
     <p>*If this message not eventually replaced, the required place may not be reachable anymore.</p>
     <button mz-button (click)="onReloadPage()">Try Again</button>
   </div>
-  
+
   <!-- page loader -->
   <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading === 'page'">
     <mz-spinner size="big" color="blue"></mz-spinner>
   </div>
 </div>
-

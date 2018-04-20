@@ -119,6 +119,10 @@ export class PlaceListComponent implements OnInit, OnDestroy {
       });
   }
 
+  public setView(view: 'grid' | 'list'): void {
+    this.store.dispatch(new placeListActions.SetView(view));
+  }
+
   public onReload(): void {
     this.store.dispatch(new placeListActions.GetPlaces());
   }

@@ -7,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class PriceComponent implements OnInit {
-  @Input() public price: string;
-  @Input() public tooltip = false;
+  @Input() public price;
+  @Input() public textOnly = false;
   private titles = ['Inexpensive', 'Moderate', 'Pricey', 'Ultra High-End'];
   public reminder = '$$$$';
   public title: string;
@@ -17,6 +17,9 @@ export class PriceComponent implements OnInit {
     if (this.price) {
       this.title = this.titles[this.price.length - 1];
       this.reminder = this.reminder.substr(this.price.length);
+    }
+    else {
+      this.title = 'Unknown';
     }
   }
 }

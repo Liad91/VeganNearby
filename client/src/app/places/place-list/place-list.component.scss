@@ -50,7 +50,7 @@ section {
 }
 
 .settings {
-  padding: 1rem 2rem 0;
+  padding: 1rem 1.5rem 0;
   background-color: $secondary-background;
   border-bottom: 1px solid $border-color-light;
 
@@ -98,7 +98,7 @@ vn-filters {
 }
 
 .main {
-  padding: 2rem;
+  padding: 1.5rem;
   position: relative;
   min-height: 400px;
   overflow-x: hidden;
@@ -115,8 +115,58 @@ vn-filters {
     z-index: 100;
   }
 
-  .places-wrap {
-    padding: 0 5px;
+  .places-wrap vn-place {
+    width: 100%;
+  }
+  
+  .places-wrap.grid vn-place {
+    margin-bottom: 1rem;
+    transition: transform 0.25s ease-out;
+    will-change: transform;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    @media screen and (min-width: 1550px) {
+      width: calc(33.333% - 0.6664rem);
+      margin-right: 1rem;  
+  
+      &:nth-child(3n + 3) {
+        margin-right: 0;
+      }
+    }
+
+    @media screen and (min-width: $small-screen-up) and (max-width: 1549px) {
+      width: calc(50% - 0.5rem);
+      margin-right: 1rem;
+      
+      &:nth-child(even) {
+        margin-right: 0;
+      }
+    }
+
+    @media screen and (min-width: 780px) and (max-width: $small-screen) {
+      width: calc(33.333% - 0.6664rem);
+      margin-right: 1rem;  
+  
+      &:nth-child(3n + 3) {
+        margin-right: 0;
+      }
+    }
+
+    @media screen and (min-width: 560px) and (max-width: 779px) {
+      width: calc(50% - 0.5rem);
+      margin-right: 1rem;
+      
+      &:nth-child(even) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .places-wrap.list vn-place {
+    margin-bottom: 1.5rem;
   }
 
   .no-results {

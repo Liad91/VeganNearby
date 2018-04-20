@@ -5,10 +5,10 @@
         <div class="panel-item filters" (click)="showFilters = !showFilters">
           <i class="mdi mdi-tune"></i>
         </div>
-        <div class="panel-item grid">
+        <div class="panel-item grid" (click)="setView('grid')">
           <i class="mdi mdi-grid"></i>
         </div>
-        <div class="panel-item list">
+        <div class="panel-item list" (click)="setView('list')">
           <i class="mdi mdi-format-list-bulleted"></i>
         </div>
       </div>
@@ -22,10 +22,10 @@
         <p class="badge" *ngIf="(state | async).total">{{ (state | async).total }} Results</p>
         <p class="badge" *ngIf="!(state | async).total && !(state | async).loading">No Results</p>
       </div>
-      <div class="places-wrap flex wrap w-100">
+      <div class="places-wrap flex wrap w-100" [ngClass]="(state | async).view === 'list' ? 'list' : 'grid'">
         <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
-          <vn-place class="mb-1 mr-1" [ngClass]="{'list': (screenSize | async) === 'xs'}" [listMode]="(screenSize | async) === 'xs'"
-            [place]="place" (mouseenter)="place.hover = true" (mouseleave)="place.hover = false" @placeState>
+          <vn-place [ngClass]="{'list': (screenSize | async) === 'xs'}" [listMode]="(screenSize | async) === 'xs'" [place]="place"
+            (mouseenter)="place.hover = true" (mouseleave)="place.hover = false" @placeState>
           </vn-place>
         </ng-container>
         <div class="no-results w-100" *ngIf="(state | async).total === 0">
