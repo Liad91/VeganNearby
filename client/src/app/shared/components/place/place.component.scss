@@ -1,6 +1,7 @@
 @import '../../../variables';
 
 .place-card {
+  cursor: pointer;
   position: relative;
   background-color: #fff;
 }
@@ -45,7 +46,6 @@ vn-btn-favorite::ng-deep {
 }
 
 .place-card-image {
-  cursor: pointer;
   position: relative;
   height: 200px;
   background-image: url('../../../../assets/images/business.png');
@@ -116,7 +116,7 @@ vn-btn-favorite::ng-deep {
   .place-card {
     box-shadow: 0 0 5px #ccc;
     flex-direction: row;
-    border-radius: 5px;
+    border-radius: 3px;
     transition: box-shadow 0.25s ease-out;
     will-change: box-shadow;
 
@@ -125,25 +125,45 @@ vn-btn-favorite::ng-deep {
     }
   }
 
-  vn-btn-favorite::ng-deep button {
-    i {
-      color: $danger-color;
+  vn-btn-favorite::ng-deep {
+    top: 7px;
+    right: 7px;
+
+    @media #{$extra-small-only} {
+      top: 2px;
+      right: 2px;
     }
 
-    mz-spinner .spinner-layer {
-      border-color: $danger-color;
-    }  
+    button {
+      i {
+        color: $danger-color;
+      }
+  
+      mz-spinner .spinner-layer {
+        border-color: $danger-color;
+      }  
+    }
   }
 
   .place-card-image {
     margin: 5px;
-    height: 180px;
-    width: 250px;
-    border-radius: 5px;
+    height: 150px;
+    width: 215px;
+    border-radius: 3px;
+
+    @media #{$medium-and-down} {
+      width: 180px;
+      height: 130px;
+    }
+
+    @media #{$extra-small-only} {
+      height: 110px;
+      width: 110px;
+    }
 
     img,
     .overlay {
-      border-radius: 5px;
+      border-radius: 3px;
     }
   }
 
@@ -151,21 +171,40 @@ vn-btn-favorite::ng-deep {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 1rem;
+
+    @media #{$medium-only} {
+      padding: 1rem 0.5rem;
+    }
+
+    @media #{$extra-small-only} {
+      padding: 7px 0.5rem;
+    }
   }
   
   .place-card-text {
     position: static;
     width: 90%;
+    max-width: 350px;
     transform: none;
-    font-size: 95%;
+    font-size: 90%;
     color: $font-color;
+
+    @media #{$medium-only} {
+      width: 85%;
+      max-width: 200px;
+    }
+
+    @media #{$extra-small-only} {
+      width: 85%;
+      max-width: 190px;
+    }
 
     h4 {
       color: $dark-color;
       margin-bottom: 8px;
       line-height: 1.3;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
 
     i {
@@ -183,9 +222,19 @@ vn-btn-favorite::ng-deep {
     box-shadow: none;
 
     vn-stars {
-      width: 110px;
-      height: 20px;
+      width: 100px;
+      height: 18px;
       margin-right: 8px;
+
+      @media #{$medium-only} {
+        width: 95px;
+        height: 16px;
+      }
+
+      @media #{$extra-small-only} {
+        width: 95px;
+        height: 16px;
+      }
     }
   
     & > span {
@@ -194,247 +243,11 @@ vn-btn-favorite::ng-deep {
 
       & + span {
         margin-left: 5px;
+
+        @media #{$extra-small-only} {
+          display: none;
+        }
       }
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// :host {
-//   position: relative;
-//   display: block;
-//   transition: transform 250ms ease-out;
-
-//   &:hover,
-//   &:focus {
-//     transform: translateY(-5px);
-//   }
-  
-//   @media screen and (max-width: 480px) {
-//     width: 100%;
-//     margin-right: 0;
-//     margin-bottom: 0.5rem;
-
-//     &:hover,
-//     &:focus {
-//       transform: translateX(5px);
-//     }
-//   }
-
-//   @media screen and (min-width: 481px) and (max-width: 700px) {
-//     width: calc(50% - 0.25rem);    
-//     margin-right: 0.5rem;
-//     margin-bottom: 0.5rem;
-
-//     &:nth-of-type(2n+2) {
-//       margin-right: 0;
-//     }
-//   }
-
-//   @media screen and (min-width: 701px) {
-//     width: calc(33.3% - (2rem / 3));   
-
-//     &:nth-of-type(3n+3) {
-//       margin-right: 0;
-//     }
-//   }
-// }
-
-// .place-card {
-//   position: relative;
-//   line-height: 1;
-//   background-color: #fff;
-//   font-size: 0.9rem;
-
-//   .image {
-//     cursor: pointer;
-//     width: 100%;
-//     height: 180px;
-//     background-image: url('../../../../assets/images/business.png');
-//     border-radius: 3px 3px 0 0;
-
-//     img {
-//       filter: contrast(1.2) brightness(0.6);
-//       width: 100%;
-//       height: 100%;
-//       border-radius: 3px 3px 0 0;
-//     }
-//   }
-
-//   vn-btn-favorite::ng-deep button {
-//     position: absolute;
-//     top: 5px;
-//     right: 5px;
-//     width: 33px;
-//     height: 33px;
-//     line-height: 33px;
-    
-//     i {
-//       font-size: 18px;
-//       line-height: 35px;
-//       transition: color .2s ease-out;
-//     }
-//     mz-spinner {
-//       .preloader-wrapper.small {
-//         width: 18px;
-//         height: 18px;
-//       }
-
-//       .spinner-layer {
-//         border-color: #fff;
-//       }
-
-//       .circle-clipper .circle {
-//         border-width: 2px;
-//       }
-//     }
-
-//     &.favorite,
-//     &:hover {
-//       i {
-//         color: $danger-color;
-//       }
-//     }
-//   }
-
-//   .info {
-//     padding: 12px 12px 3px;
-//     border: 1px solid $border-color;
-//     border-radius: 0 0 3px 3px;
-
-//     h4 {
-//       cursor: pointer;
-//       display: inline-block;
-//       font-size: 1.1rem;
-//       line-height: 1.5;
-//       margin-bottom: 5px;
-//       transition: color 0.25s ease-out;
-//       will-change: color;
-
-//       &:hover {
-//         color: $primary-color;
-//       }
-//     }
-
-//     .phone {
-//       padding-right: 8px;
-//       border-right: 1px solid #ddd;
-
-//       i {
-//         font-size: 16px;
-//         margin-right: 5px;
-//       }
-
-//       a {
-//         color: $font-color;
-
-//         &:hover {
-//           color: $secondary-color
-//         }
-//       }
-//     }
-
-//     vn-price {
-//       font-weight: bold;
-//     }
-
-//     .price {
-//       padding-left: 8px;
-//     }
-
-//     .rating {
-//       margin-top: 2px;
-
-//       vn-stars {
-//         margin-right: 8px;
-
-//         ::ng-deep img {
-//           max-width: 85px;
-//         }
-//       }
-
-//       a {
-//         width: 50px;
-//         margin-bottom: 5px;
-//       }
-//     }
-//   }
-// }
-
-// :host.list {
-//   cursor: pointer;
-//   width: 100%;
-//   margin-right: 0;
-//   margin-bottom: 0.5rem;
-
-//   &:hover,
-//   &:focus {
-//     transform: translateX(5px);
-//   }
-
-//   .place-card {
-//     flex-wrap: nowrap;
-//     border: 1px solid $border-color;
-//     border-radius: 3px;
-
-//     .image {
-//       width: 110px;
-//       height: 110px;
-//       border-radius: 3px 0 0 3px;
-//       background-image: url('../../../../assets/images/business.png');
-  
-//       img {
-//         filter: contrast(1.2) brightness(0.6);
-//         width: 100%;
-//         height: 100%;
-//         border-radius: 3px 0 0 3px;
-//       }
-//     }
-
-//     vn-btn-favorite::ng-deep button {
-//       top: 0;
-
-//       i {
-//         color: $danger-color;
-//       }
-
-//       mz-spinner .spinner-layer {
-//         border-color: $danger-color;
-//       }  
-//     }
-    
-
-//     .info {
-//       display: flex;;
-//       flex-direction: column;
-//       flex-grow: 1;
-//       width: calc(100% - 150px);
-//       padding: 5px 15px 0;
-//       border: none;
-//       border-radius: 0;
-
-//       .name {
-//         width: 80%;
-//       }
-
-//       .details,
-//       .rating {
-//         margin-top: auto;
-//       }
-
-//       .rating span {
-//         display: none;
-//       }
-//     }
-//   }  
-// }

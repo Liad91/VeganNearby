@@ -3,7 +3,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { take, filter } from 'rxjs/operators';
+import { take, filter, withLatestFrom } from 'rxjs/operators';
 
 import { State } from './store/place-list.reducer';
 import * as fromPlaces from '../store/places.reducer';
@@ -44,6 +44,17 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceList);
     this.screenSize = this.utilitiesService.screenSize;
+
+    this.state
+      .pipe(
+        take(1),
+        withLatestFrom(this.screenSize)
+      )
+      .subscribe(([state, screenSize]) => {
+        if (!state.view) {
+          screenSize === 'xs' ? this.setView('list') : this.setView('grid');
+        }
+      });
 
     this.filtersStateSubscription = this.store.select(fromPlaces.selectFilters)
       .subscribe(state => this.filtersState = state);

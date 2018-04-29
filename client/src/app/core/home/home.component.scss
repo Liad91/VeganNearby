@@ -9,7 +9,7 @@
 .header {
   position: relative;
   margin-top: -64px;
-  height: 450px;
+  height: 550px;
   background-image: url('../../../assets/images/header3.jpg');
   background-size: cover;
   background-position: 50% 30%;
@@ -34,7 +34,7 @@
   }
 
   @media #{$small-and-down} {
-    height: 40vh;
+    height: 350px;
     margin-top: -56px;
     background-size: contain;
 
@@ -61,11 +61,11 @@
   margin: 0 auto;
   width: 1000px;
   height: 94px;
-  padding: 0 1.5rem;
+  padding: 0 1.2rem;
   transform: translate(0, 45%);
   background: #fff;
-  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 
   vn-search {
     width: 100%;

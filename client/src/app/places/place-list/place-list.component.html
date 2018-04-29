@@ -2,13 +2,13 @@
   <div class="content-left scrollbar">
     <div class="settings">
       <div class="panel flex align-items-center">
-        <div class="panel-item filters" (click)="showFilters = !showFilters">
+        <div class="panel-item filters" [ngClass]="{active: showFilters}" (click)="showFilters = !showFilters">
           <i class="mdi mdi-tune"></i>
         </div>
-        <div class="panel-item grid" (click)="setView('grid')">
+        <div class="panel-item grid" [ngClass]="{active: (state | async).view === 'grid'}" (click)="setView('grid')">
           <i class="mdi mdi-grid"></i>
         </div>
-        <div class="panel-item list" (click)="setView('list')">
+        <div class="panel-item list" [ngClass]="{active: (state | async).view === 'list'}" (click)="setView('list')">
           <i class="mdi mdi-format-list-bulleted"></i>
         </div>
       </div>
@@ -24,8 +24,7 @@
       </div>
       <div class="places-wrap flex wrap w-100" [ngClass]="(state | async).view === 'list' ? 'list' : 'grid'">
         <ng-container *ngFor="let place of (state | async).places; trackBy: trackById">
-          <vn-place [ngClass]="{'list': (screenSize | async) === 'xs'}" [listMode]="(screenSize | async) === 'xs'" [place]="place"
-            (mouseenter)="place.hover = true" (mouseleave)="place.hover = false" @placeState>
+          <vn-place [place]="place" (mouseenter)="place.hover = true" (mouseleave)="place.hover = false" @placeState>
           </vn-place>
         </ng-container>
         <div class="no-results w-100" *ngIf="(state | async).total === 0">
@@ -48,7 +47,7 @@
         <mz-spinner color="blue" size="big"></mz-spinner>
       </div>
     </div>
-    <vn-pagination class="w-100 center-align mt-auto mb-3" [itemsPerPage]="18" [currentPage]="currentPage" [totalItems]="(state | async).total"
+    <vn-pagination class="w-100 center-align" [itemsPerPage]="18" [currentPage]="currentPage" [totalItems]="(state | async).total"
       (pageChange)="onPageChange($event)" *ngIf="!(state | async).loading">
     </vn-pagination>
   </div>

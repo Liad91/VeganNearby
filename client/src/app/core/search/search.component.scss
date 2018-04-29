@@ -40,7 +40,12 @@
         align-items: center;
         justify-content: center;
         padding: 10px 0;
-        transition: $fast-transition;
+        transition: background-color 0.25s ease-out;
+        will-change: background-color;
+
+        &.selected {
+          background-color: $secondary-background;
+        }
 
         span {
           color: $font-color;
@@ -150,16 +155,23 @@ button[type = submit] {
 .search-box.nav {
   width: 100%;
   padding: 0;
-  background-color: transparent;
 
   form {
-    border: 1px solid $border-color;
-    border-radius: 3px;
+    position: relative;
+    background-color: $secondary-background;
+    transition: 0.25s ease-out;
+    transition-property: background-color, box-shadow;
+    will-change: background-color, box-shadow;
+
+    &.active {
+      box-shadow: 0 0 2px 1px $border-color;
+      background-color: #fff;
+    }
 
     .location {
       width: 100%;
       margin-right: 0;
-      border-radius: 5px 0 0 5px;
+      background-color: transparent;
       border: none;
 
       button {
@@ -175,18 +187,20 @@ button[type = submit] {
       }
 
       input {
-        height: 2.4rem;
+        height: 3rem;
         margin: 0;
-        padding: 0 13px;
+        padding: 0 50px 0 13px;
         color: $dark-color;
       }
     }
 
     button[type = submit] {
-      width: 2.5rem;
-      height: auto;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
       line-height: 1;
-      padding: 0;
+      padding: 0 10px;
       border-radius: 0;
       background-color: transparent;
       box-shadow: none;
@@ -194,9 +208,13 @@ button[type = submit] {
       i {
         height: auto;
         color: $gray-color;
-        font-size: 21px;
-        line-height: 1;
-        transition: $fast-transition;
+        transition: color 0.25s ease-out;
+        will-change: color;
+
+        &:before {
+          font-size: 23px;
+          line-height: 1;
+        }
       }
 
       mz-spinner::ng-deep .spinner-layer {

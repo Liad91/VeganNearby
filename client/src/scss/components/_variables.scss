@@ -8,9 +8,8 @@ $header-font-family: 'Raleway', 'sans-serif';
 
 // Colors
 $primary-color: color(primary);
-$secondary-color: color(primary);
-$tertiary-color: color(secondary);
-$success-color: $secondary-color;
+$secondary-color: color(secondary);
+$button-raised-background: $primary-color;
 $warning-color: color(warning);
 $danger-color: color(danger);
 $dark-color: color(gray-500);

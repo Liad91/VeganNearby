@@ -13,7 +13,6 @@ import { UtilitiesService } from '../../../core/services/utilities.service';
 })
 export class PlaceComponent {
   @Input() public place: YelpBusiness | YelpBusinessResponse;
-  @Input() public listMode = false;
 
   constructor(private store: Store<AppState>, private utilitiesService: UtilitiesService) { }
 

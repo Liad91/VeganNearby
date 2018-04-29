@@ -31,6 +31,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('search') private searchElementRef: ElementRef;
   public state: State;
   public location: string;
+  public focused = false;
   public locateSpinner = false;
   public locateFailed = false;
   public stateSubscription: Subscription;
@@ -119,6 +120,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   public onCategoryChange(event: any): void {
     this.store.dispatch(new searchActions.SetSearchCategory(Number(event.target.value)));
+  }
+
+  public preventDefault(event: any): void {
+    event.stopPropagation();
   }
 
   public onSubmit(): void {

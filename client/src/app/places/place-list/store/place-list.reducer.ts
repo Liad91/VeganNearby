@@ -13,7 +13,7 @@ export interface State {
 
 const initialState: State = {
   places: null,
-  view: 'grid',
+  view: null,
   total: null,
   loading: false,
   error: false
@@ -41,7 +41,8 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
       };
     case PlaceListActions.RESET_PLACES:
       return {
-        ...initialState
+        ...initialState,
+        view: state.view
       };
     case PlaceListActions.GET_PLACES_SUCCESS:
       return {
@@ -53,6 +54,7 @@ export function placeListReducer(state = initialState, action: PlaceListActions.
     case PlaceListActions.GET_PLACES_FAILURE:
       return {
         ...initialState,
+        view: state.view,
         error: true
       };
     default:

@@ -44,6 +44,14 @@ a {
   color: $primary-color;
 }
 
+// Checkboxes
+// ==========================================================================
+[type="checkbox"].filled-in:checked + label::after {
+  border-color: $primary-color;
+  background-color: $primary-color;
+}
+
+
 // Scrollbar
 // ==========================================================================
 .modal,
@@ -150,7 +158,7 @@ header {
     padding: 2px 15px;
     font-size: 14px;
     border-radius: 3px;
-    background-color: $tertiary-color;
+    background-color: $secondary-color;
     color: #fff;
   }
 
@@ -231,7 +239,7 @@ header {
 .pac-container {
   border-top: none;
   border-radius: 0 0 2px 2px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .pac-item {
   cursor: pointer;
@@ -243,7 +251,7 @@ header {
   }
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: $secondary-background;
   }
 }
 
