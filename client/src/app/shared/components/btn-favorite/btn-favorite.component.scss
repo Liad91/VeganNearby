@@ -1,0 +1,47 @@
+@import '../../../variables';
+
+.text {
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid $gray-color;
+  padding: 6px 18px;
+  height: auto;
+  width: auto;
+  border-radius: 3px;
+  align-items: center;
+  font-size: 13px;
+  display: flex;
+  text-transform: uppercase;
+  line-height: 1;
+  color: $dark-color;
+  transition: 0.25s ease-out;
+  transition-property: background-color, border-color, color;
+  will-change: background-color, border-color, color;
+
+  ::ng-deep {
+    .spinner-layer {
+      border-color: $dark-color;
+    }
+  }
+
+  &:hover {
+    border-color: $dark-color;
+  }
+
+  i,
+  mz-spinner {
+    margin-right: 5px;
+  }
+
+  &.favorite {
+    background-color: $danger-color;
+    border-color: $danger-color;
+    color: #fff;
+
+    ::ng-deep {
+      .spinner-layer {
+        border-color: #fff;
+      }
+    }
+  }
+}

@@ -36,7 +36,7 @@ interface StateProps {
 const initialState: State = {
   location: null,
   coordinates: null,
-  zoom: 13,
+  zoom: 12,
   radius: 1489,
   categories: Data.categories,
   selectedCategory: Data.categories[0],

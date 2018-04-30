@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { errorStateTrigger } from '../shared/animations';
@@ -28,7 +27,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   public errorLoading = false;
   public connectionError = false;
   public emptyPlaces: string[] = [];
-  public screenSize: Observable<string>;
   private userSubscription: Subscription;
   private stateSubscription: Subscription;
 
@@ -39,7 +37,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     private utilitiesService: UtilitiesService) {}
 
   ngOnInit(): void {
-    this.screenSize = this.utilitiesService.screenSize;
     this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn)
       .filter(user => !user)
       .subscribe(() => this.utilitiesService.navigate(['/'], {}, { scroll: true }));

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { take, filter } from 'rxjs/operators';
 
+import mapStyles from '../data/map-styles';
 import * as fromPlaces from '../store/places.reducer';
 import { GetPlace, GetReviews } from './store/place-detail.actions';
 import { State } from './store/place-detail.reducer';
@@ -24,43 +25,14 @@ import { LightboxModalComponent } from '../../shared/components/lightbox-modal/l
 
 export class PlaceDetailComponent implements OnInit {
   public state: Observable<State>;
+  public mapStyles = mapStyles;
   public transactions: { pickup: boolean, delivery: boolean, reservation: boolean };
   public isOpen: boolean;
-
-  public mapStyles = [
-    {
-      featureType: 'road',
-      elementType: 'geometry',
-      stylers: [
-        { lightness: 100 },
-        { visibility: 'simplified' }
-      ]
-    },
-    {
-      featureType: 'water',
-      elementType: 'geometry',
-      stylers: [
-        { visibility: 'on' },
-        { color: '#C6E2FF' }
-      ]
-    },
-    {
-      featureType: 'poi',
-      elementType: 'geometry.fill',
-      stylers: [{ color: '#C5E3BF' }]
-    },
-    {
-      featureType: 'road',
-      elementType: 'geometry.fill',
-      stylers: [{ color: '#D1D1B8' }]
-    }
-  ];
-
 
   constructor(
     private store: Store<fromPlaces.FeatureState>,
     private utilitiesService: UtilitiesService,
-    private modalService: ModalService) {}
+    private modalService: ModalService) { }
 
   ngOnInit(): void {
     this.state = this.store.select(fromPlaces.selectPlaceDetail);

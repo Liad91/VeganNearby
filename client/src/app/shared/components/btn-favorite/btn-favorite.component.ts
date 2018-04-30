@@ -17,9 +17,11 @@ import { AlertModalComponent } from './../alert-modal/alert-modal.component';
 
 @Component({
   selector: 'vn-btn-favorite',
-  templateUrl: './btn-favorite.component.html'
+  templateUrl: './btn-favorite.component.html',
+  styleUrls: ['./btn-favorite.component.scss']
 })
 export class BtnFavoriteComponent implements OnInit, OnDestroy {
+  @Input() text: boolean;
   @Input() placeId: string;
   @Input() placeName: string;
   private user: boolean;
@@ -35,7 +37,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
     private utilitiesService: UtilitiesService,
     private placesService: PlacesService,
     private toastService: ToastService,
-    private modalService: ModalService) {}
+    private modalService: ModalService) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn).subscribe(user => {

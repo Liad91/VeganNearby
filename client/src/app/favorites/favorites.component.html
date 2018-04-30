@@ -35,8 +35,6 @@
         <vn-place 
           @placeState
           class="mb-1 mr-1"
-          [ngClass]="{'list': (screenSize | async) === 'xs'}"
-          [listMode]="(screenSize | async) === 'xs'"
           [place]="place"
           *ngIf="place.name"
         >

@@ -14,7 +14,7 @@ footer.page-footer {
   font-size: 14px;
   
   .footer-copyright {
-    background-color: #0b0b0b;
+    background-color: $dark-color;
     font-weight: 400;
 
     @media screen and (max-width: 550px) {

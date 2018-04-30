@@ -9,7 +9,7 @@ $header-font-family: 'Raleway', 'sans-serif';
 // Colors
 $primary-color: color(primary);
 $secondary-color: color(secondary);
-$button-raised-background: $primary-color;
+$tertiary-color: color(tertiary);
 $warning-color: color(warning);
 $danger-color: color(danger);
 $dark-color: color(gray-500);
@@ -18,6 +18,11 @@ $gray-color: color(gray-300);
 $border-color: color(gray-200);
 $border-color-light: color(gray-150);
 $secondary-background: color(gray-100);
+
+// Materialize color variables
+$button-raised-background: $tertiary-color;
+$button-floating-background: $tertiary-color;
+$input-focus-color: $primary-color;
 
 // Transitions
 $fast-transition: all 250ms ease-out;

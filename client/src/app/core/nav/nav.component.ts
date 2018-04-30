@@ -26,6 +26,7 @@ import { ModalService } from './../services/modal.service';
 export class NavComponent implements OnInit, OnDestroy {
   @ViewChild(SidenavButtonDirective) sidenavBtn: SidenavButtonDirective;
   @Input() public activatedRoute: string;
+  @Input() public transparent: boolean;
   public user: Observable<User>;
   public mobileView: boolean;
   public searchBarOpen = false;

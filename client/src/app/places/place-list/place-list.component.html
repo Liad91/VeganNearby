@@ -3,13 +3,13 @@
     <div class="settings">
       <div class="panel flex align-items-center">
         <div class="panel-item filters" [ngClass]="{active: showFilters}" (click)="showFilters = !showFilters">
-          <i class="mdi mdi-tune"></i>
+          <i class="mdi mdi-format-list-checks"></i>
         </div>
         <div class="panel-item grid" [ngClass]="{active: (state | async).view === 'grid'}" (click)="setView('grid')">
-          <i class="mdi mdi-grid"></i>
+          <i class="mdi mdi-view-grid"></i>
         </div>
         <div class="panel-item list" [ngClass]="{active: (state | async).view === 'list'}" (click)="setView('list')">
-          <i class="mdi mdi-format-list-bulleted"></i>
+          <i class="mdi mdi-view-sequential"></i>
         </div>
       </div>
       <vn-filters class="flex column" [ngClass]="showFilters ? 'open' : 'close'" [places]="(state | async).places"></vn-filters>

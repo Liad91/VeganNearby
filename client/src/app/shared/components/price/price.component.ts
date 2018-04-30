@@ -15,6 +15,10 @@ export class PriceComponent implements OnInit {
 
   ngOnInit() {
     if (this.price) {
+      // Fix different currencies bug
+      // https://github.com/Yelp/yelp-fusion/issues/407
+      this.price = '$'.repeat(this.price.length);
+
       this.title = this.titles[this.price.length - 1];
       this.reminder = this.reminder.substr(this.price.length);
     }
