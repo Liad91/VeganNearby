@@ -28,7 +28,7 @@
             <div class="detail">
               <i class="mdi mdi-map-marker"></i>
               <span class="nowrap max-w-75">{{ (state | async).place.location.address1 }}</span>
-              
+
               <ng-container *ngIf="!(state | async).place.location.address1">
                 <span class="nowrap max-w-75">{{ (state | async).place.location.display_address }}</span>
               </ng-container>
@@ -113,7 +113,7 @@
               <li *ngFor="let review of (state | async).reviews.reviews">
                 <div class="user flex align-items-center w-100">
                   <img [src]="review.user.image_url || 'assets/images/user_review.png'">
-                  <div class="review-head w-100">
+                  <div class="review-head">
                     <div class="flex">
                       <h6 class="m-0">{{ review.user.name }}</h6>
                       <vn-stars class="ml-auto" [rating]="review.rating"></vn-stars>

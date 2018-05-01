@@ -1,5 +1,9 @@
 <mz-modal id="auth" [options]="modalOptions">
-  <mz-modal-header></mz-modal-header>
+  <mz-modal-header>
+    <button class="close-btn" type="button" mz-button [float]="true" (click)="onClose()">
+      <i class="mdi mdi-close"></i>
+    </button>
+  </mz-modal-header>
   <mz-modal-content>
     <div class="spinner-wrap" *ngIf="(loading | async)">
       <mz-spinner color="blue" size="big"></mz-spinner>
@@ -8,12 +12,12 @@
       <vn-tab-item id="login" label="Login">
         <ng-template>
           <vn-login></vn-login>
-        </ng-template> 
+        </ng-template>
       </vn-tab-item>
       <vn-tab-item id="register" label="Register">
         <ng-template>
           <vn-register></vn-register>
-        </ng-template> 
+        </ng-template>
       </vn-tab-item>
     </vn-tabs>
   </mz-modal-content>

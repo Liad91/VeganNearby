@@ -10,7 +10,6 @@ import { AuthService } from '../auth.service';
 import { AuthSocialService } from '../auth-social/auth-social.service';
 import { errorStateTrigger } from '../../../shared/animations';
 import { imgPreviewStateTrigger } from '../animations';
-import { ModalService } from './../../services/modal.service';
 
 @Component({
   selector: 'vn-register',
@@ -32,11 +31,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public hasDropZoneOver = false;
   public errorMessageResources;
 
-  constructor(
-    private store: Store<fromRoot.AppState>,
-    private authService: AuthService,
-    private authSocialService: AuthSocialService,
-    private modalService: ModalService) {}
+  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService, private authSocialService: AuthSocialService) { }
 
   ngOnInit() {
     this.initializeForm();
@@ -78,15 +73,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public onResetUploader(): void {
     this.uploader.clearQueue();
     this.uploadErrorMessage = '';
-    delete(this.userImageFile);
+    delete (this.userImageFile);
   }
 
   public onFileOver(event: any): void {
     this.hasDropZoneOver = event;
-  }
-
-  public onClose(): void {
-    this.modalService.close();
   }
 
   public onSubmit(): void {

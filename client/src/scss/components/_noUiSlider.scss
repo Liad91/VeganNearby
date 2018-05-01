@@ -1,0 +1,30 @@
+// ==========================================================================
+// noUiSlider
+// ==========================================================================
+
+.noUi-base,
+.noUi-connect,
+.noUi-horizontal .noUi-handle {
+  cursor: pointer;
+}
+
+.noUi-connect,
+.noUi-horizontal .noUi-handle,
+.noUi-vertical .noUi-handle,
+.noUi-target.noUi-horizontal .noUi-tooltip {
+  background-color: $primary-color;
+}
+
+.noUi-connect,
+.noUi-horizontal {
+  border-radius: 20px;
+}
+
+.noUi-horizontal {
+  height: 5px;
+}
+
+.noUi-target .noUi-active.noUi-handle {
+  width: 0px;
+  height: 0px;
+}

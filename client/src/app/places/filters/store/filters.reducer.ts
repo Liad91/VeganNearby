@@ -37,7 +37,7 @@ const initialState: State = {
   location: null,
   coordinates: null,
   zoom: 12,
-  radius: 1489,
+  radius: 5000,
   categories: Data.categories,
   selectedCategory: Data.categories[0],
   prices: Data.prices,

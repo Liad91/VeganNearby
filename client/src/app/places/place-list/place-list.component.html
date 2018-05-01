@@ -3,7 +3,7 @@
     <div class="settings">
       <div class="panel flex align-items-center">
         <div class="panel-item filters" [ngClass]="{active: showFilters}" (click)="showFilters = !showFilters">
-          <i class="mdi mdi-format-list-checks"></i>
+          <i class="mdi mdi-tune"></i>
         </div>
         <div class="panel-item grid" [ngClass]="{active: (state | async).view === 'grid'}" (click)="setView('grid')">
           <i class="mdi mdi-view-grid"></i>

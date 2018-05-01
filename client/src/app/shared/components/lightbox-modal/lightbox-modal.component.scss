@@ -1,18 +1,5 @@
 @import '../../../variables';
 
-.close {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  opacity: 0.5;
-  background-color: rgba(0,0,0,0.8);
-  transition: $medium-transition;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 .main {
   position: relative;
   width: auto;

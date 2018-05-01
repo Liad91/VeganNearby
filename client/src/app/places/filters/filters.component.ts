@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnDestroy,
   OnInit,
@@ -8,14 +9,13 @@ import {
 import {
   LatLngLiteral,
   LatLngBounds,
-  MapsAPILoader,
   GoogleMapsAPIWrapper,
   AgmMap
 } from '@agm/core';
 import { Action, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { take } from 'rxjs/operators';
+import * as noUiSlider from 'materialize-css/extras/noUiSlider/nouislider.min.js';
 
 import mapStyles from '../data/map-styles';
 import * as fromPlaces from '../store/places.reducer';
@@ -36,9 +36,8 @@ import { CuisinesModalComponent } from './../../shared/components/cuisines-modal
 })
 export class FiltersComponent implements OnInit, OnDestroy {
   @ViewChild(AgmMap) map: any;
-  @Input() sidenavMode = false;
+  @ViewChild('slider') slider: ElementRef;
   @Input() places: YelpBusiness[];
-  public actions: Action[] = [];
   public state: State;
   public updateOnDrag = true;
   public mapStyles = mapStyles;
@@ -48,7 +47,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromPlaces.FeatureState>,
-    private mapsApiLoader: MapsAPILoader,
     private modalService: ModalService,
     private geoService: GeographicalService,
     private utilitiesService: UtilitiesService) { }
@@ -60,54 +58,49 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.dragEndSubscription = (<GoogleMapsAPIWrapper>this.map._mapsWrapper)
       .subscribeToMapEvent('dragend')
       .subscribe(() => this.onDragEnd());
+
+    this.initilaizeNoUiSlider();
+  }
+
+  private initilaizeNoUiSlider(): void {
+    noUiSlider.create(this.slider.nativeElement, {
+      start: this.state.radius / 1000,
+      connect: [true, false],
+      range: {
+        'min': 1,
+        'max': 40
+      }
+    });
+    this.slider.nativeElement.noUiSlider.on('change', this.onRadiusChanged.bind(this));
   }
 
   private onDragEnd(): void {
     if (this.updateOnDrag) {
+      this.store.dispatch(new filtersActions.SetCoordinates({ lat: this.map.latitude, lng: this.map.longitude }));
+
       this.geoService.geocoder(this.state.coordinates)
         .then(location => this.geocoderSuccess(location))
-        .then(radius => this.getRadiusSuccess(radius))
         .catch(() => this.dispatchActions());
     }
   }
 
-  private geocoderSuccess(location: string): Promise<number> {
+  private geocoderSuccess(location: string): void {
     this.store.dispatch(new filtersActions.SetLocation(location));
-    return this.getRadius();
-  }
-
-  private getRadius(): Promise<number> {
-    const from = new google.maps.LatLng(this.state.coordinates.lat, this.state.coordinates.lng);
-    const to = new google.maps.LatLng(this.mapBounds.getNorthEast().lat(), this.mapBounds.getNorthEast().lng());
-
-    return new Promise((resolve, reject) => {
-      this.mapsApiLoader.load()
-        .then(() => {
-          resolve(Math.floor(google.maps.geometry.spherical.computeDistanceBetween(from, to) / 2.2));
-        });
-    });
-  }
-
-  private getRadiusSuccess(radius: number): void {
-    this.store.dispatch(new filtersActions.SetRadius(radius));
     this.dispatchActions();
   }
 
-  public onMapCenterChange(event: LatLngLiteral): void {
-    Object.assign(this.state.coordinates, event);
+  public onRadiusChanged(values: number[]): void {
+    this.store.dispatch(new filtersActions.SetRadius(values[0] * 1000));
+    this.dispatchActions();
+  }
+
+  public onZoomChanged(zoom: number): void {
+    this.store.dispatch(new filtersActions.SetZoom(zoom));
   }
 
   public onReset(): void {
     this.store.dispatch(new filtersActions.ResetFilters());
     this.dispatchActions();
-  }
-
-  public onApply(): void {
-    if (this.actions.length) {
-      this.actions.forEach(action => this.store.dispatch(action));
-      this.dispatchActions();
-      this.actions = [];
-    }
   }
 
   public onCategoryChanged(category: Filter, index: number): void {
@@ -117,23 +110,13 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   public updatePrices(price: Filter): void {
-    if (this.sidenavMode) {
-      this.actions.push(new filtersActions.UpdatePrices(price));
-    }
-    else {
-      this.store.dispatch(new filtersActions.UpdatePrices(price));
-      this.dispatchActions();
-    }
+    this.store.dispatch(new filtersActions.UpdatePrices(price));
+    this.dispatchActions();
   }
 
   public updateCuisines(cuisine: Filter): void {
-    if (this.sidenavMode) {
-      this.actions.push(new filtersActions.UpdateCuisines(cuisine));
-    }
-    else {
-      this.store.dispatch(new filtersActions.UpdateCuisines(cuisine));
-      this.dispatchActions();
-    }
+    this.store.dispatch(new filtersActions.UpdateCuisines(cuisine));
+    this.dispatchActions();
   }
 
   private dispatchActions() {
@@ -143,9 +126,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
       Number(queryParams.lat) === this.state.coordinates.lat &&
       Number(queryParams.lng) === this.state.coordinates.lng) {
       this.store.dispatch(new GetPlaces());
-      this.utilitiesService.screenSize
-        .pipe(take(1))
-        .subscribe(size => size === 'sm' || size === 'xs' ? window.scrollTo(0, 0) : null);
     }
     else {
       this.utilitiesService.navigate(['places', this.state.location], {
@@ -164,6 +144,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.stateSubscription.unsubscribe();
     this.dragEndSubscription.unsubscribe();
+    this.slider.nativeElement.noUiSlider.destroy();
 
     // Fix DOM nodes leak
     // https://github.com/SebastianM/angular-google-maps/issues/1207

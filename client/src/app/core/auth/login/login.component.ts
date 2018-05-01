@@ -8,7 +8,6 @@ import * as authActions from '../store/auth.actions';
 import { AuthService } from '../auth.service';
 import { errorStateTrigger } from '../../../shared/animations';
 import { AuthSocialService } from '../auth-social/auth-social.service';
-import { ModalService } from './../../services/modal.service';
 
 @Component({
   selector: 'vn-login',
@@ -21,14 +20,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public errorSubscription: Subscription;
   public formErrorMessage: string;
-  public socialNetworks = ['google', 'twitter', 'facebook'];
   public errorMessageResources;
 
-  constructor(
-    private store: Store<fromRoot.AppState>,
-    private authService: AuthService,
-    private authSocialService: AuthSocialService,
-    private modalService: ModalService) {}
+  constructor(private store: Store<fromRoot.AppState>, private authService: AuthService, private authSocialService: AuthSocialService) { }
 
   ngOnInit() {
     this.initializeForm();
@@ -48,10 +42,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   public onSocialLogin(network: string): void {
     this.store.dispatch(new authActions.SocialLogin());
     this.authSocialService.login(network);
-  }
-
-  public onClose(): void {
-    this.modalService.close();
   }
 
   public onSubmit(): void {

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../../store/app.reducer';
 import { AuthService } from '../auth.service';
+import { ModalService } from './../../services/modal.service';
 
 @Component({
   selector: 'vn-auth-modal',
@@ -20,11 +21,16 @@ export class AuthModalComponent extends MzBaseModal implements OnInit {
     opacity: 0.5
   };
 
-  constructor(private store: Store<fromRoot.AppState>) {
+
+  constructor(private store: Store<fromRoot.AppState>, private modalService: ModalService) {
     super();
   }
 
   ngOnInit(): void {
     this.loading = this.store.select(fromRoot.selectAuthLoading);
+  }
+
+  public onClose(): void {
+    this.modalService.close();
   }
 }

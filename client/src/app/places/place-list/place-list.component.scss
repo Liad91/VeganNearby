@@ -138,7 +138,7 @@ vn-filters {
     }
 
     @media screen and (min-width: 1550px) {
-      width: calc(33.333% - 0.6664rem);
+      width: calc(33.333% - 2rem / 3);
       margin-right: 1rem;  
   
       &:nth-child(3n + 3) {
@@ -156,7 +156,7 @@ vn-filters {
     }
 
     @media screen and (min-width: 780px) and (max-width: $small-screen) {
-      width: calc(33.333% - 0.6664rem);
+      width: calc(33.333% - 2rem / 3);
       margin-right: 1rem;  
   
       &:nth-child(3n + 3) {

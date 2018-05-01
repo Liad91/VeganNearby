@@ -3,6 +3,7 @@
 // ==========================================================================
 
 .modal {
+  overflow-y: visible;
   top: 50% !important;
   left: 50%;
   right: 50%;
@@ -19,7 +20,19 @@
       margin: 0;
     }
   }
-  
+
+  .close-btn {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background-color: $primary-color;
+    transition: transform 0.25s ease-in-out;
+    will-change: transform;
+
+    &:hover {
+      transform: scale(1.1) rotate(90deg);
+    }
+  }
 }
 
 .modal-footer:empty {
@@ -31,7 +44,7 @@ mz-modal#alert,
 mz-modal#edit,
 mz-modal#lightbox {
   .modal {
-    max-width: 350px;
+    max-width: 500px;
     @media #{$extra-large-and-up} {
      width: 35%; 
     }
@@ -47,22 +60,15 @@ mz-modal#lightbox {
   }
 }
 
-mz-modal#auth,
-mz-modal#edit {
-  .modal {
-    border-top: 5px solid $primary-color;
-  }
-}
-
 mz-modal#lightbox {
   .modal {
-    overflow-y: visible;
     max-width: 550px;
   }
 }
 
 mz-modal#cuisines {
   .modal {
+    overflow-y: scroll;
     height: 60%;
     max-width: 700px;
 

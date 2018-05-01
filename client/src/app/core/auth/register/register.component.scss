@@ -14,7 +14,7 @@ p.error {
 
 .image-wrap {
   position: relative;
-  margin: 0 auto 1rem;
+  margin: 0.5rem auto 2rem;
   height: 110px;
   width: 110px;
   color: #a3a3a3;
@@ -33,17 +33,19 @@ p.error {
     display: flex;
     top: -3px;
     right: -8px;
-    transition: $fast-transition;
+    transition: transform 0.25s ease-out;
+    will-change: transform;
+
     &:hover {
-      transform: scale(1.2);
+      transform: scale(1.1);
     }
   }
 }
 
 .image-drop {
-  transition: $fast-transition;
   &.file-over {
     color: #0089ec !important;
+    
     button {
       transform: scale(0);
     }
@@ -52,6 +54,10 @@ p.error {
   p {
     font-size: 80%;
   }
+}
+
+mz-input-container:not(.w-100) {
+  width: 49%;
 }
 
 button[type=submit] {

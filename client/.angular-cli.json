@@ -20,6 +20,7 @@
       "prefix": "vn",
       "serviceWorker": true,
       "styles": [
+        "../node_modules/materialize-css/extras/noUiSlider/nouislider.css",
         "scss/app.scss",
         "scss/app-loading.scss",
         "../node_modules/mdi/css/materialdesignicons.min.css"
@@ -62,7 +63,6 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {
-    }
+    "component": {}
   }
 }

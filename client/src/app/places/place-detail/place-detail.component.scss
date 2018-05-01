@@ -237,7 +237,10 @@ header {
             border-radius: 50%;
             margin-right: 10px;
           }
-      
+          
+          .review-head {
+            flex-grow: 1;
+          }
           h6 {
             margin: 0 0 5px;
           }

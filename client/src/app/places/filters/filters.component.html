@@ -1,6 +1,5 @@
 <agm-map [latitude]="state.coordinates?.lat" [longitude]="state.coordinates?.lng" [streetViewControl]="false" [maxZoom]="18"
-  [minZoom]="10" [zoom]="state.zoom" [styles]="mapStyles" [zoomControl]="false" (zoomChange)="state.zoom = $event" (centerChange)="onMapCenterChange($event)"
-  (boundsChange)="mapBounds = $event">
+  [minZoom]="10" [zoom]="state.zoom" [styles]="mapStyles" [zoomControl]="false" (zoomChange)="onZoomChanged($event)">
   <agm-marker *ngFor="let place of places" [latitude]="place.coordinates.latitude" [longitude]="place.coordinates.longitude"
     [iconUrl]="'assets/icons/marker.png'" [title]="place.name" (mouseOver)="place.markerHover = true" (mouseOut)="place.markerHover = false">
   </agm-marker>
@@ -45,5 +44,11 @@
       <input type="checkbox" [id]="state.cuisines[index].alias" class="filled-in" [checked]="state.cuisines[index].checked" (change)="updateCuisines(state.cuisines[index])">
       <label [for]="state.cuisines[index].alias">{{ state.cuisines[index].title }}</label>
     </p>
+  </div>
+</div>
+<div class="filter">
+  <p>Radius (km)</p>
+  <div class="fields">
+    <div class="w-100 mr-1" #slider></div>
   </div>
 </div>
