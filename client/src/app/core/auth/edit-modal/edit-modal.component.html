@@ -5,12 +5,10 @@
     </button>
   </mz-modal-header>
   <mz-modal-content>
-    <div class="spinner-wrap" *ngIf="(loading | async)">
-      <mz-spinner color="blue" size="big"></mz-spinner>
-    </div>
-    <div class="flex wrap p-2">
-      <p @errorState class="error white-text center-align w-100 mt-0" *ngIf="formErrorMessage">{{ formErrorMessage }}</p>
-      <p @errorState class="error white-text center-align mt-0" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p>
+    <vn-loader class="absolute w-100" *ngIf="(loading | async)"></vn-loader>
+    <div class="flex wrap" style="padding: 1.5rem">
+      <vn-error @errorState type="inline" *ngIf="formErrorMessage">{{ formErrorMessage }}</vn-error>
+      <vn-error @errorState type="inline" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</vn-error>
       <form class="flex w-100 wrap" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
         <div class="flex w-100 image-upload">
           <div class="image-wrap">

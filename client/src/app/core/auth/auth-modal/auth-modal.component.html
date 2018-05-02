@@ -5,9 +5,7 @@
     </button>
   </mz-modal-header>
   <mz-modal-content>
-    <div class="spinner-wrap" *ngIf="(loading | async)">
-      <mz-spinner color="blue" size="big"></mz-spinner>
-    </div>
+    <vn-loader class="absolute w-100" *ngIf="(loading | async)"></vn-loader>
     <vn-tabs [selected]="mode === 'login' ? 0 : 1">
       <vn-tab-item id="login" label="Login">
         <ng-template>

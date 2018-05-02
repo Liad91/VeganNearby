@@ -8,33 +8,28 @@ header {
   background-image: url('../../assets/images/favorites-banner.jpg');
 }
 
-.spinner-container {
-  height: 250px;
+.no-results {
+  i {
+    display: block;
+    font-size: 3rem;
+    color: $gray-color;
+  }
 }
 
-.error {
+.empty-places {
   position: relative;
-  padding: 15px 30px;
-
-  p {
-    margin: 0;
-  }
+  font-size: 14px;
   
-  a {
+  .btn-underline {
     margin-left: 10px;
-    font-size: 0.9rem;
-
-    &:hover {
-      text-decoration: underline;
-    }
+    font-weight: bold;
   }
 
-  .spinner-wrap {
-    background-color: rgba(255, 200, 198, 0.5);
-
-    @media #{$medium-and-up} {
-      justify-content: flex-end;
-      padding-right: 20px;
+  vn-loader ::ng-deep {
+    .spinner-container {
+      @media #{$medium-and-up} {
+        justify-content: flex-end;
+      }
     }
   }
 

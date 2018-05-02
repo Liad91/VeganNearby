@@ -1,14 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { MzBaseModal } from 'ng2-materialize';
 
-import { imageStateTrigger } from './animations';
 import { ModalService, LightboxModalOptions } from '../../../core/services/modal.service';
 
 @Component({
   selector: 'vn-lightbox-modal',
   templateUrl: './lightbox-modal.component.html',
-  styleUrls: ['./lightbox-modal.component.scss'],
-  animations: [imageStateTrigger]
+  styleUrls: ['./lightbox-modal.component.scss']
 })
 export class LightboxModalComponent extends MzBaseModal {
   @Input() public options: LightboxModalOptions;
@@ -27,20 +25,10 @@ export class LightboxModalComponent extends MzBaseModal {
   }
 
   public next(): void {
-    if (this.options.active + 1 !== this.options.images.length) {
-      this.options.active++;
-    }
-    else {
-      this.options.active = 0;
-    }
+    this.options.active = this.options.active + 1 !== this.options.images.length ? this.options.active + 1 : 0;
   }
 
   public prev(): void {
-    if (this.options.active - 1 > -1) {
-      this.options.active--;
-    }
-    else {
-      this.options.active = this.options.images.length - 1;
-    }
+    this.options.active = this.options.active - 1 > -1 ? this.options.active - 1 : this.options.images.length - 1;
   }
 }

@@ -25,6 +25,7 @@
     position: absolute;
     top: -20px;
     right: -20px;
+    z-index: 200;
     background-color: $primary-color;
     transition: transform 0.25s ease-in-out;
     will-change: transform;

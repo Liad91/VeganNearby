@@ -17,7 +17,7 @@ export class AuthEffects {
   @Effect()
   register = this.actions
     .ofType(authActions.REGISTER)
-    .pipe (
+    .pipe(
       map((action: authActions.Register) => action.payload),
       exhaustMap(user => this.authService.register(user)
         .pipe(
@@ -45,7 +45,7 @@ export class AuthEffects {
   @Effect()
   update = this.actions
     .ofType(authActions.UPDATE)
-    .pipe (
+    .pipe(
       map((action: authActions.Update) => action.payload),
       exhaustMap(user => this.authService.update(user)
         .pipe(
@@ -111,10 +111,9 @@ export class AuthEffects {
     private store: Store<fromRoot.AppState>,
     private actions: Actions,
     private authService: AuthService,
-    private modalService: ModalService) {}
+    private modalService: ModalService) { }
 
   private onLoginSuccess(response: AuthResponse): void {
-    this.getFavorites(response.user.favorites);
     this.authService.storeToken(response.token);
     this.modalService.close();
   }

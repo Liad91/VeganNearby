@@ -1,6 +1,6 @@
 <div class="flex wrap">
-  <p @errorState class="error white-text center-align w-100 mt-0" *ngIf="formErrorMessage">{{ formErrorMessage }}</p>
-  <p @errorState class="error white-text center-align mt-0" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</p>
+  <vn-error @errorState type="inline" *ngIf="formErrorMessage">{{ formErrorMessage }}</vn-error>
+  <vn-error @errorState type="inline" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</vn-error>
   <form class="flex w-100 wrap justify-content-space-between" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
     <div class="flex w-100 image-upload">
       <div class="image-wrap">
@@ -30,6 +30,6 @@
       <input mz-input mz-validation required id="register-password" type="password" placeholder="password" label="Password:" formControlName="password"
         [errorMessageResource]="errorMessageResources.password">
     </mz-input-container>
-    <button mz-button class="w-100 p-0" type="submit">REGISTER</button>
+    <button mz-button class="w-100 p-0" type="submit">Register</button>
   </form>
 </div>

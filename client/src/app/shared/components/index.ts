@@ -8,3 +8,5 @@ export * from './stars/stars.component';
 export * from './tabs/tabs.component';
 export * from './tabs/tab-item/tab-item.component';
 export * from './typed/typed.component';
+export * from './error/error.component';
+export * from './loader/loader.component';

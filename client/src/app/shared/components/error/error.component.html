@@ -1,0 +1,28 @@
+<!-- 
+  Fix multiple <ng-content> bug
+  https://github.com/angular/angular/issues/7795
+ -->
+<ng-template #message>
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-container *ngIf="type === 'inline'">
+  <div class="inline">
+    <i class="mdi mdi-alert-box"></i>
+    <span>
+      <ng-container *ngTemplateOutlet="message"></ng-container>
+    </span>
+  </div>
+</ng-container>
+<ng-container *ngIf="type === 'connection'">
+  <div class="connection p-2 center-align">
+    <i class="mdi mdi-cloud-off-outline"></i>
+    <h4>Oh snap!</h4>
+    <p>An error occurred while attempting to connect to the server
+      <strong>
+        <ng-container *ngTemplateOutlet="message"></ng-container>
+      </strong>
+    </p>
+    <button class="outline" mz-button (click)="onRetry()">Try again</button>
+  </div>
+</ng-container>

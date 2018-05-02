@@ -5,39 +5,32 @@
 
 <div class="content w-100">
   <div class="title inline">
-    <h4 class="nowrap"><strong>Manage</strong> Your Favorites</h4>
+    <h4 class="nowrap">
+      <strong>Manage</strong> Your Favorites</h4>
     <p class="badge">{{ state.places.length }}/20</p>
   </div>
-  
-  <div class="center-align mt-2" *ngIf="state.places.length === 0 && !state.loading && !state.error">
-    <h3>No favorites to display</h3>
+
+  <div class="no-results center-align mt-2" *ngIf="state.places.length === 0 && !state.loading && !state.error">
+    <i class="mdi mdi-emoticon-sad"></i>
+    <strong>There are no listings in your favorites</strong>
   </div>
-  <div class="error flex align-items-flex-end mb-1" *ngIf="emptyPlaces.length > 0">
-    <p>Unable to retrieve <strong>{{ emptyPlaces.length }} {{ emptyPlaces.length > 1 ? 'items' : 'item' }}</strong> from your favorites.</p>
-    <a (click)="onReload()">Try Again</a>
-    <a (click)="deleteEmptyPlaces()">Delete The {{ emptyPlaces.length > 1 ? 'Items' : 'Item' }}</a>
-    <div class="spinner-wrap" *ngIf="errorLoading">
-      <mz-spinner color="blue" size="small"></mz-spinner>
-    </div>
+
+  <div class="empty-places flex align-items-center mb-1" *ngIf="emptyPlaces.length > 0">
+    <p class="m-0">Unable to retrieve
+      <strong>{{ emptyPlaces.length }} {{ emptyPlaces.length > 1 ? 'items' : 'item' }}</strong> from your favorites.</p>
+    <a class="btn-underline" (click)="onReload()">Try Again</a>
+    <a class="btn-underline danger" (click)="deleteEmptyPlaces()">Delete The {{ emptyPlaces.length > 1 ? 'Items' : 'Item' }}</a>
+    <vn-loader class="absolute w-100" size="small" *ngIf="errorLoading"></vn-loader>
   </div>
-  <div class="error center-align align-self-flex-start w-70 py-2 mt-2 mx-auto" *ngIf="(connectionError || state.error) && !state.loading" @errorState>
-    <h3>Connection Error</h3>
-    <p>Ooops, something went wromg. Please try again later.</p>
-    <button mz-button (click)="onReload()">Try Again</button>
-  </div>
-  <div class="spinner-container flex align-items-center justify-content-center" *ngIf="state.loading">
-    <mz-spinner size="big" color="blue"></mz-spinner>
-  </div>
-  
+
+  <vn-loader class="w-100" *ngIf="state.loading"></vn-loader>
+
+  <vn-error type="connection" (retry)="onReload()" *ngIf="(connectionError || state.error) && !state.loading"></vn-error>
+
   <div *ngIf="state.places.length > 0 && !connectionError && !state.loading">
     <div class="flex wrap w-100 align-self-flex-start mb-2">
       <ng-container *ngFor="let place of state.places">
-        <vn-place 
-          @placeState
-          class="mb-1 mr-1"
-          [place]="place"
-          *ngIf="place.name"
-        >
+        <vn-place @placeState class="mb-1 mr-1" [place]="place" *ngIf="place.name">
         </vn-place>
       </ng-container>
     </div>

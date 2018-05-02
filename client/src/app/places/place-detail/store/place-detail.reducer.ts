@@ -26,8 +26,8 @@ export function placeDetailReducer(state = initialState, action: placeDetailActi
       };
     case placeDetailActions.SET_PLACE:
       return {
-        ...state,
         place: action.payload,
+        reviews: null,
         loading: 'reviews',
         error: null
       };

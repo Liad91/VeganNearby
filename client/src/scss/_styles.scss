@@ -32,6 +32,56 @@ a {
   } 
 }
 
+.btn.outline,
+.btn-large.outline {
+  background: transparent;
+  box-shadow: none;
+  color: $primary-color;
+  border: 1px solid;
+  border-radius: 3px;
+  font-size: 14px;
+  letter-spacing: 1px;
+
+  &:hover {
+    color: #fff;
+    background-color: $primary-color;
+    border-color: $primary-color;
+    box-shadow: none;
+  }
+}
+
+.btn-underline {
+  position: relative;
+  color: $primary-color;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: -2px;
+    height: 1px;
+    background-color: $primary-color;
+    border-radius: 3px;
+    transition: transform 0.25s ease-out;
+    will-change: transform;
+    transform: scale(0)
+  }
+
+  &:hover::after {
+    transform: none;
+  }
+
+  &.danger {
+    color: $danger-color;
+
+    &::after {
+      background-color: $danger-color;
+    }
+  }
+}
+
 .btn, .btn-large, .btn-flat {
   text-transform: initial;
 }
@@ -194,49 +244,6 @@ header {
   }
 }
 
-// Error
-// ==========================================================================
-.error {
-  border: 1px solid darken($danger-color, 5%);
-  border-radius: 3px;
-  background-color: $danger-color;
-
-  h3 {
-    margin-bottom: 5px;
-    font-size: 1.5rem;
-    color: #fff;
-  }
-
-  p {
-    margin: 0;
-    font-size: 14px;
-    color: #fff;
-
-    & + p {
-      font-size: 12px;
-    }
-
-    &:last-of-type {
-      margin-bottom: 1rem;
-    }
-  }
-  
-  button {
-    background-color: darken($danger-color, 5%);
-    box-shadow: none;
-
-    &:hover, 
-    &:focus {
-      background-color: darken($danger-color, 10%);
-      box-shadow: none;
-    }
-  }
-
-  @media #{$extra-small-only} {
-    width: 100%;
-  }
-}
-
 // Google autocomplete
 // ==========================================================================
 .pac-container {
@@ -257,25 +264,6 @@ header {
     background-color: $secondary-background;
   }
 }
-
-// Spinner wrap
-// ==========================================================================
-.spinner-wrap {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($secondary-background, 0.6);
-  z-index: 10;
-
-  &:not([hidden]) {
-    display: flex;;
-  }
-}
-
 
 // Auth Input
 // ==========================================================================

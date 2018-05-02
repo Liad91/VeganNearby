@@ -37,7 +37,7 @@
 <div class="filter" *ngIf="state.selectedCategory.alias === 'restaurants'">
   <div class="more">
     <p>Cuisine</p>
-    <span (click)="openModal()">Show More</span>
+    <span class="btn-underline" (click)="openModal()">Show More</span>
   </div>
   <div class="fields">
     <p class="checkbox-field" *ngFor="let index of state.displayedCuisinesIndex">

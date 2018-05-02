@@ -88,7 +88,7 @@
           </div>
         </div>
 
-        <div class="info-card" *ngIf="(state | async).reviews?.reviews.length">
+        <div class="info-card">
           <div class="info-card-head">
             <div class="info-card-title">
               <i class="mdi mdi-message-text-outline"></i>
@@ -98,18 +98,11 @@
           <div class="info-card-body flex">
 
             <!-- reviews error message -->
-            <div class="error center-align align-self-flex-start w-70 py-2" *ngIf="(state | async).error === 'reviews'" @errorState>
-              <h3>Connection Error</h3>
-              <p>Ooops, something went wromg. Please try again later.</p>
-              <button mz-button (click)="onReloadReviews()">Try Again</button>
-            </div>
-
+            <vn-error type="connection" (retry)="onReloadReviews()" *ngIf="(state | async).error === 'reviews'"></vn-error>
             <!-- reviews loader -->
-            <div class="spinner-wrap mt-2" *ngIf="(state | async).loading === 'reviews'">
-              <mz-spinner color="blue" size="medium"></mz-spinner>
-            </div>
+            <vn-loader class="w-100" *ngIf="(state | async).loading === 'reviews'"></vn-loader>
 
-            <ul class="reviews">
+            <ul class="reviews w-100" *ngIf="(state | async).reviews?.reviews.length">
               <li *ngFor="let review of (state | async).reviews.reviews">
                 <div class="user flex align-items-center w-100">
                   <img [src]="review.user.image_url || 'assets/images/user_review.png'">
@@ -121,7 +114,7 @@
                     <div class="date">{{ review.time_created }}</div>
                   </div>
                 </div>
-                <div class="text">
+                <div class="text w-100">
                   <p>{{ review.text.slice(0, -3) }}
                     <a [href]="review.url" target="_blank">read more...</a>
                   </p>
@@ -186,17 +179,10 @@
       </div>
     </div>
   </div>
-
   <!-- page error message -->
-  <div class="error center-align align-self-flex-start w-70 py-2 mx-auto" *ngIf="(state | async).error === 'page'" @errorState>
-    <h3>Place Not Found</h3>
-    <p>Ooops, something went wromg. Please try again later.</p>
-    <p>*If this message not eventually replaced, the required place may not be reachable anymore.</p>
-    <button mz-button (click)="onReloadPage()">Try Again</button>
-  </div>
-
+  <vn-error type="connection" (retry)="onReloadPage()" *ngIf="(state | async).error === 'page'">
+    If this message not eventually replaced, the required place may not be reachable anymore
+  </vn-error>
   <!-- page loader -->
-  <div class="spinner-container flex align-items-center justify-content-center" *ngIf="(state | async).loading === 'page'">
-    <mz-spinner size="big" color="blue"></mz-spinner>
-  </div>
+  <vn-loader class="w-100" *ngIf="(state | async).loading === 'page'"></vn-loader>
 </div>

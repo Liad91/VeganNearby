@@ -1,0 +1,23 @@
+@import '../../../variables';
+
+:host.absolute {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  .spinner-container {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+:host:not(.absolute) {
+  .spinner-container {
+    height: 250px;
+    padding: 2rem 0;
+  }
+}

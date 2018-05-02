@@ -5,16 +5,18 @@
     </button>
   </mz-modal-header>
   <mz-modal-content>
-    <div class="main flex" [@imageState]="options.active">
-      <ng-container *ngFor="let image of options.images; let i = index">
-        <img [src]="image" *ngIf="i === options.active">
-      </ng-container>
-      <div class="action prev" (click)="prev()">
+    <div class="main flex">
+      <div [class]="'img-container flex active-' + options.active">
+        <ng-container *ngFor="let image of options.images; let i = index">
+          <img [src]="image">
+        </ng-container>
+      </div>
+      <button class="action prev" mz-button [float]="true" (click)="prev()">
         <i class="mdi mdi-chevron-left mdi-24px"></i>
-      </div>
-      <div class="action next" (click)="next()">
+      </button>
+      <button class="action next" mz-button [float]="true" (click)="next()">
         <i class="mdi mdi-chevron-right mdi-24px"></i>
-      </div>
+      </button>
     </div>
   </mz-modal-content>
 </mz-modal>

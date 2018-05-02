@@ -11,7 +11,7 @@ router.post('/search', (req, res, next) => {
     return next(err);
   }
 
-  Object.assign(queryParams, {term: 'vegan'});
+  Object.assign(queryParams, { term: 'vegan' });
 
   const options = {
     method: 'GET',
@@ -22,7 +22,7 @@ router.post('/search', (req, res, next) => {
 
   request(options, (err, response, body) => {
     if (err) {
-      err.message = 'Yelp search request failed';      
+      err.message = 'Yelp search request failed';
       return next(err);
     }
     if (response.statusCode > 499) {
@@ -62,7 +62,7 @@ router.get('/business', (req, res, next) => {
 
   request(options, (err, response, body) => {
     if (err) {
-      err.message = 'Yelp search request failed';      
+      err.message = 'Yelp search request failed';
       return next(err);
     }
     if (response.statusCode > 499) {
@@ -93,7 +93,7 @@ router.get('/reviews', (req, res, next) => {
 
   request(options, (err, response, body) => {
     if (err) {
-      err.message = 'Yelp search request failed';      
+      err.message = 'Yelp search request failed';
       return next(err);
     }
     if (response.statusCode > 499) {
