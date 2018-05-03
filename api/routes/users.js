@@ -11,7 +11,7 @@ const upload = require('../middlewares/multer').single('avatar');
 const router = express.Router();
 
 /** Register */
-router.post('/register',(req, res, next) => {
+router.post('/register', (req, res, next) => {
   upload(req, res, err => {
     if (err) {
       err.type = 'upload';
@@ -19,9 +19,9 @@ router.post('/register',(req, res, next) => {
       return next(err);
     }
 
-    if (!req.body.email || !req.body.password || !req.body.username) {
+    if (!req.body.email || !req.body.password || !req.body.name) {
       const err = new Error('All fields are required!');
-      
+
       err.status = 403;
       err.type = 'required';
       return next(err);
@@ -60,7 +60,7 @@ router.post('/register',(req, res, next) => {
             type: 'validation',
             message: {}
           };
-          
+
           for (const field in err.errors) {
             if (field == 'email' && err.errors.email.message === 'Unique') {
               error.message.email = 'unique';
@@ -77,7 +77,7 @@ router.post('/register',(req, res, next) => {
 
 /** Login */
 router.post('/login', (req, res, next) => {
-  User.findOne({email: req.body.email})
+  User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
         const err = new Error('Authentication failed');
@@ -117,9 +117,9 @@ router.post('/update', passport.authenticate('jwt', { session: false }), (req, r
       return next(err);
     }
 
-    const { email, username, image } = req.body;
+    const { email, name, image } = req.body;
 
-    if (!email || !username) {
+    if (!email || !name) {
       const err = new Error('All fields are required!');
 
       err.status = 403;
@@ -128,7 +128,7 @@ router.post('/update', passport.authenticate('jwt', { session: false }), (req, r
     }
 
     req.user.email = email;
-    req.user.username = username;
+    req.user.name = name;
 
     req.user.save()
       .then(user => {
@@ -138,7 +138,7 @@ router.post('/update', passport.authenticate('jwt', { session: false }), (req, r
           if (user.avatarUrl) {
             removeImageFile(user);
           }
-          
+
           return Promise.all([
             setImageFile(user._id, timestamp, req.file),
             user.setAvatar(`${req.protocol}://${req.get('host')}/images/users/${user._id}-${timestamp}.${req.file.type}`)
@@ -173,7 +173,7 @@ router.post('/update', passport.authenticate('jwt', { session: false }), (req, r
             type: 'validation',
             message: {}
           };
-          
+
           for (const field in err.errors) {
             if (field == 'email' && err.errors.email.message === 'Unique') {
               error.message.email = 'unique';
@@ -216,7 +216,7 @@ router.put('/favorites/add', passport.authenticate('jwt', { session: false }), (
 router.put('/favorites/remove', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   const user = req.user;
   const token = buildToken(user._id);
-  
+
   user.removeFromFavorites(req.body.id)
     .then(() => res.status(200).json({
       token
@@ -243,12 +243,12 @@ function buildToken(userId) {
 function setImageFile(id, timestamp, file) {
   return new Promise((resolve, reject) => {
     const newFilePath = `public/images/users/${id}-${timestamp}.${file.type}`;
-  
+
     /** Move the image from ./public/temp to ./public/images/users */
     fs.renameSync(file.path, newFilePath);
-    
+
     /** Rezise the image */
-    Jimp.read(newFilePath, function(err, image) {
+    Jimp.read(newFilePath, function (err, image) {
       if (err) {
         reject(err);
       }

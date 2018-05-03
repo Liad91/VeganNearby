@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   private initializeForm(): void {
     this.form = new FormGroup({
-      'username': new FormControl(null, [Validators.required, Validators.minLength(4)]),
+      'name': new FormControl(null, [Validators.required, Validators.minLength(4)]),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
     });

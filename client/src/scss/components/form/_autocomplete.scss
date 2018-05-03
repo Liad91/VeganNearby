@@ -1,0 +1,34 @@
+// ==========================================================================
+// Google Autocomplete
+// ==========================================================================
+
+.pac-container {
+  font-family: $font-family;
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.pac-item {
+  cursor: pointer;
+  padding: 3px 10px;
+  border-color: $border-color;
+  transition: background-color 0.25s ease-out;
+  will-change: background-color;
+
+  .pac-item-query {
+    font-size: 14px;
+    color: $dark-color;
+
+    & + span .pac-matched {
+      color: $font-color;
+    }
+  }
+
+  .pac-icon {
+    display: none;
+  }
+
+  &:hover {
+    background-color: $secondary-background;
+  }
+}

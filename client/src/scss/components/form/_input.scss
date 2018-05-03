@@ -1,0 +1,49 @@
+// ==========================================================================
+// Input
+// ==========================================================================
+
+mz-input-container.auth .input-field { 
+  input:not(.browser-default) {
+    border: 0;
+    background: $secondary-background;
+    height: 2.5rem;
+    font-size: 14px;
+    display: block;
+    position: static;
+    box-shadow: none;
+    padding-left: 5px;
+    box-sizing: border-box;
+    border-radius: 2px;
+
+    &::-webkit-input-placeholder {
+      color: $gray-color;
+    }
+
+    &.invalid:not(.browser-default),
+    &.ng-invalid.ng-dirty {
+      border-left: 3px solid $danger-color;
+      box-shadow: none;
+      background: lighten($danger-color, 37%);
+      border-bottom: 0;
+    }
+
+    &.valid:not(.browser-default),
+    &.valid:not(.browser-default):focus,
+    &:not(.browser-default):focus:not([readonly]) {
+      border-left: 3px solid $tertiary-color;
+      box-shadow: none;
+      background: lighten($tertiary-color, 37%);
+      background: $secondary-background;
+      border-bottom: 0;
+    }
+  }
+
+  label {
+    font-weight: 500;
+    top: -7px;
+  }
+
+  .invalid {
+    min-height: 30px !important;
+  }
+}

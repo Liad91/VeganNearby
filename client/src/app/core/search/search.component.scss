@@ -179,14 +179,38 @@ button[type = submit] {
 
   form {
     position: relative;
-    background-color: $secondary-background;
+    background-color: rgba($secondary-background, 0.3);
     transition: 0.2s ease-out;
     transition-property: background-color, box-shadow;
     will-change: background-color, box-shadow;
 
     &.active {
-      box-shadow: 0 0 2px 1px $border-color;
+      box-shadow: none;
       background-color: #fff;
+      
+      .location {
+        input {
+          color: $dark-color;
+        }
+
+        input::placeholder {
+          color: $gray-color;
+        }
+      }
+
+      button[type = submit] {
+        &:hover {
+          i {
+            color: $dark-color;
+          }
+        }
+
+        i {
+          color: $gray-color;
+          transition: color 0.25s ease-out;
+          will-change: color;
+        }
+      }
     }
 
     .location {
@@ -208,10 +232,14 @@ button[type = submit] {
       }
 
       input {
-        height: 3rem;
+        height: 2.8rem;
         margin: 0;
         padding: 0 50px 0 13px;
-        color: $dark-color;
+      }
+
+      input,
+      input::placeholder  {
+        color: #fff;
       }
     }
 
@@ -228,10 +256,8 @@ button[type = submit] {
       
       i {
         height: auto;
-        color: $gray-color;
-        transition: color 0.25s ease-out;
-        will-change: color;
-
+        color: #fff;
+        
         &:before {
           font-size: 23px;
           line-height: 1;
@@ -240,40 +266,6 @@ button[type = submit] {
 
       mz-spinner::ng-deep .spinner-layer {
         border-color: $gray-color;
-      }
-
-      &:hover {
-        i {
-          color: $dark-color;
-        }
-      }
-    }
-  }
-}
-
-:host-context(.transparent) {
-  .search-box.nav {
-    form {
-      background-color: rgba($secondary-background, 0.3);
-
-      &.active {
-        box-shadow: none;
-        background-color: #fff;
-      }
-
-      input {
-        height: 2.8rem;
-      }
-
-      &:not(.active) {
-        input,
-        input::placeholder  {
-          color: #fff;
-        }
-
-        button[type = submit] i {
-          color: #fff;
-        }
       }
     }
   }

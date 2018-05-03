@@ -11,9 +11,9 @@ const strategy = new Strategy(options, verify);
 
 function verify(accessToken, refreshToken, profile, done) {
   const user = {
-    username: profile.displayName,
+    name: profile.displayName,
     email: profile.emails[0].value,
-    password: profile.id,    
+    password: profile.id,
     avatarUrl: profile.photos[0].value
   };
 

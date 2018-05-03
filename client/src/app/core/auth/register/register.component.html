@@ -19,15 +19,15 @@
       </div>
     </div>
     <mz-input-container class="auth">
-      <input mz-input mz-validation required id="register-username" type="text" placeholder="username" label="Username:" formControlName="username"
-        [errorMessageResource]="errorMessageResources.username">
+      <input mz-input mz-validation required id="register-name" type="text" placeholder="Full Name" label="Name:" formControlName="name"
+        [errorMessageResource]="errorMessageResources.name">
     </mz-input-container>
     <mz-input-container class="auth">
-      <input mz-input mz-validation required id="register-email" type="email" placeholder="example@domain.com" label="Email:" formControlName="email"
+      <input mz-input mz-validation required id="register-email" type="email" placeholder="Email Address" label="Email:" formControlName="email"
         [errorMessageResource]="errorMessageResources.email">
     </mz-input-container>
     <mz-input-container class="auth w-100">
-      <input mz-input mz-validation required id="register-password" type="password" placeholder="password" label="Password:" formControlName="password"
+      <input mz-input mz-validation required id="register-password" type="password" placeholder="Set A Password" label="Password:" formControlName="password"
         [errorMessageResource]="errorMessageResources.password">
     </mz-input-container>
     <button mz-button class="w-100 p-0" type="submit">Register</button>

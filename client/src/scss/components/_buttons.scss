@@ -1,0 +1,74 @@
+// ==========================================================================
+// Buttons
+// ==========================================================================
+
+.btn, .btn-large, .btn-flat {
+  text-transform: initial;
+}
+
+.btn-floating {
+  &:focus {
+    background-color: darken($button-floating-background, 10%);
+  }
+}
+
+.btn-flat{
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  &:focus,
+  &.btn-floating:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.btn.outline,
+.btn-large.outline {
+  background: transparent;
+  box-shadow: none;
+  color: $primary-color;
+  border: 1px solid;
+  border-radius: 3px;
+  font-size: 14px;
+  letter-spacing: 1px;
+
+  &:hover {
+    color: #fff;
+    background-color: $primary-color;
+    border-color: $primary-color;
+    box-shadow: none;
+  }
+}
+
+.btn-underline {
+  position: relative;
+  color: $primary-color;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: -2px;
+    height: 1px;
+    background-color: $primary-color;
+    border-radius: 3px;
+    transition: transform 0.25s ease-out;
+    will-change: transform;
+    transform: scale(0)
+  }
+
+  &:hover::after {
+    transform: none;
+  }
+
+  &.danger {
+    color: $danger-color;
+
+    &::after {
+      background-color: $danger-color;
+    }
+  }
+}

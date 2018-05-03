@@ -19,7 +19,7 @@ function findOrCreate(req, res, next) {
     return next(err);
   }
 
-  if (!profile.username || !profile.email || !profile.password) {
+  if (!profile.name || !profile.email || !profile.password) {
     const err = new Error('Profile fileds missing');
 
     err.status = 403;
@@ -31,14 +31,14 @@ function findOrCreate(req, res, next) {
     .then(user => {
       const query = {
         _id: user._id.toString(),
-        username: user.username,
+        name: user.name,
         email: user.email,
         avatarUrl: user.avatarUrl,
         background: user.background,
         favorites: user.favorites,
         token: buildToken(user._id)
       };
-      
+
       res.redirect(url.format({
         pathname: `${config.clientUrl}/callback`,
         query: query

@@ -16,113 +16,10 @@ body {
 a {
   cursor: pointer;
   color: $primary-color;
-  transition: $medium-transition;
+  transition: color 0.25s ease-in-out;
+  will-change: color;
 }
 
-.content {
-  margin: 0 auto;
-  padding: 0 25px;
-  max-width: 1170px;
-  @media #{$medium-and-down} {
-    max-width: 100%;
-    padding: 0 15px;
-  }
-  @media #{$small-and-down} {
-    padding: 0 10px;
-  } 
-}
-
-.btn.outline,
-.btn-large.outline {
-  background: transparent;
-  box-shadow: none;
-  color: $primary-color;
-  border: 1px solid;
-  border-radius: 3px;
-  font-size: 14px;
-  letter-spacing: 1px;
-
-  &:hover {
-    color: #fff;
-    background-color: $primary-color;
-    border-color: $primary-color;
-    box-shadow: none;
-  }
-}
-
-.btn-underline {
-  position: relative;
-  color: $primary-color;
-  cursor: pointer;
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-    bottom: -2px;
-    height: 1px;
-    background-color: $primary-color;
-    border-radius: 3px;
-    transition: transform 0.25s ease-out;
-    will-change: transform;
-    transform: scale(0)
-  }
-
-  &:hover::after {
-    transform: none;
-  }
-
-  &.danger {
-    color: $danger-color;
-
-    &::after {
-      background-color: $danger-color;
-    }
-  }
-}
-
-.btn, .btn-large, .btn-flat {
-  text-transform: initial;
-}
-
-.btn-flat:hover {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-.primary {
-  color: $primary-color;
-}
-
-// Checkboxes
-// ==========================================================================
-[type="checkbox"].filled-in:checked + label::after {
-  border-color: $primary-color;
-  background-color: $primary-color;
-}
-
-
-// Scrollbar
-// ==========================================================================
-.modal,
-.scrollbar {
-  &::-webkit-scrollbar {
-    width: 6px;
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,.2);
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
-
-
-// Headers & Titles
-// ==========================================================================
 header {
   position: relative;
   display: flex;;
@@ -154,7 +51,7 @@ header {
   }
 
   @media #{$small-and-down} {
-    margin-top: 56px;
+    margin-top: 0;
     height: 320px;
 
     h1 {
@@ -175,6 +72,25 @@ header {
     } 
   }
 }
+
+// Content
+// ==========================================================================
+
+.content {
+  margin: 0 auto;
+  padding: 0 25px;
+  max-width: 1170px;
+  @media #{$medium-and-down} {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  @media #{$small-and-down} {
+    padding: 0 10px;
+  } 
+}
+
+// Title
+// ==========================================================================
 
 .title {
   display: flex;;
@@ -244,71 +160,21 @@ header {
   }
 }
 
-// Google autocomplete
+// Scrollbar
 // ==========================================================================
-.pac-container {
-  border-top: none;
-  border-radius: 0 0 2px 2px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.pac-item {
-  cursor: pointer;
-  padding: 3px 10px;
-  transition: $fast-transition;
-
-  .pac-icon {
-    display: none;
+.modal,
+.side-nav,
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
   }
 
-  &:hover {
-    background-color: $secondary-background;
-  }
-}
-
-// Auth Input
-// ==========================================================================
-mz-input-container.auth .input-field { 
-  input:not(.browser-default) {
-    border: 0;
-    background: #eee;
-    height: 2.5rem;
-    font-size: 0.9rem;
-    display: block;
-    // font-weight: 500;
-    position: static;
-    box-shadow: none;
-    padding-left: 5px;
-    box-sizing: border-box;
-    border-radius: 2px;
-
-    &::-webkit-input-placeholder {
-      color: #777;
-    }
-
-    &.invalid:not(.browser-default),
-    &.ng-invalid.ng-dirty {
-      border-left: 3px solid #F44336;
-      box-shadow: none;
-      background: #f9e9e8;
-      border-bottom: 0;
-    }
-
-    &.valid:not(.browser-default),
-    &.valid:not(.browser-default):focus,
-    &:not(.browser-default):focus:not([readonly]) {
-      border-left: 3px solid #2196f3;
-      box-shadow: none;
-      background: #eee;
-      border-bottom: 0;
-    }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
   }
 
-  label {
-    font-weight: 500;
-    top: -7px;
-  }
-
-  .invalid {
-    min-height: 30px !important;
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }

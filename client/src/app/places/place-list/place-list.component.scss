@@ -9,7 +9,7 @@ section {
 
   ::ng-deep agm-map,
   .content-left {
-    height: calc(100vh - 114px);
+    height: calc(100vh - 64px);
   }
 
   ::ng-deep agm-map {
@@ -38,13 +38,9 @@ section {
     @media #{$small-and-down} {
       position: relative;
       width: 100%;
-      height: calc(100vh - 106px);
+      height: calc(100vh - 56px);
       margin-top: 56px;
       padding-top: 320px;
-    }
-
-    @media screen and (max-width: 550px) {
-      height: calc(100vh - 112px);
     }
   }
 }

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
-  username: {
+  name: {
     type: String,
     required: true
   },
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   }]
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   const user = this;
 
   if (user.isNew) {
@@ -47,7 +47,7 @@ userSchema.pre('save', function(next) {
   }
 });
 
-userSchema.method('comparePassword', function(password) {
+userSchema.method('comparePassword', function (password) {
   const user = this;
 
   return new Promise((resolve, reject) => {
@@ -57,12 +57,12 @@ userSchema.method('comparePassword', function(password) {
   });
 });
 
-userSchema.method('setAvatar', function(avatarUrl) {
+userSchema.method('setAvatar', function (avatarUrl) {
   this.avatarUrl = avatarUrl;
   return this.save();
 });
 
-userSchema.method('addToFavorites', function(id) {
+userSchema.method('addToFavorites', function (id) {
   const user = this;
 
   return new Promise((resolve, reject) => {
@@ -76,7 +76,7 @@ userSchema.method('addToFavorites', function(id) {
   });
 });
 
-userSchema.method('setBackground', function(index) {
+userSchema.method('setBackground', function (index) {
   const user = this;
 
   return new Promise((resolve, reject) => {
@@ -90,10 +90,10 @@ userSchema.method('setBackground', function(index) {
   });
 });
 
-userSchema.method('removeFromFavorites', function(id) {
+userSchema.method('removeFromFavorites', function (id) {
   const user = this;
   const index = user.favorites.findIndex(i => i === id);
-  
+
   return new Promise((resolve, reject) => {
     if (index === -1) {
       return reject();
@@ -105,18 +105,18 @@ userSchema.method('removeFromFavorites', function(id) {
   });
 });
 
-userSchema.static('findOrCreate', function(user) {
+userSchema.static('findOrCreate', function (user) {
   const model = this;
 
   return new Promise((resolve, reject) => {
-    model.findOne({email: user.email})
-    .then(doc => {
-      if (doc) {
-        return resolve(doc);
-      }
-      return resolve(model.create(user));
-    })
-    .catch(err => reject(err));
+    model.findOne({ email: user.email })
+      .then(doc => {
+        if (doc) {
+          return resolve(doc);
+        }
+        return resolve(model.create(user));
+      })
+      .catch(err => reject(err));
   });
 });
 

@@ -1,8 +1,9 @@
 import { Component, ViewChild, Input, OnDestroy, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 import { take } from 'rxjs/operators';
 
 import * as fromRoot from './../../store/app.reducer';
@@ -26,32 +27,50 @@ import { ModalService } from './../services/modal.service';
 export class NavComponent implements OnInit, OnDestroy {
   @ViewChild(SidenavButtonDirective) sidenavBtn: SidenavButtonDirective;
   @Input() public activatedRoute: string;
-  @Input() public transparent: boolean;
+  public sticky = false;
   public user: Observable<User>;
   public mobileView: boolean;
   public searchBarOpen = false;
   public backgroundLoading: Observable<boolean>;
+  private scroll: Observable<any>;
+  private scrollSubscription: Subscription;
   private resizeSubscription: Subscription;
 
   constructor(
     private location: Location,
     private store: Store<fromRoot.AppState>,
     private modalService: ModalService,
-    private utilitiesService: UtilitiesService) {}
+    private utilitiesService: UtilitiesService) { }
 
   ngOnInit(): void {
     this.user = this.store.select(fromRoot.selectAuthUser);
     this.backgroundLoading = this.store.select(fromRoot.selectAuthUserBackgroundLoading);
 
+    this.scroll = fromEvent(window, 'scroll');
     this.resizeSubscription = this.utilitiesService.screenSize
       .subscribe(
         size => {
           this.mobileView = size === 'sm' || size === 'xs';
-          if (this.searchBarOpen && !this.mobileView) {
-            this.searchBarOpen = false;
+
+          if (this.mobileView) {
+            this.scrollHandler();
+            this.scrollSubscription = this.scroll.subscribe(() => this.scrollHandler());
+          }
+          else {
+            if (this.scrollSubscription) {
+              this.scrollSubscription.unsubscribe();
+              this.sticky = false;
+            }
+            if (this.searchBarOpen) {
+              this.searchBarOpen = false;
+            }
           }
         }
       );
+  }
+
+  private scrollHandler() {
+    this.sticky = window.pageYOffset === 0 ? false : true;
   }
 
   public navigate(url: string, data?: any) {
@@ -102,5 +121,9 @@ export class NavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe();
+
+    if (this.scrollSubscription) {
+      this.scrollSubscription.unsubscribe();
+    }
   }
 }

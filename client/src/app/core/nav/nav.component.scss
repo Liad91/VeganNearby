@@ -2,20 +2,45 @@
 
 nav {
   overflow: hidden;
-  background-color: #fff;
   box-shadow: none;
+  background-color: transparent;
+  z-index: 10;
+  transition: 0.4s ease-in-out;
+  transition-property: height, box-shadow, background-color;
+  will-change: height, box-shadow, background-color;
 
-  &.sticky {
+  &.list-page {
+    background-color: $dark-color;
+  }
+
+  @media #{$small-and-down} {
     position: fixed;
+    height: 70px;
     top: 0;
     z-index: 500;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+
+    .btn-menu {
+      order: -1;
+    }
+
+    &.home-page {
+      .logo {
+        margin-left: 8px;
+        order: -2;
+      }
+    }
+    
+    &.list-page,
+    &.sticky {
+      background-color: $dark-color;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      height: 56px;
+    }    
   }
   
   vn-search {
     width: 50%;
     margin-left: auto;
-    z-index: 1;
 
     @media #{$small-and-down} {
       width: 80%;
@@ -24,10 +49,9 @@ nav {
   }
   
   .logo {
-    z-index: 1;
     width: 170px;
     height: 35px;
-    background-image: url('../../../assets/images/logo.png');
+    background-image: url('../../../assets/images/logo_white.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -88,80 +112,16 @@ nav {
       z-index: 10;
     }
   }
-
-  &:not(.transparent) {
-    .btn-floating i {
-      color: $dark-color;
-    }
-
-    .btn-menu {
-      order: -1;
-    }
-
-    .pages {
-      a {
-        color: $dark-color;
-  
-        i {
-          color: $gray-color;
-        }
-  
-        &.active,
-        &:hover {
-          i {
-            color: $dark-color;
-          }
-        }
-      }
-  
-      .btn-favorites {
-        position: relative;
-  
-        .badge {
-          position: absolute;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          top: 13px;
-          right: 3px;
-          height: 19px;
-          min-width: 19px;
-          padding: 0;
-          color: #fff;
-          font-size: 10px;
-          line-height: 1;
-          border-radius: 50%;
-          background-color: $danger-color;
-          z-index: 10;
-        }
-      }
-    }
-  }
-
-  &.transparent {
-    background-color: transparent;
-
-    .logo {
-      background-image: url('../../../assets/images/logo_white.png');
-    }
-  }
-
-  &.transparent.sticky {
-    background-color: #1b1c1d !important;
-
-    .btn-menu {
-      order: -1;
-    }
-  }
 }
 
 .side-nav {
+  height: 100%;
   padding-bottom: 0; 
   transition: width 0.25s ease-in-out;
   will-change: width;
 
   .user-view {
-    padding: 75px 22px 0;
+    padding: 6rem 22px 0;
 
     .background img {
       width: 100%;
@@ -175,7 +135,8 @@ nav {
       right: 10px;
       opacity: 0.5;
       background-color: rgba(0,0,0,0.8);
-      transition: $slow-transition;
+      transition: opacity 0.3s ease-in-out;
+      will-change: opacity;
 
       &:hover {
         opacity: 1;
@@ -186,9 +147,11 @@ nav {
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: rgba(0,0,0,0.8);
 
       i {
         line-height: 1;
+        font-size: 3rem;
       }
     }
 
@@ -197,31 +160,54 @@ nav {
     }
     
     .email {
-      color: #d0d0d0;
+      color: $border-color;
+    }
+
+    .name,
+    .email {
+      padding-left: 5px;
     }
   }
 
-  li > a {
-    padding: 0 1rem;
+  li {
+    &.active {
+      background-color: darken($secondary-background, 5%);
 
-    &.subheader.flex {
-      display: flex;
-
-      mz-spinner::ng-deep {
-        .preloader-wrapper.small {
-          width: 16px;
-          height: 16px;
-        }
-
-        .spinner-layer {
-          border-color: #757575;
+      a {
+        cursor: default;
+        
+        &:hover {
+          background-color: transparent;
         }
       }
     }
+    
+    & > a {
+      padding: 0 1rem;
 
-    & > i.mdi {
-      margin: 0 20px 0 0;
-    } 
+      &:hover {
+        background-color: $secondary-background;
+      }
+
+      &.subheader.flex {
+        display: flex;
+
+        mz-spinner::ng-deep {
+          .preloader-wrapper.small {
+            width: 16px;
+            height: 16px;
+          }
+
+          .spinner-layer {
+            border-color: #757575;
+          }
+        }
+      }
+
+      & > i.mdi {
+        margin: 0 20px 0 0;
+      } 
+    }
   }
 
   .background-item {
@@ -232,7 +218,6 @@ nav {
     margin-bottom: 5px;
     border-radius: 5px;
     cursor: pointer;
-    transition: $medium-transition;
     
     &:nth-of-type(3n + 3) {
       margin-right: 0;
@@ -253,7 +238,8 @@ nav {
       left: 34px;
       color: #fff;
       transform: scale(0);
-      transition: $medium-transition;
+      transition: transform 0.25s ease-out;
+      will-change: transform;
     }
 
     &.selected {
@@ -270,7 +256,8 @@ nav {
       width: 100%;
       height: 100%;
       border-radius: 5px;
-      transition: $medium-transition;
+      transition: opacity 0.25s ease-out;
+      will-change: opacity;
     }
   }
 

@@ -1,7 +1,8 @@
 // ==========================================================================
-// Materialize Side Nav
+// Checkbox
 // ==========================================================================
 
-.side-nav {
-  height: 100%;
+[type="checkbox"].filled-in:checked + label::after {
+  border-color: $primary-color;
+  background-color: $primary-color;
 }

@@ -49,7 +49,7 @@ export class AuthSocialService {
       return this.handleResponse(null);
     }
 
-    if (!data._id || !data.username || !data.email) {
+    if (!data._id || !data.name || !data.email) {
       this.toastService.show('Connection failed');
       return this.handleResponse(null);
     }
@@ -69,7 +69,7 @@ export class AuthSocialService {
     const response: AuthResponse = {
       user: {
         _id: data._id,
-        username: data.username,
+        name: data.name,
         email: data.email,
         avatarUrl: data.avatarUrl,
         background: +data.background,
@@ -93,14 +93,14 @@ export class AuthSocialService {
       const height = 720;
       const width = 660;
       const left = screenX + ((window.outerWidth - width) / 2);
-      const top = screenY + (( window.outerHeight - height) / 2);
+      const top = screenY + ((window.outerHeight - height) / 2);
 
       specs = `top=${top},left=${left},width=${width},height=${height}`;
     }
     return window.open(`${this.connectionService.serverUrl}/auth/${network}`, name, specs);
   }
 
-  private handleResponse(response: AuthResponse | void ): void {
+  private handleResponse(response: AuthResponse | void): void {
     if (response) {
       this.store.dispatch(new authActions.SocialLoginSuccess(response));
     }

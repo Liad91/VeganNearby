@@ -22,26 +22,25 @@ export class AuthService {
   public maxFileSize = 1024 * 1024; // 1MB
 
   public errorMessageResources = {
-    username: {
-      required: 'Username is required.',
-      minlength: 'The entered username is too short.',
-      unique: 'The username has already been taken',
-      validation: 'Username is invalid'
+    name: {
+      required: 'Name can\'t be blank.',
+      minlength: 'The entered name is too short.',
+      validation: 'name is invalid.'
     },
     email: {
-      required: 'Email is required.',
+      required: 'Email can\'t be blank.',
       email: 'Invalid email address.',
-      unique: 'The email address has already been taken',
-      validation: 'Email is invalid'
+      unique: 'The email address has already been taken.',
+      validation: 'Email is invalid.'
     },
     password: {
-      required: 'Password is required.',
+      required: 'Password can\'t be blank.',
       minlength: 'The entered password is too short.',
-      validation: 'Password is invalid'
+      validation: 'Password is invalid.'
     }
   };
 
-  constructor(private http: HttpClient, private connectionService: ConnectionService) {}
+  constructor(private http: HttpClient, private connectionService: ConnectionService) { }
 
   public register(user: FormData): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.connectionService.serverUrl}/users/register`, user)
@@ -132,7 +131,7 @@ export class AuthService {
       case 'fileSize':
         return `Maximum upload size exceeded (${Math.floor(this.maxFileSize / 1000000)}Mb allowed)`;
       case 'mimeType':
-        const allowedTypes = this.allowedMimeType.map(type => type.substr(6) ).join(', ');
+        const allowedTypes = this.allowedMimeType.map(type => type.substr(6)).join(', ');
 
         return `Type is not allowed. Allowed types: "${allowedTypes}"`;
       case 'queueLimit':

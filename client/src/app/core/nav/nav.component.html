@@ -1,10 +1,10 @@
-<nav [ngClass]="{transparent: transparent, sticky: activatedRoute !== 'home' && mobileView}" [@searchState]="searchBarOpen">
+<nav [ngClass]="[sticky ? 'sticky' : '', activatedRoute + '-page']" [@searchState]="searchBarOpen">
   <div class="flex justify-content-space-between align-items-center content h-100">
 
     <a class="logo" *ngIf="!searchBarOpen" (click)="navigate('/')"></a>
 
-    <button class="btn btn-menu btn-floating btn-flat waves-effect" [ngClass]="transparent ? 'waves-light' : 'waves-dark'"
-      vnSidenavButton sidenav="menu-sidenav" [width]="350" *ngIf="activatedRoute === 'home' || activatedRoute !== 'place' && mobileView && !searchBarOpen">
+    <button class="btn btn-menu btn-floating btn-flat waves-effect waves-dark" vnSidenavButton sidenav="menu-sidenav" [width]="350"
+      *ngIf="activatedRoute !== 'place' && mobileView && !searchBarOpen">
       <i class="mdi mdi-menu mdi-24px"></i>
     </button>
 
@@ -14,31 +14,32 @@
     </button>
 
     <ng-container *ngIf="activatedRoute !== 'home'">
-      <vn-search mode="nav" class="flex align-items-center" [ngClass]="{transparent: transparent}" *ngIf="!mobileView || searchBarOpen"></vn-search>
+      <vn-search mode="nav" class="flex align-items-center" *ngIf="!mobileView || searchBarOpen"></vn-search>
     </ng-container>
 
-    <div class="pages flex align-items-center ml-auto" *ngIf="activatedRoute !== 'home' && !mobileView">
+    <div class="pages flex align-items-center ml-auto" *ngIf="!mobileView">
       <ng-container *ngIf="(user | async)">
-        <a class="btn-flat btn-floating waves-effect" [ngClass]="transparent ? 'waves-light' : 'waves-dark'" (click)="openEditModal($event)" vnTooltip tooltip="Edit Profile" position="bottom">
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="openEditModal($event)" vnTooltip tooltip="Edit Profile"
+          position="bottom">
           <i class="mdi mdi-account-edit mdi-24px"></i>
         </a>
         <div class="btn-favorites">
-          <a class="btn-flat btn-floating waves-effect" [ngClass]="transparent ? 'waves-light' : 'waves-dark'" vnTooltip tooltip="Favorites" position="bottom" (click)="navigate('/favorites')">
+          <a class="btn-flat btn-floating waves-effect waves-light" vnTooltip tooltip="Favorites" position="bottom" (click)="navigate('/favorites')">
             <i class="mdi mdi-heart-outline mdi-24px"></i>
           </a>
           <span class="badge right" *ngIf="(user | async).favorites.length">{{ (user | async).favorites.length }}</span>
         </div>
-        <a class="btn-flat btn-floating waves-effect" [ngClass]="transparent ? 'waves-light' : 'waves-dark'" (click)="logout()" vnTooltip tooltip="Logout" position="bottom">
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="logout()" vnTooltip tooltip="Logout" position="bottom">
           <i class="mdi mdi-logout-variant mdi-24px"></i>
         </a>
       </ng-container>
 
       <ng-container *ngIf="!(user | async)">
-        <a class="btn-flat btn-floating waves-effect" [ngClass]="transparent ? 'waves-light' : 'waves-dark'" (click)="openAuthModal($event, 'register')" vnTooltip tooltip="Register"
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="openAuthModal($event, 'register')" vnTooltip tooltip="Register"
           position="bottom">
           <i class="mdi mdi-account-plus mdi-24px"></i>
         </a>
-        <a class="btn-flat btn-floating waves-effect" [ngClass]="transparent ? 'waves-light' : 'waves-dark'" (click)="openAuthModal($event, 'login')" vnTooltip tooltip="Login"
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="openAuthModal($event, 'login')" vnTooltip tooltip="Login"
           position="bottom">
           <i class="mdi mdi-login-variant mdi-24px"></i>
         </a>
@@ -59,8 +60,8 @@
         <div class="background">
           <img src="assets/images/menu-background-1.jpg">
         </div>
-        <div class="circle" vnBgColor="gray-500">
-          <i class="mdi mdi-account mdi-48px white-text"></i>
+        <div class="circle">
+          <i class="mdi mdi-face white-text"></i>
         </div>
         <span class="white-text name pb-1">Welcome Guest</span>
       </ng-container>
@@ -73,10 +74,10 @@
           <i class="mdi mdi-pencil mdi-18px"></i>
         </a>
         <img class="circle" [src]="(user | async).avatarUrl" *ngIf="(user | async).avatarUrl">
-        <div class="circle" vnBgColor="gray-500" *ngIf="!(user | async).avatarUrl">
-          <i class="mdi mdi-account mdi-48px white-text"></i>
+        <div class="circle" *ngIf="!(user | async).avatarUrl">
+          <i class="mdi mdi-face white-text"></i>
         </div>
-        <span class="white-text name">{{ (user | async).username }}</span>
+        <span class="white-text name">{{ (user | async).name }}</span>
         <span class="email">{{ (user | async).email }}</span>
       </ng-container>
     </div>

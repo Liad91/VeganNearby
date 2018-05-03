@@ -64,7 +64,7 @@ export class EditModalComponent extends MzBaseModal implements OnInit, OnDestroy
 
   private initializeForm(): void {
     this.form = new FormGroup({
-      'username': new FormControl(this.user.username, [Validators.required, Validators.minLength(4)]),
+      'name': new FormControl(this.user.name, [Validators.required, Validators.minLength(4)]),
       'email': new FormControl(this.user.email, [Validators.required, Validators.email])
     });
   }
