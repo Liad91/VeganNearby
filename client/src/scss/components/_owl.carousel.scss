@@ -1,0 +1,13 @@
+// ==========================================================================
+// Owl Carousel
+// ==========================================================================
+
+.owl-theme .owl-dots .owl-dot span {
+  transition: background 0.2s ease;
+  will-change: background;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: $primary-color;
+}

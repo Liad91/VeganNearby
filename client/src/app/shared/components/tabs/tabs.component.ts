@@ -6,7 +6,8 @@ import {
   Input,
   NgZone,
   QueryList,
-  ViewChild
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 
 import { TabItemComponent } from './tab-item/tab-item.component';
@@ -15,14 +16,14 @@ import { TabItemComponent } from './tab-item/tab-item.component';
   selector: 'vn-tabs',
   templateUrl: './tabs.component.html'
 })
-export class TabsComponent implements AfterViewInit {
+export class TabsComponent implements AfterViewInit, OnDestroy {
   @Input() selected: number;
   @ViewChild('tabs') tabs: ElementRef;
   @ContentChildren(TabItemComponent) tabItems: QueryList<TabItemComponent>;
   private $tabs: JQuery;
   public active: string;
 
-  constructor(private zone: NgZone) {}
+  constructor(private zone: NgZone) { }
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => this.initilaize());
@@ -41,5 +42,9 @@ export class TabsComponent implements AfterViewInit {
 
   public setActive(i: number): void {
     this.tabItems.forEach((item, index) => index === i ? item.setActive(true) : item.setActive(false));
+  }
+
+  ngOnDestroy() {
+    this.$tabs.remove();
   }
 }

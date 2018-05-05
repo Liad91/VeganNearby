@@ -15,7 +15,7 @@ export class FavoritesEffects {
     .ofType(favoritesActions.GET_FAVORITES)
     .pipe(
       withLatestFrom(this.store.select(fromRoot.selectAuthUser)),
-      exhaustMap(([action, user]) => this.placesService.getFavorites(user.favorites)
+      exhaustMap(([action, user]) => this.placesService.getPlacesById(user.favorites)
         .pipe(
           map(favorites => new favoritesActions.GetFavoritesSuccess(favorites)),
           catchError(() => of(new favoritesActions.GetFavoritesFailure()))
@@ -23,5 +23,5 @@ export class FavoritesEffects {
       )
     );
 
-  constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private placesService: PlacesService) {}
+  constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private placesService: PlacesService) { }
 }

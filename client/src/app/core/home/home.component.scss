@@ -239,12 +239,10 @@ section {
 
     &:hover {
       & > div {
-        box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.4);
-
-        @media #{$small-and-down} {
-          box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.4);
-        }
+        box-shadow: 0 8px 6px -6px #777;
+        transform: perspective(1px) scale3d(1.02, 1.02, 1);
       }
+
       .results {
         background-color: $primary-color;
         border-color: $primary-color;
@@ -261,8 +259,9 @@ section {
       background-repeat: no-repeat;
       background-size: cover;
       border-radius: 5px;
-      transition: box-shadow 0.25s ease-in-out;
-      will-change: box-shadow;
+      transition: 0.3s ease;
+      transition-property: box-shadow, transform;
+      will-change: box-shadow, transform;
     }
 
     &.big {
@@ -326,26 +325,15 @@ section {
   }
 }
 
-.places {
-  min-height: 250px;
-  position: relative;
 
-  @media #{$medium-and-up} {
-    vn-place {
-      width: calc(25% - (30px / 4));
-      margin-right: 10px;
-  
-      &:nth-of-type(3n+3) {
-        margin-right: 10px;
-      }
-  
-      &:last-of-type {
-        margin-right: 0;
-      }
-    }
-  }
+vn-place {
+  display: block;
+  padding: 0.6rem;
+  outline: 0;
+  transition: transform 0.35s ease;
+  will-change: transform;
 
-  @media #{$small-and-down} {
-    flex-wrap: wrap;
+  &:hover {
+    transform: perspective(1px) scale3d(1, 1.05, 1);
   }
 }

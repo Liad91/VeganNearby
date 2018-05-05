@@ -1,8 +1,7 @@
-<div class="place-card flex column" (click)="getPlaceDetail()">
+<div class="place-card flex column">
   <vn-btn-favorite [placeId]="place.id" [placeName]="place.name"></vn-btn-favorite>
   <div class="place-card-image">
     <img class="w-100 h-100" [src]="place.image_url" [alt]="place.name" *ngIf="place.image_url" />
-    <div class="overlay"></div>
   </div>
 
   <div class="place-card-content">
@@ -31,5 +30,4 @@
       <vn-price [price]="place.price"></vn-price>
     </div>
   </div>
-
 </div>

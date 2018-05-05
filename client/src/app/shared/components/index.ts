@@ -10,3 +10,4 @@ export * from './tabs/tab-item/tab-item.component';
 export * from './typed/typed.component';
 export * from './error/error.component';
 export * from './loader/loader.component';
+export * from './carousel/carousel.component';

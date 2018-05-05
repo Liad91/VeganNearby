@@ -113,11 +113,12 @@
       </h1>
       <p class="m-0">Currently trending places on town, worth to check them out</p>
     </div>
-
-    <div class="places flex justify-content-center">
+    <div class="places">
+      <vn-carousel class="w-100" *ngIf="(state | async).featured?.length">
+        <vn-place class="featured" [place]="place" *ngFor="let place of (state | async).featured"></vn-place>
+      </vn-carousel>
       <vn-loader class="w-100" *ngIf="(state | async).loading"></vn-loader>
       <vn-error type="connection" (retry)="onReload()" *ngIf="(state | async).error"></vn-error>
-      <vn-place [place]="place" [ngClass]="{list: (mobileView | async)}" *ngFor="let place of (state | async).places"></vn-place>
     </div>
   </div>
 </section>

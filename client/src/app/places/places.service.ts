@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/observable/of';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { mapTo, retry, catchError, timeout, switchMap } from 'rxjs/operators';
+import { map, mapTo, retry, catchError, timeout, switchMap, flatMap } from 'rxjs/operators';
 
 import {
   YelpBusinessResponse,
@@ -43,10 +43,19 @@ export class PlacesService {
       );
   }
 
-  public getFavorites(favorites: string[]): Observable<YelpBusinessResponse[]> {
+  public getFeaturedPlaces(): Observable<YelpBusinessResponse[]> {
+    return this.http.get<{ places: string[] }>(`${this.connectionService.serverUrl}/yelp/featured`)
+      .pipe(
+        timeout(this.connectionService.reqTimeout),
+        map(response => response.places),
+        switchMap(places => this.getPlacesById(places))
+      );
+  }
+
+  public getPlacesById(ids: string[]): Observable<YelpBusinessResponse[]> {
     const requests: Observable<YelpBusinessResponse>[] = [];
 
-    favorites.forEach(id => {
+    ids.forEach(id => {
       const request = this.getPlaceById(id)
         .pipe(
           retry(2),

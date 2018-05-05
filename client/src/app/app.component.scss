@@ -14,11 +14,13 @@ footer.page-footer {
   font-size: 14px;
   
   .footer-copyright {
-    background-color: $dark-color;
-    font-weight: 400;
+    height: 50px;
+    background-color: #e3e3e3;
+    font-weight: 500;
+    color: $font-color;
 
     @media screen and (max-width: 550px) {
-      min-height: 56px;
+      height: 56px;
     }
   }
 

@@ -2,27 +2,25 @@ import { Action } from '@ngrx/store';
 
 import { YelpBusinessResponse } from '../../../models/yelp.model';
 
-export const GET_PLACES = '[HOME] GET_PLACES';
-export const GET_PLACE_SUCCESS = '[HOME] GET_PLACE_SUCCESS';
-export const GET_PLACE_FAILURE = '[HOME] GET_PLACE_FAILURE';
+export const GET_FEATURED = 'GET_FEATURED_PLACES';
+export const GET_FEATURED_SUCCESS = 'GET_FEATURED_SUCCESS';
+export const GET_FEATURED_FAILURE = 'GET_FEATURED_FAILURE';
 
-export class GetPlaces implements Action {
-  readonly type = GET_PLACES;
-
-  constructor(public payload: string[]) {}
+export class GetFeatured implements Action {
+  readonly type = GET_FEATURED;
 }
 
-export class GetPlacesSuccess implements Action {
-  readonly type = GET_PLACE_SUCCESS;
+export class GetFeaturedSuccess implements Action {
+  readonly type = GET_FEATURED_SUCCESS;
 
-  constructor(public payload: YelpBusinessResponse[]) {}
+  constructor(public payload: YelpBusinessResponse[]) { }
 }
 
-export class GetPlacesFailure implements Action {
-  readonly type = GET_PLACE_FAILURE;
+export class GetFeaturedFailure implements Action {
+  readonly type = GET_FEATURED_FAILURE;
 }
 
 export type Action =
-  | GetPlaces
-  | GetPlacesSuccess
-  | GetPlacesFailure;
+  | GetFeatured
+  | GetFeaturedSuccess
+  | GetFeaturedFailure;

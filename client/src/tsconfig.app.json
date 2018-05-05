@@ -9,6 +9,7 @@
       "jquery",
       "nouislider",
       "materialize-css",
+      "owl.carousel",
       "webfontloader"
     ]
   },

@@ -11,17 +11,16 @@ import { PlacesService } from '../../../places/places.service';
 @Injectable()
 export class HomeEffects {
   @Effect()
-  getFavorites = this.actions
-    .ofType(homeActions.GET_PLACES)
+  getFeatured = this.actions
+    .ofType(homeActions.GET_FEATURED)
     .pipe(
-      map((action: homeActions.GetPlaces) => action.payload),
-      exhaustMap(payload => this.placesService.getFavorites(payload)
+      exhaustMap(() => this.placesService.getFeaturedPlaces()
         .pipe(
-          map(places => new homeActions.GetPlacesSuccess(places)),
-          catchError(() => of(new homeActions.GetPlacesFailure()))
+          map(places => new homeActions.GetFeaturedSuccess(places)),
+          catchError(() => of(new homeActions.GetFeaturedFailure()))
         )
       )
     );
 
-  constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private placesService: PlacesService) {}
+  constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private placesService: PlacesService) { }
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const config = require('../../config');
+const Featured = require('../models/featured');
 const router = express.Router();
 
 router.post('/search', (req, res, next) => {
@@ -77,6 +78,14 @@ router.get('/business', (req, res, next) => {
     }
     res.send(body);
   });
+});
+
+router.get('/featured', (req, res, next) => {
+  Featured.findOne({}, { places: 1, _id: 0 })
+    .then(doc => {
+      res.status(200).json({ places: doc.places });
+    })
+    .catch(err => next(err));
 });
 
 router.get('/reviews', (req, res, next) => {

@@ -173,7 +173,9 @@
             </div>
           </div>
           <div class="info-card-body flex gallery">
-            <img [src]="image" *ngFor="let image of (state | async).place.photos; let i = index" (click)="openLightbox(i)">
+            <div class="image-container" *ngFor="let image of (state | async).place.photos; let i = index" (click)="openLightbox(i)">
+              <img [src]="image">
+            </div>
           </div>
         </div>
       </div>

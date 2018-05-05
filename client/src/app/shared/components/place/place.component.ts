@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../store/app.reducer';
@@ -13,10 +13,8 @@ import { UtilitiesService } from '../../../core/services/utilities.service';
 })
 export class PlaceComponent {
   @Input() public place: YelpBusiness | YelpBusinessResponse;
-
-  constructor(private store: Store<AppState>, private utilitiesService: UtilitiesService) { }
-
-  getPlaceDetail(): void {
+  @HostListener('click')
+  private onClick(): void {
     if ((<YelpBusinessResponse>this.place).hours) {
       this.store.dispatch(new SetPlace(<YelpBusinessResponse>this.place));
     }
@@ -25,4 +23,6 @@ export class PlaceComponent {
     }
     this.utilitiesService.navigate(['places', 'place', this.place.id], {}, { scroll: true });
   }
+
+  constructor(private store: Store<AppState>, private utilitiesService: UtilitiesService) { }
 }

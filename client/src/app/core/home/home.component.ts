@@ -15,6 +15,7 @@ import { PlacesService } from '../../places/places.service';
 import { Filter } from '../../places/filters/store/filters.reducer';
 import { NewSearch } from '../../places/filters/store/filters.actions';
 import { GetPlaces, ResetPlaces } from '../../places/place-list/store/place-list.actions';
+import { CarouselComponent } from './../../shared/components/carousel/carousel.component';
 
 @Component({
   selector: 'vn-home',
@@ -30,13 +31,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   public state: Observable<State>;
   public category: Filter;
   public strings: string[];
-
-  public recomendedPlaces = [
-    'mortys-delicatessen-san-francisco',
-    'grano-frutta-e-farina-roma',
-    'grilld-healthy-burgers-sydney',
-    'surya-new-york-3'
-  ];
 
   constructor(
     private store: Store<fromRoot.AppState>,
@@ -60,10 +54,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.state
       .pipe(
-        filter(state => !state.places),
+        filter(state => !state.featured),
         take(1)
       )
-      .subscribe(() => this.store.dispatch(new homeActions.GetPlaces(this.recomendedPlaces)));
+      .subscribe(() => this.store.dispatch(new homeActions.GetFeatured()));
   }
 
   private setStrings() {
@@ -122,7 +116,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   public onReload() {
-    this.store.dispatch(new homeActions.GetPlaces(this.recomendedPlaces));
+    this.store.dispatch(new homeActions.GetFeatured());
   }
 
   ngOnDestroy(): void {
