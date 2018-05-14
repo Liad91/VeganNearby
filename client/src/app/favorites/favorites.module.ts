@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 // Components
 import { FavoritesComponent } from './favorites.component';
@@ -24,4 +24,4 @@ import { SharedModule } from './../shared/shared.module';
     FavoritesGuard
   ]
 })
-export class FavoritesModule {}
+export class FavoritesModule { }

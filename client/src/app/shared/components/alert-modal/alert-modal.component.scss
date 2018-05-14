@@ -1,4 +1,4 @@
-@import '../../../variables';
+@import 'variables';
 
 .content-wrap {
   padding: 20px;
@@ -10,15 +10,16 @@
 
 .buttons-wrap button {
   padding: 0;
-  border-top: 1px solid #ddd;
-  color: $primary-color;
+  border-top: 1px solid $border-color;
 
   &:first-child {
+    color: $danger-color;
     border-radius: 0 0 0 5px;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid $border-color;
   }
 
   &:last-child {
+    color: $primary-color;
     border-radius: 0 0 5px 0;
   }
 }

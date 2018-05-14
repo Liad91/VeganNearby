@@ -4,7 +4,7 @@
   <mz-modal-content>
     <div class="content-wrap">
       <h4 class="center-align mb-0">{{ options.title }}</h4>
-      <p  class="center-align mb-0" *ngIf="options.message"  [innerHTML]="options.message"></p>
+      <p class="center-align mb-0" *ngIf="options.message" [innerHTML]="options.message"></p>
     </div>
     <div class="buttons-wrap flex">
       <button mz-button [flat]="true" class="w-50" (click)="onCancel();">{{ options.buttons[0].text }}</button>

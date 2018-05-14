@@ -14,7 +14,7 @@ function fileFilter(req, file, cb) {
   const allowTypes = ['image/png', 'image/jpg', 'image/jpeg'];
 
   if (allowTypes.indexOf(file.mimetype) < 0) {
-    return cb(new Error('Type is not allowed'));    
+    return cb(new Error('Type is not allowed'));
   }
   cb(null, true);
 }
@@ -24,6 +24,6 @@ module.exports = multer({
   fileFilter,
   limits: {
     files: 1,
-    fileSize: 1024 * 1024 // 1Mb
+    fileSize: 1024 * 1024
   }
 });

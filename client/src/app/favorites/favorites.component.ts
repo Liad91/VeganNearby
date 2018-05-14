@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
-import { errorStateTrigger } from '../shared/animations';
-import { placeStateTrigger } from './animations';
-import { State } from './store/favorites.reducer';
-import * as fromRoot from '../store/app.reducer';
-import { GetFavorites } from './store/favorites.actions';
-import { YelpBusiness } from '../models/yelp.model';
-import { PlacesService } from '../places/places.service';
 import { ToastService } from '../core/services/toast.service';
 import { UtilitiesService } from '../core/services/utilities.service';
+import { PlacesService } from '../places/places.service';
+import { errorStateTrigger } from '../shared/animations';
+import * as fromRoot from '../store/app.reducer';
+import { placeStateTrigger } from './animations';
+import { GetFavorites } from './store/favorites.actions';
+import { State } from './store/favorites.reducer';
 
 @Component({
   selector: 'vn-favorites',
@@ -19,7 +18,8 @@ import { UtilitiesService } from '../core/services/utilities.service';
   animations: [
     placeStateTrigger,
     errorStateTrigger
-  ]
+  ],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FavoritesComponent implements OnInit, OnDestroy {
@@ -34,7 +34,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.AppState>,
     private placesService: PlacesService,
     private toastService: ToastService,
-    private utilitiesService: UtilitiesService) {}
+    private utilitiesService: UtilitiesService) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn)

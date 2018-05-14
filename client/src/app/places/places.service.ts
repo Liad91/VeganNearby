@@ -1,19 +1,11 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { of } from 'rxjs/observable/of';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { map, mapTo, retry, catchError, timeout, switchMap, flatMap } from 'rxjs/operators';
+import { forkJoin, from, Observable } from 'rxjs';
+import { concatMap, map, mapTo, switchMap, timeout, toArray } from 'rxjs/operators';
 
-import {
-  YelpBusinessResponse,
-  YelpReviewsResponse,
-  YelpSearchParams,
-  YelpSearchResponse
-} from './../models/yelp.model';
 import { ConnectionService } from './../core/services/connection.service';
-import { State } from './filters/store/filters.reducer';
+import { YelpBusinessResponse, YelpReviewsResponse, YelpSearchParams, YelpSearchResponse } from './../models/yelp.model';
+import { State } from './components/filters/store/filters.reducer';
 
 @Injectable()
 export class PlacesService {
@@ -53,25 +45,11 @@ export class PlacesService {
   }
 
   public getPlacesById(ids: string[]): Observable<YelpBusinessResponse[]> {
-    const requests: Observable<YelpBusinessResponse>[] = [];
-
-    ids.forEach(id => {
-      const request = this.getPlaceById(id)
-        .pipe(
-          retry(2),
-          catchError(() => of(this.catchFavoriteError(id)))
-        );
-
-      requests.push(request);
-    });
-    return forkJoin(requests);
-  }
-
-  private catchFavoriteError(id: string) {
-    const place = new YelpBusinessResponse();
-
-    place.id = id;
-    return place;
+    return from(ids)
+      .pipe(
+        concatMap(id => this.getPlaceById(id)),
+        toArray()
+      );
   }
 
   public addToFavorites(id: string): Observable<YelpBusinessResponse> {

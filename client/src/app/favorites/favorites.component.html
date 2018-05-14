@@ -19,7 +19,7 @@
     <p class="m-0">Unable to retrieve
       <strong>{{ emptyPlaces.length }} {{ emptyPlaces.length > 1 ? 'items' : 'item' }}</strong> from your favorites.</p>
     <a class="btn-underline" (click)="onReload()">Try Again</a>
-    <a class="btn-underline danger" (click)="deleteEmptyPlaces()">Delete The {{ emptyPlaces.length > 1 ? 'Items' : 'Item' }}</a>
+    <a class="btn-underline danger" (click)="deleteEmptyPlaces()">Delete</a>
     <vn-loader class="absolute w-100" size="small" *ngIf="errorLoading"></vn-loader>
   </div>
 
@@ -28,9 +28,9 @@
   <vn-error type="connection" (retry)="onReload()" *ngIf="(connectionError || state.error) && !state.loading"></vn-error>
 
   <div *ngIf="state.places.length > 0 && !connectionError && !state.loading">
-    <div class="flex wrap w-100 align-self-flex-start mb-2">
+    <div class="flex wrap w-100 align-self-flex-start">
       <ng-container *ngFor="let place of state.places">
-        <vn-place @placeState class="mb-1 mr-1" [place]="place" *ngIf="place.name">
+        <vn-place [place]="place" [featured]="true" *ngIf="place.name" @placeState>
         </vn-place>
       </ng-container>
     </div>

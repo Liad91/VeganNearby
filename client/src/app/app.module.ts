@@ -1,12 +1,16 @@
+import { AgmCoreModule } from '@agm/core';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { AgmCoreModule } from '@agm/core';
-import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+// Config
+import { environment } from '../environments/environment';
+import { googleApiKey } from './../config';
 
 // Components
 import { AppComponent } from './app.component';
@@ -15,12 +19,8 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
 // Store
-import { reducers } from './store/app.reducer';
 import { effects } from './store/app.effects';
-
-// Config
-import { environment } from '../environments/environment';
-import { googleApiKey } from './../config';
+import { reducers } from './store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { googleApiKey } from './../config';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CoreModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
@@ -38,8 +38,8 @@ import { googleApiKey } from './../config';
       apiKey: googleApiKey,
       libraries: ['places', 'geometry']
     }),
-    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 3 }) : []
+    // !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 10 }) : []
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

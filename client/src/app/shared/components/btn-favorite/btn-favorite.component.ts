@@ -1,24 +1,31 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import * as fromRoot from '../../../store/app.reducer';
-import * as authActions from '../../../core/auth/store/auth.actions';
-import * as favoritesActions from '../../../favorites/store/favorites.actions';
-
-import { PlacesService } from '../../../places/places.service';
+import { AuthModalComponent } from '../../../core/components/modals/auth-modal/auth-modal.component';
+import * as authActions from '../../../core/components/auth/store/auth.actions';
+import { AlertModalOptions, ModalService } from '../../../core/services/modal.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { ModalService, AlertModalOptions } from '../../../core/services/modal.service';
-import { YelpBusinessResponse } from '../../../models/yelp.model';
-import { AuthModalComponent } from '../../../core/auth/auth-modal/auth-modal.component';
 import { UtilitiesService } from '../../../core/services/utilities.service';
+import * as favoritesActions from '../../../favorites/store/favorites.actions';
+import { YelpBusinessResponse } from '../../../models/yelp.model';
+import { PlacesService } from '../../../places/places.service';
+import * as fromRoot from '../../../store/app.reducer';
 import { AlertModalComponent } from './../alert-modal/alert-modal.component';
 
 @Component({
   selector: 'vn-btn-favorite',
   templateUrl: './btn-favorite.component.html',
-  styleUrls: ['./btn-favorite.component.scss']
+  styleUrls: ['./btn-favorite.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BtnFavoriteComponent implements OnInit, OnDestroy {
   @Input() text: boolean;
@@ -37,7 +44,8 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
     private utilitiesService: UtilitiesService,
     private placesService: PlacesService,
     private toastService: ToastService,
-    private modalService: ModalService) { }
+    private modalService: ModalService,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn).subscribe(user => {
@@ -100,7 +108,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
         },
         {
           text: 'Confirm',
-          handler: this.removeFromFavorites.bind(this)
+          handler: () => this.removeFromFavorites()
         }
       ]
     };
@@ -139,6 +147,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
     this.favorite = true;
     this.store.dispatch(new authActions.AddToUserFavorites(this.placeId));
     this.store.dispatch(new favoritesActions.AddToFavorites(place));
+    this.cd.markForCheck();
   }
 
   private addToFavoritesFailure(): void {
@@ -151,11 +160,13 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
     this.favorite = false;
     this.store.dispatch(new authActions.RemoveFromUserFavorites(this.placeId));
     this.store.dispatch(new favoritesActions.RemoveFromFavorites(this.placeId));
+    this.cd.markForCheck();
   }
 
   private removeFromFavoritesFailure(): void {
     this.loading = false;
     this.toastService.show('remove from favorites failed, Please try again.');
+    this.cd.markForCheck();
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-@import '../variables';
+@import 'variables';
 
 :host {
   display: block;
@@ -50,12 +50,23 @@ header {
 }
 
 vn-place {
-  @media #{$medium-and-up} {
-    width: calc(25% - calc(3rem / 4));
-    &:nth-of-type(3n+3) ::ng-deep {
-      margin-right: 1rem;
+  width: 100%;
+  margin: 0 0 1rem 0;
+
+  @media screen and (min-width: 560px) and (max-width: 829px) {
+    width: calc(50% - 0.5rem);
+    margin: 0 1rem 1rem 0;
+
+    &:nth-child(2n + 2) {
+      margin-right: 0;
     }
-    &:nth-of-type(4n+4) ::ng-deep {
+  }
+
+  @media screen and (min-width: 830px) {
+    width: calc(33.333% - 2rem / 3);
+    margin: 0 1rem 1rem 0;
+
+    &:nth-child(3n + 3) {
       margin-right: 0;
     }
   }

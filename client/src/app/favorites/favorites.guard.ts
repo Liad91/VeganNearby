@@ -1,6 +1,6 @@
-import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { map, take } from 'rxjs/operators';
 
 import * as fromRoot from '../store/app.reducer';

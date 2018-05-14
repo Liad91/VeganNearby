@@ -1,5 +1,5 @@
-import { HomeEffects } from '../core/home/store/home.effects';
-import { AuthEffects } from '../core/auth/store/auth.effects';
+import { AuthEffects } from '../core/components/auth/store/auth.effects';
+import { HomeEffects } from '../core/components/home/store/home.effects';
 import { FavoritesEffects } from '../favorites/store/favorites.effects';
 
-export const effects = [ AuthEffects, HomeEffects, FavoritesEffects ];
+export const effects = [AuthEffects, HomeEffects, FavoritesEffects];

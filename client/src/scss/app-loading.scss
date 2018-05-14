@@ -5,6 +5,20 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  overflow: hidden;
+
+  .noscript {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 10;
+  }
 
   .logo {
     width: 140px;

@@ -1,10 +1,10 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
 
-import * as fromAuth from '../core/auth/store/auth.reducer';
-import * as fromHome from '../core/home/store/home.reducer';
-import * as fromSearch from '../core/search/store/search.reducer';
-import * as fromFilters from '../places/filters/store/filters.reducer';
+import * as fromAuth from '../core/components/auth/store/auth.reducer';
+import * as fromHome from '../core/components/home/store/home.reducer';
+import * as fromSearch from '../core/components/search/store/search.reducer';
 import * as fromFavorites from '../favorites/store/favorites.reducer';
+import * as fromFilters from '../places/components/filters/store/filters.reducer';
 
 export interface AppState {
   auth: fromAuth.State;
@@ -31,9 +31,9 @@ export const selectSearch = (state: AppState) => state.search;
 export const selectAuthUser = createSelector(selectAuth, (state: fromAuth.State) => state.user);
 export const selectAuthLoading = createSelector(selectAuth, (state: fromAuth.State) => state.loading);
 export const selectAuthUpdateLoading = createSelector(selectAuth, (state: fromAuth.State) => state.updateLoading);
-export const selectAuthUserLoggedIn  = createSelector(selectAuth, (state: fromAuth.State) => Boolean(state.user));
-export const selectAuthUserFavoritesLength  = createSelector(selectAuth, (state: fromAuth.State) => state.user.favorites.length);
-export const selectAuthUserBackgroundLoading  = createSelector(selectAuth, (state: fromAuth.State) => state.backgroundLoading);
+export const selectAuthUserLoggedIn = createSelector(selectAuth, (state: fromAuth.State) => Boolean(state.user));
+export const selectAuthUserFavoritesLength = createSelector(selectAuth, (state: fromAuth.State) => state.user.favorites.length);
+export const selectAuthUserBackgroundLoading = createSelector(selectAuth, (state: fromAuth.State) => state.backgroundLoading);
 export const selectFiltersLocation = createSelector(selectFilters, (state: fromFilters.State) => state.location);
 export const selectSearchselectedCategory = createSelector(selectSearch, (state: fromSearch.State) => {
   return state.categories[state.selectedCategoryIndex];

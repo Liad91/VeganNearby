@@ -16,19 +16,19 @@ export class GetFavorites implements Action {
 export class AddToFavorites implements Action {
   readonly type = ADD_TO_FAVORITES;
 
-  constructor(public payload: YelpBusinessResponse) {}
+  constructor(public payload: YelpBusinessResponse) { }
 }
 
 export class RemoveFromFavorites implements Action {
   readonly type = REMOVE_FROM_FAVORITES;
 
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export class GetFavoritesSuccess implements Action {
   readonly type = GET_FAVORITES_SUCCESS;
 
-  constructor(public payload: YelpBusinessResponse[]) {}
+  constructor(public payload: YelpBusinessResponse[]) { }
 }
 
 export class GetFavoritesFailure implements Action {

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+// Guards
+import { PlaceDetailGuard } from './components/place-detail/place-detail.guard';
 
 // Components
 import { PlacesComponent } from './places.component';
-import { PlaceListComponent } from './place-list/place-list.component';
-import { PlaceDetailComponent } from './place-detail/place-detail.component';
-
-// Guards
-import { PlaceDetailGuard } from './place-detail/place-detail.guard';
+import { PlaceDetailComponent } from './components/place-detail/place-detail.component';
+import { PlaceListComponent } from './components/place-list/place-list.component';
 
 const routes: Routes = [
   {

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MzBaseModal } from 'ng2-materialize';
 
-import { ModalService, AlertModalOptions } from './../../../core/services/modal.service';
+import { AlertModalOptions, ModalService } from './../../../core/services/modal.service';
 
 @Component({
   selector: 'vn-alert-modal',
@@ -20,7 +20,7 @@ export class AlertModalComponent extends MzBaseModal {
   public modalOptions: Materialize.ModalOptions = {
     dismissible: true,
     opacity: 0.5,
-    complete: this.onComplete.bind(this)
+    complete: () => this.onComplete()
   };
 
   public onCancel(): void {

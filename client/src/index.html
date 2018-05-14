@@ -1,23 +1,43 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>VeganNearby</title>
   <base href="/">
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#8ac249">
 </head>
+
 <body class="mat-typography m-0">
+  <script> 
+    var $buoop = { required: { e: -4, f: -3, o: -3, s: -1, c: -6 }, api: 2018.05 };
+    function $buo_f() {
+      var e = document.createElement("script");
+      e.src = "//browser-update.org/update.min.js";
+      document.body.appendChild(e);
+    };
+    try { document.addEventListener("DOMContentLoaded", $buo_f, false) }
+    catch (e) { window.attachEvent("onload", $buo_f) }
+  </script>
+
   <vn-root>
     <!-- loading layout replaced by app after startupp -->
     <div class="app-loading">
+      <noscript>
+        <div class="noscript">
+          You need to enable JavaScript to run this app.
+        </div>
+      </noscript>
       <div class="logo"></div>
       <svg class="spinner" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="1.5" stroke-miterlimit="10"/>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="1.5" stroke-miterlimit="10" />
       </svg>
     </div>
   </vn-root>
-  <div id="outdated"></div>
 </body>
+
 </html>

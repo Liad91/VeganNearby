@@ -2,12 +2,67 @@
 // Owl Carousel
 // ==========================================================================
 
+.owl-theme .owl-dots {
+  margin-top: 1rem;
+}
+
 .owl-theme .owl-dots .owl-dot span {
+  background: #a5a5a5;
   transition: background 0.2s ease;
-  will-change: background;
 }
 
 .owl-theme .owl-dots .owl-dot.active span,
 .owl-theme .owl-dots .owl-dot:hover span {
   background: $primary-color;
+}
+
+.owl-theme .owl-nav {
+  margin-top: 0;
+}
+
+.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev {
+  position: absolute;
+  top: 89px;
+
+  &:hover {
+    background: transparent;
+
+    &:not(.disabled) span::before {
+      color: $primary-color;
+    }
+  }
+
+  span {
+    display: block;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+
+    &::before {
+      display: inline-block;
+      font: normal normal normal 24px/1 "Material Design Icons";
+      color: #a5a5a5;
+      font-size: 4rem;
+      text-rendering: auto;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      transition: color 0.2s ease;
+    }
+  }
+}
+
+.owl-carousel .owl-nav button.owl-next {
+  right: -65px;
+
+  span::before {
+    content: "\F142";
+  }
+}
+
+.owl-carousel .owl-nav button.owl-prev {
+  left: -65px;
+
+  span::before {
+    content: "\F141";
+  }
 }

@@ -6,9 +6,9 @@ const config = require('../../config');
 
 const router = express.Router();
 
-const callbackOprtions = { 
+const callbackOprtions = {
   session: false,
-  failureRedirect : `${config.clientUrl}/callback?err="failure"`
+  failureRedirect: `${config.clientUrl}/callback?err="failure"`
 };
 
 router.post('/jwt', passport.authenticate('jwt', { session: false }), (req, res, next) => {

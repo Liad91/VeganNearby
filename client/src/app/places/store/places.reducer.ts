@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
 
 import { AppState } from '../../store/app.reducer';
-import * as fromPlaceList from '../place-list/store/place-list.reducer';
-import * as fromPlaceDetail from '../place-detail/store/place-detail.reducer';
-import * as fromFilters from '../filters/store/filters.reducer';
+import * as fromFilters from '../components/filters/store/filters.reducer';
+import * as fromPlaceDetail from '../components/place-detail/store/place-detail.reducer';
+import * as fromPlaceList from '../components/place-list/store/place-list.reducer';
 
 export interface FeatureState extends AppState {
   placeList: fromPlaceList.State;

@@ -1,6 +1,5 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule, Directive } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import {
   MzButtonModule,
   MzInjectionModule,
@@ -13,15 +12,12 @@ import {
 } from 'ng2-materialize';
 
 import * as Components from './components';
-import * as Directives from './directives';
-import * as Pipes from './pipes';
 
 const materializeModules = [
   MzButtonModule,
   MzInjectionModule,
   MzInputModule,
   MzModalModule,
-  MzSelectModule,
   MzSpinnerModule,
   MzToastModule,
   MzValidationModule
@@ -31,60 +27,28 @@ const materializeModules = [
   declarations: [
     Components.AlertModalComponent,
     Components.BtnFavoriteComponent,
-    Components.LightboxModalComponent,
     Components.PlaceComponent,
     Components.PriceComponent,
     Components.StarsComponent,
-    Components.TypedComponent,
-    Components.TabsComponent,
-    Components.TabItemComponent,
-    Components.CuisinesModalComponent,
     Components.ErrorComponent,
-    Components.LoaderComponent,
-    Components.CarouselComponent,
-    Directives.ColorDirective,
-    Directives.BackgroundColorDirective,
-    Directives.ImagePreviewDirective,
-    Directives.SidenavButtonDirective,
-    Directives.TooltipDirective,
-    Pipes.DayPipe,
-    Pipes.HourPipe,
-    Pipes.SearchFilterPipe
+    Components.LoaderComponent
   ],
   entryComponents: [
-    Components.AlertModalComponent,
-    Components.LightboxModalComponent,
-    Components.CuisinesModalComponent
+    Components.AlertModalComponent
   ],
   imports: [
     CommonModule,
-    FormsModule,
     materializeModules,
   ],
   exports: [
-    CommonModule,
-    FormsModule,
     materializeModules,
     Components.AlertModalComponent,
     Components.BtnFavoriteComponent,
-    Components.LightboxModalComponent,
     Components.PlaceComponent,
     Components.PriceComponent,
     Components.StarsComponent,
-    Components.TypedComponent,
-    Components.TabsComponent,
-    Components.TabItemComponent,
     Components.ErrorComponent,
-    Components.LoaderComponent,
-    Components.CarouselComponent,
-    Directives.BackgroundColorDirective,
-    Directives.ColorDirective,
-    Directives.ImagePreviewDirective,
-    Directives.SidenavButtonDirective,
-    Directives.TooltipDirective,
-    Pipes.DayPipe,
-    Pipes.HourPipe,
-    Pipes.SearchFilterPipe
+    Components.LoaderComponent
   ]
 })
 export class SharedModule { }

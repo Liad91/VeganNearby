@@ -1,0 +1,67 @@
+@import 'variables';
+
+button[type=submit] {
+  margin-top: 0.5rem;
+}
+
+.social-text {
+  margin: 2rem 0 1.4rem;
+  letter-spacing: 0.3px;
+  font-size: 13px;
+  line-height: 1;
+
+  span {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 3px;
+    line-height: 1;
+  }
+}
+
+.social-btn-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 31%;
+    height: auto;
+    font-size: 13px;
+    padding: 7px 0;
+    line-height: 1;
+    border-radius: 3px;
+    box-shadow: none;
+
+    i {
+      margin-right: 5px;
+    }
+  }
+}
+
+.facebook{
+  background: #3c66c4;
+  
+  &:hover {
+    background: darken(#3c66c4, 7%);
+  }
+}
+
+.google{
+  background: #cf4332;
+  
+  &:hover {
+    background: darken(#cf4332, 5%);
+  }
+}
+
+.twitter{
+  background: #33ccff;
+  
+  &:hover {
+    background: darken(#33ccff, 8%);
+  }
+}

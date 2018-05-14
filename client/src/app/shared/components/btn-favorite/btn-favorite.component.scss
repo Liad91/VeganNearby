@@ -1,4 +1,4 @@
-@import '../../../variables';
+@import 'variables';
 
 .text {
   background-color: transparent;
@@ -16,7 +16,6 @@
   color: $dark-color;
   transition: 0.25s ease-out;
   transition-property: background-color, border-color, color;
-  will-change: background-color, border-color, color;
 
   ::ng-deep {
     .spinner-layer {

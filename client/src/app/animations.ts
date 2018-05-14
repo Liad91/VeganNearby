@@ -1,13 +1,11 @@
-import { trigger, transition, group, query, style, animate } from '@angular/animations';
+import { animate, group, query, style, transition, trigger } from '@angular/animations';
 
 export function fadeOut(enter: string, leave: string) {
   return [
-    query('nav', style({ backgroundColor: '#fff' }), { optional: true }),
-    query(leave, style({ position: 'fixed', top: '0', left: '0', right: '0', bottom: '0' }), { optional: true }),
+    query(leave, style({ position: 'fixed', top: '0', left: '0', right: '0', bottom: '0', background: '#fff' }), { optional: true }),
     group([
-      query('nav', animate('200ms', style({ backgroundColor: 'transparent' })), { optional: true }),
-      query(`${leave}`, [
-        animate('200ms', style({ opacity: '0', transform: 'translateY(100%)' }))
+      query(leave, [
+        animate('500ms ease', style({ opacity: '0', transform: 'scale(0.2)' }))
       ], { optional: true })
     ])
   ];
@@ -15,11 +13,9 @@ export function fadeOut(enter: string, leave: string) {
 
 export function fadeIn(enter: string) {
   return [
-    query('nav', style({ backgroundColor: 'transparent' }), { optional: true }),
     query(enter, style({ opacity: '0' }), { optional: true }),
     group([
-      query('nav', animate('250ms', style({ backgroundColor: '#fff' })), { optional: true }),
-      query(enter, animate('250ms'), { optional: true })
+      query(enter, animate('500ms ease'), { optional: true })
     ])
   ];
 }

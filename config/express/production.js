@@ -25,14 +25,14 @@ module.exports = (app) => {
   /** Log only 4xx and 5xx responses to morgan.log */
   app.use(morgan('common', {
     skip: (req, res) => res.statusCode < 400,
-    stream: fs.createWriteStream(path.join(__dirname, '..', '..', 'morgan.log'), {flags: 'a'})
+    stream: fs.createWriteStream(path.join(__dirname, '..', '..', 'morgan.log'), { flags: 'a' })
   }));
 
   /** Set API routes */
   routes(app);
 
   /** Fallback to Angular (in production) */
-  app.get('/*',  (req, res, next) => {
-    res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html')); 
+  app.get('/*', (req, res, next) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
   });
 }

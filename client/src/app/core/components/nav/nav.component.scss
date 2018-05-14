@@ -1,0 +1,273 @@
+@import 'variables';
+
+nav {
+  overflow: hidden;
+  box-shadow: none;
+  background-color: transparent;
+  z-index: 10;
+  transition: 0.5s ease-in-out;
+  transition-property: box-shadow, background-color;
+
+  &.list-page {
+    background-color: $dark-color;
+  }
+
+  @media #{$small-and-down} {
+    position: fixed;
+    top: 0;
+    z-index: 500;
+
+    .btn-menu {
+      order: -1;
+    }
+    
+    &.home-page {
+      .logo {
+        margin-left: 8px;
+        order: -2;
+      }
+    }
+    
+    &:not(.sticky) {
+      will-change: box-shadow, background-color;
+    }
+
+    &.list-page,
+    &.sticky {
+      background-color: $dark-color;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }    
+  }
+  
+  vn-search {
+    width: 50%;
+    margin-left: auto;
+
+    @media #{$small-and-down} {
+      width: 80%;
+      margin-left: 0;
+    }
+  }
+  
+  .logo {
+    width: 170px;
+    height: 35px;
+    background-image: url('../../../../assets/images/logo_white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: none;
+
+    @media #{$small-and-down} {
+      width: 150px;
+      height: 31px;
+    }
+  }
+  
+  .btn-search,
+  .btn-menu {
+    i {
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+
+  .pages {
+    a {
+      position: relative;
+      font-size: 14px;
+      margin-right: 5px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      i {
+        height: 40px;
+        line-height: 40px;
+        transition: 0.25s ease-out;
+        transition-property: color;
+      }
+    }
+  }
+
+  .btn-favorites {
+    position: relative;
+
+    .badge {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 13px;
+      right: 3px;
+      height: 19px;
+      min-width: 19px;
+      padding: 0;
+      color: #fff;
+      font-size: 10px;
+      line-height: 1;
+      border-radius: 50%;
+      background-color: $danger-color;
+      z-index: 10;
+    }
+  }
+}
+
+.side-nav {
+  height: 100%;
+  padding-bottom: 0; 
+  transition: width 0.25s ease-in-out;
+
+  .user-view {
+    padding: 6rem 22px 0;
+
+    .background img {
+      width: 100%;
+      height: 100%;
+      filter: brightness(0.6);
+    }
+
+    a {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      opacity: 0.5;
+      background-color: rgba(0,0,0,0.8);
+      transition: opacity 0.3s ease-in-out;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0,0,0,0.8);
+
+      i {
+        line-height: 1;
+        font-size: 3rem;
+      }
+    }
+
+    .name {
+      margin-top: 10px;
+    }
+    
+    .email {
+      color: $border-color;
+    }
+
+    .name,
+    .email {
+      padding-left: 5px;
+    }
+  }
+
+  li {
+    &.active {
+      background-color: darken($secondary-background, 5%);
+
+      a {
+        cursor: default;
+        
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+    
+    & > a {
+      padding: 0 1rem;
+
+      &:hover {
+        background-color: $secondary-background;
+      }
+
+      &.subheader.flex {
+        display: flex;
+
+        mz-spinner::ng-deep {
+          .preloader-wrapper.small {
+            width: 16px;
+            height: 16px;
+          }
+
+          .spinner-layer {
+            border-color: #757575;
+          }
+        }
+      }
+
+      & > i.mdi {
+        margin: 0 20px 0 0;
+      } 
+    }
+  }
+
+  .background-item {
+    position: relative;
+    width: calc(33% - 3px);
+    height: 70px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    &:nth-of-type(3n + 3) {
+      margin-right: 0;
+    }
+
+    &:hover {
+      img {
+        opacity: 0.6;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      content: '\F133';
+      font: normal normal normal 24px/1 "Material Design Icons";
+      font-size: 30px;
+      top: 20px;
+      left: 34px;
+      color: #fff;
+      transform: scale(0);
+      transition: transform 0.25s ease-out;
+    }
+
+    &.selected {
+      img {
+        opacity: 0.6;
+      }
+
+      &::after {
+        transform: scale(1);
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      transition: opacity 0.25s ease-out;
+    }
+  }
+
+  @media #{$extra-small-only} {
+    width: 300px !important;
+
+    .background-item.selected::after {
+      font-size: 28px;
+      top: 21px;
+      left: 26.5px;
+    }
+
+    .user-view {
+      padding: 50px 22px 0;
+    }
+  }
+}

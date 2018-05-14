@@ -1,0 +1,134 @@
+<nav [ngClass]="[sticky ? 'sticky' : '', activatedRoute + '-page']" [@searchState]="searchBarOpen">
+  <div class="flex justify-content-space-between align-items-center content h-100">
+
+    <a class="logo" *ngIf="!searchBarOpen" (click)="navigate('/')"></a>
+
+    <button class="btn btn-menu btn-floating btn-flat waves-effect waves-dark" vnSidenavButton sidenav="menu-sidenav" *ngIf="activatedRoute !== 'place' && mobileView && !searchBarOpen">
+      <i class="mdi mdi-menu mdi-24px"></i>
+    </button>
+
+    <button class="btn btn-menu btn-floating btn-flat waves-effect" *ngIf="activatedRoute === 'place' && mobileView && !searchBarOpen"
+      (click)="goBack()">
+      <i class="mdi mdi-arrow-left mdi-24px"></i>
+    </button>
+
+    <ng-container *ngIf="activatedRoute !== 'home'">
+      <vn-search mode="nav" class="flex align-items-center" *ngIf="!mobileView || searchBarOpen"></vn-search>
+    </ng-container>
+
+    <div class="pages flex align-items-center ml-auto" *ngIf="!mobileView">
+      <ng-container *ngIf="user">
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="openEditModal($event)" vnTooltip tooltip="Edit Profile"
+          position="bottom">
+          <i class="mdi mdi-account-edit mdi-24px"></i>
+        </a>
+        <div class="btn-favorites">
+          <a class="btn-flat btn-floating waves-effect waves-light" vnTooltip tooltip="Favorites" position="bottom" (click)="navigate('/favorites')">
+            <i class="mdi mdi-heart-outline mdi-24px"></i>
+          </a>
+          <span class="badge right" *ngIf="user.favorites.length">{{ user.favorites.length }}</span>
+        </div>
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="logout()" vnTooltip tooltip="Logout" position="bottom">
+          <i class="mdi mdi-logout-variant mdi-24px"></i>
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="!user">
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="openAuthModal($event, 'register')" vnTooltip tooltip="Register"
+          position="bottom">
+          <i class="mdi mdi-account-plus mdi-24px"></i>
+        </a>
+        <a class="btn-flat btn-floating waves-effect waves-light" (click)="openAuthModal($event, 'login')" vnTooltip tooltip="Login"
+          position="bottom">
+          <i class="mdi mdi-login-variant mdi-24px"></i>
+        </a>
+      </ng-container>
+    </div>
+
+    <button class="btn btn-search btn-floating btn-flat waves-effect waves-dark" (click)="searchBarOpen = !searchBarOpen" *ngIf="activatedRoute !== 'home' && mobileView">
+      <i class="mdi mdi-24px left" [ngClass]="searchBarOpen ? 'mdi-close' : 'mdi-magnify'"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Sidenav -->
+<ul id="menu-sidenav" class="side-nav">
+  <li>
+    <div class="user-view">
+      <ng-container *ngIf="!user">
+        <div class="background">
+          <img src="assets/images/menu-background-1.jpg">
+        </div>
+        <div class="circle">
+          <i class="mdi mdi-face white-text"></i>
+        </div>
+        <span class="white-text name pb-1">Welcome Guest</span>
+      </ng-container>
+
+      <ng-container *ngIf="user">
+        <div class="background">
+          <img [src]="'assets/images/menu-background-' + user.background + '.jpg'">
+        </div>
+        <a class="btn-flat btn-floating waves-effect" (click)="openEditModal($event)" vnTooltip tooltip="Edit Profile" position="bottom">
+          <i class="mdi mdi-pencil mdi-18px"></i>
+        </a>
+        <img class="circle" [src]="user.avatarUrl" *ngIf="user.avatarUrl">
+        <div class="circle" *ngIf="!user.avatarUrl">
+          <i class="mdi mdi-face white-text"></i>
+        </div>
+        <span class="white-text name">{{ user.name }}</span>
+        <span class="email">{{ user.email }}</span>
+      </ng-container>
+    </div>
+  </li>
+
+  <li [ngClass]="{active: activatedRoute === 'home'}">
+    <a fragment="no-animation" (click)="navigate('/')">
+      <i class="mdi mdi-home-outline mdi-24px"></i>Home
+    </a>
+  </li>
+
+  <ng-container *ngIf="!user">
+    <li class="mt-1">
+      <a (click)="openAuthModal($event, 'register')">
+        <i class="mdi mdi-account-plus-outline mdi-24px"></i>
+        Register
+      </a>
+    </li>
+    <li>
+      <a (click)="openAuthModal($event, 'login')">
+        <i class="mdi mdi-login-variant mdi-24px"></i>
+        Login
+      </a>
+    </li>
+  </ng-container>
+
+  <ng-container *ngIf="user">
+    <li [ngClass]="{active: activatedRoute === 'favorites'}">
+      <a (click)="navigate('/favorites')">
+        <i class="mdi mdi-heart-outline mdi-24px"></i>Favorites
+        <span class="badge right">{{ user.favorites.length }}/20</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">
+        <i class="mdi mdi-logout-variant mdi-24px"></i>
+        Logout
+      </a>
+    </li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li>
+      <a class="subheader flex align-items-center">
+        Menu Background
+        <mz-spinner class="ml-auto" size="small" *ngIf="backgroundLoading"></mz-spinner>
+      </a>
+    </li>
+    <div class="flex wrap px-1">
+      <div class="background-item" [ngClass]="{selected:  user.background === index}" (click)="setBackground(index)" *ngFor="let index of [1,2,3,4,5,6,7,8,9]">
+        <img [src]="'assets/images/menu-background-' + index + '.jpg'">
+      </div>
+    </div>
+  </ng-container>
+</ul>

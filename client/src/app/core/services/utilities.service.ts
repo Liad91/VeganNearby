@@ -6,9 +6,8 @@ import {
   NavigationExtras,
   Router
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { map, mapTo, filter, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map, mapTo, tap } from 'rxjs/operators';
 
 @Injectable()
 export class UtilitiesService {

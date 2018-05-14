@@ -1,4 +1,4 @@
-import { PlaceListEffects } from '../place-list/store/place-list.effects';
-import { PlaceDetailEffects } from '../place-detail/store/place-detail.effects';
+import { PlaceDetailEffects } from '../components/place-detail/store/place-detail.effects';
+import { PlaceListEffects } from '../components/place-list/store/place-list.effects';
 
 export const effects = [PlaceListEffects, PlaceDetailEffects];

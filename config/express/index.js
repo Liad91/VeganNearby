@@ -11,7 +11,7 @@ module.exports = (db) => {
   app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 
   /** Parse incoming requests */
-  app.use(bodyParser.json({limit: '1mb'}));
+  app.use(bodyParser.json({ limit: '1mb' }));
 
   /** Initialize Passport */
   passport(app);

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'vn-price',
   templateUrl: './price.component.html',
-  styleUrls: ['./price.component.scss']
+  styleUrls: ['./price.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class PriceComponent implements OnInit {

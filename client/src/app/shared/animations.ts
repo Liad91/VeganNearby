@@ -1,11 +1,4 @@
-import {
-  animation,
-  style,
-  animate,
-  trigger,
-  transition,
-  useAnimation
-} from '@angular/animations';
+import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 
 const inAnimation = animation([
   style({
@@ -23,19 +16,19 @@ const outAnimation = animation([
 ]);
 
 export function slideIn(position: string, duration: string) {
-  return useAnimation(inAnimation, { params: { position: `translate(${position})`, duration: duration } } );
+  return useAnimation(inAnimation, { params: { position: `translate(${position})`, duration: duration } });
 }
 
 export function slideOut(position: string, duration: string) {
-  return useAnimation(outAnimation, { params: { position: `translate(${position})`, duration: duration } } );
+  return useAnimation(outAnimation, { params: { position: `translate(${position})`, duration: duration } });
 }
 
 export function zoomIn(position: string, duration: string) {
-  return useAnimation(inAnimation, { params: { position: `scale(${position})`, duration: duration } } );
+  return useAnimation(inAnimation, { params: { position: `scale(${position})`, duration: duration } });
 }
 
 export function zoomOut(position: string, duration: string) {
-  return useAnimation(outAnimation, { params: { position: `scale(${position})`, duration: duration } } );
+  return useAnimation(outAnimation, { params: { position: `scale(${position})`, duration: duration } });
 }
 
 export const errorStateTrigger = trigger('errorState', [

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { LatLngLiteral, MapsAPILoader } from '@agm/core';
+import { Injectable } from '@angular/core';
 
 import { ToastService } from './toast.service';
 
 @Injectable()
 export class GeographicalService {
 
-  constructor(private mapsApiLoader: MapsAPILoader, private toastService: ToastService) {}
+  constructor(private mapsApiLoader: MapsAPILoader, private toastService: ToastService) { }
 
   public geocoder(location: LatLngLiteral): Promise<string>;
   public geocoder(location: string): Promise<LatLngLiteral>;
@@ -14,13 +14,13 @@ export class GeographicalService {
     if (typeof location === 'string') {
       return new Promise((resolve, reject) => {
         this.mapsApiLoader.load()
-        .then(() => {
-          const geocoder = new google.maps.Geocoder();
-          const request: google.maps.GeocoderRequest = { address: location };
+          .then(() => {
+            const geocoder = new google.maps.Geocoder();
+            const request: google.maps.GeocoderRequest = { address: location };
 
-          geocoder.geocode(request, callback);
-        })
-        .catch(error => reject());
+            geocoder.geocode(request, callback);
+          })
+          .catch(error => reject());
 
         function callback(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) {
           if (status.toString() === 'OK') {
@@ -38,13 +38,13 @@ export class GeographicalService {
     else {
       return new Promise((resolve, reject) => {
         this.mapsApiLoader.load()
-        .then(() => {
-          const geocoder = new google.maps.Geocoder();
-          const request: google.maps.GeocoderRequest = { location };
+          .then(() => {
+            const geocoder = new google.maps.Geocoder();
+            const request: google.maps.GeocoderRequest = { location };
 
-          geocoder.geocode(request, callback);
-        })
-        .catch(error => reject());
+            geocoder.geocode(request, callback);
+          })
+          .catch(error => reject());
 
         function callback(results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) {
           if (status.toString() === 'OK' && results.length > 0) {

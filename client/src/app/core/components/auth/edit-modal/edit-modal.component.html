@@ -1,0 +1,45 @@
+<mz-modal id="edit" [options]="modalOptions">
+  <mz-modal-header>
+    <button class="close-btn" type="button" mz-button [float]="true" (click)="onClose()">
+      <i class="mdi mdi-close"></i>
+    </button>
+  </mz-modal-header>
+  <mz-modal-content>
+    <vn-loader class="absolute w-100" *ngIf="loading"></vn-loader>
+    <div class="flex wrap" style="padding: 1.5rem">
+      <vn-error @errorState type="inline" *ngIf="formErrorMessage">{{ formErrorMessage }}</vn-error>
+      <vn-error @errorState type="inline" *ngIf="uploadErrorMessage">{{ uploadErrorMessage }}</vn-error>
+      <form class="flex w-100 wrap" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="flex w-100 image-upload">
+          <div class="image-wrap">
+            <div ng2FileDrop class="flex justify-content-center align-items-center image-drop" (fileOver)="onFileOver($event)" [uploader]="uploader"
+              [ngClass]="{'file-over': hasDropZoneOver, 'color-danger': uploadErrorMessage}" *ngIf="!userImageFile && ! userImageUrl">
+              <p class="m-0">Drag a image here</p>
+              <button type="button" mz-button [float]="true" (click)="select.click()">
+                <i class="mdi mdi-plus"></i>
+              </button>
+              <input #select type="file" accept="image/*" ng2FileSelect [uploader]="uploader" [hidden]="true" />
+            </div>
+            <img @imgPreviewState [vnImgPreview]="userImageFile" *ngIf="userImageFile">
+            <button type="button" class="bg-color-danger" mz-button [float]="true" (click)="onResetUploader()" *ngIf="userImageFile">
+              <i class="mdi mdi-minus"></i>
+            </button>
+            <img @imgPreviewState [src]="userImageUrl" *ngIf="userImageUrl">
+            <button type="button" class="bg-color-danger" mz-button [float]="true" (click)="userImageUrl = ''" *ngIf="userImageUrl">
+              <i class="mdi mdi-minus"></i>
+            </button>
+          </div>
+        </div>
+        <mz-input-container class="auth w-100">
+          <input mz-input mz-validation required id="edit-name" type="text" placeholder="Full Name" label="Name:" formControlName="name"
+            [errorMessageResource]="errorMessageResources.name">
+        </mz-input-container>
+        <mz-input-container class="auth w-100">
+          <input mz-input mz-validation required id="edit-email" type="email" placeholder="Email Address" label="Email:" formControlName="email"
+            [errorMessageResource]="errorMessageResources.email">
+        </mz-input-container>
+        <button mz-button class="w-100 p-0" type="submit">SAVE</button>
+      </form>
+    </div>
+  </mz-modal-content>
+</mz-modal>

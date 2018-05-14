@@ -1,12 +1,12 @@
-import { MzToastService } from 'ng2-materialize';
 import { Injectable } from '@angular/core';
+import { MzToastService } from 'ng2-materialize';
 
 @Injectable()
 export class ToastService {
   private isShowing = false;
   private messages: string[] = [];
 
-  constructor(private mzToastService: MzToastService) {}
+  constructor(private mzToastService: MzToastService) { }
 
   public show(message: string) {
     this.messages.push(message);

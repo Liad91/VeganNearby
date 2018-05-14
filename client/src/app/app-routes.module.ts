@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './core/home/home.component';
-import { AuthSocialComponent } from './core/auth/auth-social/auth-social.component';
-import { AuthSocialGuard } from './core/auth/auth-social/auth-social.guard';
+import { AuthSocialComponent } from './core/components/auth/auth-social/auth-social.component';
+import { AuthSocialGuard } from './core/components/auth/auth-social/auth-social.guard';
+import { HomeComponent } from './core/components/home/home.component';
 
 const routes: Routes = [
   {

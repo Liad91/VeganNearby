@@ -1,0 +1,25 @@
+<div class="flex w-100" class="search-box" [ngClass]="{nav: mode === 'nav'}">
+  <form class="flex w-100" [ngClass]="{active: focused}" (ngSubmit)="onSubmit()">
+    <div class="flex w-70 location">
+      <div id="locate" *ngIf="mode === 'home'">
+        <button type="button" class="btn btn-floating btn-flat waves-effect" (click)="getLocation()" [disabled]="locateSpinner || locateFailed">
+          <i class="mdi search-icon" [ngClass]="locateFailed ? 'mdi-map-marker-off' : 'mdi-map-marker'" *ngIf="!locateSpinner"></i>
+          <mz-spinner color="blue" size="small" *ngIf="locateSpinner"></mz-spinner>
+        </button>
+      </div>
+      <input #search type="text" name="location" [(ngModel)]="location" class="search-input" placeholder="Search Vegan {{ state.categories[state.selectedCategoryIndex].title }} Near..."
+        autocorrect="off" autocapitalize="off" spellcheck="off" (keyup)="onSearchChange($event)" (focus)="focused = true" (blur)="focused = false">
+    </div>
+    <div class="flex w-30 categories" *ngIf="mode === 'home'">
+      <div class="input-field w-100">
+        <select vnSelect name="category" (update)="onCategoryChange($event)">
+          <option [value]="i" *ngFor="let category of state.categories; let i = index" [selected]="state.selectedCategoryIndex === i">{{ category.title }}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn waves-effect" type="submit" (click)="preventDefault($event)">
+      <i class="mdi mdi-magnify align-self-center" *ngIf="!state.loading"></i>
+      <mz-spinner id="search-spinner" size="small" *ngIf="state.loading"></mz-spinner>
+    </button>
+  </form>
+</div>
