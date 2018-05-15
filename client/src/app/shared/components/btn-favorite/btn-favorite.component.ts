@@ -34,7 +34,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
   private user: boolean;
   public loading = false;
   public favorite: boolean;
-  private maxFavoritesLength = 20;
+  private maxFavoritesLength = 18;
   private favoritesLength: number;
   private userSubscription: Subscription;
   private favoritesLengthSubscription: Subscription;

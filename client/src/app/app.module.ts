@@ -38,7 +38,7 @@ import { reducers } from './store/app.reducer';
       apiKey: googleApiKey,
       libraries: ['places', 'geometry']
     }),
-    // !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 10 }) : []
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 3 }) : []
   ],
   bootstrap: [AppComponent]
 })

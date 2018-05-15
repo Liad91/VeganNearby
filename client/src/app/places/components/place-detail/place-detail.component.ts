@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { AgmMap } from '@agm/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -30,6 +38,7 @@ interface Transactions {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaceDetailComponent implements OnInit, OnDestroy {
+  @ViewChild(AgmMap) map: any;
   public state: State;
   private stateSubscription: Subscription;
   public mapStyles = mapStyles;
@@ -77,5 +86,10 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.stateSubscription.unsubscribe();
+
+    // Fix DOM nodes leak
+    // Add delay for animation
+    // https://github.com/SebastianM/angular-google-maps/issues/1207
+    setTimeout(() => $(this.map._elem.nativeElement).remove(), 500);
   }
 }
