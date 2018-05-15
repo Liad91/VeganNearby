@@ -47,9 +47,8 @@ export class EditModalComponent extends MzBaseModal implements OnInit, OnDestroy
     private store: Store<fromRoot.AppState>,
     private authService: AuthService,
     private authSocialService: AuthSocialService,
-    private modalService: ModalService) {
-    super();
-  }
+    private modalService: ModalService
+  ) { super(); }
 
   ngOnInit() {
     this.initializeForm();

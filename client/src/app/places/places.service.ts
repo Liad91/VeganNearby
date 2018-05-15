@@ -1,10 +1,27 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, from, Observable } from 'rxjs';
-import { concatMap, map, mapTo, switchMap, timeout, toArray } from 'rxjs/operators';
+import { concat, forkJoin, from, Observable, throwError, observable, of } from 'rxjs';
+import {
+  catchError,
+  delay,
+  map,
+  mapTo,
+  retryWhen,
+  scan,
+  switchMap,
+  timeout,
+  toArray,
+  takeWhile
+} from 'rxjs/operators';
 
 import { ConnectionService } from './../core/services/connection.service';
-import { YelpBusinessResponse, YelpReviewsResponse, YelpSearchParams, YelpSearchResponse } from './../models/yelp.model';
+import {
+  YelpBusinessResponse,
+  YelpBusinessResponseError,
+  YelpReviewsResponse,
+  YelpSearchParams,
+  YelpSearchResponse
+} from './../models/yelp.model';
 import { State } from './components/filters/store/filters.reducer';
 
 @Injectable()
@@ -35,7 +52,7 @@ export class PlacesService {
       );
   }
 
-  public getFeaturedPlaces(): Observable<YelpBusinessResponse[]> {
+  public getFeaturedPlaces(): Observable<Array<YelpBusinessResponse | YelpBusinessResponseError>> {
     return this.http.get<{ places: string[] }>(`${this.connectionService.serverUrl}/yelp/featured`)
       .pipe(
         timeout(this.connectionService.reqTimeout),
@@ -44,12 +61,32 @@ export class PlacesService {
       );
   }
 
-  public getPlacesById(ids: string[]): Observable<YelpBusinessResponse[]> {
-    return from(ids)
-      .pipe(
-        concatMap(id => this.getPlaceById(id)),
-        toArray()
+  public getPlacesById(ids: string[]): Observable<Array<YelpBusinessResponse | YelpBusinessResponseError>> {
+    const retryStrategy = () => {
+      return (errors: Observable<any>) => {
+        return errors.pipe(
+          scan((acc, value: Error) => {
+            if (++acc < 3) {
+              return acc;
+            }
+            throw value;
+          }, 0),
+          delay(100)
+        );
+      };
+    };
+
+    const requests = ids.map((id, i) => {
+      return this.getPlaceById(id).pipe(
+        retryWhen(retryStrategy()),
+        catchError(error => of({ error, id })),
+        delay(100)
       );
+    });
+
+    return concat(...requests).pipe(
+      toArray()
+    );
   }
 
   public addToFavorites(id: string): Observable<YelpBusinessResponse> {
@@ -74,22 +111,6 @@ export class PlacesService {
       .pipe(
         timeout(this.connectionService.reqTimeout)
       );
-  }
-
-  public removeManyFromFavorites(ids: string[]): Observable<any> {
-    const requests: Observable<any>[] = [];
-
-    ids.forEach(id => {
-      const request = this.http.put(`${this.connectionService.serverUrl}/users/favorites/remove`, { id }, {
-        headers: new HttpHeaders().set('Authorization', localStorage.getItem('token'))
-      })
-        .pipe(
-          timeout(this.connectionService.reqTimeout)
-        );
-
-      requests.push(request);
-    });
-    return forkJoin(requests);
   }
 
   public getPlaceById(id: string): Observable<YelpBusinessResponse> {

@@ -39,7 +39,8 @@ export class PlaceListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private utilitiesService: UtilitiesService,
     private geoService: GeographicalService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.stateSubscription = this.store.select(fromPlaces.selectPlaceList).subscribe(
@@ -91,8 +92,9 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
     /** check and validate page number */
     if (page && !isNaN(page) && (Math.floor(page) - 1) * 18 < 1000) {
+      const offset = 18 * (this.currentPage - 1);
       this.currentPage = Math.floor(page);
-      this.store.dispatch(new filtersActions.SetOffset(18 * (this.currentPage - 1)));
+      this.store.dispatch(new filtersActions.SetOffset(offset > 982 ? 982 : offset));
     }
     else {
       const queryParams = { p: 1, lat: null, lng: null };

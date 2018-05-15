@@ -116,11 +116,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   private geocoderSuccess(location: string): void {
     this.locateSpinner = false;
     this.location = location;
+    this.changeDetectorRef.markForCheck();
   }
 
   private geolocationFailure(): void {
     this.locateSpinner = false;
     this.locateFailed = true;
+    this.changeDetectorRef.markForCheck();
   }
 
   public onSearchChange(event: any): void {

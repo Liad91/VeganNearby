@@ -1,35 +1,35 @@
 <header>
   <div class="cover"></div>
-  <h1>My Favorites</h1>
+  <h1>Favorites</h1>
 </header>
 
 <div class="content w-100">
   <div class="title inline">
     <h4 class="nowrap">
       <strong>Manage</strong> Your Favorites</h4>
-    <p class="badge">{{ state.places.length }}/18</p>
+    <p class="badge">{{ state.total }}/18</p>
   </div>
 
-  <div class="no-results center-align mt-2" *ngIf="state.places.length === 0 && !state.loading && !state.error">
+  <div class="no-results center-align mt-2" *ngIf="state.favorites.length === 0 &&  state.loading !== 'favorites' && !state.error">
     <i class="mdi mdi-emoticon-sad"></i>
     <strong>There are no listings in your favorites</strong>
   </div>
 
-  <div class="empty-places flex align-items-center mb-1" *ngIf="emptyPlaces.length > 0">
+  <div class="empty-places flex align-items-center mb-1" *ngIf="state.emptyFavorites.length > 0">
     <p class="m-0">Unable to retrieve
-      <strong>{{ emptyPlaces.length }} {{ emptyPlaces.length > 1 ? 'items' : 'item' }}</strong> from your favorites.</p>
-    <a class="btn-underline" (click)="onReload()">Try Again</a>
+      <strong>{{ state.emptyFavorites.length }} {{ state.emptyFavorites.length > 1 ? 'items' : 'item' }}</strong> from your favorites.</p>
+    <a class="btn-underline" (click)="onReloadEmptyPlaces()">Try Again</a>
     <a class="btn-underline danger" (click)="deleteEmptyPlaces()">Delete</a>
-    <vn-loader class="absolute w-100" size="small" *ngIf="errorLoading"></vn-loader>
+    <vn-loader class="absolute w-100" size="small" *ngIf="state.loading === 'emptyFavorites'"></vn-loader>
   </div>
 
-  <vn-loader class="w-100" *ngIf="state.loading"></vn-loader>
+  <vn-loader class="w-100" *ngIf="state.loading === 'favorites'"></vn-loader>
 
-  <vn-error type="connection" (retry)="onReload()" *ngIf="(connectionError || state.error) && !state.loading"></vn-error>
+  <vn-error type="connection" (retry)="onReload()" *ngIf="state.error && !state.loading"></vn-error>
 
-  <div *ngIf="state.places.length > 0 && !connectionError && !state.loading">
+  <div *ngIf="state.favorites.length > 0 && state.loading !== 'favorites'">
     <div class="flex wrap w-100 align-self-flex-start">
-      <ng-container *ngFor="let place of state.places">
+      <ng-container *ngFor="let place of state.favorites">
         <vn-place [place]="place" [featured]="true" *ngIf="place.name" @placeState>
         </vn-place>
       </ng-container>

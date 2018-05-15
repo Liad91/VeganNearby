@@ -45,7 +45,8 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
     private placesService: PlacesService,
     private toastService: ToastService,
     private modalService: ModalService,
-    private cd: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select(fromRoot.selectAuthUserLoggedIn).subscribe(user => {
@@ -147,7 +148,7 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
     this.favorite = true;
     this.store.dispatch(new authActions.AddToUserFavorites(this.placeId));
     this.store.dispatch(new favoritesActions.AddToFavorites(place));
-    this.cd.markForCheck();
+    this.changeDetectorRef.markForCheck();
   }
 
   private addToFavoritesFailure(): void {
@@ -160,13 +161,13 @@ export class BtnFavoriteComponent implements OnInit, OnDestroy {
     this.favorite = false;
     this.store.dispatch(new authActions.RemoveFromUserFavorites(this.placeId));
     this.store.dispatch(new favoritesActions.RemoveFromFavorites(this.placeId));
-    this.cd.markForCheck();
+    this.changeDetectorRef.markForCheck();
   }
 
   private removeFromFavoritesFailure(): void {
     this.loading = false;
     this.toastService.show('remove from favorites failed, Please try again.');
-    this.cd.markForCheck();
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {

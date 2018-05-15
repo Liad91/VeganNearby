@@ -46,7 +46,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
     private store: Store<fromPlaces.FeatureState>,
     private modalService: ModalService,
     private geoService: GeographicalService,
-    private utilitiesService: UtilitiesService) { }
+    private utilitiesService: UtilitiesService
+  ) { }
 
   ngOnInit(): void {
     this.stateSubscription = this.store.select(fromPlaces.selectFilters).subscribe(state => this.state = state);

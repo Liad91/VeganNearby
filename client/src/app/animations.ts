@@ -5,7 +5,7 @@ export function fadeOut(enter: string, leave: string) {
     query(leave, style({ position: 'fixed', top: '0', left: '0', right: '0', bottom: '0', background: '#fff' }), { optional: true }),
     group([
       query(leave, [
-        animate('500ms ease', style({ opacity: '0', transform: 'scale(0.2)' }))
+        animate('500ms ease', style({ opacity: '0', transform: 'translateY(50%) scale(0)' }))
       ], { optional: true })
     ])
   ];

@@ -98,6 +98,11 @@ export class YelpBusinessResponse {
   transactions: string[];
 }
 
+export class YelpBusinessResponseError {
+  error: any;
+  id: string;
+}
+
 export class YelpReviewsResponse {
   total: number;
   reviews: [

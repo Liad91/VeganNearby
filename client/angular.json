@@ -33,7 +33,7 @@
               "node_modules/owl.carousel/dist/assets/owl.theme.default.css",
               "src/scss/app.scss",
               "src/scss/app-loading.scss",
-              "node_modules/mdi/css/materialdesignicons.min.css"
+              "node_modules/@mdi/font/css/materialdesignicons.min.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

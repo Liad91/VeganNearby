@@ -1,19 +1,24 @@
 @import 'variables';
 
 ul.pagination li {
-  height: 35px;
-  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  margin: 0 3px;
+  border-radius: 50%;
   background-color: #fff;
-  border: 1px solid $border-color;
-  border-right-width: 0;
-
-  &:first-child {
-    border-radius: 3px 0 0 3px;
-  }
-
+  
+  &:first-child,
   &:last-child {
-    border-right-width: 1px;
-    border-radius: 0 3px 3px 0;
+    border: 1px solid $border-color;
+    height: 37px;
+    width: 37px;
+
+    a {
+      color: $primary-color;
+    }
   }
 
   &.active {
@@ -39,12 +44,16 @@ ul.pagination li {
   }
 
   &:hover {
-    background-color: #eee;
+    background-color: $secondary-background;
   }
 
   a {
     font-size: 14px;
-    color: $primary-color;
-    line-height: 35px;
+    color: $font-color;
+    line-height: 1;
+
+    i {
+      font-size: 21px;
+    }
   }
 }

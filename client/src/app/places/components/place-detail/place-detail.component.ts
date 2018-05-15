@@ -42,34 +42,38 @@ export class PlaceDetailComponent implements OnInit, OnDestroy {
   public state: State;
   private stateSubscription: Subscription;
   public mapStyles = mapStyles;
-  public transactions: Transactions = { pickup: null, delivery: null, reservation: null };
+  public transactions: Transactions;
   public isOpen: boolean;
 
   constructor(
     private store: Store<fromPlaces.FeatureState>,
     private utilitiesService: UtilitiesService,
     private modalService: ModalService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.stateSubscription = this.store.select(fromPlaces.selectPlaceDetail).subscribe(
       state => {
         this.state = state;
+
+        if (!this.transactions && this.state.place && this.state.error !== 'page') {
+          this.transactions = {
+            pickup: this.state.place.transactions.indexOf('pickup') > -1,
+            delivery: this.state.place.transactions.indexOf('delivery') > -1,
+            reservation: this.state.place.transactions.indexOf('restaurant_reservation') > -1
+          };
+
+          if (this.state.place.hours) {
+            this.isOpen = this.state.place.hours[0].is_open_now;
+          }
+        }
+
         this.changeDetectorRef.markForCheck();
       }
     );
 
-    if (this.state.place && this.state.error !== 'page') {
-      this.transactions = {
-        pickup: this.state.place.transactions.indexOf('pickup') > -1,
-        delivery: this.state.place.transactions.indexOf('delivery') > -1,
-        reservation: this.state.place.transactions.indexOf('restaurant_reservation') > -1
-      };
 
-      if (this.state.place.hours) {
-        this.isOpen = this.state.place.hours[0].is_open_now;
-      }
-    }
   }
 
   public openLightbox(active: number): void {

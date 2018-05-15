@@ -22,5 +22,17 @@ export class FavoritesEffects {
     )
   );
 
+  @Effect()
+  reloadEmptyFavorites = this.actions.pipe(
+    ofType(favoritesActions.RELOAD_EMPTY_FAVORITES),
+    map((action: favoritesActions.ReloadEmptyFavorites) => action.payload),
+    exhaustMap((ids) => this.placesService.getPlacesById(ids)
+      .pipe(
+        map(favorites => new favoritesActions.GetFavoritesSuccess(favorites)),
+        catchError(() => of(new favoritesActions.GetFavoritesFailure()))
+      )
+    )
+  );
+
   constructor(private store: Store<fromRoot.AppState>, private actions: Actions, private placesService: PlacesService) { }
 }

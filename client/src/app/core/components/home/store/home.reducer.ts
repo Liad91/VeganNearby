@@ -13,6 +13,12 @@ const initialState: State = {
   error: false
 };
 
+function featuredResolver(response) {
+  const featured = response.filter(featuredPlace => !featuredPlace.error);
+
+  return { featured };
+}
+
 export function homeReducer(state = initialState, action: homeActions.Action): State {
   switch (action.type) {
     case homeActions.GET_FEATURED:
@@ -23,8 +29,8 @@ export function homeReducer(state = initialState, action: homeActions.Action): S
       };
     case homeActions.GET_FEATURED_SUCCESS:
       return {
-        ...state,
-        featured: action.payload,
+        ...featuredResolver(action.payload),
+        error: false,
         loading: false
       };
     case homeActions.GET_FEATURED_FAILURE:

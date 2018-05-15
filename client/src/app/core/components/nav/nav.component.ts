@@ -50,7 +50,8 @@ export class NavComponent implements OnInit, OnDestroy {
     private store: Store<fromRoot.AppState>,
     private modalService: ModalService,
     private utilitiesService: UtilitiesService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.userSubscription = this.store.select(fromRoot.selectAuthUser).subscribe(

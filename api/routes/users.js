@@ -219,7 +219,8 @@ router.put('/favorites/remove', passport.authenticate('jwt', { session: false })
 
   user.removeFromFavorites(req.body.id)
     .then(() => res.status(200).json({
-      token
+      toke,
+      id: req.body.id
     }))
     .catch(() => res.status(403).end());
 });
