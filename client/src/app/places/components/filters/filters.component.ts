@@ -145,8 +145,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.slider.nativeElement.noUiSlider.destroy();
 
     // Fix DOM nodes leak
-    // Add delay for animation
-    // https://github.com/SebastianM/angular-google-maps/issues/1207
-    setTimeout(() => $(this.map._elem.nativeElement).remove(), 500);
+    // TODO: Remove after https://github.com/SebastianM/angular-google-maps/pull/1406 will merged
+    if (this.map) {
+      this.map._mapsWrapper.getNativeMap().then(map => google.maps.event.clearInstanceListeners(map));
+    }
   }
 }

@@ -6,6 +6,10 @@
 
 header {
   background-image: url('../../assets/images/favorites-banner.jpg');
+
+  @media #{$medium-and-down} {
+    background-position-x: 10%;
+  }
 }
 
 .no-results {

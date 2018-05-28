@@ -1,7 +1,7 @@
 {
   "name": "vegannearby",
-  "version": "1.3.0",
-  "description": "Find the top vegan restaurants, cafes and bars near you",
+  "version": "2.0.0",
+  "description": "Vegan friendly restaurant locator website",
   "main": "app.js",
   "scripts": {
     "build": "node build",
@@ -40,10 +40,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Liad91/VeganNearby.git"
+    "url": "git+https://github.com/LiadIdan/VeganNearby.git"
   },
   "bugs": {
-    "url": "https://github.com/Liad91/VeganNearby/issues"
+    "url": "https://github.com/LiadIdan/VeganNearby/issues"
   },
-  "homepage": "https://github.com/Liad91/VeganNearby#readme"
+  "homepage": "https://github.com/LiadIdan/VeganNearby#readme"
 }

@@ -2,7 +2,7 @@
   "name": "VeganNearby",
   "short_name": "VN",
   "theme_color": "#8ac249",
-  "background_color": "#fafafa",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

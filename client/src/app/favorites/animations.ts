@@ -1,7 +1,5 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 
-import { zoomOut, slideIn } from '../shared/animations';
-
 export const placeStateTrigger = trigger('placeState', [
   transition(':enter', [
     style({ transform: 'scale(0.6)', opacity: '0' }),

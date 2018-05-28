@@ -9,7 +9,7 @@ section {
 
   ::ng-deep agm-map,
   .content-left {
-    height: calc(100vh - 64px);
+    height: calc(100vh - 50px);
   }
 
   ::ng-deep agm-map {
@@ -38,8 +38,7 @@ section {
     @media #{$small-and-down} {
       position: relative;
       width: 100%;
-      height: calc(100vh - 56px);
-      margin-top: 56px;
+      margin-top: 50px;
       padding-top: 320px;
     }
   }
@@ -82,7 +81,7 @@ section {
       &:hover,
       &.active {
         i::before {
-          color: $secondary-color;
+          color: $primary-color;
         }
       }
     }

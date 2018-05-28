@@ -1,5 +1,4 @@
 <header>
-  <div class="cover"></div>
   <h1 *ngIf="state.place">{{ state.place.name }}</h1>
 </header>
 
@@ -58,8 +57,7 @@
           <div class="info-card-body">
             <agm-map [latitude]="state.place.coordinates.latitude" [longitude]="state.place.coordinates.longitude" [scrollwheel]="false"
               [styles]="mapStyles" [zoom]="10">
-              <agm-marker [latitude]="state.place.coordinates.latitude" [longitude]="state.place.coordinates.longitude" [iconUrl]="'assets/icons/marker.png'">
-              </agm-marker>
+              <agm-marker [latitude]="state.place.coordinates.latitude" [longitude]="state.place.coordinates.longitude" [iconUrl]="'assets/icons/marker.png'"></agm-marker>
             </agm-map>
           </div>
         </div>
@@ -86,7 +84,7 @@
           </div>
         </div>
 
-        <div class="info-card">
+        <div class="info-card" *ngIf="state.reviews?.reviews.length && state.error !== 'reviews' && state.loading !== 'reviews'">
           <div class="info-card-head">
             <div class="info-card-title">
               <i class="mdi mdi-message-text-outline"></i>
@@ -100,7 +98,7 @@
             <!-- reviews loader -->
             <vn-loader class="w-100" *ngIf="state.loading === 'reviews'"></vn-loader>
 
-            <ul class="reviews w-100" *ngIf="state.reviews?.reviews.length">
+            <ul class="reviews w-100">
               <li *ngFor="let review of state.reviews.reviews">
                 <div class="user flex align-items-center w-100">
                   <img [src]="review.user.image_url || 'assets/images/user_review.png'">

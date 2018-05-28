@@ -18,39 +18,23 @@
 
   &:hover {
     .tooltip {
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, -10px);
+      transform: translateX(-50%) scale(1);
     }
   }
 
   .tooltip {
     position: absolute;
     left: 50%;
-    bottom: 70%;
-    height: 24px;
-    opacity: 0;
+    bottom: 165%;
     font-size: 13px;
     line-height: 24px;
-    padding: 1px 11px;
+    padding: 3px 10px;
     color: #fff;
     font-weight: 400;
-    border-radius: 3px;
-    visibility: hidden;
     white-space: nowrap;
-    background-color: $dark-color;
-    transform: translateX(-50%);
-    transition: all 100ms linear;
+    background-color: #1b1c1d;
+    transform: translateX(-50%) scale(0);
+    transition: transform 250ms ease;
     z-index: 900;
-
-    &:after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      border: 5px solid transparent;
-      border-top-color: $dark-color;
-      transform: translateX(-50%);
-    }
   }
 }

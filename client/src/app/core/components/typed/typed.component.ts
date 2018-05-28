@@ -50,5 +50,8 @@ export class TypedComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.typed.destroy();
+
+    // Prevent memory leak
+    clearTimeout(this.typed.timeout);
   }
 }

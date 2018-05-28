@@ -6,6 +6,10 @@
 
 header {
   background-image: url('../../../../assets/images/place-banner.jpg');
+
+  @media #{$medium-and-down} {
+    background-position-x: 100%;
+  }
 }
 
 .title {

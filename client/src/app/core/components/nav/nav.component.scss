@@ -1,6 +1,7 @@
 @import 'variables';
 
 nav {
+  height: 50px;
   overflow: hidden;
   box-shadow: none;
   background-color: transparent;
@@ -50,18 +51,13 @@ nav {
   }
   
   .logo {
-    width: 170px;
+    width: 195px;
     height: 35px;
     background-image: url('../../../../assets/images/logo_white.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     transition: none;
-
-    @media #{$small-and-down} {
-      width: 150px;
-      height: 31px;
-    }
   }
   
   .btn-search,

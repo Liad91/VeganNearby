@@ -18,8 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public routeName: string;
   private routeNameSubscription: Subscription;
   private preloadImages = [
-    'assets/images/header3.jpg',
-    'assets/images/list-banner.jpg',
+    'assets/images/header.jpg',
     'assets/images/place-banner.jpg',
     'assets/images/favorites-banner.jpg'
   ];

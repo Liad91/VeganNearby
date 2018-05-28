@@ -1,6 +1,6 @@
 # VeganNearby
 
-Find the top vegan restaurants, cafes and bars near you. [Demo](https://vegannearby.com)
+Vegan friendly restaurant locator website. [Demo](https://vegannearby.com)
 
 ## Tech
 * [node.js](https://nodejs.org) - evented I/O for the backend.
@@ -16,7 +16,7 @@ Find the top vegan restaurants, cafes and bars near you. [Demo](https://vegannea
 
 ## Installation
 ```sh
-$ git clone https://github.com/Liad91/VeganNearby.git
+$ git clone https://github.com/LiadIdan/VeganNearby.git
 $ cd VeganNearby
 ```
 #### npm
@@ -65,9 +65,3 @@ $ npm run dev
 ```sh
 $ yarn run dev
 ```
-
-## Todos
-- [x] Upgrade Angular to v5.0.0
-- [ ] Upgrade Materialize to v1.0.0
-- [x] Add edit profile page
-- [ ] Write unit tests
